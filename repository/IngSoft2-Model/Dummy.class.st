@@ -7,6 +7,5 @@ Class {
 { #category : #testing }
 Dummy >> isDummy [
 
-"comentario para ver el commit"
 	^ true
 ]
