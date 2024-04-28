@@ -12,6 +12,11 @@ Ship class >> beginGame [
 	^ (self new) initializeBeginGame.
 ]
 
+{ #category : #testing }
+Ship >> hasWon [
+	^ Position=3.
+]
+
 { #category : #initialization }
 Ship >> initializeBeginGame [
 	Position:= 0.
@@ -24,5 +29,5 @@ Ship >> itsPosition [
 
 { #category : #accessing }
 Ship >> move [
-	Position:=1.
+	Position:= Position + 1.
 ]
