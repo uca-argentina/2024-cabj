@@ -5,10 +5,10 @@ Class {
 }
 
 { #category : #tests }
-ShipTest >> testShipPlays [
+ShipTest >> testShipCreatedWithPositionZero [
 
 	| aShip |
 	aShip:= Ship new.
 	
-	self assert: (aShip play)
+	self assert: (aShip itsPosition) equals: 0.
 ]

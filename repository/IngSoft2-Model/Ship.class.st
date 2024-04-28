@@ -4,7 +4,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #playing }
-Ship >> play [
-	^ true.
+{ #category : #'as yet unclassified' }
+Ship >> itsPosition [
+	^ 0.
+]
+
+{ #category : #accessing }
+Ship >> move [
+	self shouldBeImplemented.
 ]
