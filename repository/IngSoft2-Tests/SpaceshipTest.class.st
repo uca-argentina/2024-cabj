@@ -24,3 +24,20 @@ aSpaceship move.
 
 self assert: (aSpaceship move) equals: 2.
 ]
+
+{ #category : #tests }
+SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionReturnsTwo [
+| aSpaceship |
+aSpaceship:= Spaceship launch .
+aSpaceship move .
+aSpaceship move.
+self assert: aSpaceship position equals: 2.
+]
+
+{ #category : #tests }
+SpaceshipTest >> testWhenSpaceshipThenPositionReturnsZero [
+
+| aSpaceship |
+aSpaceship:= Spaceship launch .
+self assert: aSpaceship position equals: 0.
+]
