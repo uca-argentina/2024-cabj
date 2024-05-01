@@ -5,14 +5,6 @@ Class {
 }
 
 { #category : #tests }
-SpaceshipTest >> testSpaceship006 [
-| aSpaceship |
-aSpaceship:= Spaceship launch .
-aSpaceship  move:2.
-self assert: (aSpaceship move: 1) equals: 3.
-]
-
-{ #category : #tests }
 SpaceshipTest >> testSpaceshipInitializeInPositionZero [
 
 | aSpaceship |
@@ -28,9 +20,9 @@ SpaceshipTest >> testSpaceshipMovesTwiceAndIsInPositionTwo [
 | aSpaceship |
 
 aSpaceship:= Spaceship launch.
-aSpaceship move.
+aSpaceship move:1.
 
-self assert: (aSpaceship move) equals: 2.
+self assert: (aSpaceship move:1) equals: 2.
 ]
 
 { #category : #tests }
@@ -41,11 +33,19 @@ self assert: (aSpaceship move:2) equals: 2.
 ]
 
 { #category : #tests }
+SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionIsThree [
+| aSpaceship |
+aSpaceship:= Spaceship launch .
+aSpaceship  move:2.
+self assert: (aSpaceship move: 1) equals: 3.
+]
+
+{ #category : #tests }
 SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionReturnsTwo [
 | aSpaceship |
 aSpaceship:= Spaceship launch .
-aSpaceship move .
-aSpaceship move.
+aSpaceship move:1 .
+aSpaceship move:1.
 self assert: aSpaceship position equals: 2.
 ]
 

@@ -30,7 +30,8 @@ Spaceship >> move [
 
 { #category : #accessing }
 Spaceship >> move: aNumberOfMovements [
-	^ aNumberOfMovements . 
+	Position := Position +aNumberOfMovements .
+	^ Position . 
 ]
 
 { #category : #accessing }
