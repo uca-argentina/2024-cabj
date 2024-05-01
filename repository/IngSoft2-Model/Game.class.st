@@ -23,8 +23,8 @@ Game >> initializeBegin: anAmountOfBoxes [
 Game >> moveSpaceship [
 	
 	| spaceshipNextPosition |
-	
-	
+
+	aSpaceship position =amountOfBoxes  ifTrue: [ Error signal:'The game has already finished.' ].
 	
 	spaceshipNextPosition:= (aSpaceship move).
 	spaceshipNextPosition = amountOfBoxes ifTrue: [^'Finished game'].
