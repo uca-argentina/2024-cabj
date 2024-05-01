@@ -15,7 +15,7 @@ Board class >> of: anAmountOfBoxes [
 
 { #category : #'as yet unclassified' }
 Board >> finishLine [
-	^3.
+	^amountOfBoxes .
 ]
 
 { #category : #initialization }

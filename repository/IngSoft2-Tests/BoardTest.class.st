@@ -22,6 +22,15 @@ self should: [Board of: 1] raise: Error withMessage: 'A Board must have more tha
 ]
 
 { #category : #tests }
+BoardTest >> testBoardFinishLineEqualsAmountOfBoxesInitializeWith [
+
+| aBoard |
+aBoard:= Board of: 4.
+
+self assert: (aBoard finishLine) equals: 4.
+]
+
+{ #category : #tests }
 BoardTest >> testWhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 
 | aBoard |
