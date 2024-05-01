@@ -9,18 +9,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Game class >> begin [
-	^(self new) initializeBegin.
-]
-
-{ #category : #'as yet unclassified' }
 Game class >> begin: anAmountOfBoxes [
 	^(self new) initializeBegin: anAmountOfBoxes.
-]
-
-{ #category : #initialization }
-Game >> initializeBegin [
-	aSpaceship:= Spaceship launch.
 ]
 
 { #category : #initialization }
@@ -32,8 +22,11 @@ Game >> initializeBegin: anAmountOfBoxes [
 { #category : #'as yet unclassified' }
 Game >> moveSpaceship [
 	
-	| spaceshipPosition |
-	spaceshipPosition:= (aSpaceship move).
-	spaceshipPosition = amountOfBoxes ifTrue: [^'Finished game'].
-	^spaceshipPosition.
+	| spaceshipNextPosition |
+	
+	aSpaceship position = amountOfBoxes ifTrue: [ Error signal: 'The game has already finished.'  ].
+	
+	spaceshipNextPosition:= (aSpaceship move).
+	spaceshipNextPosition = amountOfBoxes ifTrue: [^'Finished game'].
+	^spaceshipNextPosition.
 ]

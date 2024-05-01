@@ -27,3 +27,9 @@ Spaceship >> move [
 	Position:= Position + 1.
 	^Position.
 ]
+
+{ #category : #accessing }
+Spaceship >> position [
+
+^Position.
+]
