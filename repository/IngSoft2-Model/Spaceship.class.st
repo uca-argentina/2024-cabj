@@ -1,5 +1,5 @@
 Class {
-	#name : #Ship,
+	#name : #Spaceship,
 	#superclass : #Object,
 	#classVars : [
 		'Position'
@@ -8,26 +8,22 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Ship class >> beginGame [
+Spaceship class >> beginGame [
 	^ (self new) initializeBeginGame.
 ]
 
-{ #category : #testing }
-Ship >> hasWon [
-	^ Position=3.
+{ #category : #private }
+Spaceship class >> launch [
+	^(self new) initializeLaunch.
 ]
 
 { #category : #initialization }
-Ship >> initializeBeginGame [
+Spaceship >> initializeLaunch [
 	Position:= 0.
 ]
 
-{ #category : #'as yet unclassified' }
-Ship >> itsPosition [
-	^ Position.
-]
-
 { #category : #accessing }
-Ship >> move [
+Spaceship >> move [
 	Position:= Position + 1.
+	^Position.
 ]
