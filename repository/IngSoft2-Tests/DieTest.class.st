@@ -25,7 +25,7 @@ DieTest >> testADieIsCreatedWithAnAmountOfFaces [
 
 | aDie |
 aDie:= Die of:3.
-self assert: aDie throw equals: 3.
+self assert: ((aDie throw) between:1 and:3).
 
 ]
 
