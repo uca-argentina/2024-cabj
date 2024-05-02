@@ -23,12 +23,6 @@ Spaceship >> initializeLaunch [
 ]
 
 { #category : #accessing }
-Spaceship >> move [
-	Position:= Position + 1.
-	^Position.
-]
-
-{ #category : #accessing }
 Spaceship >> move: aNumberOfMovements [
 	Position := Position +aNumberOfMovements .
 	^ Position . 
