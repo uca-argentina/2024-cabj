@@ -11,7 +11,7 @@ SpaceshipTest >> testSpaceshipInitializeInPositionZero [
 
 aSpaceship:= Spaceship launch.
 
-self assert: (aSpaceship move) equals: 1.
+self assert: (aSpaceship move:1) equals: 1.
 ]
 
 { #category : #tests }
