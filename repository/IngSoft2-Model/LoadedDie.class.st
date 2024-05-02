@@ -9,6 +9,7 @@ Class {
 
 { #category : #'instance creation' }
 LoadedDie class >> of: anAmountOfFaces [
+	anAmountOfFaces <3 ifTrue: [ Error signal: 'A die less than three faces doesnt exist' ].
 	^ (self new) initializeOf: anAmountOfFaces .
 ]
 
