@@ -9,6 +9,7 @@ Class {
 
 { #category : #'instance creation' }
 Die class >> of: anAmountFaces [ 
+	anAmountFaces <3 ifTrue: [ Error signal: 'A die less than three faces doesnt exist'].
 	^ (self new) initializeOf: anAmountFaces .
 ]
 
@@ -19,10 +20,5 @@ Die >> initializeOf: anAmountOfFaces [
 
 { #category : #'as yet unclassified' }
 Die >> throw [
-	^faces.
-]
-
-{ #category : #'as yet unclassified' }
-Die >> thrown [
-	self shouldBeImplemented.
+	^faces atRandom .
 ]
