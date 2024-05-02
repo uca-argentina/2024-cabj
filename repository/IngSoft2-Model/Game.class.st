@@ -30,3 +30,15 @@ Game >> moveSpaceship [
 	spaceshipNextPosition = amountOfBoxes ifTrue: [^'Finished game'].
 	^spaceshipNextPosition.
 ]
+
+{ #category : #'as yet unclassified' }
+Game >> moveSpaceship: anAmountOfMovements [
+	
+	| spaceshipNextPosition |
+
+	aSpaceship position =amountOfBoxes  ifTrue: [ Error signal:'The game has already finished.' ].
+	
+	spaceshipNextPosition:= (aSpaceship move: anAmountOfMovements ).
+	spaceshipNextPosition = amountOfBoxes ifTrue: [^'Finished game'].
+	^spaceshipNextPosition.
+]

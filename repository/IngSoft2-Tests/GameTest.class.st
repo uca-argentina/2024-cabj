@@ -61,3 +61,10 @@ self should: [aGame:= Game begin: 2.
 					aGame moveSpaceship.] 
 		raise:Error withMessage: 'The game has already finished.'.
 ]
+
+{ #category : #tests }
+GameTest >> testWhenTheGameIsInitializedAndMovesTwiceWithTwoJumpsThenIsInThePositionTwo [
+|aGame|
+aGame:= Game begin:3.
+self assert: (aGame moveSpaceship:2) equals:2.
+]
