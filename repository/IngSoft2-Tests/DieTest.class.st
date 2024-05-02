@@ -21,18 +21,18 @@ self
 ]
 
 { #category : #tests }
+DieTest >> testADieIsBetweenOneAndAnAmountOfFaces [
+
+| aDie |
+aDie:= Die of:5.
+self assert: ((aDie throw) between:1 and:5). 
+]
+
+{ #category : #tests }
 DieTest >> testADieIsCreatedWithAnAmountOfFaces [
 
 | aDie |
 aDie:= Die of:3.
 self assert: ((aDie throw) between:1 and:3).
 
-]
-
-{ #category : #tests }
-DieTest >> testDie002 [
-
-| aDie |
-aDie:= Die of:5.
-self assert: ((aDie throw) between:1 and:5). 
 ]
