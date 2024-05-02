@@ -30,6 +30,5 @@ Spaceship >> move [
 
 { #category : #accessing }
 Spaceship >> position [
-
 ^Position.
 ]
