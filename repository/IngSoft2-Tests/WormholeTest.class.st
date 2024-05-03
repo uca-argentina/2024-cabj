@@ -28,7 +28,7 @@ self assert: aWormhole enterBeginning equals: 10.
 ]
 
 { #category : #tests }
-WormholeTest >> testWormhole006 [
+WormholeTest >> testWormholeBeginnigCannotBeGreaterThanTheEnd [
 
 self 
 	should: [Wormhole beginning: 6 end: 2] 
