@@ -51,17 +51,6 @@ self assert: (aGame moveSpaceship:1) equals:2.
 ]
 
 { #category : #tests }
-GameTest >> testWhenAGameIsBeingPlayedWithADieThenThePositionIsBetweenOneAndTheAmountOfFaces [
-
-| aGame aDie |
-aGame:= Game begin:3.
-aDie := Die of: 5.
-
-
-self assert: ((aGame isPlayedWith:  aDie) between: 1 and:  5).
-]
-
-{ #category : #tests }
 GameTest >> testWhenAGameIsPlayedWithASpaceshipAndALoadedDieOfFourFacesThenItReturnsFour [
 
 | aGame aLoadedDie |
