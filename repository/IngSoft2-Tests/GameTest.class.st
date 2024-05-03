@@ -58,7 +58,7 @@ aGame:= Game begin:3.
 aDie := Die of: 5.
 
 
-self assert: ((aGame isPlayedWith: aDie) between:1 and: 5) .
+self assert: ((aGame isPlayedWith:  aDie) between: 1 and:  5).
 ]
 
 { #category : #tests }
