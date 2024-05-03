@@ -62,6 +62,28 @@ self assert: (aGame isPlayedWith: aLoadedDie) equals:4.
 ]
 
 { #category : #tests }
+GameTest >> testWhenAGameIsPlayedWithASpaceshipAndLoadedDieThenReturnsTheAmountOfFaces [
+
+| aGame aLoadedDie |
+aGame:= Game begin:3.
+aLoadedDie := LoadedDie of: 5.
+
+
+self assert: (aGame isPlayedWith: aLoadedDie) equals:5.
+]
+
+{ #category : #tests }
+GameTest >> testWhenASpaceshipMovesInTheGameThenItReturnsItsPosition [
+
+| aGame aLoadedDie |
+aGame:= Game begin:3.
+aLoadedDie := LoadedDie of: 5.
+
+aGame moveSpaceship: 1.
+self assert: (aGame isPlayedWith: aLoadedDie) equals:6.
+]
+
+{ #category : #tests }
 GameTest >> testWhenTheGameFinishThenTheSpaceshipCannotMove [
 
 

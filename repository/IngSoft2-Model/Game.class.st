@@ -21,7 +21,7 @@ Game >> initializeBegin: anAmountOfBoxes [
 
 { #category : #testing }
 Game >> isPlayedWith: aLoadedDie [ 
-	^ 4.
+	^ self moveSpaceship: (aLoadedDie throw).
 ]
 
 { #category : #'as yet unclassified' }
