@@ -28,6 +28,15 @@ self assert: aWormhole enterBeginning equals: 10.
 ]
 
 { #category : #tests }
+WormholeTest >> testWormhole006 [
+
+self 
+	should: [Wormhole beginning: 6 end: 2] 
+	raise: Error 
+	withMessage: 'The end must be greater than the beginning'.
+]
+
+{ #category : #tests }
 WormholeTest >> testWormholeCannotBeCreatedWithBeginningNegative [
 
 self 
