@@ -30,7 +30,7 @@ Spaceship >> move: aNumberOfMovements [
 
 { #category : #'as yet unclassified' }
 Spaceship >> playWith: aLoadedDie [ 
-	^ 3.
+	^ aLoadedDie throw .
 ]
 
 { #category : #accessing }
