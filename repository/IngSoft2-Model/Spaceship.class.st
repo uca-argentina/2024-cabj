@@ -28,6 +28,12 @@ Spaceship >> move: aNumberOfMovements [
 	^ Position . 
 ]
 
+{ #category : #'as yet unclassified' }
+Spaceship >> playWith: aLoadedDie [ 
+	
+	^ self move: (aLoadedDie throw).
+]
+
 { #category : #accessing }
 Spaceship >> position [
 ^Position.
