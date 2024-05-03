@@ -19,6 +19,11 @@ Game >> initializeBegin: anAmountOfBoxes [
 	amountOfBoxes:= anAmountOfBoxes .
 ]
 
+{ #category : #testing }
+Game >> isPlayedWith: aLoadedDie [ 
+	^ 4.
+]
+
 { #category : #'as yet unclassified' }
 Game >> moveSpaceship: anAmountOfMovements [
 	

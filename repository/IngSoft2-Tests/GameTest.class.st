@@ -51,6 +51,17 @@ self assert: (aGame moveSpaceship:1) equals:2.
 ]
 
 { #category : #tests }
+GameTest >> testWhenAGameIsPlayedWithASpaceshipAndALoadedDieOfFourFacesThenItReturnsFour [
+
+| aGame aLoadedDie |
+aGame:= Game begin:3.
+aLoadedDie := LoadedDie of: 4.
+
+
+self assert: (aGame isPlayedWith: aLoadedDie) equals:4.
+]
+
+{ #category : #tests }
 GameTest >> testWhenTheGameFinishThenTheSpaceshipCannotMove [
 
 
