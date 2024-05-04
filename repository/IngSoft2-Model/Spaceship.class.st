@@ -24,22 +24,22 @@ Spaceship >> initializeLaunch [
 
 { #category : #action }
 Spaceship >> move: aNumberOfMovements [
-	Position := Position +aNumberOfMovements .
-	^ Position . 
+	actualPosition   := actualPosition + aNumberOfMovements .
+	^ actualPosition . 
 ]
 
 { #category : #action }
 Spaceship >> playWith: aLoadedDie on: aBoard [ 
 	
 	| movements |
-	movements:= self move: (aLoadedDie throw).
+	movements:= aBoard legalMove: (aLoadedDie throw).
+	self move: movements .
+	actualPosition  := aBoard enterWormhole: actualPosition.
 	
-	Position:= aBoard enterWormhole: movements.
-	
-	^Position . 
+	^actualPosition . 
 ]
 
 { #category : #accessing }
 Spaceship >> position [
-^Position.
+	^ actualPosition .
 ]
