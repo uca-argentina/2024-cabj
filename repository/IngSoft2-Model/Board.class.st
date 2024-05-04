@@ -22,14 +22,14 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #wormhole }
 Board >> enterWormhole: aPosition [ 
 	aPosition = wormholeBeginning ifTrue: [^wormhole enterBeginning ].
 	aPosition = wormholeEnding  ifTrue: [^wormhole enterEnd ].
 	^aPosition.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Board >> finishLine [
 	^amountOfBoxes .
 ]

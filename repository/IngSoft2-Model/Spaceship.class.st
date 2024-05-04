@@ -22,13 +22,13 @@ Spaceship >> initializeLaunch [
 	Position:= 0.
 ]
 
-{ #category : #accessing }
+{ #category : #action }
 Spaceship >> move: aNumberOfMovements [
 	Position := Position +aNumberOfMovements .
 	^ Position . 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Spaceship >> playWith: aLoadedDie on: aBoard [ 
 	
 	| movements |

@@ -5,17 +5,6 @@ Class {
 }
 
 { #category : #tests }
-SpaceshipWithLoadedDieTest >> test003 [
-
-| aSpaceship aLoadedDie |
-aSpaceship := Spaceship launch. 
-aSpaceship move: 1.
-aLoadedDie := LoadedDie of: 4.
-
-self assert: (aSpaceship playWith: aLoadedDie) equals: 5.
-]
-
-{ #category : #tests }
 SpaceshipWithLoadedDieTest >> testASpaceshipPlaysWithALoadedDieThenReturnsThree [
 
 | aSpaceship aLoadedDie aBoard |

@@ -1,5 +1,5 @@
 Class {
-	#name : #Game,
+	#name : #GameLoadedDie,
 	#superclass : #Object,
 	#instVars : [
 		'aSpaceship',
@@ -7,16 +7,16 @@ Class {
 		'aDie',
 		'aBoard'
 	],
-	#category : #'IngSoft2-Model'
+	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'as yet unclassified' }
-Game class >> begin: anAmountOfBoxes [
+GameLoadedDie class >> begin: anAmountOfBoxes [
 	^(self new) initializeBegin: anAmountOfBoxes.
 ]
 
 { #category : #'as yet unclassified' }
-Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
+GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
 
 	^ self new
 		  initializeWithBoardBoxes: anAmountOfBoxes
@@ -25,33 +25,33 @@ Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndE
 ]
 
 { #category : #toDelete }
-Game >> initializeBegin: anAmountOfBoxes [
+GameLoadedDie >> initializeBegin: anAmountOfBoxes [
 	aSpaceship:= Spaceship launch.
 	amountOfBoxes:= anAmountOfBoxes .
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
+GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
 
 	aBoard := 	Board of: anAmountOfBoxes 
 							withWormholeBeginning: (beginningAndEnd at: 1) 
 							andEnding: (beginningAndEnd at: 2).
 	aSpaceship := Spaceship launch.
-	aDie := Die of: anAmountOfFaces .
+	aDie := LoadedDie of: anAmountOfFaces .
 ]
 
 { #category : #toDelete }
-Game >> isPlayedWith: aLoadedDie [ 
+GameLoadedDie >> isPlayedWith: aLoadedDie [ 
 	^ self moveSpaceship: (aLoadedDie throw).
 ]
 
 { #category : #action }
-Game >> moveSpaceship [
+GameLoadedDie >> moveSpaceship [
 	^ aSpaceship playWith: aDie on: aBoard .
 ]
 
 { #category : #toDelete }
-Game >> moveSpaceship: anAmountOfMovements [
+GameLoadedDie >> moveSpaceship: anAmountOfMovements [
 	
 	| spaceshipNextPosition |
 
