@@ -1,8 +1,8 @@
 Class {
 	#name : #Spaceship,
 	#superclass : #Object,
-	#classVars : [
-		'Position'
+	#instVars : [
+		'actualPosition'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,7 +19,7 @@ Spaceship class >> launch [
 
 { #category : #initialization }
 Spaceship >> initializeLaunch [
-	Position:= 0.
+	actualPosition:= 0.
 ]
 
 { #category : #action }

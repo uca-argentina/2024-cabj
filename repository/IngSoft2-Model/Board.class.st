@@ -46,3 +46,9 @@ Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEndi
 	wormholeEnding:= anEnd .
 	wormhole:= Wormhole beginning:  wormholeBeginning end: wormholeEnding. 
 ]
+
+{ #category : #'as yet unclassified' }
+Board >> legalMove: aPosition [ 
+	aPosition<amountOfBoxes ifTrue:[^aPosition].
+	^amountOfBoxes.
+]
