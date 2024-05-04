@@ -43,7 +43,7 @@ Game >> isPlayedWith: aLoadedDie [
 
 { #category : #'as yet unclassified' }
 Game >> moveSpaceship [
-	^ 6 .
+	^ aSpaceship playWith: aDie  .
 ]
 
 { #category : #'as yet unclassified' }

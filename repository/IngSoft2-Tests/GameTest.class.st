@@ -20,6 +20,18 @@ self assert: aGame moveSpaceship equals: 6.
 
 ]
 
+{ #category : #testsGame002 }
+GameTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
+
+| aGame |
+aGame:= Game withBoard: 15 playWithDieOf: 6.
+aGame moveSpaceship.
+
+self assert: aGame moveSpaceship equals: 12. 
+
+
+]
+
 { #category : #testsGame001 }
 GameTest >> testGameFinishWhenTheSpaceshipIsInPositionThree [
 
