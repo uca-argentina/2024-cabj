@@ -60,7 +60,7 @@ BoardTest >> testBoardRecivesIlegalPositionAndReturnsFinishLine [
 | aBoard |
 aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 
-self assert: (aBoard legalMove: 14) equals: 11.
+self assert: (aBoard legalMoveFrom: 10 move: 3) equals: 1.
 ]
 
 { #category : #tests }
@@ -69,7 +69,16 @@ BoardTest >> testBoardRecivesLegalMoveAndStaysTheSame [
 | aBoard |
 aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 
-self assert: (aBoard legalMove: 8) equals: 8.
+self assert: (aBoard legalMoveFrom: 1 move: 8) equals: 8.
+]
+
+{ #category : #tests }
+BoardTest >> testIlegalMoveFromPositionReturnsLegalMovement [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard legalMoveFrom: 8 move: 5) equals: 3.
 ]
 
 { #category : #tests }

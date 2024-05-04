@@ -52,3 +52,9 @@ Board >> legalMove: aPosition [
 	aPosition<amountOfBoxes ifTrue:[^aPosition].
 	^amountOfBoxes.
 ]
+
+{ #category : #'as yet unclassified' }
+Board >> legalMoveFrom: aPosition move: aMovement [  
+	(aPosition+aMovement)<amountOfBoxes ifTrue:[^aMovement].
+	^(amountOfBoxes-aPosition).
+]
