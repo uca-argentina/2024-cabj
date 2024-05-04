@@ -33,7 +33,7 @@ Board >> finishLine [
 	^amountOfBoxes .
 ]
 
-{ #category : #initialization }
+{ #category : #toDelete }
 Board >> initializeOf: anAmountOfBoxes [ 
 	amountOfBoxes:= anAmountOfBoxes.
 ]

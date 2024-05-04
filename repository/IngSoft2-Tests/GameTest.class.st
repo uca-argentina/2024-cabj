@@ -12,22 +12,35 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 { #category : #testsGame002 }
 GameTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
-| aGame |
-aGame:= Game withBoard: 5 playWithDieOf: 6.
+	| aGame |
+	aGame := Game
+		         withBoardBoxes: 5
+		         wormholeStartAndEnd: #(2 3)
+		         playWithDieOf: 6.
 
-self assert: aGame moveSpaceship equals: 6. 
-
-
+	self assert: aGame moveSpaceship equals: 6
 ]
 
 { #category : #testsGame002 }
 GameTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
 
-| aGame |
-aGame:= Game withBoard: 15 playWithDieOf: 6.
-aGame moveSpaceship.
+	| aGame |
+	aGame := Game
+		         withBoardBoxes: 15
+		         wormholeStartAndEnd: #(4 7)
+		         playWithDieOf: 6.
+	aGame moveSpaceship.
 
-self assert: aGame moveSpaceship equals: 12. 
+	self assert: aGame moveSpaceship equals: 12
+]
+
+{ #category : #testsGame002 }
+GameTest >> test02 [
+
+| aGame |
+aGame:= Game withBoardBoxes: 15 wormholeStartAndEnd: #(6 8) playWithDieOf: 6.
+
+self assert: aGame moveSpaceship equals: 8. 
 
 
 ]

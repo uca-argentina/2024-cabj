@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'aSpaceship',
 		'amountOfBoxes',
-		'aDie'
+		'aDie',
+		'aBoard'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,28 +16,31 @@ Game class >> begin: anAmountOfBoxes [
 ]
 
 { #category : #'as yet unclassified' }
-Game class >> withBoard: anAmountOfBoxes playWithDieOf: anAmountOfFaces [
+Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
 
 	^ self new
-		  initializeWithBoard: anAmountOfBoxes
+		  initializeWithBoardBoxes: anAmountOfBoxes
+		  wormholeStartAndEnd: beginningAndEnd 
 		  playWithDieOf: anAmountOfFaces
 ]
 
-{ #category : #initialization }
+{ #category : #toDelete }
 Game >> initializeBegin: anAmountOfBoxes [
 	aSpaceship:= Spaceship launch.
 	amountOfBoxes:= anAmountOfBoxes .
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoard: anAmountOfBoxes playWithDieOf: anAmountOfFaces [
+Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
 
-	amountOfBoxes := anAmountOfBoxes.
+	aBoard := 	Board of: anAmountOfBoxes 
+							withWormholeBeginning: (beginningAndEnd at: 1) 
+							andEnding: (beginningAndEnd at: 2).
 	aSpaceship := Spaceship launch.
-	aDie := LoadedDie of: anAmountOfFaces 
+	aDie := LoadedDie of: anAmountOfFaces .
 ]
 
-{ #category : #testing }
+{ #category : #toDelete }
 Game >> isPlayedWith: aLoadedDie [ 
 	^ self moveSpaceship: (aLoadedDie throw).
 ]
@@ -46,7 +50,7 @@ Game >> moveSpaceship [
 	^ aSpaceship playWith: aDie  .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #toDelete }
 Game >> moveSpaceship: anAmountOfMovements [
 	
 	| spaceshipNextPosition |
