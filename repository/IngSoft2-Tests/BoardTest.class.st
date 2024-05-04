@@ -12,20 +12,44 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 { #category : #tests }
 BoardTest >> testBoardCannotBeCreatedWithNegativeBoxes [
 
-self should: [Board of: -1] raise: Error withMessage: 'A Board must have more than one box.'.
+self 
+	should: [Board of: -1 withWormholeBeginning: 2 andEnding: 10] 
+	raise: Error 
+	withMessage: 'A Board must have more than one box.'.
 ]
 
 { #category : #tests }
 BoardTest >> testBoardCannotBeCreatedWithOneBox [
 
-self should: [Board of: 1] raise: Error withMessage: 'A Board must have more than one box.'.
+self 
+	should: [Board of: 1 withWormholeBeginning: 2 andEnding: 10] 
+	raise: Error 
+	withMessage: 'A Board must have more than one box.'.
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCreatedWithWormholeEntersOnTheBeginningReturnsTheEnd [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard enterWormhole: 2) equals: 10.
+]
+
+{ #category : #tests }
+BoardTest >> testBoardCreatedWithWormholeEntersOnTheEndReturnsBeginning [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard enterWormhole: 10) equals: 2.
 ]
 
 { #category : #tests }
 BoardTest >> testBoardFinishLineEqualsAmountOfBoxesInitializeWith [
 
 | aBoard |
-aBoard:= Board of: 4.
+aBoard:= Board of: 4 withWormholeBeginning: 2 andEnding: 10.
 
 self assert: (aBoard finishLine) equals: 4.
 ]
@@ -34,7 +58,7 @@ self assert: (aBoard finishLine) equals: 4.
 BoardTest >> testWhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 
 | aBoard |
-aBoard:= Board of: 3.
+aBoard:= Board of: 3 withWormholeBeginning: 2 andEnding: 10.
 
 self assert: (aBoard finishLine) equals: 3.
 ]
