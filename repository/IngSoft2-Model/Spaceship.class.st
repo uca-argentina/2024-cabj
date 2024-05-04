@@ -1,8 +1,8 @@
 Class {
 	#name : #Spaceship,
 	#superclass : #Object,
-	#classVars : [
-		'Position'
+	#instVars : [
+		'actualPosition'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,13 +19,13 @@ Spaceship class >> launch [
 
 { #category : #initialization }
 Spaceship >> initializeLaunch [
-	Position:= 0.
+	actualPosition:= 0.
 ]
 
 { #category : #accessing }
 Spaceship >> move: aNumberOfMovements [
-	Position := Position +aNumberOfMovements .
-	^ Position . 
+	actualPosition   := actualPosition + aNumberOfMovements .
+	^ actualPosition . 
 ]
 
 { #category : #'as yet unclassified' }
@@ -34,12 +34,12 @@ Spaceship >> playWith: aLoadedDie on: aBoard [
 	| movements |
 	movements:= aBoard legalMove: (aLoadedDie throw).
 	self move: movements .
-	Position:= aBoard enterWormhole: movements.
+	actualPosition  := aBoard enterWormhole: actualPosition.
 	
-	^Position . 
+	^actualPosition . 
 ]
 
 { #category : #accessing }
 Spaceship >> position [
-	^ Position .
+	^ actualPosition .
 ]
