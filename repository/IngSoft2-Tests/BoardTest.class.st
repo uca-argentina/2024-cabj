@@ -55,6 +55,24 @@ self assert: (aBoard finishLine) equals: 4.
 ]
 
 { #category : #tests }
+BoardTest >> testBoardRecivesIlegalPositionAndReturnsFinishLine [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard legalMove: 14) equals: 11.
+]
+
+{ #category : #tests }
+BoardTest >> testBoardRecivesLegalMoveAndStaysTheSame [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard legalMove: 8) equals: 8.
+]
+
+{ #category : #tests }
 BoardTest >> testWhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 
 | aBoard |
