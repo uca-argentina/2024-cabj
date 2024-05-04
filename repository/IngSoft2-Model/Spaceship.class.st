@@ -34,6 +34,17 @@ Spaceship >> playWith: aLoadedDie [
 	^ self move: (aLoadedDie throw).
 ]
 
+{ #category : #'as yet unclassified' }
+Spaceship >> playWith: aLoadedDie on: aBoard [ 
+	
+	| movements |
+	movements:= self move: (aLoadedDie throw).
+	
+	Position:= aBoard enterWormhole: movements.
+	
+	^Position . 
+]
+
 { #category : #accessing }
 Spaceship >> position [
 ^Position.
