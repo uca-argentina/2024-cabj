@@ -14,7 +14,7 @@ GameTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
 	| aGame |
 	aGame := GameLoadedDie 
-		         withBoardBoxes: 5
+		         withBoardBoxes: 10
 		         wormholeStartAndEnd: #(2 3)
 		         playWithDieOf: 6.
 
