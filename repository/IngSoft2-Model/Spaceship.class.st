@@ -32,8 +32,8 @@ Spaceship >> move: aNumberOfMovements [
 Spaceship >> playWith: aLoadedDie on: aBoard [ 
 	
 	| movements |
-	movements:= self move: (aLoadedDie throw).
-	
+	movements:= aBoard legalMove: (aLoadedDie throw).
+	self move: movements .
 	Position:= aBoard enterWormhole: movements.
 	
 	^Position . 

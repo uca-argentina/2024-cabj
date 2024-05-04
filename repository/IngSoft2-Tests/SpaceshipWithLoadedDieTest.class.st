@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #tests }
+SpaceshipWithLoadedDieTest >> test004 [
+
+| aSpaceship aLoadedDie aBoard |
+aSpaceship := Spaceship launch. 
+aBoard:= Board of: 5 withWormholeBeginning: 2 andEnding: 3.
+aLoadedDie := LoadedDie of: 8.
+
+self assert: (aSpaceship playWith: aLoadedDie  on: aBoard) equals: 5.
+]
+
+{ #category : #tests }
 SpaceshipWithLoadedDieTest >> testASpaceshipPlaysWithALoadedDieThenReturnsThree [
 
 | aSpaceship aLoadedDie aBoard |
