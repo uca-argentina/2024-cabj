@@ -7,12 +7,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #toDelete }
 Spaceship class >> beginGame [
 	^ (self new) initializeBeginGame.
 ]
 
-{ #category : #private }
+{ #category : #'instance creation' }
 Spaceship class >> launch [
 	^(self new) initializeLaunch.
 ]

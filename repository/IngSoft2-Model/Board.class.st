@@ -10,13 +10,13 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #toDelete }
 Board class >> of: anAmountOfBoxes [
 	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
 	^ (self new) initializeOf: anAmountOfBoxes 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
 	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.

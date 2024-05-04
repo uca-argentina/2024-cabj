@@ -10,12 +10,12 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #toDelete }
 GameLoadedDie class >> begin: anAmountOfBoxes [
 	^(self new) initializeBegin: anAmountOfBoxes.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
 
 	^ self new
