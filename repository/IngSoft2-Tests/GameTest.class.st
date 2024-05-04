@@ -9,7 +9,18 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [:error | self assert: error messageText equals: anErrorMessage ].
 ]
 
-{ #category : #tests }
+{ #category : #testsGame002 }
+GameTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
+
+| aGame |
+aGame:= Game withBoard: 5 playWithDieOf: 6.
+
+self assert: aGame moveSpaceship equals: 6. 
+
+
+]
+
+{ #category : #testsGame001 }
 GameTest >> testGameFinishWhenTheSpaceshipIsInPositionThree [
 
 | aGame |
@@ -20,7 +31,7 @@ aGame moveSpaceship:1.
 self assert: (aGame moveSpaceship:1) equals:'Finished game'.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testGameInitializeWithAnAmountOfBoxes [
 
 | aGame |
@@ -31,7 +42,7 @@ aGame moveSpaceship:1.
 self assert: (aGame moveSpaceship:1) equals:3.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testTheGameBeginsWithOneSpaceshipAndItMovesOnce [
 
 | aGame |
@@ -40,7 +51,7 @@ aGame:= Game begin:3.
 self assert: (aGame moveSpaceship:1) equals:1.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testTheGameMovesTheSpaceshipTwice [
 
 | aGame |
@@ -50,7 +61,7 @@ aGame moveSpaceship:1.
 self assert: (aGame moveSpaceship:1) equals:2.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testWhenAGameIsBeingPlayedWithADieThenItMovesBetweenOneAndTheAmountOfFaces [
 
 | aGame aDie |
@@ -61,7 +72,7 @@ aDie := Die of: 5.
 self assert: ((aGame isPlayedWith: aDie) between: 1  and: 5).
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testWhenAGameIsPlayedWithASpaceshipAndALoadedDieOfFourFacesThenItReturnsFour [
 
 | aGame aLoadedDie |
@@ -72,7 +83,7 @@ aLoadedDie := LoadedDie of: 4.
 self assert: (aGame isPlayedWith: aLoadedDie) equals:4.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testWhenAGameIsPlayedWithASpaceshipAndLoadedDieThenReturnsTheAmountOfFaces [
 
 | aGame aLoadedDie |
@@ -83,7 +94,7 @@ aLoadedDie := LoadedDie of: 5.
 self assert: (aGame isPlayedWith: aLoadedDie) equals:5.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testWhenASpaceshipMovesInTheGameThenItReturnsItsPosition [
 
 | aGame aLoadedDie |
@@ -94,7 +105,7 @@ aGame moveSpaceship: 1.
 self assert: (aGame isPlayedWith: aLoadedDie) equals:6.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testWhenTheGameFinishThenTheSpaceshipCannotMove [
 
 
@@ -106,7 +117,7 @@ self should: [aGame:= Game begin: 2.
 		raise:Error withMessage: 'The game has already finished.'.
 ]
 
-{ #category : #tests }
+{ #category : #testsGame001 }
 GameTest >> testWhenTheGameIsInitializedAndMovesTwiceWithTwoJumpsThenIsInThePositionTwo [
 |aGame|
 aGame:= Game begin:3.
