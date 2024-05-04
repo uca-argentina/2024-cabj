@@ -62,3 +62,12 @@ aBoard:= Board of: 3 withWormholeBeginning: 2 andEnding: 10.
 
 self assert: (aBoard finishLine) equals: 3.
 ]
+
+{ #category : #tests }
+BoardTest >> testWhenPositionIsnotWormholeThenItStaysTheSame [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard enterWormhole: 5) equals: 5.
+]

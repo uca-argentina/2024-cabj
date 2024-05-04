@@ -29,12 +29,6 @@ Spaceship >> move: aNumberOfMovements [
 ]
 
 { #category : #'as yet unclassified' }
-Spaceship >> playWith: aLoadedDie [ 
-	
-	^ self move: (aLoadedDie throw).
-]
-
-{ #category : #'as yet unclassified' }
 Spaceship >> playWith: aLoadedDie on: aBoard [ 
 	
 	| movements |

@@ -7,9 +7,10 @@ Class {
 { #category : #tests }
 SpaceshipWithDieTest >> testWhenSpaceshipPlaysWithADieThenMovesBetweenOneAndTheAmountOfFaces [ 
 
-| aDie aSpaceship |
+| aDie aSpaceship aBoard |
 aDie := Die of: 4. 
-aSpaceship := Spaceship launch. 
+aSpaceship := Spaceship launch.
+aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19. 
 
-self assert: ((aSpaceship playWith: aDie) between: 1 and:  4).
+self assert: ((aSpaceship playWith: aDie on: aBoard) between: 1 and:  4).
 ]
