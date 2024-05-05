@@ -46,10 +46,24 @@ self assert: aGame moveSpaceship equals: 8.
 ]
 
 { #category : #testsGame002 }
-GameTest >> test03 [
+GameTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
 | aGame |
 aGame:= GameLoadedDie withBoardBoxes: 12 wormholeStartAndEnd: #(6 8) playWithDieOf: 6.
+aGame moveSpaceship.
+
+self assert: aGame moveSpaceship equals: 'Game Over'. 
+
+
+]
+
+{ #category : #testsGame002 }
+GameTest >> test04WhenSpaceshipReachesTheFinishLineThenIsGameOver [
+
+| aGame |
+aGame:= Game withBoardBoxes: 4 wormholeStartAndEnd: #(2 3) playWithDieOf: 3.
+aGame moveSpaceship.
+aGame moveSpaceship.
 aGame moveSpaceship.
 
 self assert: aGame moveSpaceship equals: 'Game Over'. 

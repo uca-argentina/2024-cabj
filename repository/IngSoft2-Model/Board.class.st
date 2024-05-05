@@ -47,13 +47,13 @@ Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEndi
 	wormhole:= Wormhole beginning:  wormholeBeginning end: wormholeEnding. 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #toDelete }
 Board >> legalMove: aPosition [ 
 	aPosition<amountOfBoxes ifTrue:[^aPosition].
 	^amountOfBoxes.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'action handling' }
 Board >> legalMoveFrom: aPosition move: aMovement [  
 	(aPosition+aMovement)<amountOfBoxes ifTrue:[^aMovement].
 	^(amountOfBoxes-aPosition).

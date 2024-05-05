@@ -47,7 +47,10 @@ GameLoadedDie >> isPlayedWith: aLoadedDie [
 
 { #category : #action }
 GameLoadedDie >> moveSpaceship [
-	^ aSpaceship playWith: aDie on: aBoard .
+	| positionOfSpaceship |
+	positionOfSpaceship:= aSpaceship playWith: aDie on: aBoard .
+	positionOfSpaceship = aBoard finishLine ifTrue: [ ^'Game Over' ].
+	^positionOfSpaceship.
 ]
 
 { #category : #toDelete }
