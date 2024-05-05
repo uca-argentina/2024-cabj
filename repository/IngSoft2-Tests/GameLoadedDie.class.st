@@ -5,7 +5,8 @@ Class {
 		'aSpaceship',
 		'aBoard',
 		'collectionOfDice',
-		'collectionOfSpaceships'
+		'collectionOfSpaceships',
+		'turnManager'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -45,6 +46,7 @@ GameLoadedDie >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: 
 	
 	collectionOfSpaceships:= OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [ collectionOfSpaceships add: Spaceship launch ].
+	turnManager:= TurnManager manage: collectionOfSpaceships .
 	
 	collectionOfFaces asOrderedCollection .
 	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
@@ -68,8 +70,9 @@ GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: 
 
 { #category : #action }
 GameLoadedDie >> moveSpaceship [
-	| positionOfSpaceship |
-	positionOfSpaceship:= aSpaceship playWith: collectionOfDice on: aBoard .
+	| positionOfSpaceship nextSpaceship |
+	nextSpaceship:= turnManager nextTurn.
+	positionOfSpaceship:= nextSpaceship playWith: collectionOfDice on: aBoard .
 	positionOfSpaceship = aBoard finishLine ifTrue: [ ^'Game Over' ].
 	^positionOfSpaceship.
 ]
