@@ -10,8 +10,8 @@ LoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMe
 	withExceptionDo: [ :error |self assert: error messageText equals:anErrorMessage  ]
 ]
 
-{ #category : #tests }
-LoadedDieTest >> testALoadedDieCannotHaveLessThanTjreeFaces [
+{ #category : #'tests - initialization' }
+LoadedDieTest >> testALoadedDieCannotHaveLessThanThreeFaces [
 
 self 
 	should: [ LoadedDie of:2 ]

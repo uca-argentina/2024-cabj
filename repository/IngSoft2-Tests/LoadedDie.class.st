@@ -18,7 +18,7 @@ LoadedDie >> initializeOf: anAmountOfFaces [
 	faces:= anAmountOfFaces 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 LoadedDie >> throw [
 	^faces .
 ]

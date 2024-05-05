@@ -10,20 +10,20 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
 	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Board >> enterWormhole: aPosition [ 
 	aPosition = wormholeBeginning ifTrue: [^wormhole enterBeginning ].
 	aPosition = wormholeEnding  ifTrue: [^wormhole enterEnd ].
 	^aPosition.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Board >> finishLine [
 	^amountOfBoxes .
 ]
@@ -36,13 +36,7 @@ Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEndi
 	wormhole:= Wormhole beginning:  wormholeBeginning end: wormholeEnding. 
 ]
 
-{ #category : #'as yet unclassified' }
-Board >> legalMove: aPosition [ 
-	aPosition<amountOfBoxes ifTrue:[^aPosition].
-	^amountOfBoxes.
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #'action handling' }
 Board >> legalMoveFrom: aPosition move: aMovement [  
 	(aPosition+aMovement)<amountOfBoxes ifTrue:[^aMovement].
 	^(amountOfBoxes-aPosition).
