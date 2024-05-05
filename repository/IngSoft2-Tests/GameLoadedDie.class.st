@@ -42,6 +42,6 @@ GameLoadedDie >> moveSpaceship [
 	| positionOfSpaceship nextSpaceship |
 	nextSpaceship:= turnManager nextTurn.
 	positionOfSpaceship:= nextSpaceship playWith: collectionOfDice on: aBoard .
-	positionOfSpaceship = aBoard finishLine ifTrue: [ ^'Game Over' ].
+	positionOfSpaceship = aBoard finishLine ifTrue: [ turnManager:= GameOver new. turnManager nextTurn. ].
 	^positionOfSpaceship.
 ]

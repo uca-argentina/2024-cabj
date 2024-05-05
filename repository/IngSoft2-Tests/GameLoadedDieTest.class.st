@@ -4,6 +4,11 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
+	self should: anErrorBlock raise: anErrorClass withExceptionDo: [ :error | self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #testsGame002 }
 GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
@@ -45,11 +50,10 @@ self assert: aGame moveSpaceship equals: 8.
 { #category : #testsGame002 }
 GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
-| aGame |
+self should: [ | aGame |
 aGame:= GameLoadedDie numberOfSpaceships: 1 boardBoxes: 12 wormholeStartAndEnd: #(6 8) playWithDice: 6 asOrderedCollection.
 aGame moveSpaceship.
-
-self assert: aGame moveSpaceship equals: 'Game Over'. 
+aGame moveSpaceship.] raise: Error withMessage: 'The Game is Over'.
 
 
 ]
@@ -63,4 +67,16 @@ aGame moveSpaceship .
 aGame moveSpaceship .
 
 self assert: (aGame moveSpaceship) equals:12.
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
+
+
+self should: [ | aGame |
+aGame:= GameLoadedDie numberOfSpaceships: 2 boardBoxes: 12 wormholeStartAndEnd: #(5 7) playWithDice: #(6).
+aGame moveSpaceship .
+aGame moveSpaceship .
+aGame moveSpaceship .
+aGame moveSpaceship . ] raise: Error withMessage: 'The Game is Over'.
 ]
