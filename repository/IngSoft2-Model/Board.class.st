@@ -10,19 +10,13 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #toDelete }
-Board class >> of: anAmountOfBoxes [
-	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
-	^ (self new) initializeOf: anAmountOfBoxes 
-]
-
 { #category : #'instance creation' }
 Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
 	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
 ]
 
-{ #category : #wormhole }
+{ #category : #action }
 Board >> enterWormhole: aPosition [ 
 	aPosition = wormholeBeginning ifTrue: [^wormhole enterBeginning ].
 	aPosition = wormholeEnding  ifTrue: [^wormhole enterEnd ].
@@ -32,11 +26,6 @@ Board >> enterWormhole: aPosition [
 { #category : #accessing }
 Board >> finishLine [
 	^amountOfBoxes .
-]
-
-{ #category : #toDelete }
-Board >> initializeOf: anAmountOfBoxes [ 
-	amountOfBoxes:= anAmountOfBoxes.
 ]
 
 { #category : #initialization }
