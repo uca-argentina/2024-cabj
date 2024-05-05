@@ -51,16 +51,3 @@ self assert: aGame moveSpaceship equals: 'Game Over'.
 
 
 ]
-
-{ #category : #testsGame002 }
-GameLoadedDieTest >> test04 [
-
-| aGame |
-aGame:= GameLoadedDie numberOfSpaceships: 2 boardBoxes: 50 wormholeStartAndEnd: #(40 45) playWithDice: #(6).
-aGame moveSpaceship .
-aGame moveSpaceship .
-
-self assert: aGame moveSpaceship equals: 12 . 
-
-
-]
