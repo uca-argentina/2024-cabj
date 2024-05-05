@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'aSpaceship',
 		'aDie',
-		'aBoard'
+		'aBoard',
+		'collectionOfDice'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -21,17 +22,20 @@ GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: begi
 { #category : #initialization }
 GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
 
+	
 	aBoard := 	Board of: anAmountOfBoxes 
 							withWormholeBeginning: (beginningAndEnd at: 1) 
 							andEnding: (beginningAndEnd at: 2).
 	aSpaceship := Spaceship launch.
-	aDie := LoadedDie of: anAmountOfFaces .
+	
+	collectionOfDice := OrderedCollection new.
+	anAmountOfFaces do: [ :numberOfFaces | collectionOfDice add:(LoadedDie of:numberOfFaces)]
 ]
 
 { #category : #action }
 GameLoadedDie >> moveSpaceship [
 	| positionOfSpaceship |
-	positionOfSpaceship:= aSpaceship playWith: aDie on: aBoard .
+	positionOfSpaceship:= aSpaceship playWith: collectionOfDice on: aBoard .
 	positionOfSpaceship = aBoard finishLine ifTrue: [ ^'Game Over' ].
 	^positionOfSpaceship.
 ]

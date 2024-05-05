@@ -16,7 +16,7 @@ GameTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 	aGame := GameLoadedDie 
 		         withBoardBoxes: 10
 		         wormholeStartAndEnd: #(2 3)
-		         playWithDieOf: 6.
+		         playWithDieOf: #(6) asOrderedCollection.
 
 	self assert: aGame moveSpaceship equals: 6
 ]
@@ -28,7 +28,7 @@ GameTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
 	aGame := GameLoadedDie 
 		         withBoardBoxes: 15
 		         wormholeStartAndEnd: #(4 7)
-		         playWithDieOf: 6.
+		         playWithDieOf: #(6) asOrderedCollection .
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: 12
@@ -38,7 +38,7 @@ GameTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
 GameTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOtherSide [
 
 | aGame |
-aGame:= GameLoadedDie withBoardBoxes: 15 wormholeStartAndEnd: #(6 8) playWithDieOf: 6.
+aGame:= GameLoadedDie withBoardBoxes: 15 wormholeStartAndEnd: #(6 8) playWithDieOf: 6 asOrderedCollection.
 
 self assert: aGame moveSpaceship equals: 8. 
 
@@ -49,7 +49,7 @@ self assert: aGame moveSpaceship equals: 8.
 GameTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
 | aGame |
-aGame:= GameLoadedDie withBoardBoxes: 12 wormholeStartAndEnd: #(6 8) playWithDieOf: 6.
+aGame:= GameLoadedDie withBoardBoxes: 12 wormholeStartAndEnd: #(6 8) playWithDieOf: 6 asOrderedCollection.
 aGame moveSpaceship.
 
 self assert: aGame moveSpaceship equals: 'Game Over'. 
