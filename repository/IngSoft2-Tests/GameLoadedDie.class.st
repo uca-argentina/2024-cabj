@@ -3,35 +3,40 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'aSpaceship',
-		'aDie',
-		'aBoard'
+		'aBoard',
+		'collectionOfDice'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
-GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
+GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
 
 	^ self new
 		  initializeWithBoardBoxes: anAmountOfBoxes
-		  wormholeStartAndEnd: beginningAndEnd 
-		  playWithDieOf: anAmountOfFaces
+		  wormholeStartAndEnd: beginningAndEnd
+		  playWithDice: collectionOfFaces
 ]
 
 { #category : #initialization }
-GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
+GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
 
-	aBoard := 	Board of: anAmountOfBoxes 
-							withWormholeBeginning: (beginningAndEnd at: 1) 
-							andEnding: (beginningAndEnd at: 2).
+	aBoard := Board
+		          of: anAmountOfBoxes
+		          withWormholeBeginning: (beginningAndEnd at: 1)
+		          andEnding: (beginningAndEnd at: 2).
+
 	aSpaceship := Spaceship launch.
-	aDie := LoadedDie of: anAmountOfFaces .
+	
+	collectionOfFaces asOrderedCollection .
+	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
+		                    LoadedDie of: numberOfFaces ]
 ]
 
 { #category : #action }
 GameLoadedDie >> moveSpaceship [
 	| positionOfSpaceship |
-	positionOfSpaceship:= aSpaceship playWith: aDie on: aBoard .
+	positionOfSpaceship:= aSpaceship playWith: collectionOfDice on: aBoard .
 	positionOfSpaceship = aBoard finishLine ifTrue: [ ^'Game Over' ].
 	^positionOfSpaceship.
 ]
