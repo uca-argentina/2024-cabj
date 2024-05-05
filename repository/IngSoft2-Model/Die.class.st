@@ -18,7 +18,7 @@ Die >> initializeOf: anAmountOfFaces [
 	faces:= anAmountOfFaces .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Die >> throw [
 	^faces atRandom .
 ]

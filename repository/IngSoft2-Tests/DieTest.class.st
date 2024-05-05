@@ -10,7 +10,7 @@ DieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage 
 	withExceptionDo: [:error| self assert: error messageText equals: anErrorMessage].
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 DieTest >> testADieCannotBeCreatedWithLessThanThreeFaces [
 
 self
