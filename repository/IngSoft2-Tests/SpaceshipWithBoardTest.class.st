@@ -12,7 +12,7 @@ aBoard := Board of: 15 withWormholeBeginning: 6 andEnding: 8.
 aSpaceship := Spaceship launch.
 aSpaceship move: 8.
 
-self assert: (aSpaceship playWith: (LoadedDie of: 10) on: aBoard ) equals: 15.
+self assert: (aSpaceship playWith: (OrderedCollection with:(LoadedDie of: 10)) on: aBoard ) equals: 15.
 ]
 
 { #category : #wormhole }
@@ -22,7 +22,7 @@ SpaceshipWithBoardTest >> testSpaceshipPlaysWithBoardFallsOnWormholeFromEndToSta
 aBoard := Board of: 15 withWormholeBeginning: 3 andEnding: 6.
 aSpaceship := Spaceship launch.
 
-self assert: (aSpaceship playWith: (LoadedDie of: 6) on: aBoard ) equals: 3.
+self assert: (aSpaceship playWith: (OrderedCollection with:(LoadedDie of: 6)) on: aBoard ) equals: 3.
 ]
 
 { #category : #wormhole }
@@ -32,5 +32,5 @@ SpaceshipWithBoardTest >> testSpaceshipPlaysWithBoardFallsOnWormholeFromStartToE
 aBoard := Board of: 15 withWormholeBeginning: 6 andEnding: 8.
 aSpaceship := Spaceship launch.
 
-self assert: (aSpaceship playWith: (LoadedDie of: 6) on: aBoard ) equals: 8.
+self assert: (aSpaceship playWith: (OrderedCollection with:(LoadedDie of: 6)) on: aBoard ) equals: 8.
 ]
