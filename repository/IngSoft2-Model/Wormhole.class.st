@@ -15,12 +15,12 @@ Wormhole class >> beginning: aBeginning end: anEnd [
 	^ (self new) initializeBeginnig: aBeginning end: anEnd.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Wormhole >> enterBeginning [
 	^end .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Wormhole >> enterEnd [
 	^beginning .
 ]
