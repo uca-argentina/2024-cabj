@@ -27,7 +27,7 @@ aWormhole:= Wormhole beginning: 2 end: 10.
 self assert: aWormhole enterBeginning equals: 10.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 WormholeTest >> testWormholeBeginnigCannotBeGreaterThanTheEnd [
 
 self 
@@ -36,7 +36,7 @@ self
 	withMessage: 'The end must be greater than the beginning'.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 WormholeTest >> testWormholeCannotBeCreatedWithBeginningNegative [
 
 self 
@@ -45,7 +45,7 @@ self
 	withMessage: 'The beginnig must be greater than zero'.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 WormholeTest >> testWormholeCannotBeCreatedWithBeginningZero [
 
 self 
