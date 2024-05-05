@@ -61,7 +61,7 @@ self assert: aGame moveSpaceship equals: 'Game Over'.
 GameTest >> test04GameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces [
 
 | aGame |
-aGame:= Game withBoardBoxes: 50 wormholeStartAndEnd: #(48 49) playWithDice: 5.
+aGame:= Game withBoardBoxes: 50 wormholeStartAndEnd: #(48 49) playWithDice: #(5).
 
 self assert: ((aGame moveSpaceship) between: 1 and: 5). 
 
