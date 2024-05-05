@@ -9,7 +9,7 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [ :error | self assert: error messageText equals: anErrorMessage ]
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 BoardTest >> testBoardCannotBeCreatedWithNegativeBoxes [
 
 self 
@@ -18,7 +18,7 @@ self
 	withMessage: 'A Board must have more than one box.'.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 BoardTest >> testBoardCannotBeCreatedWithOneBox [
 
 self 
@@ -27,7 +27,7 @@ self
 	withMessage: 'A Board must have more than one box.'.
 ]
 
-{ #category : #tests }
+{ #category : #wormhole }
 BoardTest >> testBoardCreatedWithWormholeEntersOnTheBeginningReturnsTheEnd [
 
 | aBoard |
@@ -36,7 +36,7 @@ aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 self assert: (aBoard enterWormhole: 2) equals: 10.
 ]
 
-{ #category : #tests }
+{ #category : #wormhole }
 BoardTest >> testBoardCreatedWithWormholeEntersOnTheEndReturnsBeginning [
 
 | aBoard |
@@ -54,7 +54,7 @@ aBoard:= Board of: 4 withWormholeBeginning: 2 andEnding: 10.
 self assert: (aBoard finishLine) equals: 4.
 ]
 
-{ #category : #tests }
+{ #category : #legalMove }
 BoardTest >> testBoardRecivesIlegalPositionAndReturnsFinishLine [
 
 | aBoard |
@@ -63,7 +63,7 @@ aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 self assert: (aBoard legalMoveFrom: 10 move: 3) equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : #legalMove }
 BoardTest >> testBoardRecivesLegalMoveAndStaysTheSame [
 
 | aBoard |
@@ -72,7 +72,7 @@ aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 self assert: (aBoard legalMoveFrom: 1 move: 8) equals: 8.
 ]
 
-{ #category : #tests }
+{ #category : #legalMove }
 BoardTest >> testIlegalMoveFromPositionReturnsLegalMovement [
 
 | aBoard |
@@ -90,7 +90,7 @@ aBoard:= Board of: 3 withWormholeBeginning: 2 andEnding: 10.
 self assert: (aBoard finishLine) equals: 3.
 ]
 
-{ #category : #tests }
+{ #category : #wormhole }
 BoardTest >> testWhenPositionIsnotWormholeThenItStaysTheSame [
 
 | aBoard |
