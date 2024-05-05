@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'aSpaceship',
-		'aDie',
 		'aBoard',
 		'collectionOfDice'
 	],
@@ -11,25 +10,27 @@ Class {
 }
 
 { #category : #'instance creation' }
-GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
+GameLoadedDie class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
 
 	^ self new
 		  initializeWithBoardBoxes: anAmountOfBoxes
-		  wormholeStartAndEnd: beginningAndEnd 
-		  playWithDieOf: anAmountOfFaces
+		  wormholeStartAndEnd: beginningAndEnd
+		  playWithDice: collectionOfFaces
 ]
 
 { #category : #initialization }
-GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDieOf: anAmountOfFaces [
+GameLoadedDie >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
 
-	
-	aBoard := 	Board of: anAmountOfBoxes 
-							withWormholeBeginning: (beginningAndEnd at: 1) 
-							andEnding: (beginningAndEnd at: 2).
+	aBoard := Board
+		          of: anAmountOfBoxes
+		          withWormholeBeginning: (beginningAndEnd at: 1)
+		          andEnding: (beginningAndEnd at: 2).
+
 	aSpaceship := Spaceship launch.
 	
-	collectionOfDice := OrderedCollection new.
-	anAmountOfFaces do: [ :numberOfFaces | collectionOfDice add:(LoadedDie of:numberOfFaces)]
+	collectionOfFaces asOrderedCollection .
+	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
+		                    LoadedDie of: numberOfFaces ]
 ]
 
 { #category : #action }
