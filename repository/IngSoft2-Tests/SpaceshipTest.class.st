@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 SpaceshipTest >> testSpaceshipInitializeInPositionZero [
 
 | aSpaceship |
@@ -14,7 +14,7 @@ aSpaceship:= Spaceship launch.
 self assert: (aSpaceship move:1) equals: 1.
 ]
 
-{ #category : #tests }
+{ #category : #move }
 SpaceshipTest >> testSpaceshipMovesTwiceAndIsInPositionTwo [
 
 | aSpaceship |
@@ -25,14 +25,14 @@ aSpaceship move:1.
 self assert: (aSpaceship move:1) equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : #move }
 SpaceshipTest >> testWhenASpaceshipMovesTwiceWithTwoJumps [
 | aSpaceship |
 aSpaceship:= Spaceship launch.
 self assert: (aSpaceship move:2) equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : #move }
 SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionIsThree [
 | aSpaceship |
 aSpaceship:= Spaceship launch .
@@ -49,7 +49,7 @@ aSpaceship move:1.
 self assert: aSpaceship position equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - initialization' }
 SpaceshipTest >> testWhenSpaceshipThenPositionReturnsZero [
 
 | aSpaceship |

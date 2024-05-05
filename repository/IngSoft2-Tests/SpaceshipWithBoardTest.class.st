@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #tests }
+{ #category : #playWithOn }
 SpaceshipWithBoardTest >> testMoveSpaceshipThenPlayWithToIlegalPositionReturnsFinishLine [
 
 | aBoard aSpaceship |
@@ -15,7 +15,7 @@ aSpaceship move: 8.
 self assert: (aSpaceship playWith: (LoadedDie of: 10) on: aBoard ) equals: 15.
 ]
 
-{ #category : #tests }
+{ #category : #wormhole }
 SpaceshipWithBoardTest >> testSpaceshipPlaysWithBoardFallsOnWormholeFromEndToStart [
 
 | aBoard aSpaceship |
@@ -25,7 +25,7 @@ aSpaceship := Spaceship launch.
 self assert: (aSpaceship playWith: (LoadedDie of: 6) on: aBoard ) equals: 3.
 ]
 
-{ #category : #tests }
+{ #category : #wormhole }
 SpaceshipWithBoardTest >> testSpaceshipPlaysWithBoardFallsOnWormholeFromStartToEnd [
 
 | aBoard aSpaceship |

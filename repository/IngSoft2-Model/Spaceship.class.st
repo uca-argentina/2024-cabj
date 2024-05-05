@@ -7,12 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Spaceship class >> beginGame [
-	^ (self new) initializeBeginGame.
-]
-
-{ #category : #private }
+{ #category : #'instance creation' }
 Spaceship class >> launch [
 	^(self new) initializeLaunch.
 ]
@@ -22,13 +17,13 @@ Spaceship >> initializeLaunch [
 	actualPosition:= 0.
 ]
 
-{ #category : #accessing }
+{ #category : #action }
 Spaceship >> move: aNumberOfMovements [
 	actualPosition   := actualPosition + aNumberOfMovements .
 	^ actualPosition . 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Spaceship >> playWith: aDie on: aBoard [ 
 	
 	| movements |
