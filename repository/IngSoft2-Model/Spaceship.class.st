@@ -29,10 +29,10 @@ Spaceship >> move: aNumberOfMovements [
 ]
 
 { #category : #action }
-Spaceship >> playWith: aLoadedDie on: aBoard [ 
+Spaceship >> playWith: aDie on: aBoard [ 
 	
 	| movements |
-	movements:= aBoard legalMoveFrom: actualPosition move: (aLoadedDie throw).
+	movements:= aBoard legalMoveFrom: actualPosition move: (aDie throw).
 	self move: movements .
 	actualPosition  := aBoard enterWormhole: actualPosition.
 	
