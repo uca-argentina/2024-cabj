@@ -1,30 +1,30 @@
 Class {
-	#name : #TurnManager,
+	#name : #TurnManagerWithId,
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
 		'turn'
 	],
-	#category : #'IngSoft2-Model'
+	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
-TurnManager class >> manage: collectionOfSpaceships [ 
+TurnManagerWithId class >> manage: collectionOfSpaceships [ 
 	^(self new) initializeManage: collectionOfSpaceships .
 ]
 
 { #category : #initialization }
-TurnManager >> initializeManage: collectionOfSpaceships [ 
+TurnManagerWithId >> initializeManage: collectionOfSpaceships [ 
 	spaceships:= collectionOfSpaceships .
-	turn:=1.
+	turn:= 1.
 	
 ]
 
 { #category : #action }
-TurnManager >> nextTurn [
+TurnManagerWithId >> nextTurn [
 	| nextSpaceship |
 	turn > spaceships size ifTrue: [ turn:= 1 ].
 	nextSpaceship:=spaceships at: turn.
 	turn:= turn+1.
-	^nextSpaceship .
+	^nextSpaceship spaceshipName .
 ]

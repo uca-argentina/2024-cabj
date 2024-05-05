@@ -65,6 +65,11 @@ SpaceshipWithId >> position [
 	^ actualPosition .
 ]
 
+{ #category : #'as yet unclassified' }
+SpaceshipWithId >> spaceshipName [
+^spaceShipId .
+]
+
 { #category : #action }
 SpaceshipWithId >> sumOfThrows: collectionOfDice [
 

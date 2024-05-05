@@ -5,10 +5,16 @@ Class {
 }
 
 { #category : #tests }
-TurnManagerTest >> testTurnManagerWithSpaceshipWithIdNextTurnReturnsId [
+TurnManagerTest >> testWithSpaceshipWithoutIdReturnsTheSpaceship [
 
-| aTurnManager |
-aTurnManager:= TurnManager manage: (SpaceshipWithId launch: 1).
+| aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
+spaceshipOne:= SpaceshipWithId launch: 1.
+spaceshipTwo:= SpaceshipWithId launch: 2.
+collectionOfSpaceships:= OrderedCollection with: spaceshipOne with: spaceshipTwo .
 
-self assert: aTurnManager nextTurn equals: 1.
+aTurnManager:= TurnManager manage: (collectionOfSpaceships) .
+aTurnManager nextTurn.
+aTurnManager nextTurn.
+
+self assert: aTurnManager nextTurn equals: spaceshipOne.
 ]
