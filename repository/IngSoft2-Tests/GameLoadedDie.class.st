@@ -20,6 +20,16 @@ GameLoadedDie class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAm
 		  playWithDice: collectionOfFaces.
 ]
 
+{ #category : #action }
+GameLoadedDie >> endOfGame [
+
+	| collectionPositions |
+	turnManager := GameOver new.
+	collectionPositions := collectionOfSpaceships collect: [ :spaceship |
+		                       spaceship position ].
+	^ collectionPositions
+]
+
 { #category : #initialization }
 GameLoadedDie >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
 	
@@ -39,9 +49,14 @@ GameLoadedDie >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: 
 
 { #category : #action }
 GameLoadedDie >> moveSpaceship [
+
 	| positionOfSpaceship nextSpaceship |
-	nextSpaceship:= turnManager nextTurn.
-	positionOfSpaceship:= nextSpaceship playWith: collectionOfDice on: aBoard .
-	positionOfSpaceship = aBoard finishLine ifTrue: [ turnManager:= GameOver new. turnManager nextTurn. ].
-	^positionOfSpaceship.
+	nextSpaceship := turnManager nextTurn.
+	positionOfSpaceship := nextSpaceship
+		                       playWith: collectionOfDice
+		                       on: aBoard.
+
+	positionOfSpaceship = aBoard finishLine ifTrue: [^self endOfGame].
+
+	^ positionOfSpaceship
 ]

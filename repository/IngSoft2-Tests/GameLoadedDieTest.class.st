@@ -50,10 +50,12 @@ self assert: aGame moveSpaceship equals: 8.
 { #category : #testsGame002 }
 GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
-self should: [ | aGame |
-aGame:= GameLoadedDie numberOfSpaceships: 1 boardBoxes: 12 wormholeStartAndEnd: #(6 8) playWithDice: 6 asOrderedCollection.
-aGame moveSpaceship.
-aGame moveSpaceship.] raise: Error withMessage: 'The Game is Over'.
+| aGame resultOfGame |
+resultOfGame:= #(12)asOrderedCollection .
+aGame:= GameLoadedDie numberOfSpaceships: 1 boardBoxes: 12 wormholeStartAndEnd: #(5 7) playWithDice: #(6).
+aGame moveSpaceship .
+
+self assert: (aGame moveSpaceship) equals: resultOfGame.
 
 
 ]
@@ -79,4 +81,16 @@ aGame moveSpaceship .
 aGame moveSpaceship .
 aGame moveSpaceship .
 aGame moveSpaceship . ] raise: Error withMessage: 'The Game is Over'.
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
+
+| aGame resultOfGame |
+resultOfGame:= #(12 6)asOrderedCollection .
+aGame:= GameLoadedDie numberOfSpaceships: 2 boardBoxes: 12 wormholeStartAndEnd: #(5 7) playWithDice: #(6).
+aGame moveSpaceship .
+aGame moveSpaceship .
+
+self assert: (aGame moveSpaceship) equals: resultOfGame.
 ]
