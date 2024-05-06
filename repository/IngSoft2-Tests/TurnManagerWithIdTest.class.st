@@ -10,7 +10,7 @@ TurnManagerWithIdTest >> testTurnManagerWithSpaceshipWithIdNextTurnReturnsId [
 | aTurnManager |
 aTurnManager:= TurnManagerWithId manage: (SpaceshipWithId launch: 1)asOrderedCollection .
 
-self assert: aTurnManager nextTurn equals: 1.
+self assert: (aTurnManager nextTurn) spaceshipName equals: 1.
 ]
 
 { #category : #tests }
@@ -25,7 +25,7 @@ aTurnManager:= TurnManagerWithId manage: (collectionOfSpaceships) .
 aTurnManager nextTurn.
 aTurnManager nextTurn.
 
-self assert: aTurnManager nextTurn equals: 1.
+self assert: (aTurnManager nextTurn) spaceshipName equals: 1.
 ]
 
 { #category : #tests }
@@ -39,5 +39,5 @@ collectionOfSpaceships:= OrderedCollection with: spaceshipOne with: spaceshipTwo
 aTurnManager:= TurnManagerWithId manage: (collectionOfSpaceships) .
 aTurnManager nextTurn.
 
-self assert: aTurnManager nextTurn equals: 2.
+self assert: (aTurnManager nextTurn) spaceshipName equals: 2.
 ]
