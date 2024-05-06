@@ -27,7 +27,7 @@ Spaceship >> initializeLaunch [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements [
 	actualPosition   := actualPosition + aNumberOfMovements .
-	^ actualPosition . 
+	 
 ]
 
 { #category : #action }

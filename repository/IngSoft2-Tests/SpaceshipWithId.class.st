@@ -9,11 +9,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-SpaceshipWithId class >> launch [
-	^(self new) initializeLaunch.
-]
-
-{ #category : #'instance creation' }
 SpaceshipWithId class >> launch: id [
 
 ^(self new) initializeLaunch: id.
@@ -25,11 +20,6 @@ SpaceshipWithId >> checkIf: sumOfThrows isLegalOn: aBoard [
 	| movements |
 	movements := aBoard legalMoveFrom: actualPosition move: sumOfThrows.
 	^ movements
-]
-
-{ #category : #initialization }
-SpaceshipWithId >> initializeLaunch [
-	actualPosition:= 0.
 ]
 
 { #category : #initialization }
@@ -65,7 +55,7 @@ SpaceshipWithId >> position [
 	^ actualPosition .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 SpaceshipWithId >> spaceshipName [
 ^spaceShipId .
 ]
