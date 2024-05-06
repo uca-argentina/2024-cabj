@@ -9,11 +9,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-SpaceshipWithId class >> launch [
-	^(self new) initializeLaunch.
-]
-
-{ #category : #'instance creation' }
 SpaceshipWithId class >> launch: id [
 
 ^(self new) initializeLaunch: id.
@@ -28,11 +23,6 @@ SpaceshipWithId >> checkIf: sumOfThrows isLegalOn: aBoard [
 ]
 
 { #category : #initialization }
-SpaceshipWithId >> initializeLaunch [
-	actualPosition:= 0.
-]
-
-{ #category : #initialization }
 SpaceshipWithId >> initializeLaunch: id [
 
 actualPosition := 0.
@@ -40,7 +30,7 @@ spaceShipId:= id.
 ]
 
 { #category : #action }
-SpaceshipWithId >> move: aNumberOfMovements [
+SpaceshipWithId >> move: aNumberOfMovements on: aBoard [
 	actualPosition   := actualPosition + aNumberOfMovements .
 	^ actualPosition . 
 ]
@@ -49,13 +39,12 @@ SpaceshipWithId >> move: aNumberOfMovements [
 SpaceshipWithId >> playWith: collectionOfDice on: aBoard [
 
 	| movements sumOfThrows |
-	
 	sumOfThrows := self sumOfThrows: collectionOfDice.
-	
+
 	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-	
-	self move: movements.
-	
+
+	self move: movements on: aBoard.
+
 	actualPosition := aBoard enterWormhole: actualPosition.
 	^ actualPosition
 ]
@@ -65,7 +54,7 @@ SpaceshipWithId >> position [
 	^ actualPosition .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 SpaceshipWithId >> spaceshipName [
 ^spaceShipId .
 ]

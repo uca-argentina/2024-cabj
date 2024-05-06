@@ -14,10 +14,9 @@ Spaceship class >> launch [
 
 { #category : #action }
 Spaceship >> checkIf: sumOfThrows isLegalOn: aBoard [
-
-	| movements |
-	movements := aBoard legalMoveFrom: actualPosition move: sumOfThrows.
-	^ movements
+	
+	^(aBoard legalMoveFrom: actualPosition move: sumOfThrows).
+	
 ]
 
 { #category : #initialization }
@@ -26,9 +25,10 @@ Spaceship >> initializeLaunch [
 ]
 
 { #category : #action }
-Spaceship >> move: aNumberOfMovements [
-	actualPosition   := actualPosition + aNumberOfMovements .
-	^ actualPosition . 
+Spaceship >> move: aNumberOfMovements on: aBoard [
+
+	actualPosition:= aBoard enter: (actualPosition + aNumberOfMovements).
+	 
 ]
 
 { #category : #action }
@@ -37,12 +37,11 @@ Spaceship >> playWith: collectionOfDice on: aBoard [
 	| movements sumOfThrows |
 	
 	sumOfThrows := self sumOfThrows: collectionOfDice.
-	
+
 	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-	
-	self move: movements.
-	
-	actualPosition := aBoard enterWormhole: actualPosition.
+
+	self move: movements on: aBoard.
+
 	^ actualPosition
 ]
 
