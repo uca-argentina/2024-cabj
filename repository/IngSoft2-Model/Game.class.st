@@ -2,41 +2,59 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'aSpaceship',
 		'aBoard',
-		'collectionOfDice'
+		'collectionOfDice',
+		'collectionOfSpaceships',
+		'turnManager'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
-
+Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
 	^ self new
-		  initializeWithBoardBoxes: anAmountOfBoxes
+		  initializeNumberOfSpaceships: anAmountOfSpaceships 
+		  boardBoxes: anAmountOfBoxes
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: collectionOfFaces
+		  playWithDice: collectionOfFaces.
+]
+
+{ #category : #action }
+Game >> endOfGame [ 
+
+| collectionPositions |
+	turnManager := GameOver new.
+	collectionPositions := collectionOfSpaceships collect: [ :spaceship |
+		                       spaceship position ].
+	^ collectionPositions
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
-
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
+	
 	aBoard := Board
-		         of: anAmountOfBoxes
-		         withWormholeBeginning: (beginningAndEnd at: 1)
-		         andEnding: (beginningAndEnd at: 2).
-
-	aSpaceship := Spaceship launch.
+		          of: anAmountOfBoxes
+		          withWormholeBeginning: (beginningAndEnd at: 1)
+		          andEnding: (beginningAndEnd at: 2).
+	
+	collectionOfSpaceships:= OrderedCollection new.
+	anAmountOfSpaceships timesRepeat: [ collectionOfSpaceships add: Spaceship launch ].
+	turnManager:= TurnManager manage: collectionOfSpaceships .
 	
 	collectionOfFaces asOrderedCollection .
 	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
-		                    LoadedDie of: numberOfFaces ]
+		                    Die of: numberOfFaces ]
 ]
 
 { #category : #action }
 Game >> moveSpaceship [
-	| positionOfSpaceship |
-	positionOfSpaceship:= aSpaceship playWith: collectionOfDice on: aBoard .
-	positionOfSpaceship = aBoard finishLine ifTrue: [ ^'Game Over' ].
-	^positionOfSpaceship.
+	| positionOfSpaceship nextSpaceship |
+	nextSpaceship := turnManager nextTurn.
+	positionOfSpaceship := nextSpaceship
+		                       playWith: collectionOfDice
+		                       on: aBoard.
+
+	positionOfSpaceship = aBoard finishLine ifTrue: [^self endOfGame].
+
+	^ positionOfSpaceship
 ]
