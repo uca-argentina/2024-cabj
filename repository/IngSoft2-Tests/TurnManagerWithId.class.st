@@ -16,15 +16,24 @@ TurnManagerWithId class >> manage: collectionOfSpaceships [
 { #category : #initialization }
 TurnManagerWithId >> initializeManage: collectionOfSpaceships [ 
 	spaceships:= collectionOfSpaceships .
-	turn:= 1.
+	turn:=spaceships at: 1.
 	
+]
+
+{ #category : #auxiliar }
+TurnManagerWithId >> nextSpaceship [
+
+        | currentIndex nextIndex |
+        currentIndex := spaceships indexOf: turn ifAbsent: [0].
+        nextIndex := currentIndex + 1.
+        nextIndex > spaceships size ifTrue: [nextIndex := 1].
+        ^spaceships at: nextIndex
 ]
 
 { #category : #action }
 TurnManagerWithId >> nextTurn [
-	| nextSpaceship |
-	turn > spaceships size ifTrue: [ turn:= 1 ].
-	nextSpaceship:=spaceships at: turn.
-	turn:= turn+1.
-	^nextSpaceship spaceshipName .
+	| currentSpaceship |
+	currentSpaceship :=turn.
+	turn:= self nextSpaceship.
+	^currentSpaceship .
 ]

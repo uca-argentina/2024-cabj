@@ -8,8 +8,8 @@ Class {
 TurnManagerTest >> testWithSpaceshipWithoutIdReturnsTheSpaceship [
 
 | aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
-spaceshipOne:= SpaceshipWithId launch: 1.
-spaceshipTwo:= SpaceshipWithId launch: 2.
+spaceshipOne:= Spaceship launch.
+spaceshipTwo:= Spaceship launch.
 collectionOfSpaceships:= OrderedCollection with: spaceshipOne with: spaceshipTwo .
 
 aTurnManager:= TurnManager manage: (collectionOfSpaceships) .
