@@ -34,7 +34,7 @@ Spaceship >> playWith: aLoadedDie on: aBoard [
 	| movements |
 	movements:= aBoard legalMoveFrom: actualPosition move: (aLoadedDie throw).
 	self move: movements .
-	actualPosition  := aBoard enterWormhole: actualPosition.
+	actualPosition  := aBoard enter: actualPosition.
 	
 	^actualPosition . 
 ]

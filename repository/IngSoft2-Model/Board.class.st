@@ -5,7 +5,8 @@ Class {
 		'amountOfBoxes',
 		'wormholeBeginning',
 		'wormholeEnding',
-		'wormhole'
+		'wormhole',
+		'collectionOfBoxes'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,10 +18,12 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 ]
 
 { #category : #action }
-Board >> enterWormhole: aPosition [ 
-	aPosition = wormholeBeginning ifTrue: [^wormhole enterBeginning ].
-	aPosition = wormholeEnding  ifTrue: [^wormhole enterEnd ].
-	^aPosition.
+Board >> enter: aPosition [ 
+	
+	| box |
+	box:= collectionOfBoxes at: aPosition.
+	^box enter.
+	 
 ]
 
 { #category : #accessing }
@@ -30,10 +33,30 @@ Board >> finishLine [
 
 { #category : #initialization }
 Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [ 
+	| counter |
 	amountOfBoxes:= anAmountOfBoxes .
-	wormholeBeginning:= aBeginning .
-	wormholeEnding:= anEnd .
-	wormhole:= Wormhole beginning:  wormholeBeginning end: wormholeEnding. 
+	wormholeBeginning:= WormholeBeginning atPosition: aBeginning .
+	wormholeEnding:= WormholeEnding  atPosition: anEnd .
+	wormholeBeginning withEnd: wormholeEnding .
+	wormholeEnding withBeginning: wormholeBeginning .
+	
+	collectionOfBoxes:= OrderedCollection new.
+	counter:= 1.
+	
+	(aBeginning-1) timesRepeat: [ collectionOfBoxes add: (Box position: counter). 
+											counter:= counter+1.].
+	
+	collectionOfBoxes add: wormholeBeginning .
+	counter:= counter+1.
+	
+	((anEnd-1)-(aBeginning)) timesRepeat: [ collectionOfBoxes add: (Box position: counter). 
+											counter:= counter+1.].
+	
+	collectionOfBoxes add: wormholeEnding .
+	counter:= counter+1.
+	
+	(anAmountOfBoxes - anEnd) timesRepeat: [ collectionOfBoxes add: (Box position: counter). 
+											counter:= counter+1.].
 ]
 
 { #category : #'action handling' }
