@@ -41,7 +41,7 @@ Spaceship >> playWith: collectionOfDice on: aBoard [
 	
 	self move: movements.
 	
-	actualPosition := aBoard enterWormhole: actualPosition.
+	actualPosition := aBoard enter: actualPosition.
 	^ actualPosition
 ]
 
