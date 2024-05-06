@@ -21,6 +21,15 @@ self assert: ((aGame moveSpaceship) between: 1 and: 5).
 ]
 
 { #category : #tests }
+GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
+
+self should: [ | aGame |
+aGame:= GameLoadedDie numberOfSpaceships: 2 boardBoxes: 4 wormholeStartAndEnd: #(2 3) playWithDice: #(10 10 10 10 10).
+aGame moveSpaceship . 
+aGame moveSpaceship .] raise: Error withMessage: 'The Game is Over'.
+]
+
+{ #category : #tests }
 GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePosition [
 
 | aGame |
