@@ -9,47 +9,77 @@ WormholeTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMes
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [:error | self assert: error messageText equals: anErrorMessage].
 ]
 
-{ #category : #tests }
-WormholeTest >> testOnEnteringOnThEndItReturnsTheBeginning [
+{ #category : #wormhole2 }
+WormholeTest >> testWormHoleBeginningEnterTheReturnWormHoleEndingPosition [
 
-| aWormhole |
-aWormhole:= Wormhole beginning: 2 end: 8.
+| aWormholeBeginning aWormholeEnding |
+aWormholeBeginning := WormholeBeginning atPosition: 2.
+aWormholeEnding := WormholeEnding atPosition: 3.
+aWormholeBeginning withEnd: aWormholeEnding.
 
-self assert: aWormhole enterEnd equals: 2.
+self assert: aWormholeBeginning enter equals: 3.
 ]
 
-{ #category : #tests }
-WormholeTest >> testOnEnteringOnTheBeginningItReturnsTheEnd [
-
-| aWormhole |
-aWormhole:= Wormhole beginning: 2 end: 10.
-
-self assert: aWormhole enterBeginning equals: 10.
-]
-
-{ #category : #'tests - initialization' }
-WormholeTest >> testWormholeBeginnigCannotBeGreaterThanTheEnd [
+{ #category : #wormhole2 }
+WormholeTest >> testWormholeBeginningCannotBeGreaterThanEnding [
 
 self 
-	should: [Wormhole beginning: 6 end: 2] 
+	should: [| aWormholeBeginning aWormholeEnding |
+				aWormholeBeginning := WormholeBeginning atPosition: 6.
+				aWormholeEnding := WormholeEnding atPosition: 3.
+				aWormholeEnding withBeginning: aWormholeBeginning  .] 
 	raise: Error 
-	withMessage: 'The end must be greater than the beginning'.
+	withMessage: 'The ending must be greater than the beginning'.
 ]
 
-{ #category : #'tests - initialization' }
-WormholeTest >> testWormholeCannotBeCreatedWithBeginningNegative [
+{ #category : #wormhole2 }
+WormholeTest >> testWormholeBeginningCannotbeZeroOrLess [
 
 self 
-	should: [Wormhole beginning: -1 end: 10] 
+	should: [WormholeBeginning atPosition: 0] 
 	raise: Error 
 	withMessage: 'The beginnig must be greater than zero'.
 ]
 
-{ #category : #'tests - initialization' }
-WormholeTest >> testWormholeCannotBeCreatedWithBeginningZero [
+{ #category : #wormhole2 }
+WormholeTest >> testWormholeBeginningCreatedWithEndEnterThenReturnsEnd [
+
+| aWormholeBeginning aWormholeEnding |
+aWormholeBeginning := WormholeBeginning atPosition: 2.
+aWormholeEnding := WormholeEnding atPosition: 6.
+aWormholeBeginning withEnd: aWormholeEnding.
+
+self assert: aWormholeBeginning enter equals: 6.
+]
+
+{ #category : #wormhole2 }
+WormholeTest >> testWormholeEndingCannotBeLessThanBeginning [
 
 self 
-	should: [Wormhole beginning: 0 end: 10] 
+	should: [| aWormholeBeginning aWormholeEnding |
+				aWormholeBeginning := WormholeBeginning atPosition: 6.
+				aWormholeEnding := WormholeEnding atPosition: 3.
+				aWormholeBeginning withEnd: aWormholeEnding  .] 
 	raise: Error 
-	withMessage: 'The beginnig must be greater than zero'.
+	withMessage: 'The ending must be greater than the beginning'.
+]
+
+{ #category : #wormhole2 }
+WormholeTest >> testWormholeEndingCannotBeZeroOrLess [
+
+self 
+	should: [WormholeEnding atPosition: 0] 
+	raise: Error 
+	withMessage: 'The ending must be greater than zero'.
+]
+
+{ #category : #wormhole2 }
+WormholeTest >> testWormholeEndingEnterThenReturnWormholeBeginningPosition [
+
+| aWormholeBeginning aWormholeEnding |
+aWormholeBeginning := WormholeBeginning atPosition: 2.
+aWormholeEnding := WormholeEnding atPosition: 6.
+aWormholeEnding withBeginning: aWormholeBeginning .
+
+self assert: aWormholeEnding enter equals: 2.
 ]

@@ -25,8 +25,9 @@ Spaceship >> initializeLaunch [
 ]
 
 { #category : #action }
-Spaceship >> move: aNumberOfMovements [
-	actualPosition   := actualPosition + aNumberOfMovements .
+Spaceship >> move: aNumberOfMovements on: aBoard [
+
+	actualPosition:= aBoard enter: (actualPosition + aNumberOfMovements).
 	 
 ]
 
@@ -36,12 +37,11 @@ Spaceship >> playWith: collectionOfDice on: aBoard [
 	| movements sumOfThrows |
 	
 	sumOfThrows := self sumOfThrows: collectionOfDice.
-	
+
 	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-	
-	self move: movements.
-	
-	actualPosition := aBoard enterWormhole: actualPosition.
+
+	self move: movements on: aBoard.
+
 	^ actualPosition
 ]
 
