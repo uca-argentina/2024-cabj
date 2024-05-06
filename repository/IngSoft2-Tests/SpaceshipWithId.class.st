@@ -30,7 +30,7 @@ spaceShipId:= id.
 ]
 
 { #category : #action }
-SpaceshipWithId >> move: aNumberOfMovements [
+SpaceshipWithId >> move: aNumberOfMovements on: aBoard [
 	actualPosition   := actualPosition + aNumberOfMovements .
 	^ actualPosition . 
 ]
@@ -39,13 +39,12 @@ SpaceshipWithId >> move: aNumberOfMovements [
 SpaceshipWithId >> playWith: collectionOfDice on: aBoard [
 
 	| movements sumOfThrows |
-	
 	sumOfThrows := self sumOfThrows: collectionOfDice.
-	
+
 	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-	
-	self move: movements.
-	
+
+	self move: movements on: aBoard.
+
 	actualPosition := aBoard enterWormhole: actualPosition.
 	^ actualPosition
 ]

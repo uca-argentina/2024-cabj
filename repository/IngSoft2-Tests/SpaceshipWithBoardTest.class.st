@@ -7,12 +7,16 @@ Class {
 { #category : #playWithOn }
 SpaceshipWithBoardTest >> testMoveSpaceshipThenPlayWithToIlegalPositionReturnsFinishLine [
 
-| aBoard aSpaceship |
-aBoard := Board of: 15 withWormholeBeginning: 6 andEnding: 8.
-aSpaceship := Spaceship launch.
-aSpaceship move: 8.
+	| aBoard aSpaceship |
+	aBoard := Board of: 15 withWormholeBeginning: 6 andEnding: 8.
+	aSpaceship := Spaceship launch.
+	aSpaceship move: 8 on: aBoard.
 
-self assert: (aSpaceship playWith: (OrderedCollection with:(LoadedDie of: 10)) on: aBoard ) equals: 15.
+	self
+		assert: (aSpaceship
+				 playWith: (OrderedCollection with: (LoadedDie of: 10))
+				 on: aBoard)
+		equals: 15
 ]
 
 { #category : #wormhole }

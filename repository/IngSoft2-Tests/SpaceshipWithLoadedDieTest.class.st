@@ -41,13 +41,18 @@ self assert: (aSpaceship playWith: (OrderedCollection with: aLoadedDie) on: aBoa
 { #category : #tests }
 SpaceshipWithLoadedDieTest >> testWhenSpaceshipInPositionOnePlaysWithLoadedDieOfFourThenThePositionIsFive [
 
-| aSpaceship aLoadedDie aBoard |
-aSpaceship := Spaceship launch. 
-aSpaceship move: 1.
-aLoadedDie := LoadedDie of: 4.
-aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	| aSpaceship aLoadedDie aBoard |
+	aSpaceship := Spaceship launch.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aSpaceship move: 1 on: aBoard.
+	aLoadedDie := LoadedDie of: 4.
 
-self assert: (aSpaceship playWith: (OrderedCollection with: aLoadedDie) on: aBoard) equals: 5.
+	self
+		assert:
+		(aSpaceship
+			 playWith: (OrderedCollection with: aLoadedDie)
+			 on: aBoard)
+		equals: 5
 ]
 
 { #category : #tests }
