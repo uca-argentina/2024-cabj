@@ -4,12 +4,12 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #'tests - initialization' }
+{ #category : #move }
 SpaceshipTest >> testSpaceshipInitializeInPositionZero [
 
 | aSpaceship |
 
-aSpaceship:= Spaceship launch.
+aSpaceship:= SpaceshipWithId launch: 1.
 
 self assert: (aSpaceship move:1) equals: 1.
 ]
@@ -19,7 +19,7 @@ SpaceshipTest >> testSpaceshipMovesTwiceAndIsInPositionTwo [
 
 | aSpaceship |
 
-aSpaceship:= Spaceship launch.
+aSpaceship:= SpaceshipWithId launch: 1.
 aSpaceship move:1.
 
 self assert: (aSpaceship move:1) equals: 2.
@@ -28,14 +28,14 @@ self assert: (aSpaceship move:1) equals: 2.
 { #category : #move }
 SpaceshipTest >> testWhenASpaceshipMovesTwiceWithTwoJumps [
 | aSpaceship |
-aSpaceship:= Spaceship launch.
+aSpaceship:= SpaceshipWithId launch: 1.
 self assert: (aSpaceship move:2) equals: 2.
 ]
 
 { #category : #move }
 SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionIsThree [
 | aSpaceship |
-aSpaceship:= Spaceship launch .
+aSpaceship:= SpaceshipWithId launch: 1 .
 aSpaceship  move:2.
 self assert: (aSpaceship move: 1) equals: 3.
 ]

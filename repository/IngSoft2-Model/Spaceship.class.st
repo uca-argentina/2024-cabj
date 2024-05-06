@@ -14,10 +14,9 @@ Spaceship class >> launch [
 
 { #category : #action }
 Spaceship >> checkIf: sumOfThrows isLegalOn: aBoard [
-
-	| movements |
-	movements := aBoard legalMoveFrom: actualPosition move: sumOfThrows.
-	^ movements
+	
+	^(aBoard legalMoveFrom: actualPosition move: sumOfThrows).
+	
 ]
 
 { #category : #initialization }
@@ -28,7 +27,7 @@ Spaceship >> initializeLaunch [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements [
 	actualPosition   := actualPosition + aNumberOfMovements .
-	^ actualPosition . 
+	 
 ]
 
 { #category : #action }
