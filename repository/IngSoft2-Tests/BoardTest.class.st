@@ -9,17 +9,17 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [ :error | self assert: error messageText equals: anErrorMessage ]
 ]
 
-{ #category : #'tests - initialization' }
-BoardTest >> testBoardCannotBeCreatedWithNegativeBoxes [
+{ #category : #tests }
+BoardTest >> test001WhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 
-self 
-	should: [Board of: -1 withWormholeBeginning: 2 andEnding: 10] 
-	raise: Error 
-	withMessage: 'A Board must have more than one box.'.
+| aBoard |
+aBoard:= Board of: 3 withWormholeBeginning: 2 andEnding: 10.
+
+self assert: (aBoard finishLine) equals: 3.
 ]
 
 { #category : #'tests - initialization' }
-BoardTest >> testBoardCannotBeCreatedWithOneBox [
+BoardTest >> test002BoardCannotBeCreatedWithOneBox [
 
 self 
 	should: [Board of: 1 withWormholeBeginning: 2 andEnding: 10] 
@@ -27,8 +27,35 @@ self
 	withMessage: 'A Board must have more than one box.'.
 ]
 
+{ #category : #'tests - initialization' }
+BoardTest >> test003BoardCannotBeCreatedWithNegativeBoxes [
+
+self 
+	should: [Board of: -1 withWormholeBeginning: 2 andEnding: 10] 
+	raise: Error 
+	withMessage: 'A Board must have more than one box.'.
+]
+
+{ #category : #tests }
+BoardTest >> test004BoardFinishLineEqualsAmountOfBoxesInitializeWith [
+
+| aBoard |
+aBoard:= Board of: 4 withWormholeBeginning: 2 andEnding: 10.
+
+self assert: (aBoard finishLine) equals: 4.
+]
+
 { #category : #wormhole }
-BoardTest >> testBoardCreatedWithWormholeEntersOnTheBeginningReturnsTheEnd [
+BoardTest >> test005BoardCreatedWithWormholeEntersOnTheEndReturnsBeginning [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard enter: 10) equals: 2.
+]
+
+{ #category : #wormhole }
+BoardTest >> test006BoardCreatedWithWormholeEntersOnTheBeginningReturnsTheEnd [
 
 | aBoard |
 aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
@@ -37,34 +64,16 @@ self assert: (aBoard enter: 2) equals: 10.
 ]
 
 { #category : #wormhole }
-BoardTest >> testBoardCreatedWithWormholeEntersOnTheEndReturnsBeginning [
+BoardTest >> test007WhenPositionIsNotWormholeThenItStaysTheSame [
 
 | aBoard |
 aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 
-self assert: (aBoard enter: 10) equals: 2.
-]
-
-{ #category : #tests }
-BoardTest >> testBoardFinishLineEqualsAmountOfBoxesInitializeWith [
-
-| aBoard |
-aBoard:= Board of: 4 withWormholeBeginning: 2 andEnding: 10.
-
-self assert: (aBoard finishLine) equals: 4.
+self assert: (aBoard enter: 5) equals: 5.
 ]
 
 { #category : #legalMove }
-BoardTest >> testBoardRecivesIlegalPositionAndReturnsFinishLine [
-
-| aBoard |
-aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
-
-self assert: (aBoard legalMoveFrom: 10 move: 3) equals: 1.
-]
-
-{ #category : #legalMove }
-BoardTest >> testBoardRecivesLegalMoveAndStaysTheSame [
+BoardTest >> test008BoardRecivesLegalMoveAndStaysTheSame [
 
 | aBoard |
 aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
@@ -73,28 +82,19 @@ self assert: (aBoard legalMoveFrom: 1 move: 8) equals: 8.
 ]
 
 { #category : #legalMove }
-BoardTest >> testIlegalMoveFromPositionReturnsLegalMovement [
+BoardTest >> test009BoardRecivesIlegalPositionAndReturnsFinishLine [
+
+| aBoard |
+aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
+
+self assert: (aBoard legalMoveFrom: 10 move: 3) equals: 1.
+]
+
+{ #category : #legalMove }
+BoardTest >> test010IlegalMoveFromPositionReturnsLegalMovement [
 
 | aBoard |
 aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
 
 self assert: (aBoard legalMoveFrom: 8 move: 5) equals: 3.
-]
-
-{ #category : #tests }
-BoardTest >> testWhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
-
-| aBoard |
-aBoard:= Board of: 3 withWormholeBeginning: 2 andEnding: 10.
-
-self assert: (aBoard finishLine) equals: 3.
-]
-
-{ #category : #wormhole }
-BoardTest >> testWhenPositionIsnotWormholeThenItStaysTheSame [
-
-| aBoard |
-aBoard:= Board of: 11 withWormholeBeginning: 2 andEnding: 10 .
-
-self assert: (aBoard enter: 5) equals: 5.
 ]
