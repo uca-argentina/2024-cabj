@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #move }
-SpaceshipTest >> testSpaceshipInitializeInPositionZero [
+SpaceshipTest >> test001SpaceshipInitializeInPositionZero [
 
 	| aSpaceship aBoard |
 	aSpaceship := SpaceshipWithId launch: 1.
@@ -15,7 +15,7 @@ SpaceshipTest >> testSpaceshipInitializeInPositionZero [
 ]
 
 { #category : #move }
-SpaceshipTest >> testSpaceshipMovesTwiceAndIsInPositionTwo [
+SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionTwo [
 
 	| aSpaceship aBoard |
 	aSpaceship := SpaceshipWithId launch: 1.
@@ -25,27 +25,16 @@ SpaceshipTest >> testSpaceshipMovesTwiceAndIsInPositionTwo [
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 2
 ]
 
-{ #category : #move }
-SpaceshipTest >> testWhenASpaceshipMovesTwiceWithTwoJumps [
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test003WhenSpaceshipThenPositionReturnsZero [
 
-	| aSpaceship aBoard |
-	aSpaceship := SpaceshipWithId launch: 1.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
-	self assert: (aSpaceship move: 2 on: aBoard) equals: 2
-]
-
-{ #category : #move }
-SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionIsThree [
-
-	| aSpaceship aBoard |
-	aSpaceship := SpaceshipWithId launch: 1.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
-	aSpaceship move: 2 on: aBoard.
-	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
+| aSpaceship |
+aSpaceship:= Spaceship launch .
+self assert: aSpaceship position equals: 0.
 ]
 
 { #category : #tests }
-SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionReturnsTwo [
+SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionReturnsTwo [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
@@ -55,10 +44,21 @@ SpaceshipTest >> testWhenSpaceshipMovesTwiceThenPositionReturnsTwo [
 	self assert: aSpaceship position equals: 2
 ]
 
-{ #category : #'tests - initialization' }
-SpaceshipTest >> testWhenSpaceshipThenPositionReturnsZero [
+{ #category : #move }
+SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 
-| aSpaceship |
-aSpaceship:= Spaceship launch .
-self assert: aSpaceship position equals: 0.
+	| aSpaceship aBoard |
+	aSpaceship := SpaceshipWithId launch: 1.
+	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	self assert: (aSpaceship move: 2 on: aBoard) equals: 2
+]
+
+{ #category : #move }
+SpaceshipTest >> test006WhenSpaceshipMovesTwiceThenPositionIsThree [
+
+	| aSpaceship aBoard |
+	aSpaceship := SpaceshipWithId launch: 1.
+	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aSpaceship move: 2 on: aBoard.
+	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
 ]
