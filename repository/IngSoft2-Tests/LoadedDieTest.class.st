@@ -10,17 +10,8 @@ LoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMe
 	withExceptionDo: [ :error |self assert: error messageText equals:anErrorMessage  ]
 ]
 
-{ #category : #'tests - initialization' }
-LoadedDieTest >> testALoadedDieCannotHaveLessThanThreeFaces [
-
-self 
-	should: [ LoadedDie of:2 ]
-	raise: Error
-	withMessage:'A die less than three faces doesnt exist'
-]
-
 { #category : #tests }
-LoadedDieTest >> testALoadedDieIsCreatedWithAnAmountOfFaces [
+LoadedDieTest >> test001ALoadedDieIsCreatedWithAnAmountOfFaces [
 
 | aLoadedDie |
 aLoadedDie:= LoadedDie of: 3.
@@ -28,9 +19,18 @@ self assert: aLoadedDie throw equals:3.
 ]
 
 { #category : #tests }
-LoadedDieTest >> testWhenLoadedDieIsThrownThenReturnsTheAmountOfFaces [
+LoadedDieTest >> test002WhenLoadedDieIsThrownThenReturnsTheAmountOfFaces [
 
 | aLoadedDie |
 aLoadedDie:= LoadedDie of: 4.
 self assert: aLoadedDie throw equals:4.
+]
+
+{ #category : #'tests - initialization' }
+LoadedDieTest >> test003ALoadedDieCannotHaveLessThanThreeFaces [
+
+self 
+	should: [ LoadedDie of:2 ]
+	raise: Error
+	withMessage:'A die less than three faces doesnt exist'
 ]
