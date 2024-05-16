@@ -12,12 +12,15 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 { #category : #testsGame002 }
 GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
-	| aGame |
+	| aGame aLoadedDie |
+	aLoadedDie:= LoadedDie of:6.
+	
+	
 	aGame := GameLoadedDie 
 		         numberOfSpaceships: 1 
 				   boardBoxes: 10
 		         wormholeStartAndEnd: #(2 3)
-		         playWithDice: #(6).
+		         playWithDice: (aLoadedDie asOrderedCollection ) .
 
 	self assert: aGame moveSpaceship equals: 6
 ]
@@ -25,12 +28,13 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 { #category : #testsGame002 }
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
 
-	| aGame |
+	| aGame aLoadedDie|
+	aLoadedDie := LoadedDie of:6.
 	aGame := GameLoadedDie 
 		         numberOfSpaceships: 1 
 				   boardBoxes: 15
 		         wormholeStartAndEnd: #(4 7)
-		         playWithDice: #(6).
+		         playWithDice: aLoadedDie asOrderedCollection .
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: 12

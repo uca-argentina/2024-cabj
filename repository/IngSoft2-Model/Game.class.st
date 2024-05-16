@@ -11,12 +11,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
+Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships 
 		  boardBoxes: anAmountOfBoxes
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: collectionOfFaces.
+		  playWithDice: aCollectionOfDice.
 ]
 
 { #category : #initialization }
@@ -46,7 +46,7 @@ Game >> endOfGame [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 
 	aBoard := Board
 		          of: anAmountOfBoxes
@@ -57,7 +57,7 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 	
 	turnManager := TurnManager manage: collectionOfSpaceships.
 	
-	self collectDice: collectionOfFaces
+	collectionOfDice:= aCollectionOfDice  .
 ]
 
 { #category : #action }
@@ -65,7 +65,7 @@ Game >> moveSpaceship [
 	| positionOfSpaceship nextSpaceship |
 	nextSpaceship := turnManager nextTurn.
 	positionOfSpaceship := nextSpaceship
-		                       playWith: collectionOfDice
+		                       playWith: collectionOfDice 
 		                       on: aBoard.
 
 	positionOfSpaceship = aBoard finishLine ifTrue: [^self endOfGame].

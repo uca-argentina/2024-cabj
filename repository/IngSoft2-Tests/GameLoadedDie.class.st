@@ -12,12 +12,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-GameLoadedDie class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
+GameLoadedDie class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships 
 		  boardBoxes: anAmountOfBoxes
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: collectionOfFaces.
+		  playWithDice: aCollectionOfDice .
 ]
 
 { #category : #action }
@@ -31,7 +31,7 @@ GameLoadedDie >> endOfGame [
 ]
 
 { #category : #initialization }
-GameLoadedDie >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
+GameLoadedDie >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 	
 	aBoard := Board
 		          of: anAmountOfBoxes
@@ -42,9 +42,8 @@ GameLoadedDie >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: 
 	anAmountOfSpaceships timesRepeat: [ collectionOfSpaceships add: Spaceship launch ].
 	turnManager:= TurnManager manage: collectionOfSpaceships .
 	
-	collectionOfFaces asOrderedCollection .
-	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
-		                    LoadedDie of: numberOfFaces ]
+	collectionOfDice :=aCollectionOfDice .
+	
 ]
 
 { #category : #action }

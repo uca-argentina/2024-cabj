@@ -12,7 +12,7 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 { #category : #testsGame002 }
 GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces [
 
-| aGame |
+| aGame|
 aGame:= Game numberOfSpaceships: 1 boardBoxes: 50 wormholeStartAndEnd: #(48 49) playWithDice: #(5).
 
 self assert: ((aGame moveSpaceship) between: 1 and: 5). 
