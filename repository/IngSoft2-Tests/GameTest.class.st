@@ -33,7 +33,7 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 		                     with: (Die of: 10)
 		                     with: (Die of: 10)
 		                     with: (Die of: 10).
-	aGame := GameLoadedDie
+	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 4
 		         wormholeStartAndEnd: #( 2 3 )

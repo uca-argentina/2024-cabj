@@ -16,7 +16,7 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 	aLoadedDie:= LoadedDie of:6.
 	
 	
-	aGame := GameLoadedDie 
+	aGame := Game 
 		         numberOfSpaceships: 1 
 				   boardBoxes: 10
 		         wormholeStartAndEnd: #(2 3)
@@ -30,7 +30,7 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwe
 
 	| aGame aLoadedDie|
 	aLoadedDie := LoadedDie of:6.
-	aGame := GameLoadedDie 
+	aGame := Game 
 		         numberOfSpaceships: 1 
 				   boardBoxes: 15
 		         wormholeStartAndEnd: #(4 7)
@@ -45,7 +45,7 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 
 	| aGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
-	aGame := GameLoadedDie
+	aGame := Game
 		         numberOfSpaceships: 1
 		         boardBoxes: 15
 		         wormholeStartAndEnd: #( 6 8 )
@@ -60,7 +60,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 	| aGame resultOfGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
 	resultOfGame := #( 12 ) asOrderedCollection.
-	aGame := GameLoadedDie
+	aGame := Game
 		         numberOfSpaceships: 1
 		         boardBoxes: 12
 		         wormholeStartAndEnd: #( 5 7 )
@@ -75,7 +75,7 @@ GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirs
 
 	| aGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
-	aGame := GameLoadedDie
+	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 50
 		         wormholeStartAndEnd: #( 40 45 )
@@ -91,7 +91,7 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
 	| aGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
-	aGame := GameLoadedDie
+	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 12
 		         wormholeStartAndEnd: #( 5 7 )
@@ -111,7 +111,7 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 	| aGame resultOfGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
 	resultOfGame := #( 12 6 ) asOrderedCollection.
-	aGame := GameLoadedDie
+	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 12
 		         wormholeStartAndEnd: #( 5 7 )
