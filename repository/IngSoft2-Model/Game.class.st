@@ -20,14 +20,6 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBox
 ]
 
 { #category : #initialization }
-Game >> collectDice: collectionOfFaces [
-
-	collectionOfFaces asOrderedCollection.
-	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
-		                    Die of: numberOfFaces ]
-]
-
-{ #category : #initialization }
 Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
