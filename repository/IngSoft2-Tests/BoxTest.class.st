@@ -20,7 +20,7 @@ self assert: aBox enter equals: 1 .
 ]
 
 { #category : #tests }
-BoxTest >> test02PositionZeroOrLessThenError [
+BoxTest >> test02PositionOfTheBoxHasToBeGreaterThanZero [
 
 self 
 	should: [ Box position: 0 ]
