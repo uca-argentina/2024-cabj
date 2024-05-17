@@ -10,16 +10,16 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
+Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 
 	^ self new
 		  initializeWithBoardBoxes: anAmountOfBoxes
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: collectionOfFaces
+		  playWithDice: aCollectionOfDice
 ]
 
 { #category : #initialization }
-Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
+Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [ 
 
 	aBoard := Board
 		         of: anAmountOfBoxes
@@ -28,9 +28,7 @@ Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginning
 
 	aSpaceship := Spaceship launch.
 	
-	collectionOfFaces asOrderedCollection .
-	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
-		                    LoadedDie of: numberOfFaces ]
+	collectionOfDice := aCollectionOfDice 
 ]
 
 { #category : #action }
