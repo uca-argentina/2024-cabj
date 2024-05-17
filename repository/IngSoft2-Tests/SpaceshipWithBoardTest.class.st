@@ -22,19 +22,27 @@ SpaceshipWithBoardTest >> testMoveSpaceshipThenPlayWithToIlegalPositionReturnsFi
 { #category : #wormhole }
 SpaceshipWithBoardTest >> testSpaceshipPlaysWithBoardFallsOnWormholeFromEndToStart [
 
-| aBoard aSpaceship |
-aBoard := Board of: 15 withWormholeBeginning: 3 andEnding: 6.
-aSpaceship := Spaceship launch.
+	| aBoard aSpaceship |
+	aBoard := Board of: 15 withWormholeBeginning: 3 andEnding: 6.
+	aSpaceship := Spaceship launch.
 
-self assert: (aSpaceship playWith: (OrderedCollection with:(LoadedDie of: 6)) on: aBoard ) equals: 3.
+	self
+		assert: (aSpaceship
+				 playWith: (OrderedCollection with: (LoadedDie of: 6))
+				 on: aBoard)
+		equals: 3
 ]
 
 { #category : #wormhole }
 SpaceshipWithBoardTest >> testSpaceshipPlaysWithBoardFallsOnWormholeFromStartToEnd [
 
-| aBoard aSpaceship |
-aBoard := Board of: 15 withWormholeBeginning: 6 andEnding: 8.
-aSpaceship := Spaceship launch.
+	| aBoard aSpaceship |
+	aBoard := Board of: 15 withWormholeBeginning: 6 andEnding: 8.
+	aSpaceship := Spaceship launch.
 
-self assert: (aSpaceship playWith: (OrderedCollection with:(LoadedDie of: 6)) on: aBoard ) equals: 8.
+	self
+		assert: (aSpaceship
+				 playWith: (OrderedCollection with: (LoadedDie of: 6))
+				 on: aBoard)
+		equals: 8
 ]
