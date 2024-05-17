@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #move }
-SpaceshipTest >> test001SpaceshipInitializeInPositionZero [
+SpaceshipTest >> test001SpaceshipInitializeInPositionZeroAndMovesOneTimeThenIsInPositionOne [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
