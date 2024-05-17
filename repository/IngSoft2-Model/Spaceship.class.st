@@ -55,6 +55,6 @@ Spaceship >> sumOfThrows: collectionOfDice [
 
 	| sumOfThrows |
 	sumOfThrows := 0.
-	collectionOfDice do: [ :die | sumOfThrows := sumOfThrows + die throw ].
+	sumOfThrows := collectionOfDice inject:0 into:[:sum :die | sum + die throw].
 	^ sumOfThrows
 ]
