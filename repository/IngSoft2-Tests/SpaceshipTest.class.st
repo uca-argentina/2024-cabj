@@ -8,7 +8,7 @@ Class {
 SpaceshipTest >> test001SpaceshipInitializeInPositionZero [
 
 	| aSpaceship aBoard |
-	aSpaceship := SpaceshipWithId launch: 1.
+	aSpaceship := Spaceship launch.
 	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 1
@@ -18,7 +18,7 @@ SpaceshipTest >> test001SpaceshipInitializeInPositionZero [
 SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionTwo [
 
 	| aSpaceship aBoard |
-	aSpaceship := SpaceshipWithId launch: 1.
+	aSpaceship := Spaceship launch.
 	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 
@@ -48,7 +48,7 @@ SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionReturnsTwo [
 SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 
 	| aSpaceship aBoard |
-	aSpaceship := SpaceshipWithId launch: 1.
+	aSpaceship := Spaceship launch.
 	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	self assert: (aSpaceship move: 2 on: aBoard) equals: 2
 ]
@@ -57,7 +57,7 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 SpaceshipTest >> test006WhenSpaceshipMovesTwiceThenPositionIsThree [
 
 	| aSpaceship aBoard |
-	aSpaceship := SpaceshipWithId launch: 1.
+	aSpaceship := Spaceship launch.
 	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 2 on: aBoard.
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
