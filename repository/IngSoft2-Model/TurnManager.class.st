@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
-		'turn'
+		'currentSpaceship'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,7 +16,7 @@ TurnManager class >> manage: collectionOfSpaceships [
 { #category : #initialization }
 TurnManager >> initializeManage: collectionOfSpaceships [ 
 	spaceships:= collectionOfSpaceships .
-	turn:=spaceships at: 1.
+	currentSpaceship:=spaceships at: 1.
 	
 ]
 
@@ -24,7 +24,7 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 TurnManager >> nextSpaceship [
 
         | currentIndex nextIndex |
-        currentIndex := spaceships indexOf: turn ifAbsent: [0].
+        currentIndex := spaceships indexOf: currentSpaceship .
         nextIndex := currentIndex + 1.
         nextIndex > spaceships size ifTrue: [nextIndex := 1].
         ^spaceships at: nextIndex
@@ -32,8 +32,8 @@ TurnManager >> nextSpaceship [
 
 { #category : #action }
 TurnManager >> nextTurn [
-	| currentSpaceship |
-	currentSpaceship :=turn.
-	turn:= self nextSpaceship.
-	^currentSpaceship .
+	| spaceshipPlaying |
+	spaceshipPlaying :=currentSpaceship .
+	currentSpaceship := self nextSpaceship.
+	^spaceshipPlaying  .
 ]
