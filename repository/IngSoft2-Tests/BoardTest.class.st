@@ -13,7 +13,7 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 BoardTest >> test001WhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 
 | aBoard |
-aBoard:= Board of: 3 withWormholeBeginning: 2 andEnding: 10.
+aBoard:= Board of: 3 withWormholeBeginning: 1 andEnding: 2.
 
 self assert: (aBoard finishLine) equals: 3.
 ]
@@ -40,7 +40,7 @@ self
 BoardTest >> test004BoardFinishLineEqualsAmountOfBoxesInitializeWith [
 
 | aBoard |
-aBoard:= Board of: 4 withWormholeBeginning: 2 andEnding: 10.
+aBoard:= Board of: 4 withWormholeBeginning: 2 andEnding: 3.
 
 self assert: (aBoard finishLine) equals: 4.
 ]

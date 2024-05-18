@@ -18,37 +18,6 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 ]
 
 { #category : #initialization }
-Board >> collectBoxes: numberOfBoxes withCounter: aCounter [
-
-	| counter |
-	counter := aCounter.
-
-	numberOfBoxes timesRepeat: [
-		collectionOfBoxes add: (Box position: counter).
-		counter := counter + 1 ].
-	^ counter
-]
-
-{ #category : #initialization }
-Board >> createCollectioOfBoxes: anAmountOfBoxes with: aBeginning and: anEnd [
-
-	| counter |
-	collectionOfBoxes := OrderedCollection new.
-	counter := 1.
-	counter := self collectBoxes: aBeginning - 1 withCounter: counter.
-	collectionOfBoxes add: wormholeBeginning.
-	counter := counter + 1.
-	counter := self
-		           collectBoxes: anEnd - 1 - aBeginning
-		           withCounter: counter.
-	collectionOfBoxes add: wormholeEnding.
-	counter := counter + 1.
-	counter := self
-		           collectBoxes: anAmountOfBoxes - anEnd
-		           withCounter: counter
-]
-
-{ #category : #initialization }
 Board >> createWormholeAt: aBeginning and: anEnd [
 
 	wormholeBeginning := WormholeBeginning atPosition: aBeginning.
@@ -76,10 +45,13 @@ Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEndi
 
 	amountOfBoxes := anAmountOfBoxes.
 	self createWormholeAt: aBeginning and: anEnd.
-	self
-		createCollectioOfBoxes: anAmountOfBoxes
-		with: aBeginning
-		and: anEnd
+
+	collectionOfBoxes := OrderedCollection new.
+	1 to: anAmountOfBoxes do: [ :index |
+	collectionOfBoxes add: (Box position: index) ].
+
+	collectionOfBoxes at: aBeginning put: wormholeBeginning.
+	collectionOfBoxes at: anEnd put: wormholeEnding
 ]
 
 { #category : #'action handling' }
