@@ -18,7 +18,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 		         numberOfSpaceships: 1
 		         boardBoxes: 50
 		         wormholeStartAndEnd: #( 48 49 )
-		         playWithDice: aDie asOrderedCollection.
+		         playWithDice: aDie.
 
 	self assert: (aGame moveSpaceship between: 1 and: 5)
 ]
@@ -27,12 +27,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame aCollectionOfDice |
-	aCollectionOfDice := OrderedCollection
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10).
+	aCollectionOfDice := CollectionOfDie of: #( 10 10 10 10 10 ).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 4
@@ -54,7 +49,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 		         numberOfSpaceships: 2
 		         boardBoxes: 50
 		         wormholeStartAndEnd: #( 40 45 )
-		         playWithDice: aDie asOrderedCollection.
+		         playWithDice: aDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -65,13 +60,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 
 	| aGame resultOfGame aCollectionOfDice |
-	aCollectionOfDice := OrderedCollection
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10)
-		                     with: (Die of: 10).
+	aCollectionOfDice := CollectionOfDie of: #( 10 10 10 10 10 10 ).
 	resultOfGame := #( 4 ) asOrderedCollection.
 	aGame := Game
 		         numberOfSpaceships: 1

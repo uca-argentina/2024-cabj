@@ -54,10 +54,13 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 
 { #category : #action }
 Game >> moveSpaceship [
-	| positionOfSpaceship nextSpaceship |
+	| positionOfSpaceship nextSpaceship throwResult|
 	nextSpaceship := turnManager nextTurn.
+	
+	throwResult := aBoard legalMoveFrom: (nextSpaceship position) move: collectionOfDice throw. 
+	
 	positionOfSpaceship := nextSpaceship
-		                       playWith: collectionOfDice 
+		                       move: throwResult  
 		                       on: aBoard.
 
 	positionOfSpaceship = aBoard finishLine ifTrue: [^self endOfGame].

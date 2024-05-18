@@ -20,7 +20,7 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 		         numberOfSpaceships: 1 
 				   boardBoxes: 10
 		         wormholeStartAndEnd: #(2 3)
-		         playWithDice: (aLoadedDie asOrderedCollection ) .
+		         playWithDice: aLoadedDie.
 
 	self assert: aGame moveSpaceship equals: 6
 ]
@@ -34,7 +34,7 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwe
 		         numberOfSpaceships: 1 
 				   boardBoxes: 15
 		         wormholeStartAndEnd: #(4 7)
-		         playWithDice: aLoadedDie asOrderedCollection .
+		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: 12
@@ -49,7 +49,7 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 		         numberOfSpaceships: 1
 		         boardBoxes: 15
 		         wormholeStartAndEnd: #( 6 8 )
-		         playWithDice: aLoadedDie asOrderedCollection.
+		         playWithDice: aLoadedDie.
 
 	self assert: aGame moveSpaceship equals: 8
 ]
@@ -64,7 +64,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 		         numberOfSpaceships: 1
 		         boardBoxes: 12
 		         wormholeStartAndEnd: #( 5 7 )
-		         playWithDice: aLoadedDie asOrderedCollection.
+		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: resultOfGame
@@ -79,7 +79,7 @@ GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirs
 		         numberOfSpaceships: 2
 		         boardBoxes: 50
 		         wormholeStartAndEnd: #( 40 45 )
-		         playWithDice: aLoadedDie asOrderedCollection.
+		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -95,7 +95,7 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 		         numberOfSpaceships: 2
 		         boardBoxes: 12
 		         wormholeStartAndEnd: #( 5 7 )
-		         playWithDice: aLoadedDie asOrderedCollection.
+		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -115,7 +115,7 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 		         numberOfSpaceships: 2
 		         boardBoxes: 12
 		         wormholeStartAndEnd: #( 5 7 )
-		         playWithDice: aLoadedDie asOrderedCollection.
+		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
