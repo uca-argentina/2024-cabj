@@ -12,13 +12,6 @@ Spaceship class >> launch [
 	^(self new) initializeLaunch.
 ]
 
-{ #category : #action }
-Spaceship >> checkIf: sumOfThrows isLegalOn: aBoard [
-	
-	^(aBoard legalMoveFrom: actualPosition move: sumOfThrows).
-	
-]
-
 { #category : #initialization }
 Spaceship >> initializeLaunch [
 	actualPosition:= 0.
@@ -31,30 +24,7 @@ Spaceship >> move: aNumberOfMovements on: aBoard [
 	^actualPosition 
 ]
 
-{ #category : #action }
-Spaceship >> playWith: collectionOfDice on: aBoard [
-
-	| movements sumOfThrows |
-	
-	sumOfThrows := self sumOfThrows: collectionOfDice.
-
-	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-
-	self move: movements on: aBoard.
-
-	^ actualPosition
-]
-
 { #category : #accessing }
 Spaceship >> position [
 	^ actualPosition .
-]
-
-{ #category : #action }
-Spaceship >> sumOfThrows: collectionOfDice [
-
-	| sumOfThrows |
-	sumOfThrows := 0.
-	sumOfThrows := collectionOfDice inject:0 into:[:sum :die | sum + die throw].
-	^ sumOfThrows
 ]
