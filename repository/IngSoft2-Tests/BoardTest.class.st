@@ -10,7 +10,7 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 ]
 
 { #category : #tests }
-BoardTest >> test001WhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
+BoardTest >> test001WhenBoardInitializeWithThreeCellsThenFinishesOnThree [
 
 	| aBoard |
 	aBoard := Board of: 3 withWormholeBeginning: 1 andEnding: 2.
@@ -18,7 +18,7 @@ BoardTest >> test001WhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 ]
 
 { #category : #'tests - initialization' }
-BoardTest >> test002BoardCannotBeCreatedWithOneBox [
+BoardTest >> test002BoardCannotBeCreatedWithOneCell [
 
 	self
 		should: [ Board of: 1 withWormholeBeginning: 2 andEnding: 10 ]
@@ -27,7 +27,7 @@ BoardTest >> test002BoardCannotBeCreatedWithOneBox [
 ]
 
 { #category : #'tests - initialization' }
-BoardTest >> test003BoardCannotBeCreatedWithNegativeBoxes [
+BoardTest >> test003BoardCannotBeCreatedWithNegativeCells [
 
 	self
 		should: [ Board of: -1 withWormholeBeginning: 2 andEnding: 10 ]
@@ -36,7 +36,7 @@ BoardTest >> test003BoardCannotBeCreatedWithNegativeBoxes [
 ]
 
 { #category : #tests }
-BoardTest >> test004BoardFinishLineEqualsAmountOfBoxesInitializeWith [
+BoardTest >> test004BoardFinishLineEqualsAmountOfCellsInitializeWith [
 
 	| aBoard |
 	aBoard := Board of: 4 withWormholeBeginning: 2 andEnding: 3.
@@ -77,7 +77,7 @@ BoardTest >> test008BoardRecivesLegalMoveAndStaysTheSame [
 	| aBoard |
 	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
 
-	self assert: (aBoard legalMoveFrom: 1 move: 8) equals: 8
+	self assert: (aBoard adjustMovementWithinBounsFrom: 1 by: 8) equals: 8
 ]
 
 { #category : #legalMove }
@@ -86,7 +86,7 @@ BoardTest >> test009BoardRecivesIlegalPositionAndReturnsFinishLine [
 	| aBoard |
 	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
 
-	self assert: (aBoard legalMoveFrom: 10 move: 3) equals: 1
+	self assert: (aBoard adjustMovementWithinBounsFrom: 10 by: 3) equals: 1
 ]
 
 { #category : #legalMove }
@@ -95,7 +95,7 @@ BoardTest >> test010IlegalMoveFromPositionReturnsLegalMovement [
 	| aBoard |
 	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
 
-	self assert: (aBoard legalMoveFrom: 8 move: 5) equals: 3
+	self assert: (aBoard adjustMovementWithinBounsFrom: 8 by: 5) equals: 3
 ]
 
 { #category : #legalMove }

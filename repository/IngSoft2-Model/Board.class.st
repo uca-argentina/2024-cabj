@@ -2,11 +2,8 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'amountOfBoxes',
-		'wormholeBeginning',
-		'wormholeEnding',
-		'wormhole',
-		'collectionOfBoxes'
+		'amountOfCells',
+		'collectionOfCells'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,35 +16,34 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
 ]
 
+{ #category : #'action handling' }
+Board >> adjustMovementWithinBounsFrom: aPosition by: aMovement [
+
+	aPosition + aMovement < amountOfCells ifTrue: [ ^ aMovement ].
+	^ amountOfCells - aPosition
+]
+
 { #category : #action }
-Board >> enter: aPosition [ 
-	
-	| box |
-	box:= collectionOfBoxes at: aPosition.
-	^box enter.
-	 
+Board >> enter: aPosition [
+
+	^ (collectionOfCells at: aPosition) enter
 ]
 
 { #category : #accessing }
 Board >> finishLine [
-	^amountOfBoxes .
+
+	^ amountOfCells
 ]
 
 { #category : #initialization }
-Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
+Board >> initializeOf: anAmountOfCells withWormholeBeginning: aBeginning andEnding: anEnd [
 
-	amountOfBoxes := anAmountOfBoxes.
+	amountOfCells := anAmountOfCells.
 
-	collectionOfBoxes := OrderedCollection new.
-	1 to: anAmountOfBoxes do: [ :index |
-	collectionOfBoxes add: (RegularCell position: index) ].
+	collectionOfCells := OrderedCollection new.
+	1 to: anAmountOfCells do: [ :index |
+	collectionOfCells add: (RegularCell position: index) ].
 
-	collectionOfBoxes at: aBeginning put: (RegularCell position: anEnd).
-	collectionOfBoxes at: anEnd put: (RegularCell position: aBeginning).
-]
-
-{ #category : #'action handling' }
-Board >> legalMoveFrom: aPosition move: aMovement [  
-	(aPosition+aMovement)<amountOfBoxes ifTrue:[^aMovement].
-	^(amountOfBoxes-aPosition).
+	collectionOfCells at: aBeginning put: (RegularCell position: anEnd).
+	collectionOfCells at: anEnd put: (RegularCell position: aBeginning)
 ]
