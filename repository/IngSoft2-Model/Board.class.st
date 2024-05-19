@@ -48,7 +48,7 @@ Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEndi
 
 	collectionOfBoxes := OrderedCollection new.
 	1 to: anAmountOfBoxes do: [ :index |
-	collectionOfBoxes add: (Box position: index) ].
+	collectionOfBoxes add: (RegularCell position: index) ].
 
 	collectionOfBoxes at: aBeginning put: wormholeBeginning.
 	collectionOfBoxes at: anEnd put: wormholeEnding
