@@ -13,17 +13,17 @@ RegularCellTest >> should: anErrorBlock raise: anErrorClass withMessage: anError
 { #category : #tests }
 RegularCellTest >> test01RegularCellInitializeWithPositionThenEnterReturnsIt [
 
-| aBox |
-aBox:= RegularCell position: 1.
+	| aBox |
+	aBox := RegularCell position: 1.
 
-self assert: aBox enter equals: 1 .
+	self assert: aBox enter equals: 1
 ]
 
 { #category : #tests }
 RegularCellTest >> test02PositionOfTheRegularCellHasToBeGreaterThanZero [
 
-self 
-	should: [ RegularCell position: 0 ]
-	raise: Error
-	withMessage:'A cell must have position greater than zero'.
+	self
+		should: [ RegularCell position: 0 ]
+		raise: Error
+		withMessage: 'A cell must have position greater than zero'
 ]
