@@ -45,8 +45,7 @@ Spaceship >> initializeLaunch: counterId [
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
 	actualPosition:= aBoard enter: (actualPosition + aNumberOfMovements).
-	^ actualPosition . 
-	 
+	^actualPosition 
 ]
 
 { #category : #accessing }

@@ -59,7 +59,8 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 	| aGame resultOfGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
-	resultOfGame := #( 12 ) asOrderedCollection.
+	resultOfGame := Dictionary new.
+	resultOfGame at: 1 put: 12.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         boardBoxes: 12
@@ -110,7 +111,9 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
 	| aGame resultOfGame aLoadedDie |
 	aLoadedDie := LoadedDie of: 6.
-	resultOfGame := #( 12 6 ) asOrderedCollection.
+	resultOfGame := Dictionary new.
+	resultOfGame at: 1 put: 12.
+	resultOfGame at: 2 put: 6.
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 12
@@ -120,4 +123,19 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: resultOfGame
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
+
+	| aGame aLoadedDie |
+	aLoadedDie := LoadedDie of: 6.
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardBoxes: 6
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+
+	self assert: aGame getWinner equals: 1
 ]

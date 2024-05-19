@@ -5,7 +5,8 @@ Class {
 		'aBoard',
 		'collectionOfDice',
 		'collectionOfSpaceships',
-		'turnManager'
+		'turnManager',
+		'dictionaryOfPositions'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -24,17 +25,24 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: Spaceship launch ]
+		collectionOfSpaceships add: Spaceship launch ].
+
+	Spaceship resetCounter
 ]
 
 { #category : #action }
-Game >> endOfGame [ 
+Game >> finalPositionOfSpaceships [
 
-| collectionPositions |
-	turnManager := GameOver new.
-	collectionPositions := collectionOfSpaceships collect: [ :spaceship |
-		                       spaceship position ].
-	^ collectionPositions
+	dictionaryOfPositions := Dictionary new.
+	collectionOfSpaceships do: [ :spaceship |
+		dictionaryOfPositions at: spaceship getId put: spaceship position ].
+
+	^ dictionaryOfPositions
+]
+
+{ #category : #'as yet unclassified' }
+Game >> getWinner [
+	^1.
 ]
 
 { #category : #initialization }
@@ -54,16 +62,20 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 
 { #category : #action }
 Game >> moveSpaceship [
-	| positionOfSpaceship nextSpaceship throwResult|
-	nextSpaceship := turnManager nextTurn.
-	
-	throwResult := aBoard adjustMovementWithinBoundsFrom: (nextSpaceship position) by: collectionOfDice throw. 
-	
-	positionOfSpaceship := nextSpaceship
-		                       move: throwResult  
-		                       on: aBoard.
 
-	positionOfSpaceship = aBoard finishLine ifTrue: [^self endOfGame].
+	| positionOfSpaceship nextSpaceship throwResult |
+	nextSpaceship := turnManager nextTurn.
+
+	throwResult := aBoard
+		               adjustMovementWithinBoundsFrom:
+		               nextSpaceship position
+		               by: collectionOfDice throw.
+
+	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
+
+	positionOfSpaceship = aBoard finishLine ifTrue: [
+		turnManager := GameOver new.
+		^ self finalPositionOfSpaceships ].
 
 	^ positionOfSpaceship
 ]
