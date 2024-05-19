@@ -4,11 +4,6 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #asserting }
-BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
-	self should: anErrorBlock raise: anErrorClass withExceptionDo: [ :error | self assert: error messageText equals: anErrorMessage ]
-]
-
 { #category : #tests }
 BoardTest >> test001WhenBoardInitializeWithThreeCellsThenFinishesOnThree [
 
