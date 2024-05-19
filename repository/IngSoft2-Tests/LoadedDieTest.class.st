@@ -43,3 +43,12 @@ aLoadedDie:= LoadedDie of: #(3 4 5).
 aLoadedDie throw.
 self assert: aLoadedDie throw equals:4.
 ]
+
+{ #category : #'tests - initialization' }
+LoadedDieTest >> test005WhenASequenceEndsThenThrowStartsItAgain [
+
+| aLoadedDie |
+aLoadedDie:= LoadedDie of: #(3).
+aLoadedDie throw.
+self assert: aLoadedDie throw equals:3.
+]
