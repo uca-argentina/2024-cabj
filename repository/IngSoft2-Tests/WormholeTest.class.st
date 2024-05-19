@@ -9,77 +9,30 @@ WormholeTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMes
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [:error | self assert: error messageText equals: anErrorMessage].
 ]
 
-{ #category : #wormhole2 }
-WormholeTest >> testWormHoleBeginningEnterTheReturnWormHoleEndingPosition [
+{ #category : #wormholeEnd }
+WormholeTest >> test001WormholeEndEnterThenReturnsOppositeSide [
 
-| aWormholeBeginning aWormholeEnding |
-aWormholeBeginning := WormholeBeginning atPosition: 2.
-aWormholeEnding := WormholeEnding atPosition: 3.
-aWormholeBeginning withEnd: aWormholeEnding.
+| aWormholeEnd |
+aWormholeEnd := WormholeEnd withOpposite: 3.
 
-self assert: aWormholeBeginning enter equals: 3.
+self assert: aWormholeEnd enter equals: 3.
 ]
 
-{ #category : #wormhole2 }
-WormholeTest >> testWormholeBeginningCannotBeGreaterThanEnding [
+{ #category : #wormhole }
+WormholeTest >> test002WormholeSecondSideMustBeGreaterThanFirst [
 
 self 
-	should: [| aWormholeBeginning aWormholeEnding |
-				aWormholeBeginning := WormholeBeginning atPosition: 6.
-				aWormholeEnding := WormholeEnding atPosition: 3.
-				aWormholeEnding withBeginning: aWormholeBeginning  .] 
+	should: [| aWormhole |
+				aWormhole:= Wormhole withSides: 5 and: 3] 
 	raise: Error 
 	withMessage: 'The ending must be greater than the beginning'.
 ]
 
-{ #category : #wormhole2 }
-WormholeTest >> testWormholeBeginningCannotbeZeroOrLess [
+{ #category : #wormholeEnd }
+WormholeTest >> test003WormholeEndOppositeMustBeGreaterThanZero [
 
 self 
-	should: [WormholeBeginning atPosition: 0] 
+	should: [WormholeEnd withOpposite: 0] 
 	raise: Error 
-	withMessage: 'The beginnig must be greater than zero'.
-]
-
-{ #category : #wormhole2 }
-WormholeTest >> testWormholeBeginningCreatedWithEndEnterThenReturnsEnd [
-
-| aWormholeBeginning aWormholeEnding |
-aWormholeBeginning := WormholeBeginning atPosition: 2.
-aWormholeEnding := WormholeEnding atPosition: 6.
-aWormholeBeginning withEnd: aWormholeEnding.
-
-self assert: aWormholeBeginning enter equals: 6.
-]
-
-{ #category : #wormhole2 }
-WormholeTest >> testWormholeEndingCannotBeLessThanBeginning [
-
-self 
-	should: [| aWormholeBeginning aWormholeEnding |
-				aWormholeBeginning := WormholeBeginning atPosition: 6.
-				aWormholeEnding := WormholeEnding atPosition: 3.
-				aWormholeBeginning withEnd: aWormholeEnding  .] 
-	raise: Error 
-	withMessage: 'The ending must be greater than the beginning'.
-]
-
-{ #category : #wormhole2 }
-WormholeTest >> testWormholeEndingCannotBeZeroOrLess [
-
-self 
-	should: [WormholeEnding atPosition: 0] 
-	raise: Error 
-	withMessage: 'The ending must be greater than zero'.
-]
-
-{ #category : #wormhole2 }
-WormholeTest >> testWormholeEndingEnterThenReturnWormholeBeginningPosition [
-
-| aWormholeBeginning aWormholeEnding |
-aWormholeBeginning := WormholeBeginning atPosition: 2.
-aWormholeEnding := WormholeEnding atPosition: 6.
-aWormholeEnding withBeginning: aWormholeBeginning .
-
-self assert: aWormholeEnding enter equals: 2.
+	withMessage: 'WormholeEnd opposite must be greater than zero'.
 ]
