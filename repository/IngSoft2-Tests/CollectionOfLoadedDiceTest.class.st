@@ -8,7 +8,7 @@ Class {
 CollectionOfLoadedDiceTest >> test001WhenCollectionOfTwoLoadedDiceThrowThenReturnsSumOfFaces [
 
 	| aCollectionOfLoadedDie |
-	aCollectionOfLoadedDie := CollectionOfLoadedDice of: #(3 3).
+	aCollectionOfLoadedDie := CollectionOfLoadedDice of: #(#(3) #(3)).
 	self assert: aCollectionOfLoadedDie throw equals: 6
 ]
 
@@ -16,6 +16,6 @@ CollectionOfLoadedDiceTest >> test001WhenCollectionOfTwoLoadedDiceThrowThenRetur
 CollectionOfLoadedDiceTest >> test002CollectionInitializeWithOneDieThrowThenReturnsDiesFaces [
 
 	| aCollectionOfLoadedDie |
-	aCollectionOfLoadedDie := CollectionOfLoadedDice of: (3 asOrderedCollection).
+	aCollectionOfLoadedDie := CollectionOfLoadedDice of: #(#(3)).
 	self assert: aCollectionOfLoadedDie throw equals: 3
 ]

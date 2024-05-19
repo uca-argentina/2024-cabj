@@ -28,5 +28,6 @@ LoadedDie >> throw [
 	| result |
 	result := faces at: index.
 	index := index + 1.
+	index > faces size ifTrue: [ index:= 1 ].
 	^ result
 ]
