@@ -57,7 +57,7 @@ Game >> moveSpaceship [
 	| positionOfSpaceship nextSpaceship throwResult|
 	nextSpaceship := turnManager nextTurn.
 	
-	throwResult := aBoard legalMoveFrom: (nextSpaceship position) move: collectionOfDice throw. 
+	throwResult := aBoard adjustMovementWithinBoundsFrom: (nextSpaceship position) by: collectionOfDice throw. 
 	
 	positionOfSpaceship := nextSpaceship
 		                       move: throwResult  
