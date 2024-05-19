@@ -9,7 +9,8 @@ SpaceshipTest >> test001SpaceshipInitializeInPositionZeroAndMovesOneTimeThenIsIn
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 1
 ]
@@ -19,7 +20,8 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionTwo [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 2
@@ -28,9 +30,10 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionTwo [
 { #category : #'tests - initialization' }
 SpaceshipTest >> test003WhenSpaceshipThenPositionReturnsZero [
 
-| aSpaceship |
-aSpaceship:= Spaceship launch .
-self assert: aSpaceship position equals: 0.
+	| aSpaceship |
+	aSpaceship := Spaceship launch.
+	Spaceship resetCounter.
+	self assert: aSpaceship position equals: 0
 ]
 
 { #category : #tests }
@@ -38,7 +41,8 @@ SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionReturnsTwo [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 	aSpaceship move: 1 on: aBoard.
 	self assert: aSpaceship position equals: 2
@@ -49,7 +53,8 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	self assert: (aSpaceship move: 2 on: aBoard) equals: 2
 ]
 
@@ -58,7 +63,27 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwiceThenPositionIsThree [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 2 on: aBoard.
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
+]
+
+{ #category : #move }
+SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [
+
+	| aSpaceshipOne |
+	aSpaceshipOne := Spaceship launch.
+	Spaceship resetCounter.
+	self assert: aSpaceshipOne getId equals: 1
+]
+
+{ #category : #move }
+SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo [
+
+	| aSpaceshipOne aSpaceshipTwo |
+	aSpaceshipOne := Spaceship launch.
+	aSpaceshipTwo := Spaceship launch.
+	Spaceship resetCounter.
+	self assert: aSpaceshipTwo getId equals: 2
 ]
