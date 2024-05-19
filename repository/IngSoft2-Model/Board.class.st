@@ -17,7 +17,7 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 ]
 
 { #category : #'action handling' }
-Board >> adjustMovementWithinBounsFrom: aPosition by: aMovement [
+Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
 	aPosition + aMovement < amountOfCells ifTrue: [ ^ aMovement ].
 	^ amountOfCells - aPosition
