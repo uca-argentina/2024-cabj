@@ -40,9 +40,13 @@ Game >> finalPositionOfSpaceships [
 	^ dictionaryOfPositions
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> getWinner [
-	^1.
+
+	| maxPosition |
+	 maxPosition := (dictionaryOfPositions values max).
+	^ dictionaryOfPositions keys detect: [ :key |
+		  (dictionaryOfPositions at: key) = maxPosition ]
 ]
 
 { #category : #initialization }

@@ -13,7 +13,7 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
 	| aGame aLoadedDie |
-	aLoadedDie:= LoadedDie of:6.
+	aLoadedDie:= LoadedDie of:#(6).
 	
 	
 	aGame := Game 
@@ -29,7 +29,7 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
 
 	| aGame aLoadedDie|
-	aLoadedDie := LoadedDie of:6.
+	aLoadedDie := LoadedDie of:#(6).
 	aGame := Game 
 		         numberOfSpaceships: 1 
 				   boardBoxes: 15
@@ -44,7 +44,7 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwe
 GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOtherSide [
 
 	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: 6.
+	aLoadedDie := LoadedDie of: #(6).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         boardBoxes: 15
@@ -58,7 +58,7 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
 	| aGame resultOfGame aLoadedDie |
-	aLoadedDie := LoadedDie of: 6.
+	aLoadedDie := LoadedDie of: #(6).
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: 12.
 	aGame := Game
@@ -75,7 +75,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
 	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: 6.
+	aLoadedDie := LoadedDie of: #(6).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 50
@@ -91,7 +91,7 @@ GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirs
 GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
 	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: 6.
+	aLoadedDie := LoadedDie of: #(6).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 12
@@ -110,7 +110,7 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
 	| aGame resultOfGame aLoadedDie |
-	aLoadedDie := LoadedDie of: 6.
+	aLoadedDie := LoadedDie of: #(6).
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: 12.
 	resultOfGame at: 2 put: 6.
@@ -129,7 +129,7 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 
 	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: 6.
+	aLoadedDie := LoadedDie of: #(6).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         boardBoxes: 6
@@ -138,4 +138,20 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 	aGame moveSpaceship.
 
 	self assert: aGame getWinner equals: 1
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinnerReturnsTwo [
+
+	| aGame aLoadedDie |
+	aLoadedDie := LoadedDie of: #(3 6).
+	aGame := Game
+		         numberOfSpaceships: 2
+		         boardBoxes: 6
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	self assert: aGame getWinner equals: 2
 ]

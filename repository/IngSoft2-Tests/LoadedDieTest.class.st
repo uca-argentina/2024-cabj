@@ -56,12 +56,3 @@ aLoadedDie:= LoadedDie of: #(3).
 aLoadedDie throw.
 self assert: aLoadedDie throw equals:3.
 ]
-
-{ #category : #tests }
-LoadedDieTest >> testALoadedDieCannotHaveLessThanTjreeFaces [
-
-self 
-	should: [ LoadedDie of:2 ]
-	raise: Error
-	withMessage:'A die less than three faces doesnt exist'
-]
