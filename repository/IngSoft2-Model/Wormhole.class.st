@@ -19,6 +19,6 @@ Wormhole class >> withSides: first and: second [
 { #category : #initialization }
 Wormhole >> initializeWithSides: first and: second [
 
-	sideOne := WormholeEnd withOpposite: second.
-	sideTwo := WormholeEnd withOpposite: first.
+	sideOne := RegularCell position: second.
+	sideTwo := RegularCell position: first.
 ]
