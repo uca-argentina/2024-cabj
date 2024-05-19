@@ -27,7 +27,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame aCollectionOfDice |
-	aCollectionOfDice := CollectionOfDie of: #( 10 10 10 10 10 ).
+	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 ).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 4
@@ -60,7 +60,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 
 	| aGame resultOfGame aCollectionOfDice |
-	aCollectionOfDice := CollectionOfDie of: #( 10 10 10 10 10 10 ).
+	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 10 ).
 	resultOfGame := #( 4 ) asOrderedCollection.
 	aGame := Game
 		         numberOfSpaceships: 1
