@@ -14,7 +14,6 @@ BoardTest >> test001WhenBoardInitializeWithThreeBoxesThenFinishesOnThree [
 
 | aBoard |
 aBoard:= Board of: 3 withWormholeBeginning: 1 andEnding: 2.
-
 self assert: (aBoard finishLine) equals: 3.
 ]
 
