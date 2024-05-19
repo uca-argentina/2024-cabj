@@ -1,13 +1,13 @@
 Class {
-	#name : #CollectionOfDieTest,
+	#name : #CollectionOfDiceTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #tests }
-CollectionOfDieTest >> test001WhenCollectionThrowThenResultIsBetweenMinAndMaxOfSumOfFaces [
+CollectionOfDiceTest >> test001WhenCollectionThrowThenResultIsBetweenMinAndMaxOfSumOfFaces [
 
 	| aCollectionOfDie |
-	aCollectionOfDie := CollectionOfDie of: #( 3 3 ).
+	aCollectionOfDie := CollectionOfDice of: #( 3 3 ).
 	self assert: (aCollectionOfDie throw between: 2 and: 6)
 ]

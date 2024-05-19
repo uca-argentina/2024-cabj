@@ -1,5 +1,5 @@
 Class {
-	#name : #CollectionOfDie,
+	#name : #CollectionOfDice,
 	#superclass : #Object,
 	#instVars : [
 		'aCollectionOfDie'
@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-CollectionOfDie class >> of: aCollectionOfFaces [ 
+CollectionOfDice class >> of: aCollectionOfFaces [ 
 	^ (self new) initializeOf: aCollectionOfFaces .
 ]
 
 { #category : #initialization }
-CollectionOfDie >> initializeOf: aCollectionOfFaces [
+CollectionOfDice >> initializeOf: aCollectionOfFaces [
 
 	aCollectionOfDie := aCollectionOfFaces collect: [
 		                          :amountOfFaces |
@@ -21,6 +21,6 @@ CollectionOfDie >> initializeOf: aCollectionOfFaces [
 ]
 
 { #category : #action }
-CollectionOfDie >> throw [
+CollectionOfDice >> throw [
 	^ aCollectionOfDie sum: [:die | die throw].
 ]
