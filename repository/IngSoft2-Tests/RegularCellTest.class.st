@@ -6,8 +6,12 @@ Class {
 
 { #category : #asserting }
 RegularCellTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
-	self should: anErrorBlock raise: anErrorClass 
-	withExceptionDo: [ :error |self assert: error messageText equals:anErrorMessage  ]
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
 ]
 
 { #category : #tests }
