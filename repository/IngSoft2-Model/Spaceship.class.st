@@ -32,7 +32,7 @@ Spaceship >> move: aNumberOfMovements [
 Spaceship >> playWith: aLoadedDie on: aBoard [ 
 	
 	| movements |
-	movements:= aBoard legalMoveFrom: actualPosition move: (aLoadedDie throw).
+	movements:= aBoard adjustMovementWithinBounsFrom: actualPosition by: (aLoadedDie throw).
 	self move: movements .
 	actualPosition  := aBoard enter: actualPosition.
 	
