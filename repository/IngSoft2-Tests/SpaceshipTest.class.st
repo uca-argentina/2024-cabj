@@ -20,7 +20,8 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionTwo [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 2
@@ -52,7 +53,8 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	self assert: (aSpaceship move: 2 on: aBoard) equals: 2
 ]
 
@@ -61,7 +63,8 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwiceThenPositionIsThree [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
-	aBoard:= Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	Spaceship resetCounter.
+	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 2 on: aBoard.
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
 ]
