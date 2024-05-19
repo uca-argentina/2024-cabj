@@ -30,7 +30,7 @@ Spaceship class >> resetCounter [
 	counterId := 0
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Spaceship >> getId [
 	^id.
 ]
