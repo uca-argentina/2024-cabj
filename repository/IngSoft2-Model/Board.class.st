@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'amountOfCells',
-		'collectionOfCells'
+		'collectionOfCells',
+		'numberOfLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,13 +26,15 @@ Board class >> ofCells: anAmountOfCells numberOfLaps: aNumberOfLaps withWormhole
 { #category : #'action handling' }
 Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
-	aPosition + aMovement < amountOfCells ifTrue: [ ^ aMovement ].
+	aPosition + aMovement < (amountOfCells*numberOfLaps) ifTrue: [ ^ aMovement ].
 	^ amountOfCells - aPosition
 ]
 
 { #category : #action }
 Board >> enter: aPosition [
-
+	
+	
+	aPosition  > amountOfCells ifTrue:[^ (collectionOfCells at: aPosition-amountOfCells) enter ].
 	^ (collectionOfCells at: aPosition) enter
 ]
 
@@ -43,7 +46,8 @@ Board >> finishLine [
 
 { #category : #initialization }
 Board >> initializeOf: anAmountOfCells numberOfLaps: aNumberOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [ 
-	amountOfCells := anAmountOfCells * aNumberOfLaps .
+	amountOfCells := anAmountOfCells.
+	numberOfLaps:= aNumberOfLaps .
 
 	collectionOfCells := OrderedCollection new.
 	1 to: anAmountOfCells do: [ :index |
