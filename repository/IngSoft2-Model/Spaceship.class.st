@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'actualPosition',
-		'id'
+		'id',
+		'actualLap'
 	],
 	#classInstVars : [
 		'counterId'
@@ -31,7 +32,8 @@ Spaceship >> getId [
 
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId [
-	actualPosition:= 0.
+	actualPosition:= 1.
+	actualLap:= 1.
 	id:= counterId .
 ]
 
@@ -44,5 +46,6 @@ Spaceship >> move: aNumberOfMovements on: aBoard [
 
 { #category : #accessing }
 Spaceship >> position [
-	^ actualPosition .
+	
+	^ ( OrderedCollection with: actualPosition with: actualLap  )
 ]
