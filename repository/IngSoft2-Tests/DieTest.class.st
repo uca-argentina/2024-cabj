@@ -6,12 +6,25 @@ Class {
 
 { #category : #asserting }
 DieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
-	self should: anErrorBlock raise:anErrorClass
-	withExceptionDo: [:error| self assert: error messageText equals: anErrorMessage].
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
+{ #category : #tests }
+DieTest >> test001ADieIsCreatedWithAnAmountOfFaces [
+
+| aDie |
+aDie:= Die of:3.
+self assert: ((aDie throw) between:1 and:3).
+
 ]
 
 { #category : #'tests - initialization' }
-DieTest >> testADieCannotBeCreatedWithLessThanThreeFaces [
+DieTest >> test002ADieCannotBeCreatedWithLessThanThreeFaces [
 
 self
 	should:[Die of:2]
@@ -21,7 +34,7 @@ self
 ]
 
 { #category : #tests }
-DieTest >> testADieIsBetweenOneAndAnAmountOfFaces [
+DieTest >> test003ADieIsBetweenOneAndAnAmountOfFaces [
 
 | aDie |
 aDie:= Die of:5.
@@ -29,10 +42,11 @@ self assert: ((aDie throw) between:1 and:5).
 ]
 
 { #category : #tests }
-DieTest >> testADieIsCreatedWithAnAmountOfFaces [
+DieTest >> testADieCannotBeCreatedWithLessThanThreeFaces [
 
-| aDie |
-aDie:= Die of:3.
-self assert: ((aDie throw) between:1 and:3).
+self
+	should:[Die of:2]
+	raise: Error 
+	withMessage:'A die less than three faces doesnt exist'
 
 ]

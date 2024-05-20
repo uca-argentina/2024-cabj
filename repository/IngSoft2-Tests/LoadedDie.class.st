@@ -2,23 +2,32 @@ Class {
 	#name : #LoadedDie,
 	#superclass : #Object,
 	#instVars : [
-		'faces'
+		'faces',
+		'index'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
 LoadedDie class >> of: anAmountOfFaces [
-	anAmountOfFaces <3 ifTrue: [ Error signal: 'A die less than three faces doesnt exist' ].
-	^ (self new) initializeOf: anAmountOfFaces .
+
+	(anAmountOfFaces anySatisfy: [ :faces | faces < 3 ]) ifTrue: [
+		Error signal: 'A die less than three faces doesnt exist' ].
+	^ self new initializeOf: anAmountOfFaces
 ]
 
 { #category : #initialization }
 LoadedDie >> initializeOf: anAmountOfFaces [ 
-	faces:= anAmountOfFaces 
+	faces:= anAmountOfFaces.
+	index:=1.
 ]
 
 { #category : #action }
 LoadedDie >> throw [
-	^faces .
+
+	| result |
+	result := faces at: index.
+	index := index + 1.
+	index > faces size ifTrue: [ index:= 1 ].
+	^ result
 ]

@@ -2,59 +2,53 @@ Class {
 	#name : #Spaceship,
 	#superclass : #Object,
 	#instVars : [
-		'actualPosition'
+		'actualPosition',
+		'id'
+	],
+	#classInstVars : [
+		'counterId'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Spaceship class >> launch [
-	^(self new) initializeLaunch.
+{ #category : #'class initialization' }
+Spaceship class >> initialize [
+
+	counterId := 0
 ]
 
-{ #category : #action }
-Spaceship >> checkIf: sumOfThrows isLegalOn: aBoard [
-	
-	^(aBoard legalMoveFrom: actualPosition move: sumOfThrows).
-	
+{ #category : #'instance creation' }
+Spaceship class >> launch [
+
+	counterId := counterId + 1.
+	^ self new initializeLaunch: counterId
 ]
 
 { #category : #initialization }
-Spaceship >> initializeLaunch [
+Spaceship class >> resetCounter [
+
+	counterId := 0
+]
+
+{ #category : #accessing }
+Spaceship >> getId [
+	^id.
+]
+
+{ #category : #initialization }
+Spaceship >> initializeLaunch: counterId [
 	actualPosition:= 0.
+	id:= counterId .
 ]
 
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
 	actualPosition:= aBoard enter: (actualPosition + aNumberOfMovements).
-	 
-]
-
-{ #category : #action }
-Spaceship >> playWith: collectionOfDice on: aBoard [
-
-	| movements sumOfThrows |
-	
-	sumOfThrows := self sumOfThrows: collectionOfDice.
-
-	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-
-	self move: movements on: aBoard.
-
-	^ actualPosition
+	^actualPosition 
 ]
 
 { #category : #accessing }
 Spaceship >> position [
 	^ actualPosition .
-]
-
-{ #category : #action }
-Spaceship >> sumOfThrows: collectionOfDice [
-
-	| sumOfThrows |
-	sumOfThrows := 0.
-	collectionOfDice do: [ :die | sumOfThrows := sumOfThrows + die throw ].
-	^ sumOfThrows
 ]

@@ -5,26 +5,19 @@ Class {
 		'aBoard',
 		'collectionOfDice',
 		'collectionOfSpaceships',
-		'turnManager'
+		'turnManager',
+		'dictionaryOfPositions'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [ 
+Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships 
 		  boardBoxes: anAmountOfBoxes
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: collectionOfFaces.
-]
-
-{ #category : #initialization }
-Game >> collectDice: collectionOfFaces [
-
-	collectionOfFaces asOrderedCollection.
-	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
-		                    Die of: numberOfFaces ]
+		  playWithDice: aCollectionOfDice.
 ]
 
 { #category : #initialization }
@@ -32,21 +25,32 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: Spaceship launch ]
+		collectionOfSpaceships add: Spaceship launch ].
+
+	Spaceship resetCounter
 ]
 
 { #category : #action }
-Game >> endOfGame [ 
+Game >> finalPositionOfSpaceships [
 
-| collectionPositions |
-	turnManager := GameOver new.
-	collectionPositions := collectionOfSpaceships collect: [ :spaceship |
-		                       spaceship position ].
-	^ collectionPositions
+	dictionaryOfPositions := Dictionary new.
+	collectionOfSpaceships do: [ :spaceship |
+		dictionaryOfPositions at: spaceship getId put: spaceship position ].
+
+	^ dictionaryOfPositions
+]
+
+{ #category : #accessing }
+Game >> getWinner [
+
+	| maxPosition |
+	 maxPosition := (dictionaryOfPositions values max).
+	^ dictionaryOfPositions keys detect: [ :key |
+		  (dictionaryOfPositions at: key) = maxPosition ]
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 
 	aBoard := Board
 		          of: anAmountOfBoxes
@@ -57,18 +61,25 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 	
 	turnManager := TurnManager manage: collectionOfSpaceships.
 	
-	self collectDice: collectionOfFaces
+	collectionOfDice:= aCollectionOfDice  .
 ]
 
 { #category : #action }
 Game >> moveSpaceship [
-	| positionOfSpaceship nextSpaceship |
-	nextSpaceship := turnManager nextTurn.
-	positionOfSpaceship := nextSpaceship
-		                       playWith: collectionOfDice
-		                       on: aBoard.
 
-	positionOfSpaceship = aBoard finishLine ifTrue: [^self endOfGame].
+	| positionOfSpaceship nextSpaceship throwResult |
+	nextSpaceship := turnManager nextTurn.
+
+	throwResult := aBoard
+		               adjustMovementWithinBoundsFrom:
+		               nextSpaceship position
+		               by: collectionOfDice throw.
+
+	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
+
+	positionOfSpaceship = aBoard finishLine ifTrue: [
+		turnManager := GameOver new.
+		^ self finalPositionOfSpaceships ].
 
 	^ positionOfSpaceship
 ]
