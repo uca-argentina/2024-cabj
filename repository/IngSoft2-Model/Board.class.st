@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'amountOfCells',
-		'collectionOfCells'
+		'collectionOfCells',
+		'numberOfLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
