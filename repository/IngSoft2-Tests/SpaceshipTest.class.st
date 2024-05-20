@@ -10,7 +10,7 @@ SpaceshipTest >> test001SpaceshipInitializeInPositionZeroAndMovesOneTimeThenIsIn
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
 	Spaceship initialize .
-	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aBoard := Board ofCells: 20 numberOfLaps: 1 withWormholeBeginning: 18 andEnding: 19.
 
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 1
 ]
@@ -21,7 +21,7 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionTwo [
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
 	Spaceship initialize .
-	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aBoard := Board ofCells: 20 numberOfLaps: 1 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 2
@@ -42,7 +42,7 @@ SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionReturnsTwo [
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
 	Spaceship initialize.
-	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aBoard := Board ofCells: 20 numberOfLaps: 1 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 	aSpaceship move: 1 on: aBoard.
 	self assert: aSpaceship position equals: 2
@@ -54,7 +54,7 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
 	Spaceship initialize.
-	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aBoard := Board ofCells: 20 numberOfLaps: 1 withWormholeBeginning: 18 andEnding: 19.
 	self assert: (aSpaceship move: 2 on: aBoard) equals: 2
 ]
 
@@ -64,7 +64,7 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwiceThenPositionIsThree [
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launch.
 	Spaceship initialize.
-	aBoard := Board of: 20 withWormholeBeginning: 18 andEnding: 19.
+	aBoard := Board ofCells: 20 numberOfLaps: 1 withWormholeBeginning: 18 andEnding: 19.
 	aSpaceship move: 2 on: aBoard.
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
 ]
