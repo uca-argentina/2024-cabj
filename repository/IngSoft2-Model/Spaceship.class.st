@@ -24,12 +24,6 @@ Spaceship class >> launch [
 	^ self new initializeLaunch: counterId
 ]
 
-{ #category : #initialization }
-Spaceship class >> resetCounter [
-
-	counterId := 0
-]
-
 { #category : #accessing }
 Spaceship >> getId [
 	^id.

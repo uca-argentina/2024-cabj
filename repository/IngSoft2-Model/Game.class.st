@@ -27,7 +27,7 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 	anAmountOfSpaceships timesRepeat: [
 		collectionOfSpaceships add: Spaceship launch ].
 
-	Spaceship resetCounter
+	Spaceship initialize
 ]
 
 { #category : #action }
