@@ -9,11 +9,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
-	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
-	anEnd <= aBeginning  ifTrue: [
+Board class >> ofCells: anAmountOfCells numberOfLaps: aNumberOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
+
+	anAmountOfCells < 2 ifTrue: [
+		Error signal: 'A Board must have more than one box.' ].
+	anEnd <= aBeginning ifTrue: [
 		Error signal: 'The ending must be greater than the beginning' ].
-	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
+	^ self new
+		  initializeOf: anAmountOfCells
+		  numberOfLaps: aNumberOfLaps
+		  withWormholeBeginning: aBeginning
+		  andEnding: anEnd
 ]
 
 { #category : #'action handling' }
@@ -36,9 +42,8 @@ Board >> finishLine [
 ]
 
 { #category : #initialization }
-Board >> initializeOf: anAmountOfCells withWormholeBeginning: aBeginning andEnding: anEnd [
-
-	amountOfCells := anAmountOfCells.
+Board >> initializeOf: anAmountOfCells numberOfLaps: aNumberOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [ 
+	amountOfCells := anAmountOfCells * aNumberOfLaps .
 
 	collectionOfCells := OrderedCollection new.
 	1 to: anAmountOfCells do: [ :index |
