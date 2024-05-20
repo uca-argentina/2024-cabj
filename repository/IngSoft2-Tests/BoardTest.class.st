@@ -21,12 +21,7 @@ BoardTest >> test001WhenBoardInitializeWithThreeCellsThenFinishesOnThree [
 BoardTest >> test002BoardCannotBeCreatedWithOneCell [
 
 	self
-		should: [
-			Board
-				ofCells: 1
-				numberOfLaps: 1
-				withWormholeBeginning: 2
-				andEnding: 10 ]
+		should: [ Board of: 1 withWormholeBeginning: 2 andEnding: 10 ]
 		raise: Error
 		withMessage: 'A Board must have more than one box.'
 ]
