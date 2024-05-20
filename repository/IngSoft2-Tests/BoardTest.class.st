@@ -175,18 +175,3 @@ BoardTest >> test012MoveFromStartOfBoardToStartOfAnotherLapReturnsTheSameMove [
 		assert: (aBoard adjustMovementWithinBoundsFrom: 1 by: 6)
 		equals: 6
 ]
-
-{ #category : #legalMove }
-BoardTest >> test013BoardOfTwoLapsEnterOnStartCellOfNextLapThenReturnsOne [
-
-	| aBoard |
-	aBoard := Board
-		          ofCells: 11
-		          numberOfLaps: 2
-		          withWormholeBeginning: 2
-		          andEnding: 3.
-
-	self
-		assert: (aBoard enter: 12)
-		equals: 1
-]

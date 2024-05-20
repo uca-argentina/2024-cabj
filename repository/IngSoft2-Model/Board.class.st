@@ -32,9 +32,7 @@ Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
 { #category : #action }
 Board >> enter: aPosition [
-	
-	
-	aPosition  > amountOfCells ifTrue:[^ (collectionOfCells at: aPosition-amountOfCells) enter ].
+
 	^ (collectionOfCells at: aPosition) enter
 ]
 
