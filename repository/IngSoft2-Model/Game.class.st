@@ -6,10 +6,22 @@ Class {
 		'collectionOfDice',
 		'collectionOfSpaceships',
 		'turnManager',
-		'dictionaryOfPositions'
+		'dictionaryOfPositions',
+		'numberOfLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #'as yet unclassified' }
+Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes numberOfLaps: aNumberOfLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+
+	^ self new
+		  initializeNumberOfSpaceships: anAmountOfSpaceships
+		  boardBoxes: anAmountOfBoxes
+		  numberOfLaps: aNumberOfLaps
+		  wormholeStartAndEnd: beginningAndEnd
+		  playWithDice: aCollectionOfDice
+]
 
 { #category : #'instance creation' }
 Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
@@ -47,6 +59,23 @@ Game >> getWinner [
 	 maxPosition := (dictionaryOfPositions values max).
 	^ dictionaryOfPositions keys detect: [ :key |
 		  (dictionaryOfPositions at: key) = maxPosition ]
+]
+
+{ #category : #initialization }
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes numberOfLaps: aNumberOfLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+
+	aBoard := Board
+		          of: anAmountOfBoxes
+		          withWormholeBeginning: (beginningAndEnd at: 1)
+		          andEnding: (beginningAndEnd at: 2).
+
+	self collectSpaceships: anAmountOfSpaceships.
+	
+	numberOfLaps:= aNumberOfLaps .
+
+	turnManager := TurnManager manage: collectionOfSpaceships.
+
+	collectionOfDice := aCollectionOfDice
 ]
 
 { #category : #initialization }

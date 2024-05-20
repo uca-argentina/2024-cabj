@@ -155,3 +155,21 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 
 	self assert: aGame getWinner equals: 2
 ]
+
+{ #category : #tests }
+GameLoadedDieTest >> test09 [
+
+	| aGame aLoadedDie resultOfGame|
+	aLoadedDie := LoadedDie of: #(4).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardBoxes: 4
+					numberOfLaps: 2
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	resultOfGame := Dictionary new.
+	resultOfGame at: 1 put: #(4 2).
+	aGame moveSpaceship .
+
+	self assert: aGame moveSpaceship equals: resultOfGame
+]
