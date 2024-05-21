@@ -41,21 +41,6 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsThi
 ]
 
 { #category : #testsGame002 }
-GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsTwelve [
-
-	| aGame aLoadedDie|
-	aLoadedDie := LoadedDie of:#(6).
-	aGame := Game 
-		         numberOfSpaceships: 1 
-				   boardBoxes: 15
-		         wormholeStartAndEnd: #(4 7)
-		         playWithDice: aLoadedDie.
-	aGame moveSpaceship.
-
-	self assert: aGame moveSpaceship equals: 12
-]
-
-{ #category : #testsGame002 }
 GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOtherSide [
 
 	| aGame aLoadedDie |
@@ -100,22 +85,6 @@ GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirs
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: 13
-]
-
-{ #category : #tests }
-GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
-
-	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: #(6).
-	aGame := Game
-		         numberOfSpaceships: 2
-		         boardBoxes: 50
-		         wormholeStartAndEnd: #( 40 45 )
-		         playWithDice: aLoadedDie.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	self assert: aGame moveSpaceship equals: 12
 ]
 
 { #category : #tests }
