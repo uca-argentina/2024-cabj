@@ -2,60 +2,60 @@ Class {
 	#name : #Spaceship,
 	#superclass : #Object,
 	#instVars : [
-		'actualPosition'
+		'actualPosition',
+		'id',
+		'actualLap',
+		'fuel'
+	],
+	#classInstVars : [
+		'counterId'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Spaceship class >> launch [
-	^(self new) initializeLaunch.
+{ #category : #'class initialization' }
+Spaceship class >> initialize [
+
+	counterId := 0
 ]
 
-{ #category : #action }
-Spaceship >> checkIf: sumOfThrows isLegalOn: aBoard [
+{ #category : #'instance creation' }
+Spaceship class >> launchWithFuel: anAmountOfFuel [
+	counterId := counterId + 1.
+	^ self new initializeLaunch: counterId withFuel: anAmountOfFuel .
+]
 
-	| movements |
-	movements := aBoard legalMoveFrom: actualPosition move: sumOfThrows.
-	^ movements
+{ #category : #'set and get' }
+Spaceship >> getFuel [
+
+	^ fuel
+]
+
+{ #category : #accessing }
+Spaceship >> getId [
+
+	^ id
 ]
 
 { #category : #initialization }
-Spaceship >> initializeLaunch [
-	actualPosition:= 0.
+Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
+
+	actualPosition := 1.
+	actualLap := 1.
+	fuel := anAmountOfFuel.
+	id := counterId
 ]
 
 { #category : #action }
-Spaceship >> move: aNumberOfMovements [
-	actualPosition   := actualPosition + aNumberOfMovements .
-	^ actualPosition . 
-]
+Spaceship >> move: aNumberOfMovements on: aBoard [
 
-{ #category : #action }
-Spaceship >> playWith: collectionOfDice on: aBoard [
-
-	| movements sumOfThrows |
-	
-	sumOfThrows := self sumOfThrows: collectionOfDice.
-	
-	movements := self checkIf: sumOfThrows isLegalOn: aBoard.
-	
-	self move: movements.
-	
-	actualPosition := aBoard enterWormhole: actualPosition.
+	actualPosition := aBoard enter: actualPosition + aNumberOfMovements.
+	fuel := fuel - aNumberOfMovements.
 	^ actualPosition
 ]
 
 { #category : #accessing }
 Spaceship >> position [
-	^ actualPosition .
-]
 
-{ #category : #action }
-Spaceship >> sumOfThrows: collectionOfDice [
-
-	| sumOfThrows |
-	sumOfThrows := 0.
-	collectionOfDice do: [ :die | sumOfThrows := sumOfThrows + die throw ].
-	^ sumOfThrows
+	^ OrderedCollection with: actualPosition with: actualLap
 ]
