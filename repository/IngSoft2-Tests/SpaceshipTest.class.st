@@ -161,5 +161,5 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 		          andEnding: 19.
 	aSpaceship move: 10 on: aBoard.
 	Spaceship initialize.
-	self assert: (aSpaceship position at: 1) equals: 6
+	self assert: (aSpaceship position at: 1) equals: 1
 ]

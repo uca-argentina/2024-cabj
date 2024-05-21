@@ -50,7 +50,7 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
 	aNumberOfMovements > self getFuel ifTrue: [
-		actualPosition := aBoard enter: actualPosition + self getFuel.
+		actualPosition := aBoard enter: 1.
 		fuel := 0.
 		^ actualPosition ].
 	actualPosition := aBoard enter: actualPosition + aNumberOfMovements.
