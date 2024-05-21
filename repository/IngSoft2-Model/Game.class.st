@@ -2,9 +2,12 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'aSpaceship',
 		'aBoard',
-		'collectionOfDice'
+		'collectionOfDice',
+		'collectionOfSpaceships',
+		'turnManager',
+		'dictionaryOfPositions',
+		'numberOfLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -34,7 +37,7 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: Spaceship launch ].
+		collectionOfSpaceships add: (Spaceship launchWithFuel: 5) ].
 
 	Spaceship initialize
 ]
@@ -44,7 +47,7 @@ Game >> finalPositionOfSpaceships [
 
 	dictionaryOfPositions := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: spaceship position ].
+		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 1) ].
 
 	^ dictionaryOfPositions
 ]
