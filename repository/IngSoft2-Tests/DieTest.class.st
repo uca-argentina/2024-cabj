@@ -36,3 +36,11 @@ DieTest >> test003ADieIsBetweenOneAndAnAmountOfFaces [
 aDie:= Die of:5.
 self assert: ((aDie throw) between:1 and:5). 
 ]
+
+{ #category : #tests }
+DieTest >> test004WhenInitializeWithFiveFacesThenAmountOfFacesEqualsFive [
+
+| aDie |
+aDie:= Die of:5.
+self assert: aDie amountOfFaces equals: 5. 
+]

@@ -52,3 +52,21 @@ aLoadedDie:= LoadedDie of: #(3).
 aLoadedDie throw.
 self assert: aLoadedDie throw equals:3.
 ]
+
+{ #category : #'tests - initialization' }
+LoadedDieTest >> test006LoadedDieInitializeWithThreeThenAmountOfFacesEqualsThree [
+
+| aLoadedDie |
+aLoadedDie:= LoadedDie of: #(3).
+aLoadedDie throw.
+self assert: aLoadedDie amountOfFaces equals:3.
+]
+
+{ #category : #'tests - initialization' }
+LoadedDieTest >> test007LoadedDieInitializeWithSequenceThenAmountOfFacesMaxValueOfSequence [
+
+| aLoadedDie |
+aLoadedDie:= LoadedDie of: #(3 2 4).
+aLoadedDie throw.
+self assert: aLoadedDie amountOfFaces equals:4.
+]

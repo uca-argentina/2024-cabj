@@ -19,3 +19,11 @@ CollectionOfLoadedDiceTest >> test002CollectionInitializeWithOneDieThrowThenRetu
 	aCollectionOfLoadedDie := CollectionOfLoadedDice of: #(#(3)).
 	self assert: aCollectionOfLoadedDie throw equals: 3
 ]
+
+{ #category : #tests }
+CollectionOfLoadedDiceTest >> test003WhenCollectionInitializeWithTwoDiceOfThreeThenAmountOfFacesEqualsSix [
+
+	| aCollectionOfLoadedDie |
+	aCollectionOfLoadedDie := CollectionOfLoadedDice of: #(#(3) #(3)).
+	self assert: aCollectionOfLoadedDie amountOfFaces equals: 6
+]
