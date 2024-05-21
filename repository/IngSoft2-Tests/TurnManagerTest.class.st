@@ -49,3 +49,21 @@ TurnManagerTest >> test03WhenRoundIsOverNextTurnIsTheFirstSpaceship [
 
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
+
+{ #category : #tests }
+TurnManagerTest >> test04WhenSpaceshipOneLosesTurnsTheNextTurnIsSpaceshipTwo [
+
+	| aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
+	spaceshipOne := Spaceship launchWithFuel: 5.
+	spaceshipTwo := Spaceship launchWithFuel: 5.
+	collectionOfSpaceships := OrderedCollection
+		                          with: spaceshipOne
+		                          with: spaceshipTwo.
+
+	aTurnManager := TurnManager manage: collectionOfSpaceships.
+	aTurnManager nextTurn.
+	aTurnManager lostTwoTurns: spaceshipOne .
+	aTurnManager nextTurn.
+
+	self assert: aTurnManager nextTurn equals: spaceshipTwo
+]

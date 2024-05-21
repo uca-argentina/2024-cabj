@@ -20,6 +20,11 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+TurnManager >> lostTwoTurns: aSpaceship [ 
+	spaceships remove: aSpaceship .
+]
+
 { #category : #auxiliar }
 TurnManager >> nextSpaceship [
 
