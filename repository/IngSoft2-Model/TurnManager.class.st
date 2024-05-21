@@ -43,7 +43,12 @@ TurnManager >> nextSpaceship [
 { #category : #action }
 TurnManager >> nextTurn [
 	| spaceshipPlaying |
-	spaceshipPlaying  :=currentSpaceship .
+	(turnsToSkip at: currentSpaceship) > 0 ifTrue: [
+		turnsToSkip
+			at: currentSpaceship
+			put: (turnsToSkip at: currentSpaceship) - 1.
+		currentSpaceship := self nextSpaceship ].
+	spaceshipPlaying := currentSpaceship.
 	currentSpaceship := self nextSpaceship.
-	^spaceshipPlaying  .
+	^ spaceshipPlaying
 ]

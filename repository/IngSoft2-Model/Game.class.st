@@ -26,7 +26,7 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: (Spaceship launchWithFuel: 5) ].
+		collectionOfSpaceships add: (Spaceship launchWithFuel: 30) ].
 
 	Spaceship initialize
 ]
