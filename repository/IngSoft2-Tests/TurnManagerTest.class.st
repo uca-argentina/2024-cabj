@@ -8,7 +8,7 @@ Class {
 TurnManagerTest >> test01OneSpaceshipsThenTurnOneReturnsSpaceshipOne [
 
 	| aTurnManager spaceshipOne collectionOfSpaceships |
-	spaceshipOne := Spaceship launch.
+	spaceshipOne := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
@@ -21,8 +21,8 @@ TurnManagerTest >> test01OneSpaceshipsThenTurnOneReturnsSpaceshipOne [
 TurnManagerTest >> test02TwoSpaceshipsThenTurnTwoReturnsSpaceshipTwo [
 
 	| aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
-	spaceshipOne := Spaceship launch.
-	spaceshipTwo := Spaceship launch.
+	spaceshipOne := Spaceship launchWithFuel: 5.
+	spaceshipTwo := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection
 		                          with: spaceshipOne
 		                          with: spaceshipTwo.
@@ -37,8 +37,8 @@ TurnManagerTest >> test02TwoSpaceshipsThenTurnTwoReturnsSpaceshipTwo [
 TurnManagerTest >> test03WhenRoundIsOverNextTurnIsTheFirstSpaceship [
 
 	| aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
-	spaceshipOne := Spaceship launch.
-	spaceshipTwo := Spaceship launch.
+	spaceshipOne := Spaceship launchWithFuel: 5.
+	spaceshipTwo := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection
 		                          with: spaceshipOne
 		                          with: spaceshipTwo.
@@ -48,19 +48,4 @@ TurnManagerTest >> test03WhenRoundIsOverNextTurnIsTheFirstSpaceship [
 	aTurnManager nextTurn.
 
 	self assert: aTurnManager nextTurn equals: spaceshipOne
-]
-
-{ #category : #tests }
-TurnManagerTest >> testWithSpaceshipWithoutIdReturnsTheSpaceship [
-
-| aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
-spaceshipOne:= Spaceship launch.
-spaceshipTwo:= Spaceship launch.
-collectionOfSpaceships:= OrderedCollection with: spaceshipOne with: spaceshipTwo .
-
-aTurnManager:= TurnManager manage: (collectionOfSpaceships) .
-aTurnManager nextTurn.
-aTurnManager nextTurn.
-
-self assert: aTurnManager nextTurn equals: spaceshipOne.
 ]
