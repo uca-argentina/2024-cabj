@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
-		'currentSpaceship'
+		'currentSpaceship',
+		'turnsToSkip'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,7 +18,16 @@ TurnManager class >> manage: collectionOfSpaceships [
 TurnManager >> initializeManage: collectionOfSpaceships [ 
 	spaceships:= collectionOfSpaceships .
 	currentSpaceship:=spaceships at: 1.
+	turnsToSkip := Dictionary new.
+	spaceships do: [:each | turnsToSkip at: each put: 0].
 	
+]
+
+{ #category : #action }
+TurnManager >> lostTwoTurns: aSpaceship [ 
+	| currentTurns |
+	currentTurns := turnsToSkip at: aSpaceship ifAbsent: [0].
+	turnsToSkip at: aSpaceship put: (currentTurns + 2).
 ]
 
 { #category : #auxiliar }
