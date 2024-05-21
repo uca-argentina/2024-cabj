@@ -8,8 +8,8 @@ Class {
 TurnManagerTest >> testWhenRoundIsOverNextTurnIsTheFirstSpaceship [
 
 | aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
-spaceshipOne:= Spaceship launch.
-spaceshipTwo:= Spaceship launch.
+spaceshipOne:= Spaceship launchWithFuel: 5.
+spaceshipTwo:= Spaceship launchWithFuel: 5.
 collectionOfSpaceships:= OrderedCollection with: spaceshipOne with: spaceshipTwo .
 
 aTurnManager:= TurnManager manage: (collectionOfSpaceships) .
@@ -23,8 +23,8 @@ self assert: (aTurnManager nextTurn) equals: spaceshipOne .
 TurnManagerTest >> testWithTwoSpaceshipsReturnNextId [
 
 | aTurnManager spaceshipOne spaceshipTwo collectionOfSpaceships |
-spaceshipOne:= Spaceship launch.
-spaceshipTwo:= Spaceship launch.
+spaceshipOne:= Spaceship launchWithFuel: 5.
+spaceshipTwo:= Spaceship launchWithFuel: 5.
 collectionOfSpaceships:= OrderedCollection with: spaceshipOne with: spaceshipTwo .
 
 aTurnManager:= TurnManager manage: (collectionOfSpaceships) .
