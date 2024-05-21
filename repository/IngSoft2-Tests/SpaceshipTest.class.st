@@ -148,3 +148,18 @@ SpaceshipTest >> test012SpaceshipMovesMoreThanOneCellThenFuelWasteNumberOfMoveme
 	Spaceship initialize.
 	self assert: aSpaceship getFuel equals: 3
 ]
+
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItHas [
+
+	| aSpaceship aBoard |
+	aSpaceship := Spaceship launchWithFuel: 5.
+	aBoard := Board
+		          ofCells: 20
+		          numberOfLaps: 1
+		          withWormholeBeginning: 18
+		          andEnding: 19.
+	aSpaceship move: 10 on: aBoard.
+	Spaceship initialize.
+	self assert: (aSpaceship position at: 1) equals: 6
+]
