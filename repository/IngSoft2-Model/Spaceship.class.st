@@ -20,41 +20,30 @@ Spaceship class >> initialize [
 ]
 
 { #category : #'instance creation' }
-Spaceship class >> launch [
-
-	counterId := counterId + 1.
-	^ self new initializeLaunch: counterId
-]
-
-{ #category : #'as yet unclassified' }
 Spaceship class >> launchWithFuel: anAmountOfFuel [
 	counterId := counterId + 1.
 	^ self new initializeLaunch: counterId withFuel: anAmountOfFuel .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 Spaceship >> getFuel [
-	^fuel.
+
+	^ fuel
 ]
 
 { #category : #accessing }
 Spaceship >> getId [
-	^id.
+
+	^ id
 ]
 
 { #category : #initialization }
-Spaceship >> initializeLaunch: counterId [
-	actualPosition:= 1.
-	actualLap:= 1.
-	id:= counterId .
-]
+Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-{ #category : #initialization }
-Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [ 
-	actualPosition:= 1.
-	actualLap:= 1.
-	fuel:= anAmountOfFuel .
-	id:= counterId .
+	actualPosition := 1.
+	actualLap := 1.
+	fuel := anAmountOfFuel.
+	id := counterId
 ]
 
 { #category : #action }
@@ -67,6 +56,6 @@ Spaceship >> move: aNumberOfMovements on: aBoard [
 
 { #category : #accessing }
 Spaceship >> position [
-	
-	^ ( OrderedCollection with: actualPosition with: actualLap  )
+
+	^ OrderedCollection with: actualPosition with: actualLap
 ]
