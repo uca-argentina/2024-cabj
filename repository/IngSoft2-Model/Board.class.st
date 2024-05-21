@@ -16,6 +16,20 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
 ]
 
+{ #category : #'instance creation' }
+Board class >> ofCells: anAmountOfCells numberOfLaps: aNumberOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
+
+	anAmountOfCells < 2 ifTrue: [
+		Error signal: 'A Board must have more than one box.' ].
+	anEnd <= aBeginning ifTrue: [
+		Error signal: 'The ending must be greater than the beginning' ].
+	^ self new
+		  initializeOf: anAmountOfCells
+		  numberOfLaps: aNumberOfLaps
+		  withWormholeBeginning: aBeginning
+		  andEnding: anEnd
+]
+
 { #category : #'action handling' }
 Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
@@ -33,6 +47,18 @@ Board >> enter: aPosition [
 Board >> finishLine [
 
 	^ amountOfCells
+]
+
+{ #category : #initialization }
+Board >> initializeOf: anAmountOfCells numberOfLaps: aNumberOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [ 
+	amountOfCells := anAmountOfCells * aNumberOfLaps .
+
+	collectionOfCells := OrderedCollection new.
+	1 to: anAmountOfCells do: [ :index |
+	collectionOfCells add: (RegularCell position: index) ].
+
+	collectionOfCells at: aBeginning put: (RegularCell position: anEnd).
+	collectionOfCells at: anEnd put: (RegularCell position: aBeginning)
 ]
 
 { #category : #initialization }
