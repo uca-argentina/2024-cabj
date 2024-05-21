@@ -157,7 +157,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 ]
 
 { #category : #tests }
-GameLoadedDieTest >> test09 [
+GameLoadedDieTest >> test09WhenMoveSpaceshipEqualsDoubleAmountOfFacesThenEqualsOne [
 
 	| aGame aLoadedDie |
 	aLoadedDie := LoadedDie of: #(3).
@@ -168,8 +168,6 @@ GameLoadedDieTest >> test09 [
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 3
+	self assert: aGame moveSpaceship equals: 1
 ]

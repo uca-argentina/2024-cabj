@@ -26,7 +26,7 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: (Spaceship launchWithFuel: 30) ].
+		collectionOfSpaceships add: (Spaceship launchWithFuel: (collectionOfDice amountOfFaces *2) ) ].
 
 	Spaceship initialize
 ]
@@ -59,11 +59,11 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 		          withWormholeBeginning: (beginningAndEnd at: 1)
 		          andEnding: (beginningAndEnd at: 2).
 	
+	collectionOfDice:= aCollectionOfDice  .
+	
 	self collectSpaceships: anAmountOfSpaceships.
 	
 	turnManager := TurnManager manage: collectionOfSpaceships.
-	
-	collectionOfDice:= aCollectionOfDice  .
 ]
 
 { #category : #action }
