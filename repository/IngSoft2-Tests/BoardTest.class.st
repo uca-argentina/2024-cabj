@@ -80,27 +80,33 @@ BoardTest >> test007WhenPositionIsNotWormholeThenItStaysTheSame [
 BoardTest >> test008BoardRecivesLegalMoveAndStaysTheSame [
 
 	| aBoard |
-	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
+	aBoard := Board ofCells: 11 numberOfLaps: 1 withWormholeBeginning: 2 andEnding: 10.
 
-	self assert: (aBoard adjustMovementWithinBoundsFrom: 1 by: 8) equals: 8
+	self
+		assert: (aBoard adjustMovementWithinBoundsFrom: 1 by: 8)
+		equals: 8
 ]
 
 { #category : #legalMove }
 BoardTest >> test009BoardRecivesIlegalPositionAndReturnsFinishLine [
 
 	| aBoard |
-	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
+	aBoard := Board ofCells: 11 numberOfLaps: 1 withWormholeBeginning: 2 andEnding: 10.
 
-	self assert: (aBoard adjustMovementWithinBoundsFrom: 10 by: 3) equals: 1
+	self
+		assert: (aBoard adjustMovementWithinBoundsFrom: 10 by: 3)
+		equals: 1
 ]
 
 { #category : #legalMove }
 BoardTest >> test010IlegalMoveFromPositionReturnsLegalMovement [
 
 	| aBoard |
-	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
+	aBoard := Board ofCells: 11 numberOfLaps: 1 withWormholeBeginning: 2 andEnding: 10.
 
-	self assert: (aBoard adjustMovementWithinBoundsFrom: 8 by: 5) equals: 3
+	self
+		assert: (aBoard adjustMovementWithinBoundsFrom: 8 by: 5)
+		equals: 3
 ]
 
 { #category : #legalMove }

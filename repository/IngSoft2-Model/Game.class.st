@@ -54,7 +54,8 @@ Game >> getWinner [
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 
 	aBoard := Board
-		          of: anAmountOfBoxes
+		          ofCells: anAmountOfBoxes
+					 numberOfLaps: 1
 		          withWormholeBeginning: (beginningAndEnd at: 1)
 		          andEnding: (beginningAndEnd at: 2).
 	
