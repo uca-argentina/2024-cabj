@@ -12,17 +12,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes numberOfLaps: aNumberOfLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
-
-	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships
-		  boardBoxes: anAmountOfBoxes
-		  numberOfLaps: aNumberOfLaps
-		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: aCollectionOfDice
-]
-
 { #category : #'instance creation' }
 Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 	^ self new
@@ -37,7 +26,7 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: Spaceship launch ].
+		collectionOfSpaceships add: (Spaceship launchWithFuel: 5) ].
 
 	Spaceship initialize
 ]
@@ -47,7 +36,7 @@ Game >> finalPositionOfSpaceships [
 
 	dictionaryOfPositions := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: spaceship position ].
+		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 1) ].
 
 	^ dictionaryOfPositions
 ]
@@ -59,23 +48,6 @@ Game >> getWinner [
 	 maxPosition := (dictionaryOfPositions values max).
 	^ dictionaryOfPositions keys detect: [ :key |
 		  (dictionaryOfPositions at: key) = maxPosition ]
-]
-
-{ #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes numberOfLaps: aNumberOfLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
-
-	aBoard := Board
-		          of: anAmountOfBoxes
-		          withWormholeBeginning: (beginningAndEnd at: 1)
-		          andEnding: (beginningAndEnd at: 2).
-
-	self collectSpaceships: anAmountOfSpaceships.
-	
-	numberOfLaps:= aNumberOfLaps .
-
-	turnManager := TurnManager manage: collectionOfSpaceships.
-
-	collectionOfDice := aCollectionOfDice
 ]
 
 { #category : #initialization }
@@ -101,7 +73,7 @@ Game >> moveSpaceship [
 
 	throwResult := aBoard
 		               adjustMovementWithinBoundsFrom:
-		               nextSpaceship position
+		               (nextSpaceship position at: 1)
 		               by: collectionOfDice throw.
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
