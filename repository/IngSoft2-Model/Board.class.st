@@ -2,10 +2,8 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'amountOfBoxes',
-		'wormholeBeginning',
-		'wormholeEnding',
-		'wormhole'
+		'amountOfCells',
+		'collectionOfCells'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,16 +14,23 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
 ]
 
+{ #category : #'action handling' }
+Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
+
+	aPosition + aMovement < amountOfCells ifTrue: [ ^ aMovement ].
+	^ amountOfCells - aPosition
+]
+
 { #category : #action }
-Board >> enterWormhole: aPosition [ 
-	aPosition = wormholeBeginning ifTrue: [^wormhole enterBeginning ].
-	aPosition = wormholeEnding  ifTrue: [^wormhole enterEnd ].
-	^aPosition.
+Board >> enter: aPosition [
+
+	^ (collectionOfCells at: aPosition) enter
 ]
 
 { #category : #accessing }
 Board >> finishLine [
-	^amountOfBoxes .
+
+	^ amountOfCells
 ]
 
 { #category : #initialization }
@@ -34,10 +39,4 @@ Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEndi
 	wormholeBeginning:= aBeginning .
 	wormholeEnding:= anEnd .
 	wormhole:= Wormhole beginning:  wormholeBeginning end: wormholeEnding. 
-]
-
-{ #category : #'action handling' }
-Board >> legalMoveFrom: aPosition move: aMovement [  
-	(aPosition+aMovement)<amountOfBoxes ifTrue:[^aMovement].
-	^(amountOfBoxes-aPosition).
 ]
