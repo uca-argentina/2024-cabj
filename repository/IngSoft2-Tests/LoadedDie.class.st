@@ -11,9 +11,14 @@ Class {
 { #category : #'instance creation' }
 LoadedDie class >> of: anAmountOfFaces [
 
-	(anAmountOfFaces anySatisfy: [ :faces | faces < 3 ]) ifTrue: [
+	(anAmountOfFaces max < 3) ifTrue: [
 		Error signal: 'A die less than three faces doesnt exist' ].
 	^ self new initializeOf: anAmountOfFaces
+]
+
+{ #category : #'set and get' }
+LoadedDie >> amountOfFaces [
+	^faces max.
 ]
 
 { #category : #initialization }
