@@ -8,3 +8,9 @@ Class {
 AllShipsDisabledHandler >> move: amountOfMovements on: aBoard [ 
 	^1.
 ]
+
+{ #category : #accessing }
+AllShipsDisabledHandler >> position [
+
+	^ OrderedCollection with: 1 with: 1
+]
