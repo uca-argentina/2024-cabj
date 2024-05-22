@@ -44,7 +44,11 @@ TurnManager >> nextSpaceship [
 
 { #category : #action }
 TurnManager >> nextTurn [
+
 	| spaceshipPlaying |
+	(turnsToSkip allSatisfy: [ :spaceship | spaceship value > 0 ])
+		ifTrue: [ ^ anAllShipsDisabledHandler ].
+
 	(turnsToSkip at: currentSpaceship) > 0 ifTrue: [
 		turnsToSkip
 			at: currentSpaceship
