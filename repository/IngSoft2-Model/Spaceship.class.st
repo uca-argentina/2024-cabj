@@ -46,10 +46,15 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 	id := counterId
 ]
 
+{ #category : #'as yet unclassified' }
+Spaceship >> loadFuel: anAmountOfFuel [ 
+	^fuel:=anAmountOfFuel .
+]
+
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
-	aNumberOfMovements > self getFuel ifTrue: [
+	aNumberOfMovements >= self getFuel ifTrue: [
 		actualPosition := aBoard enter: 1.
 		fuel := 0.
 		^ actualPosition ].

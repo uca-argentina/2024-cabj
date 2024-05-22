@@ -163,3 +163,50 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 	Spaceship initialize.
 	self assert: (aSpaceship position at: 1) equals: 1
 ]
+
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test014WhenSpaceshipMovesTheSameAsAmountOfFuelThenGoesBackToStart [
+
+	| aSpaceship aBoard |
+	aSpaceship := Spaceship launchWithFuel: 5.
+	aBoard := Board
+		          ofCells: 20
+		          numberOfLaps: 1
+		          withWormholeBeginning: 18
+		          andEnding: 19.
+	aSpaceship move: 5 on: aBoard.
+	Spaceship initialize.
+	self assert: (aSpaceship position at: 1) equals: 1
+]
+
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test015WhenSpaceshipLoadsFuelAfterLosingAllOfItThenFuelEqualsAmountLoaded [
+
+	| aSpaceship aBoard |
+	aSpaceship := Spaceship launchWithFuel: 5.
+	aBoard := Board
+		          ofCells: 20
+		          numberOfLaps: 1
+		          withWormholeBeginning: 18
+		          andEnding: 19.
+	aSpaceship move: 5 on: aBoard.
+	aSpaceship loadFuel: 5.
+	Spaceship initialize.
+	self assert: (aSpaceship getFuel) equals: 5
+]
+
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
+
+	| aSpaceship aBoard |
+	aSpaceship := Spaceship launchWithFuel: 10.
+	aBoard := Board
+		          ofCells: 20
+		          numberOfLaps: 1
+		          withWormholeBeginning: 18
+		          andEnding: 19.
+	aSpaceship move: 10 on: aBoard.
+	aSpaceship loadFuel: 10.
+	Spaceship initialize.
+	self assert: (aSpaceship move: 8 on: aBoard) equals: 9
+]
