@@ -26,10 +26,10 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 ]
 
 { #category : #testsGame002 }
-GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsThirteen [
+GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
 
 	| aGame aLoadedDie|
-	aLoadedDie := LoadedDie of:#(6).
+	aLoadedDie := LoadedDie of:#(6 5).
 	aGame := Game 
 		         numberOfSpaceships: 1 
 				   boardBoxes: 15
@@ -37,7 +37,7 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieOf6ThenReturnsThi
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 13
+	self assert: aGame moveSpaceship equals: 12
 ]
 
 { #category : #testsGame002 }
@@ -72,10 +72,10 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 ]
 
 { #category : #tests }
-GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsThirteen [
+GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
 	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: #(6).
+	aLoadedDie := LoadedDie of: #(6 6 5).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardBoxes: 50
@@ -84,7 +84,7 @@ GameLoadedDieTest >> test04InitializeWithTwoSpaceshipsMovesThreeTimesThenTheFirs
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 13
+	self assert: aGame moveSpaceship equals: 12
 ]
 
 { #category : #tests }
@@ -157,7 +157,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 ]
 
 { #category : #tests }
-GameLoadedDieTest >> test09WhenMoveSpaceshipEqualsDoubleAmountOfFacesThenEqualsOne [
+GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
 	| aGame aLoadedDie |
 	aLoadedDie := LoadedDie of: #(3).
@@ -170,4 +170,22 @@ GameLoadedDieTest >> test09WhenMoveSpaceshipEqualsDoubleAmountOfFacesThenEqualsO
 	aGame moveSpaceship.
 
 	self assert: aGame moveSpaceship equals: 1
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns [
+
+	| aGame aLoadedDie |
+	aLoadedDie := LoadedDie of: #(3).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardBoxes: 20
+		         wormholeStartAndEnd: #( 16 18 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	self assert: aGame moveSpaceship equals: 4
 ]

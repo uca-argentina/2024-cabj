@@ -7,7 +7,8 @@ Class {
 		'collectionOfSpaceships',
 		'turnManager',
 		'dictionaryOfPositions',
-		'numberOfLaps'
+		'numberOfLaps',
+		'amountOfFuel'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -26,7 +27,7 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: (Spaceship launchWithFuel: (collectionOfDice amountOfFaces *2) ) ].
+		collectionOfSpaceships add: (Spaceship launchWithFuel: amountOfFuel ) ].
 
 	Spaceship initialize
 ]
@@ -61,6 +62,8 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 	
 	collectionOfDice:= aCollectionOfDice  .
 	
+	amountOfFuel:= collectionOfDice amountOfFaces *2.
+	
 	self collectSpaceships: anAmountOfSpaceships.
 	
 	turnManager := TurnManager manage: collectionOfSpaceships.
@@ -78,7 +81,9 @@ Game >> moveSpaceship [
 		               by: collectionOfDice throw.
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
-
+	
+	positionOfSpaceship = 1 ifTrue:[turnManager lostTwoTurns: nextSpaceship. nextSpaceship loadFuel: amountOfFuel].
+	
 	positionOfSpaceship = aBoard finishLine ifTrue: [
 		turnManager := GameOver new.
 		^ self finalPositionOfSpaceships ].
