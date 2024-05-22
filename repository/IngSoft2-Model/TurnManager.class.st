@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'spaceships',
 		'currentSpaceship',
-		'turnsToSkip'
+		'turnsToSkip',
+		'anAllShipsDisabledHandler'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,6 +18,7 @@ TurnManager class >> manage: collectionOfSpaceships [
 { #category : #initialization }
 TurnManager >> initializeManage: collectionOfSpaceships [ 
 	spaceships:= collectionOfSpaceships .
+	anAllShipsDisabledHandler:= AllShipsDisabledHandler new.
 	currentSpaceship:=spaceships at: 1.
 	turnsToSkip := Dictionary new.
 	spaceships do: [:each | turnsToSkip at: each put: 0].

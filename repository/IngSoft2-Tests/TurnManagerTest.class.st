@@ -89,3 +89,16 @@ TurnManagerTest >> test05WhenSpaceshipOneLosesTwoTurnsThenSpaceshipTwoPlaysThem 
 
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
+
+{ #category : #tests }
+TurnManagerTest >> test06WhenEverySpaceshipsLosesTheirTurnThenReturnAnAllShipsDisabledHandler [
+
+	| aTurnManager spaceshipOne collectionOfSpaceships |
+	spaceshipOne := Spaceship launchWithFuel: 5.
+	collectionOfSpaceships := OrderedCollection
+		                          with: spaceshipOne.
+	aTurnManager := TurnManager manage: collectionOfSpaceships.
+	aTurnManager lostTwoTurns: spaceshipOne .
+
+	self assert: (aTurnManager nextTurn isKindOf: AllShipsDisabledHandler )
+]
