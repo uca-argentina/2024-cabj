@@ -46,7 +46,7 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 	id := counterId
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #setter }
 Spaceship >> loadFuel: anAmountOfFuel [ 
 	^fuel:=anAmountOfFuel .
 ]
