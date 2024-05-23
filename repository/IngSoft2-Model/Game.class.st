@@ -22,6 +22,14 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBox
 		  playWithDice: aCollectionOfDice.
 ]
 
+{ #category : #action }
+Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
+
+	positionOfSpaceship = 1 ifTrue: [
+		turnManager lostTurns: 2 by: nextSpaceship.
+		nextSpaceship loadFuel: amountOfFuel ]
+]
+
 { #category : #initialization }
 Game >> collectSpaceships: anAmountOfSpaceships [
 
@@ -82,8 +90,8 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
 	
-	positionOfSpaceship = 1 ifTrue:[turnManager lostTurns: 2 by: nextSpaceship. nextSpaceship loadFuel: amountOfFuel].
-	
+	self checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship.
+
 	positionOfSpaceship = aBoard finishLine ifTrue: [
 		turnManager := GameOver new.
 		^ self finalPositionOfSpaceships ].
