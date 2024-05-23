@@ -62,7 +62,7 @@ TurnManagerTest >> test04WhenSpaceshipOneLosesTurnsTheNextTurnIsSpaceshipTwo [
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
-	aTurnManager lostTwoTurns: spaceshipOne.
+	aTurnManager lostTurns: 2 by: spaceshipOne . 
 	aTurnManager nextTurn.
 
 	self assert: aTurnManager nextTurn equals: spaceshipTwo
@@ -80,7 +80,7 @@ TurnManagerTest >> test05WhenSpaceshipOneLosesTwoTurnsThenSpaceshipTwoPlaysThem 
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
-	aTurnManager lostTwoTurns: spaceshipOne.
+	aTurnManager lostTurns: 2 by: spaceshipOne . 
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
@@ -97,7 +97,7 @@ TurnManagerTest >> test06WhenEverySpaceshipsLosesTheirTurnThenReturnAnAllShipsDi
 	spaceshipOne := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager lostTwoTurns: spaceshipOne.
+	aTurnManager lostTurns: 2 by: spaceshipOne .
 
 	self assert:
 		(aTurnManager nextTurn isKindOf: AllShipsDisabledHandler)
@@ -110,9 +110,23 @@ TurnManagerTest >> test07WhenSpaceshipLostTwoTurnsIsCalledTwiceAndTwoTurnsPassTh
 	spaceshipOne := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager lostTwoTurns: spaceshipOne.
-	aTurnManager lostTwoTurns: spaceshipOne.
+	aTurnManager lostTurns: 2 by: spaceshipOne.
+	aTurnManager lostTurns: 2 by: spaceshipOne. 
+	aTurnManager lostTurns: 2 by: spaceshipOne. 
 	aTurnManager nextTurn.
+	aTurnManager nextTurn.
+
+	self assert: aTurnManager nextTurn equals: spaceshipOne
+]
+
+{ #category : #tests }
+TurnManagerTest >> test08OneSpaceshipLostOneTurnAndThenRecoversIt [
+
+	| aTurnManager spaceshipOne collectionOfSpaceships |
+	spaceshipOne := Spaceship launchWithFuel: 5.
+	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
+	aTurnManager := TurnManager manage: collectionOfSpaceships.
+	aTurnManager lostTurns: 1  by:  spaceshipOne.
 	aTurnManager nextTurn.
 
 	self assert: aTurnManager nextTurn equals: spaceshipOne
