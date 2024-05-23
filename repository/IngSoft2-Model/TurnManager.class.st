@@ -26,10 +26,10 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 ]
 
 { #category : #action }
-TurnManager >> lostTwoTurns: aSpaceship [ 
-	| currentTurns |
-	currentTurns := turnsToSkip at: aSpaceship ifAbsent: [0].
-	turnsToSkip at: aSpaceship put: (currentTurns + 2).
+TurnManager >> lostTwoTurns: aSpaceship [
+
+	(turnsToSkip at: aSpaceship) = 0 ifTrue: [
+		turnsToSkip at: aSpaceship put: 2 ]
 ]
 
 { #category : #auxiliar }
@@ -47,7 +47,12 @@ TurnManager >> nextTurn [
 
 	| spaceshipPlaying |
 	(turnsToSkip allSatisfy: [ :spaceship | spaceship value > 0 ])
-		ifTrue: [ ^ anAllShipsDisabledHandler ].
+		ifTrue: [
+			turnsToSkip
+				at: currentSpaceship
+				put: (turnsToSkip at: currentSpaceship) - 1.
+			currentSpaceship := self nextSpaceship.
+			^ anAllShipsDisabledHandler ].
 
 	(turnsToSkip at: currentSpaceship) > 0 ifTrue: [
 		turnsToSkip
