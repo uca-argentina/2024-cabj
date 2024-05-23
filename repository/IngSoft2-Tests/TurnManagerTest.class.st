@@ -117,3 +117,16 @@ TurnManagerTest >> test07WhenSpaceshipLostTwoTurnsIsCalledTwiceAndTwoTurnsPassTh
 
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
+
+{ #category : #tests }
+TurnManagerTest >> test08OneSpaceshipLostOneTurnAndThenRecoversIt [
+
+	| aTurnManager spaceshipOne collectionOfSpaceships |
+	spaceshipOne := Spaceship launchWithFuel: 5.
+	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
+	aTurnManager := TurnManager manage: collectionOfSpaceships.
+	aTurnManager lostOneTurn: spaceshipOne.
+	aTurnManager nextTurn.
+
+	self assert: aTurnManager nextTurn equals: spaceshipOne
+]
