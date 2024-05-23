@@ -189,3 +189,20 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 
 	self assert: aGame moveSpaceship equals: 4
 ]
+
+{ #category : #tests }
+GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFuel [
+
+	| aGame aLoadedDie |
+	aLoadedDie := LoadedDie of: #(3).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardBoxes: 20
+		         wormholeStartAndEnd: #( 16 18 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame reloadSpaceship.
+	
+
+	self assert: aGame moveSpaceship equals: 7
+]

@@ -82,11 +82,25 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
 	
-	positionOfSpaceship = 1 ifTrue:[turnManager lostTwoTurns: nextSpaceship. nextSpaceship loadFuel: amountOfFuel].
+	positionOfSpaceship = 1 ifTrue:[turnManager lostTurns: 2 by: nextSpaceship. nextSpaceship loadFuel: amountOfFuel].
 	
 	positionOfSpaceship = aBoard finishLine ifTrue: [
 		turnManager := GameOver new.
 		^ self finalPositionOfSpaceships ].
+
+	^ positionOfSpaceship
+]
+
+{ #category : #'as yet unclassified' }
+Game >> reloadSpaceship [
+	| positionOfSpaceship nextSpaceship |
+	nextSpaceship := turnManager nextTurn.
+
+
+
+	positionOfSpaceship := nextSpaceship move: 0 on: aBoard.
+	
+	nextSpaceship loadFuel: amountOfFuel .
 
 	^ positionOfSpaceship
 ]
