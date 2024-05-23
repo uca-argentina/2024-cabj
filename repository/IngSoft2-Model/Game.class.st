@@ -91,7 +91,7 @@ Game >> moveSpaceship [
 	^ positionOfSpaceship
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Game >> reloadSpaceship [
 	| positionOfSpaceship nextSpaceship |
 	nextSpaceship := turnManager nextTurn.
@@ -100,7 +100,7 @@ Game >> reloadSpaceship [
 
 	positionOfSpaceship := nextSpaceship move: 0 on: aBoard.
 	
-	nextSpaceship loadFuel: amountOfFuel .
+	nextSpaceship loadFuel: amountOfFuel.
 
 	^ positionOfSpaceship
 ]
