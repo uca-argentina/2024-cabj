@@ -21,6 +21,7 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 	anAllShipsDisabledHandler:= AllShipsDisabledHandler new.
 	currentSpaceship:=spaceships at: 1.
 	turnsToSkip := Dictionary new.
+	turnsToSkip at: anAllShipsDisabledHandler put:2.
 	spaceships do: [:each | turnsToSkip at: each put: 0].
 	
 ]
