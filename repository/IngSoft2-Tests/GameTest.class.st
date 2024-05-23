@@ -58,7 +58,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: ((aGame moveSpaceship between: 3 and: 13) or: 1).
+	self assert: (aGame moveSpaceship between: 1 and: 13).
 
 ]
 
