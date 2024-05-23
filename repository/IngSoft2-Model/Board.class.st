@@ -21,6 +21,7 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
 	aPosition + aMovement < amountOfCells ifTrue: [ ^ aMovement ].
+	numberOfLaps :=numberOfLaps +1.
 	^ amountOfCells - aPosition
 ]
 
@@ -36,6 +37,11 @@ Board >> finishLine [
 	^ amountOfCells
 ]
 
+{ #category : #accessing }
+Board >> getLap [
+	^numberOfLaps .
+]
+
 { #category : #initialization }
 Board >> initializeOf: anAmountOfCells withWormholeBeginning: aBeginning andEnding: anEnd [
 
@@ -44,6 +50,7 @@ Board >> initializeOf: anAmountOfCells withWormholeBeginning: aBeginning andEndi
 	collectionOfCells := OrderedCollection new.
 	1 to: anAmountOfCells do: [ :index |
 	collectionOfCells add: (RegularCell position: index) ].
+	numberOfLaps :=1.
 
 	collectionOfCells at: aBeginning put: (RegularCell position: anEnd).
 	collectionOfCells at: anEnd put: (RegularCell position: aBeginning)

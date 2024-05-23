@@ -114,3 +114,26 @@ BoardTest >> test011WormholeEndMustBeGreaterThanBeginning [
 		raise: Error
 		withMessage: 'The ending must be greater than the beginning'
 ]
+
+{ #category : #legalMove }
+BoardTest >> test012WhenABoardInitializesThenTheNumberOfLapsIsOne [
+	| aBoard |
+	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
+	
+	self
+		assert: (aBoard getLap)
+		equals: 1
+	
+]
+
+{ #category : #legalMove }
+BoardTest >> test013WhenAMovementOnTheBoardIsMoreThanTheAmountOfCellsThenTheNumberOfLapsIncrements [
+	| aBoard |
+	aBoard := Board of: 11 withWormholeBeginning: 2 andEnding: 10.
+	aBoard adjustMovementWithinBoundsFrom: 10 by: 3.
+		
+	self
+		assert: (aBoard getLap)
+		equals: 2
+	
+]
