@@ -24,3 +24,15 @@ AllShipsDisabledHanderTest >> test02AllShipsDisabledHandlerPositionThenReturnsCo
 		assert: anAllShipsDisabledHandler position
 		equals: collectionPosition
 ]
+
+{ #category : #tests }
+AllShipsDisabledHanderTest >> test03AllShipsDisabledHandlerKnowsHowToLoadFuel [
+
+	| anAllShipsDisabledHandler |
+	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+	anAllShipsDisabledHandler loadFuel: 5.
+
+	self
+		assert: (anAllShipsDisabledHandler getFuel)
+		equals: 5
+]
