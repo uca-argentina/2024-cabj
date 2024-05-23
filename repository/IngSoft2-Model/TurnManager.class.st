@@ -26,17 +26,11 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-TurnManager >> lostOneTurn: aSpaceship [ 
-	(turnsToSkip at: aSpaceship) = 0 ifTrue: [
-		turnsToSkip at: aSpaceship put: 1 ]
-]
-
 { #category : #action }
-TurnManager >> lostTwoTurns: aSpaceship [
+TurnManager >> lostTurns: anAmountOfTurns by: aSpaceship [
 
 	(turnsToSkip at: aSpaceship) = 0 ifTrue: [
-		turnsToSkip at: aSpaceship put: 2 ]
+		turnsToSkip at: aSpaceship put: anAmountOfTurns  ]
 ]
 
 { #category : #auxiliar }
