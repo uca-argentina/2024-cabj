@@ -99,13 +99,19 @@ BoardTest >> test009BoardRecivesIlegalPositionAndReturnsFinishLine [
 ]
 
 { #category : #legalMove }
-BoardTest >> test010IlegalMoveFromPositionReturnsLegalMovement [
+BoardTest >> test010IlegalMoveIfThereWasOneLapIsNowLegalBeacuseThereIsMoreThanOneLap [
 
-	| aBoard |
-	aBoard := Board ofCells: 11 numberOfLaps: 1 withWormholeBeginning: 2 andEnding: 10.
+	| aBoard aStartingPosition |
+	aBoard := Board
+		          ofCells: 11
+		          numberOfLaps: 2
+		          withWormholeBeginning: 2
+		          andEnding: 10.
+	aStartingPosition := OrderedCollection with: 10 with: 1.
 
 	self
-		assert: (aBoard adjustMovementWithinBoundsFrom: 8 by: 5)
+		assert:
+		(aBoard adjustMovementWithinBoundsFrom: aStartingPosition by: 3)
 		equals: 3
 ]
 
@@ -118,4 +124,17 @@ BoardTest >> test011WormholeEndMustBeGreaterThanBeginning [
 		aBoard := Board ofCells: 8 numberOfLaps: 1 withWormholeBeginning: 7 andEnding: 2 ]
 		raise: Error
 		withMessage: 'The ending must be greater than the beginning'
+]
+
+{ #category : #legalMove }
+BoardTest >> test012WhenABoardInitializesWithOneLapThenTheNumberOfLapsIsOne [
+
+	| aBoard |
+	aBoard := Board
+		          ofCells: 11
+		          numberOfLaps: 1
+		          withWormholeBeginning: 2
+		          andEnding: 10.
+
+	self assert: aBoard getLap equals: 1
 ]
