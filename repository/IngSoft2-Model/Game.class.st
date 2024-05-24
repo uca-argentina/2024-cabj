@@ -85,7 +85,7 @@ Game >> moveSpaceship [
 
 	throwResult := aBoard
 		               adjustMovementWithinBoundsFrom:
-		               (nextSpaceship position at: 1)
+		               nextSpaceship position
 		               by: collectionOfDice throw.
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.

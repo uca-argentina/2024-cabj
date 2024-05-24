@@ -56,18 +56,6 @@ Board >> getLap [
 ]
 
 { #category : #initialization }
-Board >> initializeOf: anAmountOfCells numberOfLaps: aNumberOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [ 
-	amountOfCells := anAmountOfCells * aNumberOfLaps .
-
-	collectionOfCells := OrderedCollection new.
-	1 to: anAmountOfCells do: [ :index |
-	collectionOfCells add: (RegularCell position: index) ].
-
-	collectionOfCells at: aBeginning put: (RegularCell position: anEnd).
-	collectionOfCells at: anEnd put: (RegularCell position: aBeginning)
-]
-
-{ #category : #initialization }
 Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
 
 	amountOfCells := anAmountOfCells.
