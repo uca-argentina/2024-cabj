@@ -26,9 +26,16 @@ Board class >> ofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormhol
 { #category : #'action handling' }
 Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
-	aPosition + aMovement < amountOfCells ifTrue: [ ^ aMovement ].
-	numberOfLaps :=numberOfLaps -1.
-	^ amountOfCells - aPosition
+	| currentPosition completedLaps actualPosition totalCells expectedPosition |
+	currentPosition := aPosition at: 1.
+	completedLaps := ((aPosition at: 2) - 1) * amountOfCells.
+	actualPosition := currentPosition + completedLaps.
+	totalCells := amountOfCells * numberOfLaps.
+	expectedPosition := actualPosition + aMovement.
+
+	expectedPosition < totalCells ifTrue: [ ^ aMovement ].
+
+	^ totalCells - actualPosition
 ]
 
 { #category : #action }
@@ -56,7 +63,7 @@ Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWor
 	collectionOfCells := OrderedCollection new.
 	1 to: anAmountOfCells do: [ :index |
 	collectionOfCells add: (RegularCell position: index) ].
-	numberOfLaps := 1.
+	numberOfLaps := anAmountOfLaps .
 
 	collectionOfCells at: aBeginning put: (RegularCell position: anEnd).
 	collectionOfCells at: anEnd put: (RegularCell position: aBeginning)

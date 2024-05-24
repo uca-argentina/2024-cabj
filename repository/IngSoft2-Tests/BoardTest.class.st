@@ -104,45 +104,49 @@ BoardTest >> test007WhenPositionIsNotWormholeThenItStaysTheSame [
 { #category : #legalMove }
 BoardTest >> test008BoardRecivesLegalMoveAndStaysTheSame [
 
-	| aBoard |
+	| aBoard aStartingPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 1
 		          withWormholeBeginning: 2
 		          andEnding: 10.
+	aStartingPosition := OrderedCollection with: 1 with: 1.
 
 	self
-		assert: (aBoard adjustMovementWithinBoundsFrom: 1 by: 8)
+		assert: (aBoard adjustMovementWithinBoundsFrom: aStartingPosition by: 8)
 		equals: 8
 ]
 
 { #category : #legalMove }
 BoardTest >> test009BoardRecivesIlegalPositionAndReturnsFinishLine [
 
-	| aBoard |
+	| aBoard aStartingPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 1
 		          withWormholeBeginning: 2
 		          andEnding: 10.
+	aStartingPosition := OrderedCollection with: 10 with: 1.
 
 	self
-		assert: (aBoard adjustMovementWithinBoundsFrom: 10 by: 3)
+		assert: (aBoard adjustMovementWithinBoundsFrom: aStartingPosition by: 3)
 		equals: 1
 ]
 
 { #category : #legalMove }
-BoardTest >> test010IlegalMoveFromPositionReturnsLegalMovement [
+BoardTest >> test010IlegalMoveIfThereWasOneLapIsNowLegalBeacuseThereIsMoreThanOneLap [
 
-	| aBoard |
+	| aBoard aStartingPosition |
 	aBoard := Board
 		          ofCells: 11
-		          numberOfLaps: 1
+		          numberOfLaps: 2
 		          withWormholeBeginning: 2
 		          andEnding: 10.
+	aStartingPosition := OrderedCollection with: 10 with: 1.
 
 	self
-		assert: (aBoard adjustMovementWithinBoundsFrom: 8 by: 5)
+		assert:
+		(aBoard adjustMovementWithinBoundsFrom: aStartingPosition by: 3)
 		equals: 3
 ]
 
