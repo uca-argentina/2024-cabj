@@ -182,3 +182,16 @@ BoardTest >> test012WhenABoardInitializesWithOneLapThenTheNumberOfLapsIsOne [
 
 	self assert: aBoard getLap equals: 1
 ]
+
+{ #category : #legalMove }
+BoardTest >> test013WhenEnterRecivesNumberGreaterThanAmountOfCellsThenEnterOnNextLap [
+
+	| aBoard |
+	aBoard := Board
+		          ofCells: 11
+		          numberOfLaps: 2
+		          withWormholeBeginning: 2
+		          andEnding: 10.
+
+	self assert: (aBoard enter: 12) equals: 1
+]
