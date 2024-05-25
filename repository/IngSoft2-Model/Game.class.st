@@ -25,7 +25,7 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: nu
 { #category : #action }
 Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 
-	positionOfSpaceship = 1 ifTrue: [
+	nextSpaceship getFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
 		nextSpaceship loadFuel: amountOfFuel ]
 ]
@@ -38,6 +38,15 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 		collectionOfSpaceships add: (Spaceship launchWithFuel: amountOfFuel ) ].
 
 	Spaceship initialize
+]
+
+{ #category : #'as yet unclassified' }
+Game >> finalLapsOfSpaceships [
+	dictionaryOfPositions := Dictionary new.
+	collectionOfSpaceships do: [ :spaceship |
+		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 2) ].
+
+	^ dictionaryOfPositions
 ]
 
 { #category : #action }

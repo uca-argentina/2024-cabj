@@ -247,3 +247,65 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 
 	self assert: (aGame moveSpaceship at: 2) equals: 2
 ]
+
+{ #category : #tests }
+GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTurns [
+
+	| aGame aLoadedDie position |
+	aLoadedDie := LoadedDie of: #( 5 4 1 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardWithCellsAndLaps: #( 10 2 )
+		         wormholeStartAndEnd: #( 3 4 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame reloadSpaceship.
+	aGame moveSpaceship .
+	position:= OrderedCollection with:6 with: 2.
+	self assert: (aGame moveSpaceship ) equals: position 
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships [
+
+	| aGame resultOfPositions aLoadedDie |
+	aLoadedDie := LoadedDie of: #( 6 ).
+	resultOfPositions := Dictionary new.
+	resultOfPositions at: 1 put: 12.
+	resultOfPositions at: 2 put: 7.
+	aGame := Game
+		         numberOfSpaceships: 2
+		         boardWithCellsAndLaps: #( 12 1 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	self
+		assert: aGame finalPositionOfSpaceships
+		equals: resultOfPositions
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
+
+	| aGame resultOfLaps aLoadedDie |
+	aLoadedDie := LoadedDie of: #( 6 3 12 1 6 1 ).
+	resultOfLaps := Dictionary new.
+	resultOfLaps at: 1 put: 2.
+	resultOfLaps at: 2 put: 1.
+	aGame := Game
+		         numberOfSpaceships: 2
+		         boardWithCellsAndLaps: #( 12 2 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	self
+		assert: aGame finalLapsOfSpaceships
+		equals: resultOfLaps
+]
