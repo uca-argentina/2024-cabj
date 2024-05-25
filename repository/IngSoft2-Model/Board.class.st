@@ -62,11 +62,6 @@ Board >> finishLine [
 	^ OrderedCollection with: amountOfCells with: numberOfLaps
 ]
 
-{ #category : #accessing }
-Board >> getLap [
-	^numberOfLaps .
-]
-
 { #category : #initialization }
 Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
 
