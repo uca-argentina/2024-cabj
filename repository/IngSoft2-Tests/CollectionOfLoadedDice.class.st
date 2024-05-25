@@ -12,6 +12,11 @@ CollectionOfLoadedDice class >> of: aCollectionOfFaces [
 	^ (self new) initializeOf: aCollectionOfFaces .
 ]
 
+{ #category : #'set and get' }
+CollectionOfLoadedDice >> amountOfFaces [
+	^ aCollectionOfLoadedDie sum: [:die | die amountOfFaces].
+]
+
 { #category : #initialization }
 CollectionOfLoadedDice >> initializeOf: aCollectionOfFaces [
 

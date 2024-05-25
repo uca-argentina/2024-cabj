@@ -2,8 +2,9 @@ Class {
 	#name : #Spaceship,
 	#superclass : #Object,
 	#instVars : [
-		'actualPosition',
-		'id'
+		'id',
+		'fuel',
+		'collectionActualPosition'
 	],
 	#classInstVars : [
 		'counterId'
@@ -18,31 +19,59 @@ Spaceship class >> initialize [
 ]
 
 { #category : #'instance creation' }
-Spaceship class >> launch [
-
+Spaceship class >> launchWithFuel: anAmountOfFuel [
 	counterId := counterId + 1.
-	^ self new initializeLaunch: counterId
+	^ self new initializeLaunch: counterId withFuel: anAmountOfFuel .
+]
+
+{ #category : #'set and get' }
+Spaceship >> getFuel [
+
+	^ fuel
 ]
 
 { #category : #accessing }
 Spaceship >> getId [
-	^id.
+
+	^ id
 ]
 
 { #category : #initialization }
-Spaceship >> initializeLaunch: counterId [
-	actualPosition:= 0.
-	id:= counterId .
+Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
+
+	collectionActualPosition:= OrderedCollection with: 1 with: 1.
+	fuel := anAmountOfFuel.
+	id := counterId
+]
+
+{ #category : #setter }
+Spaceship >> loadFuel: anAmountOfFuel [ 
+	^fuel:=anAmountOfFuel .
 ]
 
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
-	actualPosition:= aBoard enter: (actualPosition + aNumberOfMovements).
-	^actualPosition 
+	| actualPosition actualLap |
+	actualPosition := collectionActualPosition at: 1.
+	actualLap := collectionActualPosition at: 2.
+	aNumberOfMovements >= self getFuel ifTrue: [
+		collectionActualPosition := aBoard enter:
+			                            (OrderedCollection
+				                             with: 1
+				                             with: actualLap).
+		fuel := 0.
+		^ collectionActualPosition ].
+	collectionActualPosition := aBoard enter: (OrderedCollection
+			                             with:
+			                             actualPosition + aNumberOfMovements
+			                             with: actualLap).
+	fuel := fuel - aNumberOfMovements.
+	^ collectionActualPosition
 ]
 
 { #category : #accessing }
 Spaceship >> position [
-	^ actualPosition .
+
+	^ collectionActualPosition 
 ]
