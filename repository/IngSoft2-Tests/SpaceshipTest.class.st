@@ -264,7 +264,7 @@ SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsP
 ]
 
 { #category : #fuelTests }
-SpaceshipTest >> test020 [
+SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
