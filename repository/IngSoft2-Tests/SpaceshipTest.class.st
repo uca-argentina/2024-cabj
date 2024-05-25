@@ -262,3 +262,25 @@ SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsP
 	Spaceship initialize.
 	self assert: (aSpaceship getFuel) equals: 27
 ]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test020 [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: BlackHole new
+		                                      with: 4.
+	aSpaceship := Spaceship launchWithFuel: 10.
+	aBoard := BoardWithDefinedSpecialCell
+		          ofCells: 10
+		          numberOfLaps: 2
+		          withWormholeSides: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	aSpaceship move: 5 on: aBoard.
+	aSpaceship move: 4 on: aBoard.
+	aSpaceship loadFuel: 10.
+	aSpaceship move: 1 on: aBoard.
+	finalPosition := OrderedCollection with: 6 with: 2.
+	Spaceship initialize.
+	self assert: (aSpaceship move: 5 on: aBoard) equals: finalPosition
+]
