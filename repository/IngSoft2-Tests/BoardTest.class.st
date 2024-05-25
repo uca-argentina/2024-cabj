@@ -17,13 +17,14 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 { #category : #tests }
 BoardTest >> test001WhenBoardInitializeWithThreeCellsThenFinishesOnThree [
 
-	| aBoard |
+	| aBoard lastPosition |
 	aBoard := Board
 		          ofCells: 3
 		          numberOfLaps: 1
 		          withWormholeBeginning: 1
 		          andEnding: 2.
-	self assert: aBoard finishLine equals: 3
+	lastPosition := OrderedCollection with: 3 with: 1.
+	self assert: aBoard finishLine equals: lastPosition
 ]
 
 { #category : #'tests - initialization' }
@@ -57,14 +58,14 @@ BoardTest >> test003BoardCannotBeCreatedWithNegativeCells [
 { #category : #tests }
 BoardTest >> test004BoardFinishLineEqualsAmountOfCellsInitializeWith [
 
-	| aBoard |
+	| aBoard lastPosition |
 	aBoard := Board
 		          ofCells: 4
 		          numberOfLaps: 1
 		          withWormholeBeginning: 2
 		          andEnding: 3.
-
-	self assert: aBoard finishLine equals: 4
+	lastPosition := OrderedCollection with: 4 with: 1.
+	self assert: aBoard finishLine equals: lastPosition 
 ]
 
 { #category : #wormhole }
