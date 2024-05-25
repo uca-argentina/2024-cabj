@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'amountOfCells',
 		'collectionOfCells',
-		'numberOfLaps'
+		'numberOfLaps',
+		'amountOfIndex'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -65,13 +66,18 @@ Board >> finishLine [
 { #category : #initialization }
 Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
 
+	amountOfIndex := anAmountOfCells * anAmountOfLaps.
 	amountOfCells := anAmountOfCells.
-
 	collectionOfCells := OrderedCollection new.
-	1 to: anAmountOfCells do: [ :index |
+	numberOfLaps := anAmountOfLaps.
+	1 to: amountOfIndex do: [ :index |
 	collectionOfCells add: (RegularCell position: index) ].
-	numberOfLaps := anAmountOfLaps .
 
-	collectionOfCells at: aBeginning put: (RegularCell position: anEnd).
-	collectionOfCells at: anEnd put: (RegularCell position: aBeginning)
+	1 to: numberOfLaps do: [ :lap |
+		collectionOfCells
+			at: aBeginning + ((lap-1) * amountOfCells)
+			put: (RegularCell position: anEnd + ((lap-1) * amountOfCells)).
+		collectionOfCells
+			at: anEnd + ((lap-1) * amountOfCells)
+			put: (RegularCell position: aBeginning + ((lap-1) * amountOfCells)) ]
 ]

@@ -129,7 +129,7 @@ BoardTest >> test008BoardRecivesLegalMoveAndStaysTheSame [
 { #category : #legalMove }
 BoardTest >> test009BoardRecivesIlegalPositionAndReturnsFinishLine [
 
-	| aBoard aStartingPosition|
+	| aBoard aStartingPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 1
