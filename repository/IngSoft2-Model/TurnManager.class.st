@@ -3,9 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
-		'anAllShipsDisabledHandler',
-		'currentSpaceship',
-		'turnsToSkip'
+		'turn'
 	],
 	#category : #'IngSoft2-Model'
 }
