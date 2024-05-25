@@ -2,9 +2,12 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'aSpaceship',
 		'aBoard',
-		'collectionOfDice'
+		'collectionOfDice',
+		'amountOfFuel',
+		'collectionOfSpaceships',
+		'turnManager',
+		'dictionaryOfPositions'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -51,7 +54,7 @@ Game >> finalPositionOfSpaceships [
 Game >> getWinner [
 
 	| maxPosition |
-	 maxPosition := (dictionaryOfPositions values max).
+	maxPosition := dictionaryOfPositions values max.
 	^ dictionaryOfPositions keys detect: [ :key |
 		  (dictionaryOfPositions at: key) = maxPosition ]
 ]
@@ -66,7 +69,6 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 		          andEnding: (beginningAndEnd at: 2).
 
 	collectionOfDice := aCollectionOfDice.
-
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
 
 	self collectSpaceships: anAmountOfSpaceships.

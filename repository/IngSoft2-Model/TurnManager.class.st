@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
-		'turn'
+		'anAllShipsDisabledHandler',
+		'currentSpaceship',
+		'turnsToSkip'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,31 +16,31 @@ TurnManager class >> manage: collectionOfSpaceships [
 ]
 
 { #category : #initialization }
-TurnManager >> initializeManage: collectionOfSpaceships [ 
-	spaceships:= collectionOfSpaceships .
-	anAllShipsDisabledHandler:= AllShipsDisabledHandler new.
-	currentSpaceship:=spaceships at: 1.
+TurnManager >> initializeManage: collectionOfSpaceships [
+
+	spaceships := collectionOfSpaceships.
+	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+	currentSpaceship := spaceships at: 1.
 	turnsToSkip := Dictionary new.
-	turnsToSkip at: anAllShipsDisabledHandler put:2.
-	spaceships do: [:each | turnsToSkip at: each put: 0].
-	
+	turnsToSkip at: anAllShipsDisabledHandler put: 2.
+	spaceships do: [ :each | turnsToSkip at: each put: 0 ]
 ]
 
 { #category : #action }
 TurnManager >> lostTurns: anAmountOfTurns by: aSpaceship [
 
 	(turnsToSkip at: aSpaceship) = 0 ifTrue: [
-		turnsToSkip at: aSpaceship put: anAmountOfTurns  ]
+		turnsToSkip at: aSpaceship put: anAmountOfTurns ]
 ]
 
 { #category : #auxiliar }
 TurnManager >> nextSpaceship [
 
-        | currentIndex nextIndex |
-        currentIndex := spaceships indexOf: currentSpaceship .
-        nextIndex := currentIndex + 1.
-        nextIndex > spaceships size ifTrue: [nextIndex := 1].
-        ^spaceships at: nextIndex
+	| currentIndex nextIndex |
+	currentIndex := spaceships indexOf: currentSpaceship.
+	nextIndex := currentIndex + 1.
+	nextIndex > spaceships size ifTrue: [ nextIndex := 1 ].
+	^ spaceships at: nextIndex
 ]
 
 { #category : #action }
