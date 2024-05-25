@@ -16,7 +16,7 @@ SpaceshipTest >> test001SpaceshipInitializeInPositionOneAndMovesOneTimeThenIsInP
 		          withWormholeBeginning: 18
 		          andEnding: 19.
 
-	self assert: (aSpaceship move: 1 on: aBoard) equals: 2
+	self assert: ((aSpaceship move: 1 on: aBoard) at: 1) equals: 2
 ]
 
 { #category : #move }
@@ -32,7 +32,7 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionThree [
 		          andEnding: 19.
 	aSpaceship move: 1 on: aBoard.
 
-	self assert: (aSpaceship move: 1 on: aBoard) equals: 3
+	self assert: ((aSpaceship move: 1 on: aBoard) at: 1) equals: 3
 ]
 
 { #category : #tests }
@@ -63,7 +63,7 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 		          numberOfLaps: 1
 		          withWormholeBeginning: 18
 		          andEnding: 19.
-	self assert: (aSpaceship move: 2 on: aBoard) equals: 3
+	self assert: ((aSpaceship move: 2 on: aBoard) at: 1) equals: 3
 ]
 
 { #category : #move }
@@ -78,7 +78,7 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwoTimesAndOneTimeThenPositionIsFour [
 		          withWormholeBeginning: 18
 		          andEnding: 19.
 	aSpaceship move: 2 on: aBoard.
-	self assert: (aSpaceship move: 1 on: aBoard) equals: 4
+	self assert: ((aSpaceship move: 1 on: aBoard) at: 1) equals: 4
 ]
 
 { #category : #id }
@@ -208,5 +208,20 @@ SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 	aSpaceship move: 10 on: aBoard.
 	aSpaceship loadFuel: 10.
 	Spaceship initialize.
-	self assert: (aSpaceship move: 8 on: aBoard) equals: 9
+	self assert: ((aSpaceship move: 8 on: aBoard) at: 1) equals: 9
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test017WhenSpaceshipMovesMoreThanAmountOfCellsThenPositionGoesToAnotherLap [
+
+	| aSpaceship aBoard finalPosition |
+	aSpaceship := Spaceship launchWithFuel: 40.
+	aBoard := Board
+		          ofCells: 10
+		          numberOfLaps: 2
+		          withWormholeBeginning: 2
+		          andEnding: 3.
+	finalPosition := OrderedCollection with: 1 with: 2.
+	Spaceship initialize.
+	self assert: (aSpaceship move: 10 on: aBoard) equals: finalPosition
 ]
