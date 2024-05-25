@@ -11,15 +11,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-BoardWithDefinedSpecialCell class >> ofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withSpecialCell: aSpecialCell On: anIndex [
+BoardWithDefinedSpecialCell class >> ofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeSides: collectionWormholePositions withSpecialCellOn: collectionSpecialCellAndPosition [
 
 	anAmountOfCells < 2 ifTrue: [
 		Error signal: 'A Board must have more than one cell.' ].
+	(collectionWormholePositions at:2) <= (collectionWormholePositions at: 1) ifTrue: [
+		Error signal: 'The ending must be greater than the beginning' ].
 	^ self new
-		  initializeOfCells: anAmountOfCells
+		  initializeofCells: anAmountOfCells
 		  numberOfLaps: anAmountOfLaps
-		  withSpecialCell: aSpecialCell
-		  On: anIndex
+		  withWormholeSides: collectionWormholePositions
+		  withSpecialCellOn: collectionSpecialCellAndPosition
 ]
 
 { #category : #'action handling' }
@@ -43,8 +45,10 @@ BoardWithDefinedSpecialCell >> enter: aPosition [
 	| cellPosition lapPosition nextPosition enterIndex enterResult |
 	cellPosition := aPosition at: 1.
 	lapPosition := aPosition at: 2.
-	enterIndex := cellPosition + ((lapPosition - 1) * amountOfCells).
+	enterIndex := cellPosition + (amountOfCells * (lapPosition - 1)).
 	enterResult := (collectionOfCells at: enterIndex) enter.
+	enterResult - (amountOfCells * (lapPosition - 1)) < 0 ifTrue: [
+		lapPosition := lapPosition - 1 ].
 	enterResult > amountOfCells ifTrue: [
 		enterResult := enterResult - (amountOfCells * lapPosition).
 		lapPosition := lapPosition + 1 ].
@@ -60,7 +64,7 @@ BoardWithDefinedSpecialCell >> finishLine [
 ]
 
 { #category : #initialization }
-BoardWithDefinedSpecialCell >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withSpecialCell: aSpecialCell On: anIndex [
+BoardWithDefinedSpecialCell >> initializeofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeSides: collectionWormholePositions withSpecialCellOn: collectionSpecialCellAndPosition [
 
 	amountOfIndex := anAmountOfCells * anAmountOfLaps.
 	amountOfCells := anAmountOfCells.
@@ -71,6 +75,16 @@ BoardWithDefinedSpecialCell >> initializeOfCells: anAmountOfCells numberOfLaps: 
 
 	1 to: numberOfLaps do: [ :lap |
 		collectionOfCells
-			at: anIndex 
-			put: (aSpecialCell initializePosition: anIndex) ]
+			at: (collectionWormholePositions at: 1) + ((lap - 1) * amountOfCells)
+			put: (RegularCell position:
+					 (collectionWormholePositions at: 2) + ((lap - 1) * amountOfCells)).
+		collectionOfCells
+			at: (collectionWormholePositions at: 2) + ((lap - 1) * amountOfCells)
+			put: (RegularCell position:
+					 (collectionWormholePositions at: 1) + ((lap - 1) * amountOfCells)) ].
+	1 to: numberOfLaps do: [ :lap |
+		collectionOfCells
+			at: (collectionSpecialCellAndPosition at: 2)
+			put: ((collectionSpecialCellAndPosition at: 1) initializePosition:
+					 (collectionSpecialCellAndPosition at: 2)) ]
 ]

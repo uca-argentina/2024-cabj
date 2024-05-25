@@ -45,10 +45,12 @@ Board >> enter: aPosition [
 	| cellPosition lapPosition nextPosition enterIndex enterResult |
 	cellPosition := aPosition at: 1.
 	lapPosition := aPosition at: 2.
-	enterIndex := cellPosition + ((lapPosition - 1) * amountOfCells).
+	enterIndex := cellPosition + (amountOfCells * (lapPosition - 1)).
 	enterResult := (collectionOfCells at: enterIndex) enter.
+	enterResult - (amountOfCells * (lapPosition - 1)) < 0 ifTrue: [
+		lapPosition := lapPosition - 1 ].
 	enterResult > amountOfCells ifTrue: [
-		enterResult := enterResult - amountOfCells.
+		enterResult := enterResult - (amountOfCells * lapPosition).
 		lapPosition := lapPosition + 1 ].
 	nextPosition := OrderedCollection with: enterResult.
 	nextPosition add: lapPosition.
