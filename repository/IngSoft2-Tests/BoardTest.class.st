@@ -9,7 +9,7 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [ :error | self assert: error messageText equals: anErrorMessage ]
 ]
 
-{ #category : #tests }
+{ #category : #finishLine }
 BoardTest >> test001WhenBoardInitializeWithThreeCellsThenFinishesOnThree [
 
 	| aBoard lastPosition |
@@ -50,7 +50,7 @@ BoardTest >> test003BoardCannotBeCreatedWithNegativeCells [
 		withMessage: 'A Board must have more than one cell.'
 ]
 
-{ #category : #tests }
+{ #category : #finishLine }
 BoardTest >> test004BoardFinishLineEqualsAmountOfCellsInitializeWith [
 
 	| aBoard lastPosition |
@@ -66,40 +66,43 @@ BoardTest >> test004BoardFinishLineEqualsAmountOfCellsInitializeWith [
 { #category : #wormhole }
 BoardTest >> test005BoardCreatedWithWormholeEntersOnTheEndReturnsBeginning [
 
-	| aBoard |
+	| aBoard enterPosition finalPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 1
 		          withWormholeBeginning: 2
 		          andEnding: 10.
-
-	self assert: (aBoard enter: 10) equals: 2
+	enterPosition := OrderedCollection with: 10 with: 1.
+	finalPosition := OrderedCollection with: 2 with: 1.
+	self assert: (aBoard enter: enterPosition) equals: finalPosition
 ]
 
 { #category : #wormhole }
 BoardTest >> test006BoardCreatedWithWormholeEntersOnTheBeginningReturnsTheEnd [
 
-	| aBoard |
+	| aBoard enterPosition finalPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 1
 		          withWormholeBeginning: 2
 		          andEnding: 10.
-
-	self assert: (aBoard enter: 2) equals: 10
+	enterPosition := OrderedCollection with: 2 with: 1.
+	finalPosition := OrderedCollection with: 10 with: 1.
+	self assert: (aBoard enter: enterPosition) equals: finalPosition
 ]
 
 { #category : #wormhole }
 BoardTest >> test007WhenPositionIsNotWormholeThenItStaysTheSame [
 
-	| aBoard |
+	| aBoard enterPosition finalPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 1
 		          withWormholeBeginning: 2
 		          andEnding: 10.
-
-	self assert: (aBoard enter: 5) equals: 5
+	enterPosition := OrderedCollection with: 5 with: 1.
+	finalPosition := OrderedCollection with: 5 with: 1.
+	self assert: (aBoard enter: enterPosition) equals: finalPosition
 ]
 
 { #category : #legalMove }
@@ -151,7 +154,7 @@ BoardTest >> test010IlegalMoveIfThereWasOneLapIsNowLegalBeacuseThereIsMoreThanOn
 		equals: 3
 ]
 
-{ #category : #legalMove }
+{ #category : #'tests - initialization' }
 BoardTest >> test011WormholeEndMustBeGreaterThanBeginning [
 
 	| aBoard |
@@ -166,7 +169,7 @@ BoardTest >> test011WormholeEndMustBeGreaterThanBeginning [
 		withMessage: 'The ending must be greater than the beginning'
 ]
 
-{ #category : #legalMove }
+{ #category : #getLap }
 BoardTest >> test012WhenABoardInitializesWithOneLapThenTheNumberOfLapsIsOne [
 
 	| aBoard |
@@ -179,15 +182,17 @@ BoardTest >> test012WhenABoardInitializesWithOneLapThenTheNumberOfLapsIsOne [
 	self assert: aBoard getLap equals: 1
 ]
 
-{ #category : #legalMove }
+{ #category : #getLap }
 BoardTest >> test013WhenEnterRecivesNumberGreaterThanAmountOfCellsThenEnterOnNextLap [
 
-	| aBoard |
+	| aBoard enterPosition finalPosition |
 	aBoard := Board
 		          ofCells: 11
 		          numberOfLaps: 2
 		          withWormholeBeginning: 2
 		          andEnding: 10.
-
-	self assert: (aBoard enter: 12) equals: 1
+	
+	enterPosition := OrderedCollection with: 12 with: 1.
+	finalPosition := OrderedCollection with: 1 with: 2.
+	self assert: (aBoard enter: enterPosition) equals: finalPosition
 ]
