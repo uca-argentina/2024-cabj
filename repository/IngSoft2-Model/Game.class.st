@@ -40,23 +40,25 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 	Spaceship initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> finalLapsOfSpaceships [
-	dictionaryOfPositions := Dictionary new.
+	| dictionaryOfLaps |
+	dictionaryOfLaps := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 2) ].
+		dictionaryOfLaps at: spaceship getId put: (spaceship position at: 2) ].
 
-	^ dictionaryOfPositions
+	^ dictionaryOfLaps 
 ]
 
-{ #category : #action }
+{ #category : #accessing }
 Game >> finalPositionOfSpaceships [
 
-	dictionaryOfPositions := Dictionary new.
-	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 1) ].
+	| dictionaryOfCellPositions |
+	dictionaryOfCellPositions:= Dictionary new.
+	collectionOfSpaceships  do: [ :spaceship |
+		dictionaryOfCellPositions at: spaceship getId put: (spaceship position at: 1) ].
 
-	^ dictionaryOfPositions
+	^ dictionaryOfCellPositions
 ]
 
 { #category : #action }
