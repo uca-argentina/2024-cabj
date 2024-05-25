@@ -2,7 +2,8 @@ Class {
 	#name : #LoadedDie,
 	#superclass : #Object,
 	#instVars : [
-		'faces'
+		'faces',
+		'index'
 	],
 	#category : #'IngSoft2-Tests'
 }

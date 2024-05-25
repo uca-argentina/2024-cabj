@@ -97,22 +97,21 @@ Game >> getRankingOfSpaceships [
 { #category : #accessing }
 Game >> getWinner [
 
-    | maxPosition maxLap winner |
-    
-    maxPosition := (dictionaryOfPositions values collect: [:pair | pair at:1]) max.
-    
-    maxLap := (dictionaryOfPositions values collect: [:pair | 
-        ((pair at:1) = maxPosition) ifTrue: [pair at:2] ifFalse: [0]]) max.
-  
-    winner := dictionaryOfPositions keys detect: [:key |
-        | pair |
-        pair := dictionaryOfPositions at: key.
-        ((pair at:1) = maxPosition) and: ((pair at:2) = maxLap)].
-    
-    ^ winner
+	| maxPosition maxLap winner |
+	maxPosition := (dictionaryOfPositions values collect: [ :pair |
+		                pair at: 1 ]) max.
 
+	maxLap := (dictionaryOfPositions values collect: [ :pair |
+		           (pair at: 1) = maxPosition
+			           ifTrue: [ pair at: 2 ]
+			           ifFalse: [ 0 ] ]) max.
 
-	
+	winner := dictionaryOfPositions keys detect: [ :key |
+		          | pair |
+		          pair := dictionaryOfPositions at: key.
+		          (pair at: 1) = maxPosition and: (pair at: 2) = maxLap ].
+
+	^ winner
 ]
 
 { #category : #initialization }
