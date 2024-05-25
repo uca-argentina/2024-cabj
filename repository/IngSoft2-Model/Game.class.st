@@ -2,13 +2,9 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
+		'aSpaceship',
 		'aBoard',
-		'collectionOfDice',
-		'collectionOfSpaceships',
-		'turnManager',
-		'dictionaryOfPositions',
-		'numberOfLaps',
-		'amountOfFuel'
+		'collectionOfDice'
 	],
 	#category : #'IngSoft2-Model'
 }
