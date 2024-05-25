@@ -169,7 +169,7 @@ BoardTest >> test011WormholeEndMustBeGreaterThanBeginning [
 		withMessage: 'The ending must be greater than the beginning'
 ]
 
-{ #category : #getLap }
+{ #category : #finishLine }
 BoardTest >> test012WhenABoardInitializesWithOneLapThenTheNumberOfLapsIsOne [
 
 	| aBoard |
@@ -179,10 +179,10 @@ BoardTest >> test012WhenABoardInitializesWithOneLapThenTheNumberOfLapsIsOne [
 		          withWormholeBeginning: 2
 		          andEnding: 10.
 
-	self assert: aBoard getLap equals: 1
+	self assert: ((aBoard finishLine) at:2) equals: 1
 ]
 
-{ #category : #getLap }
+{ #category : #legalMove }
 BoardTest >> test013WhenEnterRecivesNumberGreaterThanAmountOfCellsThenEnterOnNextLap [
 
 	| aBoard enterPosition finalPosition |
