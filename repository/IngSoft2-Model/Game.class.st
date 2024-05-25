@@ -59,13 +59,35 @@ Game >> finalPositionOfSpaceships [
 	^ dictionaryOfPositions
 ]
 
+{ #category : #action }
+Game >> finalResultsOfSpaceships [
+
+	dictionaryOfPositions := Dictionary new.
+	collectionOfSpaceships do: [ :spaceship |
+		dictionaryOfPositions at: spaceship getId put: (spaceship position) ].
+
+	^ dictionaryOfPositions
+]
+
 { #category : #accessing }
 Game >> getWinner [
 
-	| maxPosition |
-	maxPosition := dictionaryOfPositions values max.
-	^ dictionaryOfPositions keys detect: [ :key |
-		  (dictionaryOfPositions at: key) = maxPosition ]
+    | maxPosition maxLap winner |
+    
+    maxPosition := (dictionaryOfPositions values collect: [:pair | pair at:1]) max.
+    
+    maxLap := (dictionaryOfPositions values collect: [:pair | 
+        ((pair at:1) = maxPosition) ifTrue: [pair at:2] ifFalse: [0]]) max.
+  
+    winner := dictionaryOfPositions keys detect: [:key |
+        | pair |
+        pair := dictionaryOfPositions at: key.
+        ((pair at:1) = maxPosition) and: ((pair at:2) = maxLap)].
+    
+    ^ winner
+
+
+	
 ]
 
 { #category : #initialization }
@@ -102,7 +124,7 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship = aBoard finishLine ifTrue: [
 		turnManager := GameOver new.
-		^ self finalPositionOfSpaceships ].
+		^ self finalResultsOfSpaceships  ].
 
 	^ positionOfSpaceship
 ]
