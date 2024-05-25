@@ -73,7 +73,25 @@ Game >> finalResultsOfSpaceships [
 
 { #category : #accessing }
 Game >> getRankingOfSpaceships [
-	^#(2 1 3) asOrderedCollection 
+
+	| sortedSpaceships collectionOfRanking |
+	sortedSpaceships := collectionOfSpaceships  asSortedCollection: [:a :b |
+    | lapsA lapsB positionsA positionsB |
+    lapsA := (a position at: 2 ).
+    lapsB := (b position at: 2).
+    positionsA := (a position at: 1 ).
+    positionsB := (b position at: 1).
+    lapsA = lapsB
+        ifTrue: [positionsA > positionsB]
+        ifFalse: [lapsA > lapsB]
+].
+
+
+	collectionOfRanking := OrderedCollection new.
+	sortedSpaceships do: [ :spaceship |
+		collectionOfRanking add: spaceship getId ].
+
+	^ collectionOfRanking first: 3
 ]
 
 { #category : #accessing }
