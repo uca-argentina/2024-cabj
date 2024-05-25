@@ -62,7 +62,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 	| aGame resultOfGame aLoadedDie |
 	aLoadedDie := LoadedDie of: #( 6 ).
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: 12.
+	resultOfGame at: 1 put: (OrderedCollection with:12 with:1).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         boardWithCellsAndLaps: #( 12 1 )
@@ -115,8 +115,8 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 	| aGame resultOfGame aLoadedDie |
 	aLoadedDie := LoadedDie of: #( 6 ).
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: 12.
-	resultOfGame at: 2 put: 7.
+	resultOfGame at: 1 put: (OrderedCollection with:12 with:1).
+	resultOfGame at: 2 put: (OrderedCollection with: 7 with:1).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         boardWithCellsAndLaps: #( 12 1 )
@@ -308,4 +308,56 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 	self
 		assert: aGame finalLapsOfSpaceships
 		equals: resultOfLaps
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEachSpaceship [
+
+	| aGame resultOfGame aLoadedDie |
+	aLoadedDie := LoadedDie of: #( 20 5 4 ).
+	resultOfGame := Dictionary new.
+	resultOfGame at: 1 put: (OrderedCollection with: 12 with: 2).
+	resultOfGame at: 2 put: (OrderedCollection with:6 with:1).
+	aGame := Game
+		         numberOfSpaceships: 2
+		         boardWithCellsAndLaps: #( 12 2 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	self assert: aGame moveSpaceship equals: resultOfGame
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIsInTheSecondPlaceAndTheSpaceshipIsInTheThirdPlaceThenTheRankingIsTwoOneThree [
+
+	| aGame aLoadedDie rankingOfSpaceships |
+	aLoadedDie := LoadedDie of: #( 12 18 5  ).
+	rankingOfSpaceships:= OrderedCollection with: 2 with: 1 with: 3.
+	aGame := Game
+		         numberOfSpaceships: 3
+		         boardWithCellsAndLaps: #( 12 2 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship .
+	aGame moveSpaceship .
+	self assert: aGame getRankingOfSpaceships equals: (#(2 1 3) asOrderedCollection ).
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfTheThreeFirstsSpaceships [
+	| aGame aLoadedDie |
+	aLoadedDie := LoadedDie of: #(12 20 5 1).
+	aGame := Game
+		         numberOfSpaceships: 4
+		         boardWithCellsAndLaps: #( 12 2 )
+		         wormholeStartAndEnd: #( 3 4 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	self assert: aGame getRankingOfSpaceships equals: (#(2 1 3) asOrderedCollection )
 ]

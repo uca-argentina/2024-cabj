@@ -40,32 +40,79 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 	Spaceship initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> finalLapsOfSpaceships [
-	dictionaryOfPositions := Dictionary new.
+	| dictionaryOfLaps |
+	dictionaryOfLaps := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 2) ].
+		dictionaryOfLaps at: spaceship getId put: (spaceship position at: 2) ].
 
-	^ dictionaryOfPositions
+	^ dictionaryOfLaps 
+]
+
+{ #category : #accessing }
+Game >> finalPositionOfSpaceships [
+
+	| dictionaryOfCellPositions |
+	dictionaryOfCellPositions:= Dictionary new.
+	collectionOfSpaceships  do: [ :spaceship |
+		dictionaryOfCellPositions at: spaceship getId put: (spaceship position at: 1) ].
+
+	^ dictionaryOfCellPositions
 ]
 
 { #category : #action }
-Game >> finalPositionOfSpaceships [
+Game >> finalResultsOfSpaceships [
 
 	dictionaryOfPositions := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: (spaceship position at: 1) ].
+		dictionaryOfPositions at: spaceship getId put: (spaceship position) ].
 
 	^ dictionaryOfPositions
 ]
 
 { #category : #accessing }
+Game >> getRankingOfSpaceships [
+
+	| sortedSpaceships collectionOfRanking |
+	sortedSpaceships := collectionOfSpaceships  asSortedCollection: [:a :b |
+    | lapsA lapsB positionsA positionsB |
+    lapsA := (a position at: 2 ).
+    lapsB := (b position at: 2).
+    positionsA := (a position at: 1 ).
+    positionsB := (b position at: 1).
+    lapsA = lapsB
+        ifTrue: [positionsA > positionsB]
+        ifFalse: [lapsA > lapsB]
+].
+
+
+	collectionOfRanking := OrderedCollection new.
+	sortedSpaceships do: [ :spaceship |
+		collectionOfRanking add: spaceship getId ].
+
+	^ collectionOfRanking first: 3
+]
+
+{ #category : #accessing }
 Game >> getWinner [
 
-	| maxPosition |
-	maxPosition := dictionaryOfPositions values max.
-	^ dictionaryOfPositions keys detect: [ :key |
-		  (dictionaryOfPositions at: key) = maxPosition ]
+    | maxPosition maxLap winner |
+    
+    maxPosition := (dictionaryOfPositions values collect: [:pair | pair at:1]) max.
+    
+    maxLap := (dictionaryOfPositions values collect: [:pair | 
+        ((pair at:1) = maxPosition) ifTrue: [pair at:2] ifFalse: [0]]) max.
+  
+    winner := dictionaryOfPositions keys detect: [:key |
+        | pair |
+        pair := dictionaryOfPositions at: key.
+        ((pair at:1) = maxPosition) and: ((pair at:2) = maxLap)].
+    
+    ^ winner
+
+
+	
 ]
 
 { #category : #initialization }
@@ -102,7 +149,7 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship = aBoard finishLine ifTrue: [
 		turnManager := GameOver new.
-		^ self finalPositionOfSpaceships ].
+		^ self finalResultsOfSpaceships  ].
 
 	^ positionOfSpaceship
 ]

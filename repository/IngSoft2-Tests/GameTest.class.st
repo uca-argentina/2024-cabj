@@ -67,7 +67,7 @@ GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 	| aGame resultOfGame aCollectionOfDice |
 	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 10 ).
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: 4.
+	resultOfGame at: 1 put: (OrderedCollection with: 4 with:1).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         boardWithCellsAndLaps: #( 4 1 )
