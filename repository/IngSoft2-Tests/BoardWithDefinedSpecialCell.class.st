@@ -49,9 +49,11 @@ BoardWithDefinedSpecialCell >> enter: aPosition [
 	enterResult := (collectionOfCells at: enterIndex) enter.
 	enterResult - (amountOfCells * (lapPosition - 1)) < 0 ifTrue: [
 		lapPosition := lapPosition - 1 ].
-	enterResult > amountOfCells ifTrue: [
+	enterResult > (amountOfCells * lapPosition) ifTrue: [
 		enterResult := enterResult - (amountOfCells * lapPosition).
 		lapPosition := lapPosition + 1 ].
+	enterResult > amountOfCells ifTrue: [
+		enterResult := enterResult - amountOfCells ].
 	nextPosition := OrderedCollection with: enterResult.
 	nextPosition add: lapPosition.
 	^ nextPosition
