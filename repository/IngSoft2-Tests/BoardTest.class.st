@@ -201,3 +201,17 @@ BoardTest >> test013WhenEnterRecivesNumberGreaterThanAmountOfCellsThenEnterOnNex
 	finalPosition := OrderedCollection with: 1 with: 2.
 	self assert: (aBoard enter: enterPosition) equals: finalPosition
 ]
+
+{ #category : #legalMove }
+BoardTest >> test014BoardEntersOnPositionOnMoreThanOneLapThenReturnsThatPosition [
+
+	| aBoard enterPosition |
+	aBoard := Board
+		          ofCells: 11
+		          numberOfLaps: 2
+		          withWormholeBeginning: 2
+		          andEnding: 10.
+	
+	enterPosition := OrderedCollection with: 5 with: 2.
+	self assert: (aBoard enter: enterPosition) equals: enterPosition
+]
