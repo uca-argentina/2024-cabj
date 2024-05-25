@@ -7,10 +7,14 @@ Class {
 { #category : #tests }
 AllShipsDisabledHanderTest >> test01AllShipsDisabledHandlerMovesAnyAmountOfMovementsOnAnythingTheReturnsOne [
 
-	| anAllShipsDisabledHandler |
+	| anAllShipsDisabledHandler position |
 	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
 
-	self assert: (anAllShipsDisabledHandler move: 6 on: 5) equals: 1
+	position := OrderedCollection with: 1 with: 1.
+
+	self
+		assert: (anAllShipsDisabledHandler move: 6 on: 5)
+		equals: position
 ]
 
 { #category : #tests }

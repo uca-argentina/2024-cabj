@@ -19,7 +19,7 @@ AllShipsDisabledHandler >> loadFuel: amountOfFuel [
 
 { #category : #accessing }
 AllShipsDisabledHandler >> move: amountOfMovements on: aBoard [ 
-	^1.
+	^(self position).
 ]
 
 { #category : #accessing }

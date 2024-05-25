@@ -15,6 +15,14 @@ TurnManager class >> manage: collectionOfSpaceships [
 	^(self new) initializeManage: collectionOfSpaceships .
 ]
 
+{ #category : #action }
+TurnManager >> decrementTurnsOfSpaceship [
+
+	turnsToSkip
+		at: currentSpaceship
+		put: (turnsToSkip at: currentSpaceship) - 1
+]
+
 { #category : #initialization }
 TurnManager >> initializeManage: collectionOfSpaceships [
 
@@ -49,18 +57,14 @@ TurnManager >> nextTurn [
 	| spaceshipPlaying |
 	(turnsToSkip allSatisfy: [ :spaceship | spaceship value > 0 ])
 		ifTrue: [
-			turnsToSkip
-				at: currentSpaceship
-				put: (turnsToSkip at: currentSpaceship) - 1.
-			currentSpaceship := self nextSpaceship.
+			self decrementTurnsOfSpaceship.
+			self nextSpaceship.
 			^ anAllShipsDisabledHandler ].
 
 	(turnsToSkip at: currentSpaceship) > 0 ifTrue: [
-		turnsToSkip
-			at: currentSpaceship
-			put: (turnsToSkip at: currentSpaceship) - 1.
-		currentSpaceship := self nextSpaceship ].
+		self decrementTurnsOfSpaceship.
+		self nextSpaceship ].
 	spaceshipPlaying := currentSpaceship.
-	currentSpaceship := self nextSpaceship.
+	self nextSpaceship.
 	^ spaceshipPlaying
 ]
