@@ -232,19 +232,18 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 ]
 
 { #category : #tests }
-GameLoadedDieTest >> test13 [
+GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipReturnsLapTwo [
 
 	| aGame aLoadedDie |
-	aLoadedDie := LoadedDie of: #( 5 4 1 ).
+	aLoadedDie := LoadedDie of: #( 5 4 2 ).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         boardWithCellsAndLaps: #( 10 2 )
-		         wormholeStartAndEnd: #( 2 3 )
+		         wormholeStartAndEnd: #( 3 4 )
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 1
+	self assert: (aGame moveSpaceship at: 2) equals: 2
 ]
