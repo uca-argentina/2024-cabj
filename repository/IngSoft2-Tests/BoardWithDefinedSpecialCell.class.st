@@ -1,5 +1,5 @@
 Class {
-	#name : #Board,
+	#name : #BoardWithDefinedSpecialCell,
 	#superclass : #Object,
 	#instVars : [
 		'amountOfCells',
@@ -7,25 +7,23 @@ Class {
 		'numberOfLaps',
 		'amountOfIndex'
 	],
-	#category : #'IngSoft2-Model'
+	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
-Board class >> ofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
+BoardWithDefinedSpecialCell class >> ofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withSpecialCell: aSpecialCell On: anIndex [
 
 	anAmountOfCells < 2 ifTrue: [
 		Error signal: 'A Board must have more than one cell.' ].
-	anEnd <= aBeginning ifTrue: [
-		Error signal: 'The ending must be greater than the beginning' ].
 	^ self new
 		  initializeOfCells: anAmountOfCells
 		  numberOfLaps: anAmountOfLaps
-		  withWormholeBeginning: aBeginning
-		  andEnding: anEnd
+		  withSpecialCell: aSpecialCell
+		  On: anIndex
 ]
 
 { #category : #'action handling' }
-Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
+BoardWithDefinedSpecialCell >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
 	| currentPosition completedLaps actualPosition totalCells expectedPosition |
 	currentPosition := aPosition at: 1.
@@ -40,7 +38,7 @@ Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 ]
 
 { #category : #action }
-Board >> enter: aPosition [
+BoardWithDefinedSpecialCell >> enter: aPosition [
 
 	| cellPosition lapPosition nextPosition enterIndex enterResult |
 	cellPosition := aPosition at: 1.
@@ -48,7 +46,7 @@ Board >> enter: aPosition [
 	enterIndex := cellPosition + ((lapPosition - 1) * amountOfCells).
 	enterResult := (collectionOfCells at: enterIndex) enter.
 	enterResult > amountOfCells ifTrue: [
-		enterResult := enterResult - amountOfCells.
+		enterResult := enterResult - (amountOfCells * lapPosition).
 		lapPosition := lapPosition + 1 ].
 	nextPosition := OrderedCollection with: enterResult.
 	nextPosition add: lapPosition.
@@ -56,13 +54,13 @@ Board >> enter: aPosition [
 ]
 
 { #category : #accessing }
-Board >> finishLine [
+BoardWithDefinedSpecialCell >> finishLine [
 
 	^ OrderedCollection with: amountOfCells with: numberOfLaps
 ]
 
 { #category : #initialization }
-Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
+BoardWithDefinedSpecialCell >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withSpecialCell: aSpecialCell On: anIndex [
 
 	amountOfIndex := anAmountOfCells * anAmountOfLaps.
 	amountOfCells := anAmountOfCells.
@@ -73,9 +71,6 @@ Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWor
 
 	1 to: numberOfLaps do: [ :lap |
 		collectionOfCells
-			at: aBeginning + ((lap-1) * amountOfCells)
-			put: (RegularCell position: anEnd + ((lap-1) * amountOfCells)).
-		collectionOfCells
-			at: anEnd + ((lap-1) * amountOfCells)
-			put: (RegularCell position: aBeginning + ((lap-1) * amountOfCells)) ]
+			at: anIndex 
+			put: (aSpecialCell initializePosition: anIndex) ]
 ]

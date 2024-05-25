@@ -196,3 +196,33 @@ BoardTest >> test013WhenEnterRecivesNumberGreaterThanAmountOfCellsThenEnterOnNex
 	finalPosition := OrderedCollection with: 1 with: 2.
 	self assert: (aBoard enter: enterPosition) equals: finalPosition
 ]
+
+{ #category : #legalMove }
+BoardTest >> test014BoardWithBlackHoleEntersItThenReturnsPositionMinusFour [
+
+	| aBoard enterPosition finalPosition |
+	aBoard := BoardWithDefinedSpecialCell
+		          ofCells: 11
+		          numberOfLaps: 2
+		          withSpecialCell: BlackHole new
+		          On: 8.
+
+	enterPosition := OrderedCollection with: 8 with: 1.
+	finalPosition := OrderedCollection with: 4 with: 1.
+	self assert: (aBoard enter: enterPosition) equals: finalPosition
+]
+
+{ #category : #legalMove }
+BoardTest >> test015EnterOnBlackHoleFirstThreeCellsThenLooseOneLap [
+
+	| aBoard enterPosition finalPosition |
+	aBoard := BoardWithDefinedSpecialCell
+		          ofCells: 11
+		          numberOfLaps: 2
+		          withSpecialCell: BlackHole new
+		          On: 13.
+
+	enterPosition := OrderedCollection with: 2 with: 2.
+	finalPosition := OrderedCollection with: 9 with: 1.
+	self assert: (aBoard enter: enterPosition) equals: finalPosition
+]
