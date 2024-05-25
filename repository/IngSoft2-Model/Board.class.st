@@ -49,7 +49,7 @@ Board >> enter: aPosition [
 { #category : #accessing }
 Board >> finishLine [
 
-	^ amountOfCells
+	^ OrderedCollection with: amountOfCells with: numberOfLaps
 ]
 
 { #category : #accessing }
