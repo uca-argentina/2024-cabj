@@ -21,7 +21,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 	aDie := Die of: 5.
 	aGame := Game
 		         numberOfSpaceships: 1
-		         boardBoxes: 50
+		         boardWithCellsAndLaps: 50
 		         wormholeStartAndEnd: #( 48 49 )
 		         playWithDice: aDie.
 
@@ -35,7 +35,7 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 ).
 	aGame := Game
 		         numberOfSpaceships: 2
-		         boardBoxes: 4
+		         boardWithCellsAndLaps: 4
 		         wormholeStartAndEnd: #( 2 3 )
 		         playWithDice: aCollectionOfDice.
 	aGame moveSpaceship.
@@ -52,7 +52,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 	aDie := Die of: 6.
 	aGame := Game
 		         numberOfSpaceships: 2
-		         boardBoxes: 50
+		         boardWithCellsAndLaps: 50
 		         wormholeStartAndEnd: #( 40 45 )
 		         playWithDice: aDie.
 	aGame moveSpaceship.
@@ -71,7 +71,7 @@ GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 	resultOfGame at: 1 put: 4.
 	aGame := Game
 		         numberOfSpaceships: 1
-		         boardBoxes: 4
+		         boardWithCellsAndLaps: 4
 		         wormholeStartAndEnd: #( 2 3 )
 		         playWithDice: aCollectionOfDice.
 

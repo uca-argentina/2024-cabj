@@ -14,12 +14,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+Game class >> numberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: numberOfCellsAndLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+
 	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships 
-		  boardBoxes: anAmountOfBoxes
+		  initializeNumberOfSpaceships: anAmountOfSpaceships
+		  boardWithCellsAndLaps: numberOfCellsAndLaps
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: aCollectionOfDice.
+		  playWithDice: aCollectionOfDice
 ]
 
 { #category : #action }
@@ -60,21 +61,21 @@ Game >> getWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: numberOfCellsAndLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 
 	aBoard := Board
-		          ofCells: anAmountOfBoxes
-					 numberOfLaps: 1
+		          ofCells: (numberOfCellsAndLaps at: 1)
+		          numberOfLaps: (numberOfCellsAndLaps at: 2)
 		          withWormholeBeginning: (beginningAndEnd at: 1)
 		          andEnding: (beginningAndEnd at: 2).
-	
-	collectionOfDice:= aCollectionOfDice  .
-	
-	amountOfFuel:= collectionOfDice amountOfFaces *2.
-	
+
+	collectionOfDice := aCollectionOfDice.
+
+	amountOfFuel := collectionOfDice amountOfFaces * 2.
+
 	self collectSpaceships: anAmountOfSpaceships.
-	
-	turnManager := TurnManager manage: collectionOfSpaceships.
+
+	turnManager := TurnManager manage: collectionOfSpaceships
 ]
 
 { #category : #action }
