@@ -48,7 +48,7 @@ TurnManager >> nextSpaceship [
 	currentIndex := spaceships indexOf: currentSpaceship.
 	nextIndex := currentIndex + 1.
 	nextIndex > spaceships size ifTrue: [ nextIndex := 1 ].
-	^ spaceships at: nextIndex
+	currentSpaceship := spaceships at: nextIndex
 ]
 
 { #category : #action }
