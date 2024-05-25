@@ -81,7 +81,7 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwoTimesAndOneTimeThenPositionIsFour [
 	self assert: (aSpaceship move: 1 on: aBoard) equals: 4
 ]
 
-{ #category : #move }
+{ #category : #id }
 SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [
 
 	| aSpaceshipOne |
@@ -90,7 +90,7 @@ SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [
 	self assert: aSpaceshipOne getId equals: 1
 ]
 
-{ #category : #move }
+{ #category : #id }
 SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo [
 
 	| aSpaceshipOne aSpaceshipTwo |
@@ -110,7 +110,7 @@ SpaceshipTest >> test009WhenSpaceshipIsLaunchedThenStartsOnCellOneAndLapOne [
 	self assert: aSpaceship position equals: collectionOfPosition
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test010WhenSpaceshipIsInitializeWithFuelThenAmountOfFuelStaysTheSame [
 
 	| aSpaceship |
@@ -119,7 +119,7 @@ SpaceshipTest >> test010WhenSpaceshipIsInitializeWithFuelThenAmountOfFuelStaysTh
 	self assert: aSpaceship getFuel equals: 6
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test011WhenSpaceshipMovesOnceThenFuelIsOneLessThanInitializeWith [
 
 	| aSpaceship aBoard |
@@ -134,7 +134,7 @@ SpaceshipTest >> test011WhenSpaceshipMovesOnceThenFuelIsOneLessThanInitializeWit
 	self assert: aSpaceship getFuel equals: 4
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test012SpaceshipMovesMoreThanOneCellThenFuelWasteNumberOfMovements [
 
 	| aSpaceship aBoard |
@@ -149,7 +149,7 @@ SpaceshipTest >> test012SpaceshipMovesMoreThanOneCellThenFuelWasteNumberOfMoveme
 	self assert: aSpaceship getFuel equals: 3
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItHas [
 
 	| aSpaceship aBoard |
@@ -164,7 +164,7 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 	self assert: (aSpaceship position at: 1) equals: 1
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test014WhenSpaceshipMovesTheSameAsAmountOfFuelThenGoesBackToStart [
 
 	| aSpaceship aBoard |
@@ -179,7 +179,7 @@ SpaceshipTest >> test014WhenSpaceshipMovesTheSameAsAmountOfFuelThenGoesBackToSta
 	self assert: (aSpaceship position at: 1) equals: 1
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test015WhenSpaceshipLoadsFuelAfterLosingAllOfItThenFuelEqualsAmountLoaded [
 
 	| aSpaceship aBoard |
@@ -195,7 +195,7 @@ SpaceshipTest >> test015WhenSpaceshipLoadsFuelAfterLosingAllOfItThenFuelEqualsAm
 	self assert: (aSpaceship getFuel) equals: 5
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #fuelTests }
 SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 
 	| aSpaceship aBoard |
