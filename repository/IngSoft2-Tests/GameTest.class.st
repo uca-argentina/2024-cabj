@@ -25,7 +25,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 		         wormholeStartAndEnd: #( 48 49 )
 		         playWithDice: aDie.
 
-	self assert: (aGame moveSpaceship between: 2 and: 6)
+	self assert: ((aGame moveSpaceship at: 1) between: 2 and: 6)
 ]
 
 { #category : #tests }
@@ -58,7 +58,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: (aGame moveSpaceship between: 1 and: 13)
+	self assert: ((aGame moveSpaceship at: 1) between: 1 and: 13)
 ]
 
 { #category : #tests }

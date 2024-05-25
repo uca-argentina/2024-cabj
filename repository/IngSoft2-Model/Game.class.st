@@ -89,7 +89,7 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
 	
-	self checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship.
+	self checkIf: nextSpaceship hasRunOutOfFuelAt: (positionOfSpaceship at:1).
 
 	positionOfSpaceship = aBoard finishLine ifTrue: [
 		turnManager := GameOver new.

@@ -12,7 +12,7 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 { #category : #testsGame002 }
 GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 
@@ -21,14 +21,14 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 		         boardWithCellsAndLaps: #( 10 1 )
 		         wormholeStartAndEnd: #( 2 3 )
 		         playWithDice: aLoadedDie.
-
-	self assert: aGame moveSpaceship equals: 7
+	position := OrderedCollection with: 7 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #testsGame002 }
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 6 5 ).
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -37,13 +37,14 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 12
+	position := OrderedCollection with: 12 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #testsGame002 }
 GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOtherSide [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 5 ).
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -51,7 +52,8 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 		         wormholeStartAndEnd: #( 6 8 )
 		         playWithDice: aLoadedDie.
 
-	self assert: aGame moveSpaceship equals: 8
+	position := OrderedCollection with: 8 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #testsGame002 }
@@ -74,7 +76,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 { #category : #tests }
 GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 6 6 5 ).
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -84,7 +86,8 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 12
+	position := OrderedCollection with: 12 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #tests }
@@ -159,7 +162,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 { #category : #tests }
 GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 3 ).
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -169,13 +172,14 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: 1
+	position := OrderedCollection with: 1 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 3 ).
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -186,14 +190,15 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-
-	self assert: aGame moveSpaceship equals: 4
+	
+	position := OrderedCollection with: 4 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFuel [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 3 ).
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -203,14 +208,14 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
 
-
-	self assert: aGame moveSpaceship equals: 7
+	position := OrderedCollection with: 7 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceshipCanReloadTheFuelAndMove [
 
-	| aGame aLoadedDie |
+	| aGame aLoadedDie position |
 	aLoadedDie := LoadedDie of: #( 3 ).
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -221,8 +226,9 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-
-	self assert: aGame moveSpaceship equals: 7
+	
+	position := OrderedCollection with: 7 with: 1.
+	self assert: aGame moveSpaceship equals: position
 ]
 
 { #category : #tests }
