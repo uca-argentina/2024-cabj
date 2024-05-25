@@ -2,10 +2,9 @@ Class {
 	#name : #Spaceship,
 	#superclass : #Object,
 	#instVars : [
-		'actualPosition',
 		'id',
-		'actualLap',
-		'fuel'
+		'fuel',
+		'collectionActualPosition'
 	],
 	#classInstVars : [
 		'counterId'
@@ -40,8 +39,7 @@ Spaceship >> getId [
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-	actualPosition := 1.
-	actualLap := 1.
+	collectionActualPosition:= OrderedCollection with: 1 with: 1.
 	fuel := anAmountOfFuel.
 	id := counterId
 ]
@@ -54,26 +52,26 @@ Spaceship >> loadFuel: anAmountOfFuel [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
-	| collectionPosition |
+	| actualPosition actualLap |
+	actualPosition := collectionActualPosition at: 1.
+	actualLap := collectionActualPosition at: 2.
 	aNumberOfMovements >= self getFuel ifTrue: [
-		collectionPosition := aBoard enter: (OrderedCollection
-				                       with: 1
-				                       with: actualLap).
-		actualPosition := collectionPosition at: 1.
-		actualLap := collectionPosition at: 2.
+		collectionActualPosition := aBoard enter:
+			                            (OrderedCollection
+				                             with: 1
+				                             with: actualLap).
 		fuel := 0.
-		^ actualPosition ].
-	collectionPosition := aBoard enter: (OrderedCollection
-			                       with: actualPosition + aNumberOfMovements
-			                       with: actualLap).
-	actualPosition := collectionPosition at: 1.
-	actualLap := collectionPosition at: 2.
+		^ collectionActualPosition ].
+	collectionActualPosition := aBoard enter: (OrderedCollection
+			                             with:
+			                             actualPosition + aNumberOfMovements
+			                             with: actualLap).
 	fuel := fuel - aNumberOfMovements.
-	^ actualPosition
+	^ collectionActualPosition
 ]
 
 { #category : #accessing }
 Spaceship >> position [
 
-	^ OrderedCollection with: actualPosition with: actualLap
+	^ collectionActualPosition 
 ]
