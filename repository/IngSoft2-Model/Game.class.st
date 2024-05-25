@@ -72,6 +72,11 @@ Game >> finalResultsOfSpaceships [
 ]
 
 { #category : #accessing }
+Game >> getRankingOfSpaceships [
+	^#(2 1 3) asOrderedCollection 
+]
+
+{ #category : #accessing }
 Game >> getWinner [
 
     | maxPosition maxLap winner |

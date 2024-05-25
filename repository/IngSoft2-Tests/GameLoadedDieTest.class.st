@@ -328,3 +328,19 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 
 	self assert: aGame moveSpaceship equals: resultOfGame
 ]
+
+{ #category : #tests }
+GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIsInTheSecondPlaceAndTheSpaceshipIsInTheThirdPlaceThenTheRankingIsTwoOneThree [
+
+	| aGame aLoadedDie rankingOfSpaceships |
+	aLoadedDie := LoadedDie of: #( 12 24 5  ).
+	rankingOfSpaceships:= OrderedCollection with: 2 with: 1 with: 3.
+	aGame := Game
+		         numberOfSpaceships: 3
+		         boardWithCellsAndLaps: #( 12 2 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+
+	self assert: aGame getRankingOfSpaceships equals: rankingOfSpaceships 
+]
