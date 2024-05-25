@@ -54,11 +54,20 @@ Spaceship >> loadFuel: anAmountOfFuel [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
+	| collectionPosition |
 	aNumberOfMovements >= self getFuel ifTrue: [
-		actualPosition := aBoard enter: 1.
+		collectionPosition := aBoard enter: (OrderedCollection
+				                       with: 1
+				                       with: actualLap).
+		actualPosition := collectionPosition at: 1.
+		actualLap := collectionPosition at: 2.
 		fuel := 0.
 		^ actualPosition ].
-	actualPosition := aBoard enter: actualPosition + aNumberOfMovements.
+	collectionPosition := aBoard enter: (OrderedCollection
+			                       with: actualPosition + aNumberOfMovements
+			                       with: actualLap).
+	actualPosition := collectionPosition at: 1.
+	actualLap := collectionPosition at: 2.
 	fuel := fuel - aNumberOfMovements.
 	^ actualPosition
 ]
