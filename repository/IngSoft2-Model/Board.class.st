@@ -41,9 +41,20 @@ Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 { #category : #action }
 Board >> enter: aPosition [
 
-	aPosition > amountOfCells ifTrue: [
-		^ (collectionOfCells at: aPosition - amountOfCells) enter ].
-	^ (collectionOfCells at: aPosition) enter
+	| cellPosition lapPosition adjustedPosition nextPosition |
+	cellPosition := aPosition at: 1.
+	lapPosition := aPosition at: 2.
+	adjustedPosition := aPosition - amountOfCells.
+	nextPosition := OrderedCollection new.
+	cellPosition > amountOfCells
+		ifTrue: [
+			nextPosition add:
+				(collectionOfCells at: cellPosition - amountOfCells) enter.
+			nextPosition add: lapPosition + 1 ]
+		ifFalse: [
+			nextPosition add: (collectionOfCells at: cellPosition) enter.
+			nextPosition add: lapPosition ].
+	^ nextPosition
 ]
 
 { #category : #accessing }
