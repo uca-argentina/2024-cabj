@@ -44,12 +44,11 @@ Board >> enter: aPosition [
 	| cellPosition lapPosition adjustedPosition nextPosition |
 	cellPosition := aPosition at: 1.
 	lapPosition := aPosition at: 2.
-	adjustedPosition := aPosition - amountOfCells.
+	adjustedPosition := cellPosition - amountOfCells.
 	nextPosition := OrderedCollection new.
 	cellPosition > amountOfCells
 		ifTrue: [
-			nextPosition add:
-				(collectionOfCells at: cellPosition - amountOfCells) enter.
+			nextPosition add: (collectionOfCells at: adjustedPosition) enter.
 			nextPosition add: lapPosition + 1 ]
 		ifFalse: [
 			nextPosition add: (collectionOfCells at: cellPosition) enter.
