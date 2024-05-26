@@ -8,7 +8,7 @@ Class {
 HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravityCellThenThePositionIsTheSame [
 
 	| aHyperGravityCell |
-	aHyperGravityCell := HyperGravityCell withValue: 5 inPosition: 6.
+	aHyperGravityCell := HyperGravityCell withValueToMove: 5 inPosition: 6.
 
 	self assert: (aHyperGravityCell moveWithValue:4) equals: 6
 ]
@@ -17,7 +17,7 @@ HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravity
 HyperGravityCellTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGravityCellThenReturnsTheNewPositionWithTheMovement [
 
 	| aHyperGravityCell |
-	aHyperGravityCell := HyperGravityCell withValue: 5 inPosition: 6.
+	aHyperGravityCell := HyperGravityCell withValueToMove: 5 inPosition: 6.
 
 	self assert: (aHyperGravityCell moveWithValue:10) equals: 16
 ]
