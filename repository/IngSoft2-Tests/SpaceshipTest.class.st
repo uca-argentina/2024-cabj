@@ -231,7 +231,7 @@ SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: BlackHole new
+		                                      with: BlackHoleCell new
 		                                      with: 10.
 	aSpaceship := Spaceship launchWithFuel: 40.
 	aBoard := BoardWithDefinedSpecialCell
@@ -249,7 +249,7 @@ SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsP
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: BlackHole new
+		                                      with: BlackHoleCell new
 		                                      with: 10.
 	aSpaceship := Spaceship launchWithFuel: 40.
 	aBoard := BoardWithDefinedSpecialCell
@@ -268,7 +268,7 @@ SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition 
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: BlackHole new
+		                                      with: BlackHoleCell new
 		                                      with: 4.
 	aSpaceship := Spaceship launchWithFuel: 10.
 	aBoard := BoardWithDefinedSpecialCell
