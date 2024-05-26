@@ -46,10 +46,13 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 { #category : #initialization }
 Game >> createCollectionOfRegularCells [
 
+	| currentLap |
 	aBoard := OrderedCollection new.
 
 	1 to: amountOfIndex do: [ :index |
-	aBoard add: (RegularCell position: index) ]
+		currentLap := index - 1 // amountOfCells.
+		aBoard add:
+			(RegularCell position: index - (amountOfCells * currentLap)) ]
 ]
 
 { #category : #initialization }
@@ -71,7 +74,7 @@ Game >> finalLapsOfSpaceships [
 	| dictionaryOfLaps |
 	dictionaryOfLaps := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfLaps at: spaceship getId put: (spaceship position at: 2) ].
+		dictionaryOfLaps at: spaceship getId put: (spaceship objectPosition lap) ].
 
 	^ dictionaryOfLaps 
 ]
@@ -82,7 +85,7 @@ Game >> finalPositionOfSpaceships [
 	| dictionaryOfCellPositions |
 	dictionaryOfCellPositions:= Dictionary new.
 	collectionOfSpaceships  do: [ :spaceship |
-		dictionaryOfCellPositions at: spaceship getId put: (spaceship position cell) ].
+		dictionaryOfCellPositions at: spaceship getId put: (spaceship objectPosition cell) ].
 
 	^ dictionaryOfCellPositions
 ]
@@ -92,7 +95,7 @@ Game >> finalResultsOfSpaceships [
 
 	dictionaryOfPositions := Dictionary new.
 	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: (spaceship position) ].
+		dictionaryOfPositions at: spaceship getId put: (spaceship objectPosition getPosition) ].
 
 	^ dictionaryOfPositions
 ]
@@ -103,10 +106,10 @@ Game >> getRankingOfSpaceships [
 	| sortedSpaceships collectionOfRanking |
 	sortedSpaceships := collectionOfSpaceships  asSortedCollection: [:a :b |
     | lapsA lapsB positionsA positionsB |
-    lapsA := (a position at: 2 ).
-    lapsB := (b position at: 2).
-    positionsA := (a position at: 1 ).
-    positionsB := (b position at: 1).
+    lapsA := (a objectPosition lap ).
+    lapsB := (b objectPosition lap).
+    positionsA := (a objectPosition cell ).
+    positionsB := (b objectPosition cell).
     lapsA = lapsB
         ifTrue: [positionsA > positionsB]
         ifFalse: [lapsA > lapsB]
@@ -125,17 +128,17 @@ Game >> getWinner [
 
 	| maxPosition maxLap winner |
 	maxPosition := (dictionaryOfPositions values collect: [ :pair |
-		                pair cell ]) max.
+		                pair at: 1 ]) max.
 
 	maxLap := (dictionaryOfPositions values collect: [ :pair |
-		           (pair cell) = maxPosition
-			           ifTrue: [ pair lap ]
+		           (pair at: 1) = maxPosition
+			           ifTrue: [ pair at: 2 ]
 			           ifFalse: [ 0 ] ]) max.
 
 	winner := dictionaryOfPositions keys detect: [ :key |
 		          | pair |
 		          pair := dictionaryOfPositions at: key.
-		          (pair cell) = maxPosition and: (pair lap) = maxLap ].
+		          (pair at: 1) = maxPosition and: (pair at: 2) = maxLap ].
 
 	^ winner
 ]
@@ -160,19 +163,32 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult finishLine |
+	| positionOfSpaceship nextSpaceship throwResult finishLine currentPosition |
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
 
-	positionOfSpaceship := (nextSpaceship move: throwResult on: aBoard of: amountOfCells) getPosition.
-	
-	self checkIf: nextSpaceship hasRunOutOfFuelAt: (positionOfSpaceship at: 1).
-	
-	finishLine:= OrderedCollection with: amountOfCells with: numberOfLaps .
+	currentPosition := nextSpaceship objectPosition getIndexWith:
+		                   amountOfCells.
+
+	currentPosition + throwResult > amountOfIndex ifTrue: [
+		throwResult := amountOfIndex - currentPosition ].
+
+	positionOfSpaceship := (nextSpaceship
+		                        move: throwResult
+		                        on: aBoard
+		                        of: amountOfCells) getPosition.
+
+	self
+		checkIf: nextSpaceship
+		hasRunOutOfFuelAt: (positionOfSpaceship at: 1).
+
+	finishLine := OrderedCollection
+		              with: amountOfCells
+		              with: numberOfLaps.
 	positionOfSpaceship = finishLine ifTrue: [
 		turnManager := GameOver new.
-		^ self finalResultsOfSpaceships  ].
+		^ self finalResultsOfSpaceships ].
 
 	^ positionOfSpaceship
 ]
