@@ -60,9 +60,11 @@ Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 	aNumberOfMovements >= self getFuel ifTrue: [
 		actualPosition := (aBoard at: 1) enter.
 		fuel := 0.
-		^ collectionActualPosition at: 1 put: actualPosition ].
+		collectionActualPosition at: 1 put: actualPosition.
+		^ collectionActualPosition ].
 
-	resultingPosition := actualPosition+ completedLaps + aNumberOfMovements.
+	resultingPosition := actualPosition + completedLaps
+	                     + aNumberOfMovements.
 	actualPosition := (aBoard at: resultingPosition) enter.
 	actualPosition - completedLaps < 0 ifTrue: [
 		actualLap := actualLap - 1 ].
