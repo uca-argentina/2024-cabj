@@ -8,12 +8,12 @@ Class {
 AllShipsDisabledHanderTest >> test01AllShipsDisabledHandlerMovesAnyAmountOfMovementsOnAnythingTheReturnsOne [
 
 	| anAllShipsDisabledHandler position |
-	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+	anAllShipsDisabledHandler := AllShipsDisabledHandler fakeLaunch .
 
 	position := OrderedCollection with: 1 with: 1.
 
 	self
-		assert: (anAllShipsDisabledHandler move: 6 on: 5)
+		assert: (anAllShipsDisabledHandler move: 6 on: 5 of: 20) getPosition
 		equals: position
 ]
 
@@ -21,11 +21,11 @@ AllShipsDisabledHanderTest >> test01AllShipsDisabledHandlerMovesAnyAmountOfMovem
 AllShipsDisabledHanderTest >> test02AllShipsDisabledHandlerPositionThenReturnsCollectionOfOneAndOne [
 
 	| anAllShipsDisabledHandler collectionPosition |
-	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+	anAllShipsDisabledHandler := AllShipsDisabledHandler fakeLaunch.
 	collectionPosition := OrderedCollection with: 1 with: 1.
 
 	self
-		assert: anAllShipsDisabledHandler position
+		assert: anAllShipsDisabledHandler objectPosition getPosition
 		equals: collectionPosition
 ]
 
