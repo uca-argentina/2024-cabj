@@ -82,7 +82,7 @@ Game >> finalPositionOfSpaceships [
 	| dictionaryOfCellPositions |
 	dictionaryOfCellPositions:= Dictionary new.
 	collectionOfSpaceships  do: [ :spaceship |
-		dictionaryOfCellPositions at: spaceship getId put: (spaceship position at: 1) ].
+		dictionaryOfCellPositions at: spaceship getId put: (spaceship position cell) ].
 
 	^ dictionaryOfCellPositions
 ]
@@ -125,17 +125,17 @@ Game >> getWinner [
 
 	| maxPosition maxLap winner |
 	maxPosition := (dictionaryOfPositions values collect: [ :pair |
-		                pair at: 1 ]) max.
+		                pair cell ]) max.
 
 	maxLap := (dictionaryOfPositions values collect: [ :pair |
-		           (pair at: 1) = maxPosition
-			           ifTrue: [ pair at: 2 ]
+		           (pair cell) = maxPosition
+			           ifTrue: [ pair lap ]
 			           ifFalse: [ 0 ] ]) max.
 
 	winner := dictionaryOfPositions keys detect: [ :key |
 		          | pair |
 		          pair := dictionaryOfPositions at: key.
-		          (pair at: 1) = maxPosition and: (pair at: 2) = maxLap ].
+		          (pair cell) = maxPosition and: (pair lap) = maxLap ].
 
 	^ winner
 ]
@@ -165,9 +165,9 @@ Game >> moveSpaceship [
 
 	throwResult := collectionOfDice throw.
 
-	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard of: amountOfCells.
+	positionOfSpaceship := (nextSpaceship move: throwResult on: aBoard of: amountOfCells) getPosition.
 	
-	self checkIf: nextSpaceship hasRunOutOfFuelAt: (positionOfSpaceship at:1).
+	self checkIf: nextSpaceship hasRunOutOfFuelAt: (positionOfSpaceship at: 1).
 	
 	finishLine:= OrderedCollection with: amountOfCells with: numberOfLaps .
 	positionOfSpaceship = finishLine ifTrue: [

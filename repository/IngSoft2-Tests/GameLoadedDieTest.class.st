@@ -21,6 +21,7 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 		         boardWithCellsAndLaps: #( 10 1 )
 		         wormholeStartAndEnd: #( 2 3 )
 		         playWithDice: aLoadedDie.
+	
 	position := OrderedCollection with: 7 with: 1.
 	self assert: aGame moveSpaceship equals: position
 ]
