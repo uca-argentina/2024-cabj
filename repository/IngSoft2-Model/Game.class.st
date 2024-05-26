@@ -25,6 +25,15 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: nu
 		  playWithDice: aCollectionOfDice
 ]
 
+{ #category : #'instance creation' }
+Game class >> withBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
+
+	^ self new
+		  initializeWithBoardBoxes: anAmountOfBoxes
+		  wormholeStartAndEnd: beginningAndEnd
+		  playWithDice: collectionOfFaces
+]
+
 { #category : #action }
 Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 
@@ -155,6 +164,21 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 	self collectSpaceships: anAmountOfSpaceships.
 
 	turnManager := TurnManager manage: collectionOfSpaceships
+]
+
+{ #category : #initialization }
+Game >> initializeWithBoardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: collectionOfFaces [
+
+	aBoard := Board
+		         of: anAmountOfBoxes
+		         withWormholeBeginning: (beginningAndEnd at: 1)
+		         andEnding: (beginningAndEnd at: 2).
+
+	aSpaceship := Spaceship launch.
+	
+	collectionOfFaces asOrderedCollection .
+	collectionOfDice := collectionOfFaces collect: [ :numberOfFaces |
+		                    LoadedDie of: numberOfFaces ]
 ]
 
 { #category : #action }
