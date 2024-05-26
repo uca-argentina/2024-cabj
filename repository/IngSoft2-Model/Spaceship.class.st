@@ -50,27 +50,28 @@ Spaceship >> loadFuel: anAmountOfFuel [
 ]
 
 { #category : #action }
-Spaceship >> move: aNumberOfMovements on: aBoard [
+Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 
-	| actualPosition actualLap fuelDecrement completedLaps maxCells |
+	| actualPosition actualLap resultingPosition fuelDecrement completedLaps |
 	actualPosition := collectionActualPosition at: 1.
 	actualLap := collectionActualPosition at: 2.
+	completedLaps := amountOfCells * (actualLap - 1).
+
 	aNumberOfMovements >= self getFuel ifTrue: [
-		collectionActualPosition := aBoard enter:
-			                            (OrderedCollection
-				                             with: 1
-				                             with: actualLap).
+		actualPosition := (aBoard at: 1) enter.
 		fuel := 0.
-		^ collectionActualPosition ].
-	actualPosition := actualPosition + aNumberOfMovements .
-	collectionActualPosition := aBoard enter: (OrderedCollection
-			                             with:
-			                             actualPosition
-			                             with: actualLap).
-	completedLaps:=(collectionActualPosition at: 2)-1.
-	maxCells:=aBoard finishLine at: 1.
-	fuelDecrement:= (actualPosition-(completedLaps*maxCells)) - (collectionActualPosition at: 1).
-	fuel := fuel - (aNumberOfMovements + fuelDecrement).
+		^ collectionActualPosition at: 1 put: actualPosition ].
+
+	resultingPosition := actualPosition+ completedLaps + aNumberOfMovements.
+	actualPosition := (aBoard at: resultingPosition) enter.
+	actualPosition - completedLaps < 0 ifTrue: [
+		actualLap := actualLap - 1 ].
+	actualLap := resultingPosition - 1 // amountOfCells + 1.
+	collectionActualPosition at: 1 put: actualPosition.
+	collectionActualPosition at: 2 put: actualLap.
+	completedLaps := amountOfCells * (actualLap - 1).
+	fuelDecrement := resultingPosition - completedLaps - actualPosition.
+	fuel := fuel - aNumberOfMovements - fuelDecrement.
 	^ collectionActualPosition
 ]
 
