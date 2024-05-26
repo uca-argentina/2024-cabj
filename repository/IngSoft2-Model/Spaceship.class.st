@@ -63,7 +63,7 @@ Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 		collectionActualPosition setCell: actualPosition.
 		^ collectionActualPosition ].
 
-	resultingPosition := actualPosition + completedLaps
+	resultingPosition := (self objectPosition getIndexWith: amountOfCells)
 	                     + aNumberOfMovements.
 	actualPosition := (aBoard at: resultingPosition) enter.
 	actualPosition - completedLaps < 0 ifTrue: [
@@ -77,8 +77,8 @@ Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 	^ collectionActualPosition
 ]
 
-{ #category : #accessing }
-Spaceship >> position [
+{ #category : #'set and get' }
+Spaceship >> objectPosition [
 
-	^ collectionActualPosition 
+	^ collectionActualPosition
 ]

@@ -101,7 +101,7 @@ SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionIsCellThreeAndLap1 [
 		          withWormhole: #( 18 19 ).
 	aSpaceship move: 1 on: aBoard of: 20.
 	aSpaceship move: 1 on: aBoard of: 20.
-	self assert: aSpaceship position getPosition equals: collectionOfPosition getPosition
+	self assert: aSpaceship objectPosition getPosition equals: collectionOfPosition getPosition
 ]
 
 { #category : #move }
@@ -158,7 +158,7 @@ SpaceshipTest >> test009WhenSpaceshipIsLaunchedThenStartsOnCellOneAndLapOne [
 	collectionOfPosition setCell: 1.
 	collectionOfPosition setLap: 1.
 	Spaceship initialize.
-	self assert: aSpaceship position getPosition equals: collectionOfPosition getPosition
+	self assert: aSpaceship objectPosition getPosition equals: collectionOfPosition getPosition
 ]
 
 { #category : #fuelTests }
@@ -206,7 +206,7 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 		          withWormhole: #( 18 19 ).
 	aSpaceship move: 6 on: aBoard of: 20.
 	Spaceship initialize.
-	self assert: (aSpaceship position cell) equals: 1
+	self assert: (aSpaceship objectPosition cell) equals: 1
 ]
 
 { #category : #fuelTests }
@@ -219,7 +219,7 @@ SpaceshipTest >> test014WhenSpaceshipMovesTheSameAsAmountOfFuelThenGoesBackToSta
 		          withWormhole: #( 18 19 ).
 	aSpaceship move: 5 on: aBoard of: 20.
 	Spaceship initialize.
-	self assert: (aSpaceship position cell) equals: 1
+	self assert: (aSpaceship objectPosition cell) equals: 1
 ]
 
 { #category : #fuelTests }
