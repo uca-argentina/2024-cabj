@@ -1,11 +1,11 @@
 Class {
-	#name : #AtomicBomb,
+	#name : #AtomicBombCellTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #tests }
-AtomicBomb >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
+AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 
 	| anAtomicBombCell |
 	anAtomicBombCell := AtomicBombCell new.

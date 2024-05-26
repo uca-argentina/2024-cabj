@@ -1,11 +1,11 @@
 Class {
-	#name : #MoonWalkTest,
+	#name : #MoonWalkCellTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #tests }
-MoonWalkTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsItsPositionMinusTheValueConfigured [
+MoonWalkCellTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsItsPositionMinusTheValueConfigured [
 
 	| aMoonWalkCell|
 	aMoonWalkCell := MoonWalkCell withValue: 3 inPosition: 6.
@@ -14,7 +14,7 @@ MoonWalkTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsIts
 ]
 
 { #category : #tests }
-MoonWalkTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeItsPosition [
+MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeItsPosition [
 
 	| aMoonWalkCell|
 	aMoonWalkCell := MoonWalkCell withValue: 3 inPosition: 6.
@@ -23,7 +23,7 @@ MoonWalkTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeI
 ]
 
 { #category : #tests }
-MoonWalkTest >> test03WhenTheSpaceshipItsPlayingStaysTheSame [
+MoonWalkCellTest >> test03WhenTheSpaceshipItsPlayingStaysTheSame [
 	| aMoonWalkCell aSpaceship |
 	aMoonWalkCell := MoonWalkCell withValue: 3 inPosition: 6.
 	aSpaceship:= Spaceship launchWithFuel: 10.
