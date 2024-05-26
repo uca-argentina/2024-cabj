@@ -39,7 +39,7 @@ Spaceship >> getId [
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-	collectionActualPosition:= OrderedCollection with: 1 with: 1.
+	collectionActualPosition := Position startGame.
 	fuel := anAmountOfFuel.
 	id := counterId
 ]
@@ -53,14 +53,14 @@ Spaceship >> loadFuel: anAmountOfFuel [
 Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 
 	| actualPosition actualLap resultingPosition fuelDecrement completedLaps |
-	actualPosition := collectionActualPosition at: 1.
-	actualLap := collectionActualPosition at: 2.
+	actualPosition := collectionActualPosition cell.
+	actualLap := collectionActualPosition lap.
 	completedLaps := amountOfCells * (actualLap - 1).
 
 	aNumberOfMovements >= self getFuel ifTrue: [
 		actualPosition := (aBoard at: 1) enter.
 		fuel := 0.
-		collectionActualPosition at: 1 put: actualPosition.
+		collectionActualPosition setCell: actualPosition.
 		^ collectionActualPosition ].
 
 	resultingPosition := actualPosition + completedLaps
@@ -69,8 +69,8 @@ Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 	actualPosition - completedLaps < 0 ifTrue: [
 		actualLap := actualLap - 1 ].
 	actualLap := resultingPosition - 1 // amountOfCells + 1.
-	collectionActualPosition at: 1 put: actualPosition.
-	collectionActualPosition at: 2 put: actualLap.
+	collectionActualPosition setCell: actualPosition.
+	collectionActualPosition setLap: actualLap.
 	completedLaps := amountOfCells * (actualLap - 1).
 	fuelDecrement := resultingPosition - completedLaps - actualPosition.
 	fuel := fuel - aNumberOfMovements - fuelDecrement.
