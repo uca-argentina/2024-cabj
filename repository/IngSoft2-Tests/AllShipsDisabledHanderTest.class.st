@@ -1,0 +1,42 @@
+Class {
+	#name : #AllShipsDisabledHanderTest,
+	#superclass : #TestCase,
+	#category : #'IngSoft2-Tests'
+}
+
+{ #category : #tests }
+AllShipsDisabledHanderTest >> test01AllShipsDisabledHandlerMovesAnyAmountOfMovementsOnAnythingTheReturnsOne [
+
+	| anAllShipsDisabledHandler position |
+	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+
+	position := OrderedCollection with: 1 with: 1.
+
+	self
+		assert: (anAllShipsDisabledHandler move: 6 on: 5)
+		equals: position
+]
+
+{ #category : #tests }
+AllShipsDisabledHanderTest >> test02AllShipsDisabledHandlerPositionThenReturnsCollectionOfOneAndOne [
+
+	| anAllShipsDisabledHandler collectionPosition |
+	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+	collectionPosition := OrderedCollection with: 1 with: 1.
+
+	self
+		assert: anAllShipsDisabledHandler position
+		equals: collectionPosition
+]
+
+{ #category : #tests }
+AllShipsDisabledHanderTest >> test03AllShipsDisabledHandlerKnowsHowToLoadFuel [
+
+	| anAllShipsDisabledHandler |
+	anAllShipsDisabledHandler := AllShipsDisabledHandler new.
+	anAllShipsDisabledHandler loadFuel: 5.
+
+	self
+		assert: (anAllShipsDisabledHandler getFuel)
+		equals: 5
+]
