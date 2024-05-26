@@ -1,14 +1,14 @@
 Class {
-	#name : #BlackHoleTest,
+	#name : #BlackHoleCellTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #tests }
-BlackHoleTest >> test01BlackHoleEnterThenReturnsPositionMinusFour [
+BlackHoleCellTest >> test01BlackHoleEnterThenReturnsPositionMinusFour [
 
 	| aBlackHole |
-	aBlackHole := BlackHole position: 5.
+	aBlackHole := BlackHoleCell position: 5.
 
 	self assert: aBlackHole enter equals: 1
 ]
