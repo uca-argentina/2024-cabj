@@ -5,10 +5,19 @@ Class {
 }
 
 { #category : #tests }
-HyperGravityTest >> test01 [
+HyperGravityTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravityCellThenThePositionIsTheSame [
 
 	| aHyperGravityCell |
-	aHyperGravityCell := HyperGravityCell position: 5.
+	aHyperGravityCell := HyperGravityCell withValue: 5 inPosition: 6.
 
-	self assert: aHyperGravityCell enter equals: 5
+	self assert: (aHyperGravityCell moveWithValue:4) equals: 6
+]
+
+{ #category : #tests }
+HyperGravityTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGravityCellThenReturnsTheNewPositionWithTheMovement [
+
+	| aHyperGravityCell |
+	aHyperGravityCell := HyperGravityCell withValue: 5 inPosition: 6.
+
+	self assert: (aHyperGravityCell moveWithValue:10) equals: 16
 ]
