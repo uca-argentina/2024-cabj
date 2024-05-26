@@ -2,60 +2,84 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'amountOfBoxes',
-		'wormholeBeginning',
-		'wormholeEnding',
-		'wormhole',
-		'collectionOfBoxes'
+		'amountOfCells',
+		'collectionOfCells',
+		'numberOfLaps',
+		'amountOfIndex'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
-	anAmountOfBoxes < 2 ifTrue: [ Error signal: 'A Board must have more than one box.' ]. 
-	^(self new) initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd.
+Board class >> ofCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
+
+	anAmountOfCells < 2 ifTrue: [
+		Error signal: 'A Board must have more than one cell.' ].
+	anEnd <= aBeginning ifTrue: [
+		Error signal: 'The ending must be greater than the beginning' ].
+	^ self new
+		  initializeOfCells: anAmountOfCells
+		  numberOfLaps: anAmountOfLaps
+		  withWormholeBeginning: aBeginning
+		  andEnding: anEnd
 ]
 
-{ #category : #initialization }
-Board >> createWormholeAt: aBeginning and: anEnd [
+{ #category : #'action handling' }
+Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 
-	wormholeBeginning := WormholeBeginning atPosition: aBeginning.
-	wormholeEnding := WormholeEnding atPosition: anEnd.
-	wormholeBeginning withEnd: wormholeEnding.
-	wormholeEnding withBeginning: wormholeBeginning
+	| currentPosition completedLaps actualPosition totalCells expectedPosition |
+	currentPosition := aPosition at: 1.
+	completedLaps := ((aPosition at: 2) - 1) * amountOfCells.
+	actualPosition := currentPosition + completedLaps.
+	totalCells := amountOfCells * numberOfLaps.
+	expectedPosition := actualPosition + aMovement.
+
+	expectedPosition < totalCells ifTrue: [ ^ aMovement ].
+
+	^ totalCells - actualPosition
 ]
 
 { #category : #action }
-Board >> enter: aPosition [ 
-	
-	| box |
-	box:= collectionOfBoxes at: aPosition.
-	^box enter.
-	 
+Board >> enter: aPosition [
+
+	| cellPosition lapPosition nextPosition enterIndex enterResult |
+	cellPosition := aPosition at: 1.
+	lapPosition := aPosition at: 2.
+	enterIndex := cellPosition + (amountOfCells * (lapPosition - 1)).
+	enterResult := (collectionOfCells at: enterIndex) enter.
+	enterResult - (amountOfCells * (lapPosition - 1)) < 0 ifTrue: [
+		lapPosition := lapPosition - 1 ].
+	enterResult > (amountOfCells * lapPosition) ifTrue: [
+		enterResult := enterResult - (amountOfCells * lapPosition).
+		lapPosition := lapPosition + 1 ].
+	enterResult > amountOfCells ifTrue: [
+		enterResult := enterResult - amountOfCells ].
+	nextPosition := OrderedCollection with: enterResult.
+	nextPosition add: lapPosition.
+	^ nextPosition
 ]
 
 { #category : #accessing }
 Board >> finishLine [
-	^amountOfBoxes .
+
+	^ OrderedCollection with: amountOfCells with: numberOfLaps
 ]
 
 { #category : #initialization }
-Board >> initializeOf: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: anEnd [
+Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWormholeBeginning: aBeginning andEnding: anEnd [
 
-	amountOfBoxes := anAmountOfBoxes.
-	self createWormholeAt: aBeginning and: anEnd.
+	amountOfIndex := anAmountOfCells * anAmountOfLaps.
+	amountOfCells := anAmountOfCells.
+	collectionOfCells := OrderedCollection new.
+	numberOfLaps := anAmountOfLaps.
+	1 to: amountOfIndex do: [ :index |
+	collectionOfCells add: (RegularCell position: index) ].
 
-	collectionOfBoxes := OrderedCollection new.
-	1 to: anAmountOfBoxes do: [ :index |
-	collectionOfBoxes add: (RegularCell position: index) ].
-
-	collectionOfBoxes at: aBeginning put: wormholeBeginning.
-	collectionOfBoxes at: anEnd put: wormholeEnding
-]
-
-{ #category : #'action handling' }
-Board >> legalMoveFrom: aPosition move: aMovement [  
-	(aPosition+aMovement)<amountOfBoxes ifTrue:[^aMovement].
-	^(amountOfBoxes-aPosition).
+	1 to: numberOfLaps do: [ :lap |
+		collectionOfCells
+			at: aBeginning + ((lap-1) * amountOfCells)
+			put: (RegularCell position: anEnd + ((lap-1) * amountOfCells)).
+		collectionOfCells
+			at: anEnd + ((lap-1) * amountOfCells)
+			put: (RegularCell position: aBeginning + ((lap-1) * amountOfCells)) ]
 ]
