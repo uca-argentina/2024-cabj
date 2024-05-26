@@ -18,6 +18,16 @@ MoonWalkCell >> enterWithOtherSpaceship [
 	^3
 ]
 
+{ #category : #'as yet unclassified' }
+MoonWalkCell >> enterWithSpaceship: aSpaceship [ 
+	^position.
+]
+
+{ #category : #'as yet unclassified' }
+MoonWalkCell >> enterWithSpaceshipPlaying [
+	^6
+]
+
 { #category : #initialization }
 MoonWalkCell >> initializeWithValue: aValue inPosition: aPosition [
 	value:=aValue.

@@ -12,3 +12,20 @@ MoonWalkTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsIts
 
 	self assert: (aMoonWalkCell enterWithOtherSpaceship) equals:3.
 ]
+
+{ #category : #tests }
+MoonWalkTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeItsPosition [
+
+	| aMoonWalkCell|
+	aMoonWalkCell := MoonWalkCell withValue: 3 inPosition: 6.
+
+	self assert: (aMoonWalkCell enterWithSpaceshipPlaying) equals:6.
+]
+
+{ #category : #tests }
+MoonWalkTest >> test03WhenTheSpaceshipItsPlayingStaysTheSame [
+	| aMoonWalkCell aSpaceship |
+	aMoonWalkCell := MoonWalkCell withValue: 3 inPosition: 6.
+	aSpaceship:= Spaceship launchWithFuel: 10.
+	self assert: (aMoonWalkCell enterWithSpaceship: aSpaceship) equals:6.
+]
