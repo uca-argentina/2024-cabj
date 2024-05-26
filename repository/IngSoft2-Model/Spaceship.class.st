@@ -2,10 +2,9 @@ Class {
 	#name : #Spaceship,
 	#superclass : #Object,
 	#instVars : [
-		'actualPosition',
 		'id',
-		'actualLap',
-		'fuel'
+		'fuel',
+		'collectionActualPosition'
 	],
 	#classInstVars : [
 		'counterId'
@@ -40,22 +39,46 @@ Spaceship >> getId [
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-	actualPosition := 1.
-	actualLap := 1.
+	collectionActualPosition := Position startGame.
 	fuel := anAmountOfFuel.
 	id := counterId
 ]
 
-{ #category : #action }
-Spaceship >> move: aNumberOfMovements on: aBoard [
-
-	actualPosition := aBoard enter: actualPosition + aNumberOfMovements.
-	fuel := fuel - aNumberOfMovements.
-	^ actualPosition
+{ #category : #setter }
+Spaceship >> loadFuel: anAmountOfFuel [ 
+	^fuel:=anAmountOfFuel .
 ]
 
-{ #category : #accessing }
-Spaceship >> position [
+{ #category : #action }
+Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 
-	^ OrderedCollection with: actualPosition with: actualLap
+	| actualPosition actualLap resultingPosition fuelDecrement completedLaps |
+	actualPosition := collectionActualPosition cell.
+	actualLap := collectionActualPosition lap.
+	completedLaps := amountOfCells * (actualLap - 1).
+
+	aNumberOfMovements >= self getFuel ifTrue: [
+		actualPosition := (aBoard at: 1) enter.
+		fuel := 0.
+		collectionActualPosition setCell: actualPosition.
+		^ collectionActualPosition ].
+
+	resultingPosition := (self objectPosition getIndexWith: amountOfCells)
+	                     + aNumberOfMovements.
+	actualPosition := (aBoard at: resultingPosition) enter.
+	actualPosition - completedLaps < 0 ifTrue: [
+		actualLap := actualLap - 1 ].
+	actualLap := resultingPosition - 1 // amountOfCells + 1.
+	collectionActualPosition setCell: actualPosition.
+	collectionActualPosition setLap: actualLap.
+	completedLaps := amountOfCells * (actualLap - 1).
+	fuelDecrement := resultingPosition - completedLaps - actualPosition.
+	fuel := fuel - aNumberOfMovements - fuelDecrement.
+	^ collectionActualPosition
+]
+
+{ #category : #'set and get' }
+Spaceship >> objectPosition [
+
+	^ collectionActualPosition
 ]
