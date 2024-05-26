@@ -20,6 +20,14 @@ Position >> cell [
 	^ cell
 ]
 
+{ #category : #'as yet unclassified' }
+Position >> getIndexWith: amountOfCells [
+
+	| completedLaps |
+	completedLaps := amountOfCells * (self lap - 1).
+	^ self cell + completedLaps
+]
+
 { #category : #'set and get' }
 Position >> getPosition [
 
