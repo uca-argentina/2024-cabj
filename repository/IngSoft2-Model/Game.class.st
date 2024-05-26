@@ -7,7 +7,10 @@ Class {
 		'amountOfFuel',
 		'collectionOfSpaceships',
 		'turnManager',
-		'dictionaryOfPositions'
+		'dictionaryOfPositions',
+		'amountOfIndex',
+		'amountOfCells',
+		'numberOfLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -40,7 +43,30 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 	Spaceship initialize
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
+Game >> createCollectionOfRegularCells [
+
+	aBoard := OrderedCollection new.
+
+	1 to: amountOfIndex do: [ :index |
+	aBoard add: (RegularCell position: index) ]
+]
+
+{ #category : #initialization }
+Game >> createWormholeOn: aBeginning and: anEnd [
+
+	| positionWithinLap |
+	1 to: numberOfLaps do: [ :lap |
+		positionWithinLap := amountOfCells * (lap - 1).
+		aBoard
+			at: aBeginning + positionWithinLap
+			put: (RegularCell position: anEnd + positionWithinLap).
+		aBoard
+			at: anEnd + positionWithinLap
+			put: (RegularCell position: aBeginning + positionWithinLap) ]
+]
+
+{ #category : #results }
 Game >> finalLapsOfSpaceships [
 	| dictionaryOfLaps |
 	dictionaryOfLaps := Dictionary new.
@@ -50,7 +76,7 @@ Game >> finalLapsOfSpaceships [
 	^ dictionaryOfLaps 
 ]
 
-{ #category : #accessing }
+{ #category : #results }
 Game >> finalPositionOfSpaceships [
 
 	| dictionaryOfCellPositions |
@@ -61,7 +87,7 @@ Game >> finalPositionOfSpaceships [
 	^ dictionaryOfCellPositions
 ]
 
-{ #category : #action }
+{ #category : #results }
 Game >> finalResultsOfSpaceships [
 
 	dictionaryOfPositions := Dictionary new.
@@ -71,7 +97,7 @@ Game >> finalResultsOfSpaceships [
 	^ dictionaryOfPositions
 ]
 
-{ #category : #accessing }
+{ #category : #results }
 Game >> getRankingOfSpaceships [
 
 	| sortedSpaceships collectionOfRanking |
@@ -94,7 +120,7 @@ Game >> getRankingOfSpaceships [
 	^ collectionOfRanking first: 3
 ]
 
-{ #category : #accessing }
+{ #category : #results }
 Game >> getWinner [
 
 	| maxPosition maxLap winner |
@@ -117,11 +143,11 @@ Game >> getWinner [
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: numberOfCellsAndLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
 
-	aBoard := Board
-		          ofCells: (numberOfCellsAndLaps at: 1)
-		          numberOfLaps: (numberOfCellsAndLaps at: 2)
-		          withWormholeBeginning: (beginningAndEnd at: 1)
-		          andEnding: (beginningAndEnd at: 2).
+	amountOfCells := numberOfCellsAndLaps at: 1.
+	numberOfLaps := numberOfCellsAndLaps at: 2.
+	amountOfIndex := amountOfCells * numberOfLaps.
+	self createCollectionOfRegularCells.
+	self createWormholeOn: (beginningAndEnd at: 1) and: (beginningAndEnd at: 2).
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
@@ -137,10 +163,7 @@ Game >> moveSpaceship [
 	| positionOfSpaceship nextSpaceship throwResult |
 	nextSpaceship := turnManager nextTurn.
 
-	throwResult := aBoard
-		               adjustMovementWithinBoundsFrom:
-		               nextSpaceship position
-		               by: collectionOfDice throw.
+	throwResult := collectionOfDice throw.
 
 	positionOfSpaceship := nextSpaceship move: throwResult on: aBoard.
 	
