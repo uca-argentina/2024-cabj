@@ -39,6 +39,29 @@ Board >> adjustMovementWithinBoundsFrom: aPosition by: aMovement [
 	^ totalCells - actualPosition
 ]
 
+{ #category : #initialization }
+Board >> createCollectionOfRegularCells [
+
+	collectionOfCells := OrderedCollection new.
+
+	1 to: amountOfIndex do: [ :index |
+	collectionOfCells add: (RegularCell position: index) ]
+]
+
+{ #category : #initialization }
+Board >> createWormholeOn: aBeginning and: anEnd [
+
+	| positionWithinLap |
+	1 to: numberOfLaps do: [ :lap |
+		positionWithinLap := amountOfCells * (lap - 1).
+		collectionOfCells
+			at: aBeginning + positionWithinLap
+			put: (RegularCell position: anEnd + positionWithinLap).
+		collectionOfCells
+			at: anEnd + positionWithinLap
+			put: (RegularCell position: aBeginning + positionWithinLap) ]
+]
+
 { #category : #action }
 Board >> enter: aPosition [
 
@@ -70,16 +93,7 @@ Board >> initializeOfCells: anAmountOfCells numberOfLaps: anAmountOfLaps withWor
 
 	amountOfIndex := anAmountOfCells * anAmountOfLaps.
 	amountOfCells := anAmountOfCells.
-	collectionOfCells := OrderedCollection new.
 	numberOfLaps := anAmountOfLaps.
-	1 to: amountOfIndex do: [ :index |
-	collectionOfCells add: (RegularCell position: index) ].
-
-	1 to: numberOfLaps do: [ :lap |
-		collectionOfCells
-			at: aBeginning + ((lap-1) * amountOfCells)
-			put: (RegularCell position: anEnd + ((lap-1) * amountOfCells)).
-		collectionOfCells
-			at: anEnd + ((lap-1) * amountOfCells)
-			put: (RegularCell position: aBeginning + ((lap-1) * amountOfCells)) ]
+	self createCollectionOfRegularCells.
+	self createWormholeOn: aBeginning and: anEnd
 ]
