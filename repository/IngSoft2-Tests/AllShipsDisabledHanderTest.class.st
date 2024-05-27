@@ -13,7 +13,7 @@ AllShipsDisabledHanderTest >> test01AllShipsDisabledHandlerMovesAnyAmountOfMovem
 	position := OrderedCollection with: 1 with: 1.
 
 	self
-		assert: (anAllShipsDisabledHandler move: 6 on: 5 of: 20) getPosition
+		assert: (anAllShipsDisabledHandler move: 6 on: 5) getPosition
 		equals: position
 ]
 
