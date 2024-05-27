@@ -3,7 +3,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cell',
-		'lap'
+		'lap',
+		'completedLaps',
+		'amountOfCells',
+		'index'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,6 +21,25 @@ Position class >> startGame [
 Position >> cell [
 
 	^ cell
+]
+
+{ #category : #'set and get' }
+Position >> completedLaps [
+
+	^ completedLaps
+]
+
+{ #category : #'set and get' }
+Position >> completedLapsWith: anAmountOfCells [
+
+	completedLaps := anAmountOfCells * (self lap - 1).
+	^ completedLaps
+]
+
+{ #category : #'set and get' }
+Position >> getIndex [
+
+	^ index
 ]
 
 { #category : #'as yet unclassified' }
@@ -50,7 +72,27 @@ Position >> lap [
 { #category : #initialization }
 Position >> setCell: aCellNumber [
 
-	cell := aCellNumber
+	cell := aCellNumber.
+]
+
+{ #category : #'set and get' }
+Position >> setCellAndLapWith: anIndex and: aCell [
+
+	| actualLap |
+	actualLap := self lap.
+	aCell - completedLaps < 0 ifTrue: [ actualLap := actualLap - 1 ].
+	actualLap := anIndex - 1 // amountOfCells + 1.
+	self setCell: aCell.
+	self setLap: actualLap.
+	self setIndexWith: amountOfCells.
+]
+
+{ #category : #'set and get' }
+Position >> setIndexWith: anAmountOfCells [
+	
+	amountOfCells := anAmountOfCells.
+	index := self cell + (self completedLapsWith: anAmountOfCells).
+	^ index
 ]
 
 { #category : #initialization }

@@ -8,7 +8,6 @@ Class {
 MoonWalkCellTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsItsPositionMinusTheValueConfigured [
 
 	| aMoonWalkCell |
-	
 	aMoonWalkCell := MoonWalkCell withValueToMove: 3 inPosition: 6.
 
 	self assert: aMoonWalkCell enterWithOtherSpaceship equals: 3
@@ -18,7 +17,6 @@ MoonWalkCellTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturn
 MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeItsPosition [
 
 	| aMoonWalkCell |
-	
 	aMoonWalkCell := MoonWalkCell withValueToMove: 3 inPosition: 6.
 
 	self assert: aMoonWalkCell enterWithSpaceshipPlaying equals: 6
@@ -28,7 +26,6 @@ MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntCha
 MoonWalkCellTest >> test03WhenTheSpaceshipItsPlayingStaysTheSame [
 
 	| aMoonWalkCell aSpaceship |
-	
 	aMoonWalkCell := MoonWalkCell withValueToMove: 3 inPosition: 6.
 	aSpaceship := Spaceship launchWithFuel: 10.
 	self assert: (aMoonWalkCell enterWithSpaceship: aSpaceship) equals: 6
