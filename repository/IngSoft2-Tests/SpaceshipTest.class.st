@@ -54,10 +54,10 @@ SpaceshipTest >> createdBoardOfCellsAndLaps: anAmountOfCellsAndLaps withWormhole
 
 	1 to: numberOfLaps do: [ :lap |
 		aBoard
-			at: (cellAndPosition at: 2)
+			at: ((cellAndPosition at: 2) *lap )
 			put:
 			((cellAndPosition at: 1) initializePosition:
-				 (cellAndPosition at: 2)) ].
+				( (cellAndPosition at: 2) *lap )) ].
 	^ aBoard
 ]
 
@@ -315,4 +315,45 @@ SpaceshipTest >> test021WhenASpaceshipFallsInTheAtomicBombCellThenReturnsToThePo
 	finalPosition setLap: 1 .
 	Spaceship initialize.
 	self assert: (aSpaceship move: 9 on: aBoard of: 20) getPosition equals: finalPosition getPosition
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test022WhenASpaceshipFallsOnAnAtomicBombCellThenReturnsToPositionOneAndActualLap [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: AtomicBombCell  new
+		                                      with: 10.
+	aSpaceship := Spaceship launchWithFuel: 60.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 20 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	
+	finalPosition := Position startGame.
+	finalPosition setCell: 1.
+	finalPosition setLap: 2 .
+	Spaceship initialize.
+	self assert: (aSpaceship move: 29 on: aBoard of: 20) getPosition equals: finalPosition getPosition
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test023WhenASpaceshipFallsOnAnAtomicBombCellThenDoesntWasteFuelWhenGoesToPositionOne [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: AtomicBombCell  new
+		                                      with: 10.
+	aSpaceship := Spaceship launchWithFuel: 60.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 20 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	
+	finalPosition := Position startGame.
+	finalPosition setCell: 1.
+	finalPosition setLap: 2 .
+	Spaceship initialize.
+	aSpaceship move: 9 on: aBoard of: 20.
+	self assert: (aSpaceship getFuel)  equals: 51.
 ]

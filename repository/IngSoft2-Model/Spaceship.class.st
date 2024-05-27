@@ -71,9 +71,11 @@ Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 	actualLap := resultingPosition - 1 // amountOfCells + 1.
 	collectionActualPosition setCell: actualPosition.
 	collectionActualPosition setLap: actualLap.
-	completedLaps := amountOfCells * (actualLap - 1).
+	completedLaps := (amountOfCells * (actualLap - 1)).
 	fuelDecrement := resultingPosition - completedLaps - actualPosition.
-	fuel := fuel - aNumberOfMovements - fuelDecrement.
+	((aBoard at:resultingPosition )isKindOf: AtomicBombCell )ifFalse:[fuel := fuel - aNumberOfMovements - fuelDecrement.]
+	ifTrue:[fuel := fuel - aNumberOfMovements].
+
 	^ collectionActualPosition
 ]
 
