@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'fuel',
-		'position'
+		'objectPosition'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,7 +22,7 @@ AllShipsDisabledHandler >> getFuel [
 { #category : #initialization }
 AllShipsDisabledHandler >> initializeFakeLaunch [
 
-	position := Position startGame
+	objectPosition := Position startGame
 ]
 
 { #category : #setter }
@@ -31,7 +31,7 @@ AllShipsDisabledHandler >> loadFuel: amountOfFuel [
 ]
 
 { #category : #accessing }
-AllShipsDisabledHandler >> move: aNumberOfMovements on: aBoard of: amountOfCells [
+AllShipsDisabledHandler >> move: aNumberOfMovements on: aBoard [
 
 	^ self objectPosition
 ]
@@ -39,5 +39,5 @@ AllShipsDisabledHandler >> move: aNumberOfMovements on: aBoard of: amountOfCells
 { #category : #accessing }
 AllShipsDisabledHandler >> objectPosition [
 
-	^ position
+	^ objectPosition
 ]
