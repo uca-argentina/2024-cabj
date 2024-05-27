@@ -8,6 +8,7 @@ Class {
 HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravityCellThenThePositionIsTheSame [
 
 	| aHyperGravityCell |
+	
 	aHyperGravityCell := HyperGravityCell
 		                     withValueToMove: 5
 		                     inPosition: 6.
@@ -19,6 +20,7 @@ HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravity
 HyperGravityCellTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGravityCellThenReturnsTheNewPositionWithTheMovement [
 
 	| aHyperGravityCell |
+	
 	aHyperGravityCell := HyperGravityCell
 		                     withValueToMove: 5
 		                     inPosition: 6.

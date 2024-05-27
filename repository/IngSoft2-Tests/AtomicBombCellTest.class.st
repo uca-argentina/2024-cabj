@@ -8,7 +8,6 @@ Class {
 AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 
 	| anAtomicBombCell |
-	
 	anAtomicBombCell := AtomicBombCell new.
 
 	self assert: anAtomicBombCell enter equals: 1
