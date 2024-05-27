@@ -22,7 +22,8 @@ AllShipsDisabledHandler >> getFuel [
 { #category : #initialization }
 AllShipsDisabledHandler >> initializeFakeLaunch [
 
-	objectPosition := Position startGame
+	objectPosition := Position startGame.
+	objectPosition setIndexWith: 10
 ]
 
 { #category : #setter }
