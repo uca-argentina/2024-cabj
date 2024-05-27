@@ -50,12 +50,11 @@ Spaceship >> loadFuel: anAmountOfFuel [
 ]
 
 { #category : #action }
-Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
+Spaceship >> move: aNumberOfMovements on: aBoard [
 
-	| actualPosition actualLap resultingPosition fuelDecrement completedLaps |
-	actualPosition := collectionActualPosition cell.
-	actualLap := collectionActualPosition lap.
-	completedLaps := amountOfCells * (actualLap - 1).
+	| actualPosition actualIndex nextIndex completedLaps |
+	actualIndex := collectionActualPosition getIndex.
+	nextIndex := aNumberOfMovements + actualIndex.
 
 	aNumberOfMovements >= self getFuel ifTrue: [
 		actualPosition := (aBoard at: 1) enter.
@@ -63,17 +62,17 @@ Spaceship >> move: aNumberOfMovements on: aBoard of: amountOfCells [
 		collectionActualPosition setCell: actualPosition.
 		^ collectionActualPosition ].
 
-	resultingPosition := (self objectPosition getIndexWith: amountOfCells)
-	                     + aNumberOfMovements.
-	actualPosition := (aBoard at: resultingPosition) enter.
-	actualPosition - completedLaps < 0 ifTrue: [
-		actualLap := actualLap - 1 ].
-	actualLap := resultingPosition - 1 // amountOfCells + 1.
-	collectionActualPosition setCell: actualPosition.
-	collectionActualPosition setLap: actualLap.
-	completedLaps := amountOfCells * (actualLap - 1).
-	fuelDecrement := resultingPosition - completedLaps - actualPosition.
-	fuel := fuel - aNumberOfMovements - fuelDecrement.
+	actualPosition := (aBoard at: nextIndex) enter.
+	collectionActualPosition
+		setCellAndLapWith: nextIndex
+		and: actualPosition.
+
+	actualIndex := collectionActualPosition getIndex.
+	actualIndex + 4 = nextIndex ifTrue: [ fuel := fuel - 4 ].
+
+	completedLaps := collectionActualPosition completedLaps.
+	fuel := fuel - aNumberOfMovements.
+
 	^ collectionActualPosition
 ]
 

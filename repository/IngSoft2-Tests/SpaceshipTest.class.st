@@ -54,10 +54,10 @@ SpaceshipTest >> createdBoardOfCellsAndLaps: anAmountOfCellsAndLaps withWormhole
 
 	1 to: numberOfLaps do: [ :lap |
 		aBoard
-			at: (cellAndPosition at: 2)
+			at: ((cellAndPosition at: 2) *lap )
 			put:
 			((cellAndPosition at: 1) initializePosition:
-				 (cellAndPosition at: 2)) ].
+				( (cellAndPosition at: 2) *lap )) ].
 	^ aBoard
 ]
 
@@ -70,7 +70,8 @@ SpaceshipTest >> test001SpaceshipInitializeInPositionOneAndMovesOneTimeThenIsInP
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	self assert: ((aSpaceship move: 1 on: aBoard of: 20) cell) equals: 2
+	aSpaceship objectPosition setIndexWith: 20.
+	self assert: ((aSpaceship move: 1 on: aBoard) cell) equals: 2
 ]
 
 { #category : #move }
@@ -78,13 +79,13 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionThree [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	Spaceship initialize.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 1 on: aBoard of: 20.
-
-	self assert: ((aSpaceship move: 1 on: aBoard of: 20) cell) equals: 3
+	aSpaceship move: 1 on: aBoard.
+	self assert: (aSpaceship move: 1 on: aBoard) cell equals: 3
 ]
 
 { #category : #tests }
@@ -92,6 +93,7 @@ SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionIsCellThreeAndLap1 [
 
 	| aSpaceship aBoard collectionOfPosition |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	collectionOfPosition := Position startGame.
 	collectionOfPosition setCell: 3.
 	collectionOfPosition setLap: 1.
@@ -99,8 +101,8 @@ SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionIsCellThreeAndLap1 [
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 1 on: aBoard of: 20.
-	aSpaceship move: 1 on: aBoard of: 20.
+	aSpaceship move: 1 on: aBoard.
+	aSpaceship move: 1 on: aBoard.
 	self assert: aSpaceship objectPosition getPosition equals: collectionOfPosition getPosition
 ]
 
@@ -109,12 +111,13 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	Spaceship initialize.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 1 on: aBoard of: 20.
-	self assert: ((aSpaceship move: 1 on: aBoard of: 20) cell) equals: 3
+	aSpaceship move: 1 on: aBoard.
+	self assert: ((aSpaceship move: 1 on: aBoard) cell) equals: 3
 ]
 
 { #category : #move }
@@ -122,16 +125,17 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwoTimesAndOneTimeThenPositionIsFour [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	Spaceship initialize.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 2 on: aBoard of: 20.
-	self assert: ((aSpaceship move: 1 on: aBoard of: 20) cell) equals: 4
+	aSpaceship move: 2 on: aBoard.
+	self assert: ((aSpaceship move: 1 on: aBoard) cell) equals: 4
 ]
 
-{ #category : #id }
-SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [ 
 
 	| aSpaceshipOne |
 	aSpaceshipOne := Spaceship launchWithFuel: 4.
@@ -139,8 +143,8 @@ SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [
 	self assert: aSpaceshipOne getId equals: 1
 ]
 
-{ #category : #id }
-SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo [
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo [ 
 
 	| aSpaceshipOne aSpaceshipTwo |
 	aSpaceshipOne := Spaceship launchWithFuel: 4.
@@ -154,6 +158,7 @@ SpaceshipTest >> test009WhenSpaceshipIsLaunchedThenStartsOnCellOneAndLapOne [
 
 	| aSpaceship collectionOfPosition |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	collectionOfPosition := Position startGame.
 	collectionOfPosition setCell: 1.
 	collectionOfPosition setLap: 1.
@@ -161,8 +166,8 @@ SpaceshipTest >> test009WhenSpaceshipIsLaunchedThenStartsOnCellOneAndLapOne [
 	self assert: aSpaceship objectPosition getPosition equals: collectionOfPosition getPosition
 ]
 
-{ #category : #fuelTests }
-SpaceshipTest >> test010WhenSpaceshipIsInitializeWithFuelThenAmountOfFuelStaysTheSame [
+{ #category : #'tests - initialization' }
+SpaceshipTest >> test010WhenSpaceshipIsInitializeWithFuelThenAmountOfFuelStaysTheSame [ 
 
 	| aSpaceship |
 	aSpaceship := Spaceship launchWithFuel: 6.
@@ -175,10 +180,11 @@ SpaceshipTest >> test011WhenSpaceshipMovesOnceThenFuelIsOneLessThanInitializeWit
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 1 on: aBoard of: 20.
+	aSpaceship move: 1 on: aBoard.
 	Spaceship initialize.
 	self assert: aSpaceship getFuel equals: 4
 ]
@@ -188,10 +194,11 @@ SpaceshipTest >> test012SpaceshipMovesMoreThanOneCellThenFuelWasteNumberOfMoveme
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 10.
+	aSpaceship objectPosition setIndexWith: 20.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 7 on: aBoard of: 20.
+	aSpaceship move: 7 on: aBoard.
 	Spaceship initialize.
 	self assert: aSpaceship getFuel equals: 3
 ]
@@ -201,10 +208,11 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 6 on: aBoard of: 20.
+	aSpaceship move: 6 on: aBoard.
 	Spaceship initialize.
 	self assert: (aSpaceship objectPosition cell) equals: 1
 ]
@@ -214,10 +222,11 @@ SpaceshipTest >> test014WhenSpaceshipMovesTheSameAsAmountOfFuelThenGoesBackToSta
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 5 on: aBoard of: 20.
+	aSpaceship move: 5 on: aBoard.
 	Spaceship initialize.
 	self assert: (aSpaceship objectPosition cell) equals: 1
 ]
@@ -227,10 +236,11 @@ SpaceshipTest >> test015WhenSpaceshipLoadsFuelAfterLosingAllOfItThenFuelEqualsAm
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 1 on: aBoard of: 20.
+	aSpaceship move: 1 on: aBoard.
 	aSpaceship loadFuel: 5.
 	Spaceship initialize.
 	self assert: (aSpaceship getFuel) equals: 5
@@ -241,13 +251,14 @@ SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship launchWithFuel: 10.
+	aSpaceship objectPosition setIndexWith: 20.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 18 19 ).
-	aSpaceship move: 1 on: aBoard of: 20.
+	aSpaceship move: 1 on: aBoard.
 	aSpaceship loadFuel: 10.
 	Spaceship initialize.
-	self assert: ((aSpaceship move: 8 on: aBoard of: 20) cell) equals: 10
+	self assert: ((aSpaceship move: 8 on: aBoard) cell) equals: 10
 ]
 
 { #category : #fuelTests }
@@ -255,6 +266,7 @@ SpaceshipTest >> test017WhenSpaceshipMovesMoreThanAmountOfCellsThenPositionGoesT
 
 	| aSpaceship aBoard collectionOfPosition |
 	aSpaceship := Spaceship launchWithFuel: 40.
+	aSpaceship objectPosition setIndexWith: 10.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 10 2 )
 		          withWormhole: #( 2 3 ).
@@ -262,7 +274,7 @@ SpaceshipTest >> test017WhenSpaceshipMovesMoreThanAmountOfCellsThenPositionGoesT
 	collectionOfPosition setCell: 1.
 	collectionOfPosition setLap: 2.
 	Spaceship initialize.
-	self assert: (aSpaceship move: 10 on: aBoard of: 10) getPosition equals: collectionOfPosition getPosition
+	self assert: (aSpaceship move: 10 on: aBoard) getPosition equals: collectionOfPosition getPosition
 ]
 
 { #category : #fuelTests }
@@ -270,9 +282,10 @@ SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: BlackHole new
+		                                      with: BlackHoleCell new
 		                                      with: 10.
 	aSpaceship := Spaceship launchWithFuel: 40.
+	aSpaceship objectPosition setIndexWith: 15.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 15 1 )
 		          withWormhole: #( 2 3 )
@@ -281,7 +294,7 @@ SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
 	finalPosition setCell: 6.
 	finalPosition setLap: 1.
 	Spaceship initialize.
-	self assert: (aSpaceship move: 9 on: aBoard of: 15) getPosition equals: finalPosition getPosition
+	self assert: (aSpaceship move: 9 on: aBoard) getPosition equals: finalPosition getPosition
 ]
 
 { #category : #fuelTests }
@@ -289,15 +302,16 @@ SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsP
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: BlackHole new
+		                                      with: BlackHoleCell new
 		                                      with: 10.
 	aSpaceship := Spaceship launchWithFuel: 40.
+	aSpaceship objectPosition setIndexWith: 15.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 15 1 )
 		          withWormhole: #( 2 3 )
 		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
 	finalPosition := OrderedCollection with: 6 with: 1.
-	aSpaceship move: 9 on: aBoard of: 15.
+	aSpaceship move: 9 on: aBoard.
 	Spaceship initialize.
 	self assert: (aSpaceship getFuel) equals: 27
 ]
@@ -307,20 +321,87 @@ SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition 
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
 	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: BlackHole new
+		                                      with: BlackHoleCell new
 		                                      with: 4.
 	aSpaceship := Spaceship launchWithFuel: 10.
+	aSpaceship objectPosition setIndexWith: 10.
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 10 2 )
 		          withWormhole: #( 2 3 )
 		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
-	aSpaceship move: 5 on: aBoard of: 10.
-	aSpaceship move: 4 on: aBoard of: 10.
+	aSpaceship move: 5 on: aBoard.
+	aSpaceship move: 4 on: aBoard.
 	aSpaceship loadFuel: 10.
-	aSpaceship move: 1 on: aBoard of: 10.
+	aSpaceship move: 1 on: aBoard.
 	finalPosition := Position startGame.
 	finalPosition setCell: 6.
 	finalPosition setLap: 2.
 	Spaceship initialize.
-	self assert: (aSpaceship move: 5 on: aBoard of: 10) getPosition equals: finalPosition getPosition
+	self
+		assert: (aSpaceship move: 5 on: aBoard) getPosition
+		equals: finalPosition getPosition
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test021WhenASpaceshipFallsInTheAtomicBombCellThenReturnsToThePositionOne [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: AtomicBombCell  new
+		                                      with: 10.
+	aSpaceship := Spaceship launchWithFuel: 60.
+	aSpaceship objectPosition setIndexWith: 20.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 20 2 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	
+	finalPosition := Position startGame.
+	finalPosition setCell: 1.
+	finalPosition setLap: 1 .
+	Spaceship initialize.
+	self assert: (aSpaceship move: 9 on: aBoard) getPosition equals: finalPosition getPosition
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test022WhenASpaceshipFallsOnAnAtomicBombCellThenReturnsToPositionOneAndActualLap [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: AtomicBombCell  new
+		                                      with: 10.
+	aSpaceship := Spaceship launchWithFuel: 60.
+	aSpaceship objectPosition setIndexWith: 20.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 20 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	
+	finalPosition := Position startGame.
+	finalPosition setCell: 1.
+	finalPosition setLap: 2 .
+	Spaceship initialize.
+	self assert: (aSpaceship move: 29 on: aBoard) getPosition equals: finalPosition getPosition
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test023WhenASpaceshipFallsOnAnAtomicBombCellThenDoesntWasteFuelWhenGoesToPositionOne [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: AtomicBombCell  new
+		                                      with: 10.
+	aSpaceship := Spaceship launchWithFuel: 60.
+	aSpaceship objectPosition setIndexWith: 20.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 20 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	
+	finalPosition := Position startGame.
+	finalPosition setCell: 1.
+	finalPosition setLap: 2 .
+	Spaceship initialize.
+	aSpaceship move: 9 on: aBoard.
+	self assert: (aSpaceship getFuel)  equals: 51.
 ]

@@ -1,11 +1,11 @@
 Class {
-	#name : #BlackHole,
+	#name : #BlackHoleCell,
 	#superclass : #RegularCell,
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-BlackHole >> enter [
+BlackHoleCell >> enter [
 
 	^ cellPosition - 4
 ]
