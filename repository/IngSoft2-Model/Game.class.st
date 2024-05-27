@@ -10,7 +10,8 @@ Class {
 		'dictionaryOfPositions',
 		'amountOfIndex',
 		'amountOfCells',
-		'numberOfLaps'
+		'numberOfLaps',
+		'finishLine'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -153,7 +154,13 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 	numberOfLaps := numberOfCellsAndLaps at: 2.
 	amountOfIndex := amountOfCells * numberOfLaps.
 	self createCollectionOfRegularCells.
-	self createWormholeOn: (beginningAndEnd at: 1) and: (beginningAndEnd at: 2).
+	self
+		createWormholeOn: (beginningAndEnd at: 1)
+		and: (beginningAndEnd at: 2).
+
+	finishLine := OrderedCollection
+		              with: amountOfCells
+		              with: numberOfLaps.
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
@@ -166,7 +173,7 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult finishLine positionOfNextSpaceship currentPosition |
+	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition |
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
@@ -185,9 +192,6 @@ Game >> moveSpaceship [
 		checkIf: nextSpaceship
 		hasRunOutOfFuelAt: (positionOfSpaceship at: 1).
 
-	finishLine := OrderedCollection
-		              with: amountOfCells
-		              with: numberOfLaps.
 	positionOfSpaceship = finishLine ifTrue: [
 		turnManager := GameOver new.
 		^ self finalResultsOfSpaceships ].
