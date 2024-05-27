@@ -7,16 +7,9 @@ Class {
 { #category : #tests }
 HyperJumpCellTest >> test01HyperJumpCreatedOnPositionFiveThenEnterReturnsNine [
 
-	| aParsecsObject aHyperJumpCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
+	| aParsecsObject aHyperJumpCell |
 	aParsecsObject := Parsecs totalCells: 10 convertionValue: 5.
 	aHyperJumpCell := HyperJumpCell
-		                  newOn: aGame
 		                  withPosition: 5
 		                  Parsecs: aParsecsObject
 		                  andValues: #( 2 1 ).
@@ -27,16 +20,9 @@ HyperJumpCellTest >> test01HyperJumpCreatedOnPositionFiveThenEnterReturnsNine [
 { #category : #tests }
 HyperJumpCellTest >> test02HyperJumpCellEntersASecondTimeThenReturnsSecondeValueOfCollection [
 
-	| aParsecsObject aHyperJumpCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
+	| aParsecsObject aHyperJumpCell |
 	aParsecsObject := Parsecs totalCells: 10 convertionValue: 100.
 	aHyperJumpCell := HyperJumpCell
-		                  newOn: aGame
 		                  withPosition: 5
 		                  Parsecs: aParsecsObject
 		                  andValues: #( 20 10 ).

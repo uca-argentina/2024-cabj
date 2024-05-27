@@ -15,7 +15,7 @@ BlackHoleCellTest >> test01BlackHoleEnterThenReturnsPositionMinusFour [
 		         wormholeStartAndEnd: #( 2 3 )
 		         playWithDice: aLoadedDie.
 
-	aBlackHole := BlackHoleCell newOn: aGame withPostion: 10 .
+	aBlackHole := BlackHoleCell position: 10.
 
 	self assert: aBlackHole enter equals: 6
 ]
