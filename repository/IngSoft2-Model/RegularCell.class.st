@@ -15,7 +15,8 @@ RegularCell class >> position: aPosition [
 
 { #category : #'instance creation' }
 RegularCell >> enter [
-	^cellPosition .
+
+	^ cellPosition
 ]
 
 { #category : #running }
@@ -25,6 +26,7 @@ RegularCell >> exit: aValue [
 ]
 
 { #category : #initialization }
-RegularCell >> initializePosition: aPosition [ 
-	cellPosition:= aPosition.
+RegularCell >> initializePosition: aPosition [
+
+	cellPosition := aPosition
 ]
