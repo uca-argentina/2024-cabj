@@ -55,11 +55,14 @@ Spaceship >> move: aNumberOfMovements on: aBoard [
 	| actualPosition actualIndex nextIndex completedLaps |
 	actualIndex := collectionActualPosition getIndex.
 	nextIndex := aNumberOfMovements + actualIndex.
+	completedLaps := collectionActualPosition completedLaps.
 
 	aNumberOfMovements >= self getFuel ifTrue: [
 		actualPosition := (aBoard at: 1) enter.
 		fuel := 0.
-		collectionActualPosition setCell: actualPosition.
+		collectionActualPosition
+			setCellAndLapWith: completedLaps + 1
+			and: actualPosition.
 		^ collectionActualPosition ].
 
 	actualPosition := (aBoard at: nextIndex) enter.

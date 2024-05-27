@@ -405,3 +405,20 @@ SpaceshipTest >> test023WhenASpaceshipFallsOnAnAtomicBombCellThenDoesntWasteFuel
 	aSpaceship move: 9 on: aBoard.
 	self assert: (aSpaceship getFuel)  equals: 51.
 ]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test024SpaceshipGoesBackToStartReloadsFuelAndMovesThenCellEqualsMovement [
+
+	| aSpaceship aBoard |
+	aSpaceship := Spaceship launchWithFuel: 5.
+	aSpaceship objectPosition setIndexWith: 20.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 20 1 )
+		          withWormhole: #( 18 19 ).
+	aSpaceship move: 3 on: aBoard.
+	aSpaceship move: 2 on: aBoard.
+	aSpaceship loadFuel: 5.
+	aSpaceship move: 4 on: aBoard.
+	Spaceship initialize.
+	self assert: (aSpaceship objectPosition cell) equals: 5
+]
