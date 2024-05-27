@@ -36,9 +36,12 @@ Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 { #category : #initialization }
 Game >> collectSpaceships: anAmountOfSpaceships [
 
+	| aSpaceship |
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
-		collectionOfSpaceships add: (Spaceship launchWithFuel: amountOfFuel ) ].
+		aSpaceship := Spaceship launchWithFuel: amountOfFuel.
+		collectionOfSpaceships add: aSpaceship.
+		aSpaceship objectPosition setIndexWith: amountOfCells ].
 
 	Spaceship initialize
 ]
@@ -163,21 +166,20 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult finishLine currentPosition |
+	| positionOfSpaceship nextSpaceship throwResult finishLine positionOfNextSpaceship currentPosition |
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
-
-	currentPosition := nextSpaceship objectPosition getIndexWith:
-		                   amountOfCells.
+	
+	positionOfNextSpaceship := nextSpaceship objectPosition.
+	currentPosition := positionOfNextSpaceship getIndex .
 
 	currentPosition + throwResult > amountOfIndex ifTrue: [
 		throwResult := amountOfIndex - currentPosition ].
 
 	positionOfSpaceship := (nextSpaceship
 		                        move: throwResult
-		                        on: aBoard
-		                        of: amountOfCells) getPosition.
+		                        on: aBoard) getPosition.
 
 	self
 		checkIf: nextSpaceship
