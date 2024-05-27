@@ -7,8 +7,17 @@ Class {
 { #category : #tests }
 MoonWalkCellTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsItsPositionMinusTheValueConfigured [
 
-	| aMoonWalkCell |
-	aMoonWalkCell := MoonWalkCell withValueToMove: 3 inPosition: 6.
+	| aMoonWalkCell aLoadedDie aGame |
+	aLoadedDie := LoadedDie of: #( 6 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardWithCellsAndLaps: #( 10 1 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aMoonWalkCell := MoonWalkCell
+		                 newOn: aGame
+		                 withValueToMove: 3
+		                 inPosition: 6.
 
 	self assert: aMoonWalkCell enterWithOtherSpaceship equals: 3
 ]
@@ -16,8 +25,17 @@ MoonWalkCellTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturn
 { #category : #tests }
 MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeItsPosition [
 
-	| aMoonWalkCell |
-	aMoonWalkCell := MoonWalkCell withValueToMove: 3 inPosition: 6.
+	| aMoonWalkCell aLoadedDie aGame |
+	aLoadedDie := LoadedDie of: #( 6 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardWithCellsAndLaps: #( 10 1 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aMoonWalkCell := MoonWalkCell
+		                 newOn: aGame
+		                 withValueToMove: 3
+		                 inPosition: 6.
 
 	self assert: aMoonWalkCell enterWithSpaceshipPlaying equals: 6
 ]
@@ -25,8 +43,17 @@ MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntCha
 { #category : #tests }
 MoonWalkCellTest >> test03WhenTheSpaceshipItsPlayingStaysTheSame [
 
-	| aMoonWalkCell aSpaceship |
-	aMoonWalkCell := MoonWalkCell withValueToMove: 3 inPosition: 6.
+	| aMoonWalkCell aLoadedDie aGame aSpaceship |
+	aLoadedDie := LoadedDie of: #( 6 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardWithCellsAndLaps: #( 10 1 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
+	aMoonWalkCell := MoonWalkCell
+		                 newOn: aGame
+		                 withValueToMove: 3
+		                 inPosition: 6.
 	aSpaceship := Spaceship launchWithFuel: 10.
 	self assert: (aMoonWalkCell enterWithSpaceship: aSpaceship) equals: 6
 ]

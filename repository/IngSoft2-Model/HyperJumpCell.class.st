@@ -4,16 +4,18 @@ Class {
 	#instVars : [
 		'parsecsObject',
 		'collectionOfValues',
-		'currentValue'
+		'currentValue',
+		'game'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-HyperJumpCell class >> withPosition: aValue Parsecs: aParsecs andValues: aCollection [
+HyperJumpCell class >> newOn: aGame withPosition: aPosition Parsecs: aParsecs andValues: aCollection [
 
 	^ self new
-		  initializeWithPosition: aValue
+		  initializeNewOn: aGame
+		  withPosition: aPosition
 		  Parsecs: aParsecs
 		  andValues: aCollection
 ]
@@ -29,12 +31,13 @@ HyperJumpCell >> enter [
 ]
 
 { #category : #initialization }
-HyperJumpCell >> initializeWithPosition: aValue Parsecs: aParsecs andValues: aCollection [
+HyperJumpCell >> initializeNewOn: aGame withPosition: aPosition Parsecs: aParsecs andValues: aCollection [
 
+	game := aGame.
+	cellPosition := aPosition.
 	parsecsObject := aParsecs.
 	collectionOfValues := aCollection.
-	currentValue := collectionOfValues at: 1.
-	cellPosition := aValue
+	currentValue := collectionOfValues at: 1
 ]
 
 { #category : #accessing }

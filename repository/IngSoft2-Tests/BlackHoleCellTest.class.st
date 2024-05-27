@@ -7,9 +7,15 @@ Class {
 { #category : #tests }
 BlackHoleCellTest >> test01BlackHoleEnterThenReturnsPositionMinusFour [
 
-	| aBlackHole |
-	
-	aBlackHole := BlackHoleCell position: 5.
+	| aBlackHole aLoadedDie aGame |
+	aLoadedDie := LoadedDie of: #( 6 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         boardWithCellsAndLaps: #( 10 1 )
+		         wormholeStartAndEnd: #( 2 3 )
+		         playWithDice: aLoadedDie.
 
-	self assert: aBlackHole enter equals: 1
+	aBlackHole := BlackHoleCell newOn: aGame withPostion: 10 .
+
+	self assert: aBlackHole enter equals: 6
 ]
