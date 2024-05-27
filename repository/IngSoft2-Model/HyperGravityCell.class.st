@@ -19,14 +19,15 @@ HyperGravityCell >> enter [
 	^ position
 ]
 
+{ #category : #running }
+HyperGravityCell >> exit: aValue [
+
+	aValue < value ifTrue: [ ^ false ].
+	^ true
+]
+
 { #category : #initialization }
 HyperGravityCell >> initializeWithValueToMove: aValue inPosition: aPosition [
 	value:=aValue.
 	position:=aPosition 
-]
-
-{ #category : #'as yet unclassified' }
-HyperGravityCell >> moveWithValue: aValueOfTheDie [
-	value < aValueOfTheDie ifTrue: [ ^ (aValueOfTheDie +position) ].
-	^ position
 ]
