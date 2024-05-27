@@ -8,6 +8,7 @@ Class {
 BlackHoleCellTest >> test01BlackHoleEnterThenReturnsPositionMinusFour [
 
 	| aBlackHole |
+	
 	aBlackHole := BlackHoleCell position: 5.
 
 	self assert: aBlackHole enter equals: 1
