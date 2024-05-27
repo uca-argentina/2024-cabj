@@ -8,19 +8,19 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-HyperGravityCell class >> withValue: aValue inPosition: aPosition [ 
-	^(self new ) initializeWithValue: aValue inPosition: aPosition
+{ #category : #'instance creation' }
+HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [ 
+	^(self new ) initializeWithValueToMove: aValue inPosition: aPosition
 ]
 
 { #category : #'instance creation' }
 HyperGravityCell >> enter [
 
-	^ cellPosition - 4
+	^ position
 ]
 
 { #category : #initialization }
-HyperGravityCell >> initializeWithValue: aValue inPosition: aPosition [
+HyperGravityCell >> initializeWithValueToMove: aValue inPosition: aPosition [
 	value:=aValue.
 	position:=aPosition 
 ]

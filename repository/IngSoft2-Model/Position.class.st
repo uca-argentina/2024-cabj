@@ -3,10 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cell',
-		'lap',
-		'index',
-		'completedLaps',
-		'amountOfCells'
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -40,6 +37,14 @@ Position >> completedLapsWith: anAmountOfCells [
 Position >> getIndex [
 
 	^ index
+]
+
+{ #category : #'as yet unclassified' }
+Position >> getIndexWith: amountOfCells [
+
+	| completedLaps |
+	completedLaps := amountOfCells * (self lap - 1).
+	^ self cell + completedLaps
 ]
 
 { #category : #'set and get' }
