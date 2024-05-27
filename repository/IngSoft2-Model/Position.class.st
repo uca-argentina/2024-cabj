@@ -64,7 +64,7 @@ Position >> lap [
 { #category : #initialization }
 Position >> setCell: aCellNumber [
 
-	cell := aCellNumber
+	cell := aCellNumber.
 ]
 
 { #category : #'set and get' }
