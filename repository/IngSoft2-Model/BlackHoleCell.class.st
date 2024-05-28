@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #action }
 BlackHoleCell >> enter [
 
 	^ cellPosition - 4
