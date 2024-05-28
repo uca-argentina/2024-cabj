@@ -9,8 +9,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MoonWalkCell class >> withValue: aValue inPosition: aPosition [
-	^(self new) initializeWithValue: aValue inPosition: aPosition.
+MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition [
+	^(self new) initializeWithValueToMove: aValue inPosition: aPosition.
 ]
 
 { #category : #'as yet unclassified' }
@@ -29,7 +29,7 @@ MoonWalkCell >> enterWithSpaceshipPlaying [
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValue: aValue inPosition: aPosition [
+MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition [
 	value:=aValue.
 	position:=aPosition .
 ]

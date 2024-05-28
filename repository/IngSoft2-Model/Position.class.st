@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'cell',
 		'lap',
+		'amountOfCells',
 		'index',
-		'completedLaps',
-		'amountOfCells'
+		'completedLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -64,7 +64,7 @@ Position >> lap [
 { #category : #initialization }
 Position >> setCell: aCellNumber [
 
-	cell := aCellNumber
+	cell := aCellNumber.
 ]
 
 { #category : #'set and get' }
@@ -81,7 +81,7 @@ Position >> setCellAndLapWith: anIndex and: aCell [
 
 { #category : #'set and get' }
 Position >> setIndexWith: anAmountOfCells [
-	
+
 	amountOfCells := anAmountOfCells.
 	index := self cell + (self completedLapsWith: anAmountOfCells).
 	^ index

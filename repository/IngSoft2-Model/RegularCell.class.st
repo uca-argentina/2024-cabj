@@ -18,6 +18,12 @@ RegularCell >> enter [
 	^cellPosition .
 ]
 
+{ #category : #running }
+RegularCell >> exit: aValue [
+
+	^ true
+]
+
 { #category : #initialization }
 RegularCell >> initializePosition: aPosition [ 
 	cellPosition:= aPosition.
