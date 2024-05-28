@@ -152,3 +152,18 @@ CollectionOfSpaceshipTest >> test08SizeThenReturnsSizeOfCollection [
 
 	self assert: aCollectionOfSpaceships size equals: 3
 ]
+
+{ #category : #tests }
+CollectionOfSpaceshipTest >> test09IndexOfSpaceshipTwoThenReturnsTwo [
+
+	| aCollectionOfSpaceships aSpaceshipTwo |
+	aCollectionOfSpaceships := CollectionOfSpaceships
+		                           numberOfSpaceships: 3
+		                           withAmountOfFuel: 10
+		                           indexCalculateWith: 20.
+	aSpaceshipTwo := aCollectionOfSpaceships at: 2.
+
+	self
+		assert: (aCollectionOfSpaceships indexOf: aSpaceshipTwo)
+		equals: 2
+]
