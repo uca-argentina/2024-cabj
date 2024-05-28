@@ -57,6 +57,9 @@ Spaceship >> move: aNumberOfMovements on: aBoard [
 	nextIndex := aNumberOfMovements + actualIndex.
 	completedLaps := collectionActualPosition completedLaps.
 
+	((aBoard at: actualIndex) exit: aNumberOfMovements) ifFalse: [
+		^ collectionActualPosition ].
+
 	aNumberOfMovements >= self getFuel ifTrue: [
 		actualPosition := (aBoard at: 1) enter.
 		fuel := 0.
