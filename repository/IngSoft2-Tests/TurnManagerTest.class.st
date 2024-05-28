@@ -9,11 +9,15 @@ TurnManagerTest >> test01OneSpaceshipsThenTurnOneReturnsSpaceshipOne [
 
 	| aTurnManager spaceshipOne collectionOfSpaceships |
 	spaceshipOne := Spaceship launchWithFuel: 5.
-	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
+	collectionOfSpaceships := CollectionOfSpaceships
+		                          numberOfSpaceships: 1
+		                          withAmountOfFuel: 5
+		                          indexCalculateWith: 10.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
 
@@ -30,6 +34,7 @@ TurnManagerTest >> test02TwoSpaceshipsThenTurnTwoReturnsSpaceshipTwo [
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
 	self assert: aTurnManager nextTurn equals: spaceshipTwo
 ]
 
@@ -47,6 +52,8 @@ TurnManagerTest >> test03WhenRoundIsOverNextTurnIsTheFirstSpaceship [
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
+
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
 
@@ -62,9 +69,10 @@ TurnManagerTest >> test04WhenSpaceshipOneLosesTurnsTheNextTurnIsSpaceshipTwo [
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
-	aTurnManager lostTurns: 2 by: spaceshipOne . 
+	aTurnManager lostTurns: 2 by: spaceshipOne.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
 	self assert: aTurnManager nextTurn equals: spaceshipTwo
 ]
 
@@ -80,13 +88,14 @@ TurnManagerTest >> test05WhenSpaceshipOneLosesTwoTurnsThenSpaceshipTwoPlaysThem 
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
-	aTurnManager lostTurns: 2 by: spaceshipOne . 
+	aTurnManager lostTurns: 2 by: spaceshipOne.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
 
@@ -97,8 +106,9 @@ TurnManagerTest >> test06WhenEverySpaceshipsLosesTheirTurnThenReturnAnAllShipsDi
 	spaceshipOne := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager lostTurns: 2 by: spaceshipOne .
+	aTurnManager lostTurns: 2 by: spaceshipOne.
 
+	Spaceship initialize.
 	self assert:
 		(aTurnManager nextTurn isKindOf: AllShipsDisabledHandler)
 ]
@@ -111,11 +121,12 @@ TurnManagerTest >> test07WhenSpaceshipLostTwoTurnsIsCalledTwiceAndTwoTurnsPassTh
 	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager lostTurns: 2 by: spaceshipOne.
-	aTurnManager lostTurns: 2 by: spaceshipOne. 
-	aTurnManager lostTurns: 2 by: spaceshipOne. 
+	aTurnManager lostTurns: 2 by: spaceshipOne.
+	aTurnManager lostTurns: 2 by: spaceshipOne.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
 
@@ -126,8 +137,9 @@ TurnManagerTest >> test08OneSpaceshipLostOneTurnAndThenRecoversIt [
 	spaceshipOne := Spaceship launchWithFuel: 5.
 	collectionOfSpaceships := OrderedCollection with: spaceshipOne.
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager lostTurns: 1  by:  spaceshipOne.
+	aTurnManager lostTurns: 1 by: spaceshipOne.
 	aTurnManager nextTurn.
 
+	Spaceship initialize.
 	self assert: aTurnManager nextTurn equals: spaceshipOne
 ]
