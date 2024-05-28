@@ -53,13 +53,37 @@ BoardCreatorTest >> test04BoardCreatorInitializeThenGetEndingReturnsEnding [
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test05 [
+BoardCreatorTest >> test05BoardCreatorInitializeThenReturnsAmountOfRegularCells [
 
 	| aBoardCreator |
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
+		                 withCellsAndLaps: #( 50 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	self assert: aBoardCreator amountOfRegularCells equals: 4
+	self assert: aBoardCreator amountOfRegularCells equals: 20
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test06BoardCreatorInitializeThenReturnsAmountOfAtomicBombs [
+
+	| aBoardCreator |
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 50 1 )
+		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+
+	self assert: aBoardCreator amountOfAtomicBombCells  equals: 1
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test07BoardCreatorInitializeThenReturnsAmountOfBlackHoles [
+
+	| aBoardCreator |
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 50 1 )
+		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+
+	self assert: aBoardCreator amountOfBlackHoleCells  equals: 10
 ]

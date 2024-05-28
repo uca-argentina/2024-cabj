@@ -16,6 +16,45 @@ BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeB
 ]
 
 { #category : #'as yet unclassified' }
+BoardCreator >> amountOfAtomicBombCells [
+
+	| amountOfCells percentageOfAtomicBomb amountOfAtomicBomb |
+	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	percentageOfAtomicBomb := percentagesOfDistrubitionSpecialCells
+		                            at: 6.
+	amountOfAtomicBomb := percentageOfAtomicBomb * amountOfCells
+	                        // 100.
+
+	^ amountOfAtomicBomb
+]
+
+{ #category : #'as yet unclassified' }
+BoardCreator >> amountOfBlackHoleCells [
+
+	| amountOfCells percentageOfBlackHoles amountOfBlackHoles |
+	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	percentageOfBlackHoles := percentagesOfDistrubitionSpecialCells
+		                            at: 2.
+	amountOfBlackHoles := percentageOfBlackHoles * amountOfCells
+	                        // 100.
+
+	^ amountOfBlackHoles
+]
+
+{ #category : #'as yet unclassified' }
+BoardCreator >> amountOfRegularCells [
+
+	| amountOfCells percentageOfRegularCells amountOfRegularCells |
+	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	percentageOfRegularCells := percentagesOfDistrubitionSpecialCells
+		                            at: 1.
+	amountOfRegularCells := percentageOfRegularCells * amountOfCells
+	                        // 100.
+
+	^ amountOfRegularCells
+]
+
+{ #category : #'as yet unclassified' }
 BoardCreator >> getBeginning [
 
 	^ beginningAndEnd at: 1
