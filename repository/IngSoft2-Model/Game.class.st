@@ -7,7 +7,6 @@ Class {
 		'amountOfFuel',
 		'collectionOfSpaceships',
 		'turnManager',
-		'dictionaryOfPositions',
 		'amountOfIndex',
 		'amountOfCells',
 		'numberOfLaps',
@@ -32,19 +31,6 @@ Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 	nextSpaceship getFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
 		nextSpaceship loadFuel: amountOfFuel ]
-]
-
-{ #category : #initialization }
-Game >> collectSpaceships: anAmountOfSpaceships [
-
-	| aSpaceship |
-	collectionOfSpaceships := OrderedCollection new.
-	anAmountOfSpaceships timesRepeat: [
-		aSpaceship := Spaceship launchWithFuel: amountOfFuel.
-		collectionOfSpaceships add: aSpaceship.
-		aSpaceship objectPosition setIndexWith: amountOfCells ].
-
-	Spaceship initialize
 ]
 
 { #category : #initialization }
@@ -75,73 +61,44 @@ Game >> createWormholeOn: aBeginning and: anEnd [
 
 { #category : #results }
 Game >> finalLapsOfSpaceships [
-	| dictionaryOfLaps |
-	dictionaryOfLaps := Dictionary new.
-	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfLaps at: spaceship getId put: (spaceship objectPosition lap) ].
 
-	^ dictionaryOfLaps 
+	^ collectionOfSpaceships lapsOfSpaceships
 ]
 
 { #category : #results }
 Game >> finalPositionOfSpaceships [
 
-	| dictionaryOfCellPositions |
-	dictionaryOfCellPositions:= Dictionary new.
-	collectionOfSpaceships  do: [ :spaceship |
-		dictionaryOfCellPositions at: spaceship getId put: (spaceship objectPosition cell) ].
-
-	^ dictionaryOfCellPositions
+	^ collectionOfSpaceships cellsOfSpaceships
 ]
 
 { #category : #results }
 Game >> finalResultsOfSpaceships [
 
-	dictionaryOfPositions := Dictionary new.
-	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: (spaceship objectPosition getPosition) ].
-
-	^ dictionaryOfPositions
+	^ collectionOfSpaceships positionsOfSpaceships
 ]
 
 { #category : #results }
 Game >> getRankingOfSpaceships [
 
-	| sortedSpaceships collectionOfRanking |
-	sortedSpaceships := collectionOfSpaceships  asSortedCollection: [:a :b |
-    | lapsA lapsB positionsA positionsB |
-    lapsA := (a objectPosition lap ).
-    lapsB := (b objectPosition lap).
-    positionsA := (a objectPosition cell ).
-    positionsB := (b objectPosition cell).
-    lapsA = lapsB
-        ifTrue: [positionsA > positionsB]
-        ifFalse: [lapsA > lapsB]
-].
-
-
-	collectionOfRanking := OrderedCollection new.
-	sortedSpaceships do: [ :spaceship |
-		collectionOfRanking add: spaceship getId ].
-
-	^ collectionOfRanking first: 3
+	^ collectionOfSpaceships getRanking
 ]
 
 { #category : #results }
 Game >> getWinner [
 
-	| maxPosition maxLap winner |
-	maxPosition := (dictionaryOfPositions values collect: [ :pair |
+	| maxPosition maxLap winner aDictionaryOfPositions |
+	aDictionaryOfPositions := self finalResultsOfSpaceships.
+	maxPosition := (aDictionaryOfPositions values collect: [ :pair |
 		                pair at: 1 ]) max.
 
-	maxLap := (dictionaryOfPositions values collect: [ :pair |
+	maxLap := (aDictionaryOfPositions values collect: [ :pair |
 		           (pair at: 1) = maxPosition
 			           ifTrue: [ pair at: 2 ]
 			           ifFalse: [ 0 ] ]) max.
 
-	winner := dictionaryOfPositions keys detect: [ :key |
+	winner := aDictionaryOfPositions keys detect: [ :key |
 		          | pair |
-		          pair := dictionaryOfPositions at: key.
+		          pair := aDictionaryOfPositions at: key.
 		          (pair at: 1) = maxPosition and: (pair at: 2) = maxLap ].
 
 	^ winner
