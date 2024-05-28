@@ -8,11 +8,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-AtomicBombCell class >> newOn: aGame withPostion: aPosition [ 
-	^(self new) initializeNewOn: aGame withPostion: aPosition 
+AtomicBombCell class >> newOn: aGame withPostion: aPosition [
+
+	^ self new initializeNewOn: aGame withPostion: aPosition
 ]
 
-{ #category : #'instance creation' }
+{ #category : #action }
 AtomicBombCell >> enter [
 
 	^ 1

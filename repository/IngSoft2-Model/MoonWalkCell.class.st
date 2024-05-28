@@ -17,23 +17,8 @@ MoonWalkCell class >> withValueToMove: aValue onGame: aGame inPosition: aPositio
 		  inPosition: aPosition
 ]
 
-{ #category : #enter }
-MoonWalkCell >> enterWithOtherSpaceship [
-	^cellPosition-value.
-]
-
-{ #category : #enter }
-MoonWalkCell >> enterWithSpaceship: aSpaceship [ 
-	^cellPosition.
-]
-
-{ #category : #enter }
-MoonWalkCell >> enterWithSpaceshipPlaying [
-	^cellPosition
-]
-
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue onGame: aGame inPosition: aPosition [
+MoonWalkCell >> initializeWithValueToMove: aValue onGame: aGame inPosition: aPosition [ 
 
 	game := aGame.
 	value := aValue.
