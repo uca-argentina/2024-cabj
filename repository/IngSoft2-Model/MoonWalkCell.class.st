@@ -16,14 +16,14 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition andSpaceship
 		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
 		  andSpaceships: aCollectionOfSpaceships
-		  managedBy: nil
+		  managedBy: aTurnManager
 ]
 
 { #category : #action }
 MoonWalkCell >> enter [
 
 	| aSpaceship |
-	aSpaceship := thisContext sender receiver.
+	aSpaceship := turnManager spaceshipPlaying .
 	spaceships moveBackwards: value except: aSpaceship.
 	^ cellPosition
 ]

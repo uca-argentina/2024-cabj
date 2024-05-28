@@ -155,13 +155,13 @@ GameWithDefinedPositionOfCells >> initializeNumberOfSpaceships: anAmountOfSpaces
 		                          numberOfSpaceships: anAmountOfSpaceships
 		                          withAmountOfFuel: amountOfFuel
 		                          indexCalculateWith: amountOfCells.
-		
+
+	turnManager := TurnManager manage: collectionOfSpaceships.
+
 	self createCollectionOfRegularCells.
 	self
 		createWormholeOn: (beginningAndEnd at: 1)
-		and: (beginningAndEnd at: 2).
-
-	turnManager := TurnManager manage: collectionOfSpaceships
+		and: (beginningAndEnd at: 2)
 ]
 
 { #category : #action }
