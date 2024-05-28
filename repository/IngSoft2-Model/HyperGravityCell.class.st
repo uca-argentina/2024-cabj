@@ -15,13 +15,13 @@ HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [
 		  inPosition: aPosition
 ]
 
-{ #category : #'instance creation' }
+{ #category : #action }
 HyperGravityCell >> enter [
 
 	^ cellPosition
 ]
 
-{ #category : #running }
+{ #category : #action }
 HyperGravityCell >> exit: aValue [
 
 	aValue < value ifTrue: [ ^ false ].

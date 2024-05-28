@@ -17,7 +17,7 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition andSpaceship
 		  andSpaceships: aCollectionOfSpaceships
 ]
 
-{ #category : #'instance creation' }
+{ #category : #action }
 MoonWalkCell >> enter [
 
 	| aSpaceship |

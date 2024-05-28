@@ -18,7 +18,7 @@ HyperJumpCell class >> withPosition: aPosition Parsecs: aParsecs andValues: aCol
 		  andValues: aCollection
 ]
 
-{ #category : #'instance creation' }
+{ #category : #action }
 HyperJumpCell >> enter [
 
 	|  convertionOfNextValue |

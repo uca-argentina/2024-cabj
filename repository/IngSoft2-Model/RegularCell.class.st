@@ -13,13 +13,13 @@ RegularCell class >> position: aPosition [
 	^(self new) initializePosition: aPosition.
 ]
 
-{ #category : #'instance creation' }
+{ #category : #action }
 RegularCell >> enter [
 
 	^ cellPosition
 ]
 
-{ #category : #running }
+{ #category : #action }
 RegularCell >> exit: aValue [
 
 	^ true
