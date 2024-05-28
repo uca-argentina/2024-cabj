@@ -67,7 +67,7 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 ]
 
 { #category : #tests }
-GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersmoonWalkThenEveryOtherSpaceshipGoesBackAValue [
+GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEveryOtherSpaceshipGoesBackAValue [
 
 	| result aLoadedDie aGame |
 	aLoadedDie := LoadedDie of: #( 9 9 6 ).
