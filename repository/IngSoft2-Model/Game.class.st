@@ -165,7 +165,10 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
 
-	self collectSpaceships: anAmountOfSpaceships.
+	collectionOfSpaceships := CollectionOfSpaceships
+		                          numberOfSpaceships: anAmountOfSpaceships
+		                          withAmountOfFuel: amountOfFuel
+		                          indexCalculateWith: amountOfCells.
 
 	turnManager := TurnManager manage: collectionOfSpaceships
 ]
