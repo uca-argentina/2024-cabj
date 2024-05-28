@@ -42,14 +42,6 @@ Position >> getIndex [
 	^ index
 ]
 
-{ #category : #'as yet unclassified' }
-Position >> getIndexWith: amountOfCells [
-
-	| completedLaps |
-	completedLaps := amountOfCells * (self lap - 1).
-	^ self cell + completedLaps
-]
-
 { #category : #'set and get' }
 Position >> getPosition [
 
@@ -89,7 +81,7 @@ Position >> setCellAndLapWith: anIndex and: aCell [
 
 { #category : #'set and get' }
 Position >> setIndexWith: anAmountOfCells [
-	
+
 	amountOfCells := anAmountOfCells.
 	index := self cell + (self completedLapsWith: anAmountOfCells).
 	^ index
