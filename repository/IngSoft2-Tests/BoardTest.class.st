@@ -122,7 +122,7 @@ BoardTest >> test012TheWormholeCanNotStartInThePositionOneOfTheBoard [
 		should: [
 		aBoard := Board of: 8 withWormholeBeginning: 1 andEnding: 2 ]
 		raise: Error
-		withMessage: 'The beggining position of the wormhole should be greater than one'
+		withMessage: 'The beggining  and the ending position of the wormhole can not be in the limits'
 ]
 
 { #category : #legalMove }
@@ -133,5 +133,5 @@ BoardTest >> test013TheWormholeCanNotEndOnTheFinishLinePosition [
 		should: [
 		aBoard := Board of: 8 withWormholeBeginning: 2 andEnding: 8 ]
 		raise: Error
-		withMessage: 'The ending position of the wormhole should be lower than the amount of cells'
+		withMessage: 'The beggining  and the ending position of the wormhole can not be in the limits'
 ]
