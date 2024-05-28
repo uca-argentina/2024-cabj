@@ -87,3 +87,39 @@ BoardCreatorTest >> test07BoardCreatorInitializeThenReturnsAmountOfBlackHoles [
 
 	self assert: aBoardCreator amountOfBlackHoleCells  equals: 10
 ]
+
+{ #category : #tests }
+BoardCreatorTest >> test08BoardCreatorInitializeThenReturnsAmountOfHyperGravityCells [
+
+	| aBoardCreator |
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 50 1 )
+		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+
+	self assert: aBoardCreator amountOfHyperGravityCells  equals: 10
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test09BoardCreatorInitializeThenReturnsAmountOfMoonWalkCells [
+
+	| aBoardCreator |
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 50 1 )
+		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+
+	self assert: aBoardCreator amountOfMoonWalkCells  equals: 5
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test10BoardCreatorInitializeThenReturnsAmountOfHyperJumpCells [
+
+	| aBoardCreator |
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 50 1 )
+		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+
+	self assert: aBoardCreator amountOfHyperJumpCells  equals: 4
+]

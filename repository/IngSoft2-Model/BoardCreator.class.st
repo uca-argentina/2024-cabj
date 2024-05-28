@@ -42,6 +42,45 @@ BoardCreator >> amountOfBlackHoleCells [
 ]
 
 { #category : #'as yet unclassified' }
+BoardCreator >> amountOfHyperGravityCells [
+
+	| amountOfCells percentageOfHyperGravityCells amountOfHyperGravityCells |
+	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	percentageOfHyperGravityCells := percentagesOfDistrubitionSpecialCells
+		                            at: 3.
+	amountOfHyperGravityCells := percentageOfHyperGravityCells * amountOfCells
+	                        // 100.
+
+	^ amountOfHyperGravityCells
+]
+
+{ #category : #'as yet unclassified' }
+BoardCreator >> amountOfHyperJumpCells [
+
+	| amountOfCells percentageOfHyperJump amountOfHyperJump |
+	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	percentageOfHyperJump := percentagesOfDistrubitionSpecialCells
+		                            at: 5.
+	amountOfHyperJump := percentageOfHyperJump * amountOfCells
+	                        // 100.
+
+	^ amountOfHyperJump
+]
+
+{ #category : #'as yet unclassified' }
+BoardCreator >> amountOfMoonWalkCells [
+
+	| amountOfCells percentageOfMoonWalk amountOfMoonWalk |
+	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	percentageOfMoonWalk := percentagesOfDistrubitionSpecialCells
+		                            at: 4.
+	amountOfMoonWalk := percentageOfMoonWalk * amountOfCells
+	                        // 100.
+
+	^ amountOfMoonWalk
+]
+
+{ #category : #'as yet unclassified' }
 BoardCreator >> amountOfRegularCells [
 
 	| amountOfCells percentageOfRegularCells amountOfRegularCells |
