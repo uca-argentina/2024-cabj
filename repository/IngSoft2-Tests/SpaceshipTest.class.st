@@ -54,10 +54,10 @@ SpaceshipTest >> createdBoardOfCellsAndLaps: anAmountOfCellsAndLaps withWormhole
 
 	1 to: numberOfLaps do: [ :lap |
 		aBoard
-			at: ((cellAndPosition at: 2) *lap )
+			at: ((cellAndPosition at: 2) )
 			put:
 			((cellAndPosition at: 1) initializePosition:
-				( (cellAndPosition at: 2) *lap )) ].
+				( (cellAndPosition at: 2)  )) ].
 	^ aBoard
 ]
 

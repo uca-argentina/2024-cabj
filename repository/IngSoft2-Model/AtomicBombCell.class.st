@@ -2,26 +2,29 @@ Class {
 	#name : #AtomicBombCell,
 	#superclass : #RegularCell,
 	#instVars : [
-		'game'
+		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-AtomicBombCell class >> newOn: aGame withPostion: aPosition [
+AtomicBombCell class >> withPostion: aPosition andSpaceships: aCollectionOfSpaceships [
 
-	^ self new initializeNewOn: aGame withPostion: aPosition
+	^ self new
+		  initializeWithPostion: aPosition
+		  andSpaceships: aCollectionOfSpaceships
 ]
 
 { #category : #action }
 AtomicBombCell >> enter [
 
+	spaceships resetToCellOne.
 	^ 1
 ]
 
 { #category : #initialization }
-AtomicBombCell >> initializeNewOn: aGame withPostion: aPosition [
+AtomicBombCell >> initializeWithPostion: aPosition andSpaceships: aCollectionOfSpaceships [
 
-	game := aGame.
+	spaceships := aCollectionOfSpaceships.
 	cellPosition := aPosition
 ]
