@@ -140,3 +140,15 @@ CollectionOfSpaceshipTest >> test07MoveBackwardsExpectSpaceshipThreeThenEverySpa
 		except: (aCollectionOfSpaceships at: 3).
 	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+CollectionOfSpaceshipTest >> test08SizeThenReturnsSizeOfCollection [
+
+	| aCollectionOfSpaceships |
+	aCollectionOfSpaceships := CollectionOfSpaceships
+		                           numberOfSpaceships: 3
+		                           withAmountOfFuel: 10
+		                           indexCalculateWith: 20.
+
+	self assert: aCollectionOfSpaceships size equals: 3
+]

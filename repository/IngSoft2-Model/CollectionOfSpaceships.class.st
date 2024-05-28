@@ -131,3 +131,9 @@ CollectionOfSpaceships >> resetToCellOne [
 		aSpaceship := collection at: index.
 		aSpaceship objectPosition setCell: 1 ]
 ]
+
+{ #category : #accessing }
+CollectionOfSpaceships >> size [
+
+	^ collection size
+]
