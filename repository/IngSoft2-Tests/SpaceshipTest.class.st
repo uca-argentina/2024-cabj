@@ -438,13 +438,13 @@ SpaceshipTest >> test028SpaceshipEntersHyperJumpAfterAnotherOneThenMovesSecondVa
 	| aBoard finalPosition collectionOfSpecialCellAndPosition aSpaceshipOne aSpaceshipTwo |
 	collectionOfSpecialCellAndPosition := OrderedCollection
 		                                      with: (HyperJumpCell
-				                                       withPosition: 10
+				                                       withPosition: 9
 				                                       Parsecs:
 				                                       (Parsecs
 					                                        totalCells: 10
 					                                        convertionValue: 100)
-				                                       andValues: #( 20 10 ))
-		                                      with: 10.
+				                                       andValues: #( 50 40 ))
+		                                      with: 9.
 		
 	aSpaceshipOne := Spaceship launchWithFuel: 60.
 	aSpaceshipTwo := Spaceship launchWithFuel: 60.
@@ -456,13 +456,13 @@ SpaceshipTest >> test028SpaceshipEntersHyperJumpAfterAnotherOneThenMovesSecondVa
 		          withWormhole: #( 2 3 )
 		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
 	
-	aSpaceshipOne move: 9 on: aBoard.
+	aSpaceshipOne move: 8 on: aBoard.
 
 	finalPosition := Position startGame.
-	finalPosition setCell: 1.
+	finalPosition setCell: 3.
 	finalPosition setLap: 2.
 	Spaceship initialize.
 	self
-		assert: (aSpaceshipTwo move: 9 on: aBoard) getPosition
+		assert: (aSpaceshipTwo move: 8 on: aBoard) getPosition
 		equals: finalPosition getPosition
 ]

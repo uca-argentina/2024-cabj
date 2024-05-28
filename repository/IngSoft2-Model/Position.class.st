@@ -78,7 +78,7 @@ Position >> setCellAndLapWith: anIndex and: aCell [
 	aCell > amountOfCells ifTrue: [
 		difference := aCell - anIndex.
 		temporalIndex := anIndex + difference.
-		temporalCell := aCell - anIndex ].
+		temporalCell := aCell - amountOfCells ].
 	actualLap := temporalIndex - 1 // amountOfCells + 1.
 	self setCell: temporalCell.
 	self setLap: actualLap.
