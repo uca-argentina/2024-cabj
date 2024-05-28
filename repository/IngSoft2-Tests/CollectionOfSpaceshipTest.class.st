@@ -114,6 +114,7 @@ CollectionOfSpaceshipTest >> test06ResetToCellOneThenLapRemainsTheSame [
 	result at: 2 put: 2.
 	result at: 3 put: 3.
 
+	aCollectionOfSpaceships resetToCellOne.
 	self assert: aCollectionOfSpaceships lapsOfSpaceships equals: result
 ]
 
