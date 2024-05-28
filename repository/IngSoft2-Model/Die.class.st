@@ -15,10 +15,12 @@ Die class >> of: anAmountFaces [
 
 { #category : #initialization }
 Die >> initializeOf: anAmountOfFaces [
-	faces:= anAmountOfFaces .
+
+	faces := anAmountOfFaces
 ]
 
 { #category : #action }
 Die >> throw [
-	^faces atRandom .
+
+	^ faces atRandom
 ]

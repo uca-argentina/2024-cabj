@@ -18,8 +18,8 @@ BoardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessag
 BoardTest >> test001WhenBoardInitializeWithThreeCellsThenFinishesOnThree [
 
 	| aBoard |
-	aBoard := Board of: 3 withWormholeBeginning: 1 andEnding: 2.
-	self assert: aBoard finishLine equals: 3
+	aBoard := Board of: 4 withWormholeBeginning: 2 andEnding: 3.
+	self assert: aBoard finishLine equals: 4
 ]
 
 { #category : #'tests - initialization' }
@@ -112,4 +112,26 @@ BoardTest >> test011WormholeEndMustBeGreaterThanBeginning [
 		aBoard := Board of: 8 withWormholeBeginning: 7 andEnding: 2 ]
 		raise: Error
 		withMessage: 'The ending must be greater than the beginning'
+]
+
+{ #category : #legalMove }
+BoardTest >> test012TheWormholeCanNotStartInThePositionOneOfTheBoard [
+
+	| aBoard |
+	self
+		should: [
+		aBoard := Board of: 8 withWormholeBeginning: 1 andEnding: 2 ]
+		raise: Error
+		withMessage: 'The beggining position of the wormhole should be greater than one'
+]
+
+{ #category : #legalMove }
+BoardTest >> test013 [
+
+	| aBoard |
+	self
+		should: [
+		aBoard := Board of: 8 withWormholeBeginning: 2 andEnding: 8 ]
+		raise: Error
+		withMessage: 'The beggining position of the wormhole should be greater than one'
 ]

@@ -15,12 +15,12 @@ CollectionOfDice class >> of: aCollectionOfFaces [
 { #category : #initialization }
 CollectionOfDice >> initializeOf: aCollectionOfFaces [
 
-	aCollectionOfDie := aCollectionOfFaces collect: [
-		                          :amountOfFaces |
-		                          Die of: amountOfFaces ]
+	aCollectionOfDie := aCollectionOfFaces collect: [ :amountOfFaces |
+		                    Die of: amountOfFaces ]
 ]
 
 { #category : #action }
 CollectionOfDice >> throw [
-	^ aCollectionOfDie sum: [:die | die throw].
+
+	^ aCollectionOfDie sum: [ :die | die throw ]
 ]

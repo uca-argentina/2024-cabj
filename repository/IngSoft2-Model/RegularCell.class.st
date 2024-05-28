@@ -15,10 +15,12 @@ RegularCell class >> position: aPosition [
 
 { #category : #'instance creation' }
 RegularCell >> enter [
-	^cellPosition .
+
+	^ cellPosition
 ]
 
 { #category : #initialization }
-RegularCell >> initializePosition: aPosition [ 
-	cellPosition:= aPosition.
+RegularCell >> initializePosition: aPosition [
+
+	cellPosition := aPosition
 ]

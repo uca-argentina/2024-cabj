@@ -26,23 +26,26 @@ Spaceship class >> launch [
 
 { #category : #accessing }
 Spaceship >> getId [
-	^id.
+
+	^ id
 ]
 
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId [
-	actualPosition:= 0.
-	id:= counterId .
+
+	actualPosition := 0.
+	id := counterId
 ]
 
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
-	actualPosition:= aBoard enter: (actualPosition + aNumberOfMovements).
-	^actualPosition 
+	actualPosition := aBoard enter: actualPosition + aNumberOfMovements.
+	^ actualPosition
 ]
 
 { #category : #accessing }
 Spaceship >> position [
-	^ actualPosition .
+
+	^ actualPosition
 ]

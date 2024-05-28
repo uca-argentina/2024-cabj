@@ -33,9 +33,12 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 { #category : #action }
 Game >> finalPositionOfSpaceships [
 
-	dictionaryOfPositions := Dictionary new.
-	collectionOfSpaceships do: [ :spaceship |
-		dictionaryOfPositions at: spaceship getId put: spaceship position ].
+	dictionaryOfPositions := collectionOfSpaceships
+    inject: Dictionary new
+    into: [ :dict :spaceship |
+        dict at: spaceship getId put: spaceship position.
+        dict ].
+
 
 	^ dictionaryOfPositions
 ]
@@ -44,7 +47,7 @@ Game >> finalPositionOfSpaceships [
 Game >> getWinner [
 
 	| maxPosition |
-	 maxPosition := (dictionaryOfPositions values max).
+	maxPosition := dictionaryOfPositions values max.
 	^ dictionaryOfPositions keys detect: [ :key |
 		  (dictionaryOfPositions at: key) = maxPosition ]
 ]
@@ -56,12 +59,12 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountO
 		          of: anAmountOfBoxes
 		          withWormholeBeginning: (beginningAndEnd at: 1)
 		          andEnding: (beginningAndEnd at: 2).
-	
+
 	self collectSpaceships: anAmountOfSpaceships.
-	
+
 	turnManager := TurnManager manage: collectionOfSpaceships.
-	
-	collectionOfDice:= aCollectionOfDice  .
+
+	collectionOfDice := aCollectionOfDice
 ]
 
 { #category : #action }
