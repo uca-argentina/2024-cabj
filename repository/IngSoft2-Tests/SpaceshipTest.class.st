@@ -402,3 +402,67 @@ SpaceshipTest >> test026SpaceshipEntersHyperGravityAndRollsValueTheLeaves [
 	Spaceship initialize.
 	self assert: (aSpaceship move: 6 on: aBoard) getPosition equals: finalPosition getPosition
 ]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test027SpacceshipEntersHyperJumpThenPositionEqulasParsecMovement [
+
+	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: (HyperJumpCell
+				                                       withPosition: 5
+				                                       Parsecs:
+				                                       (Parsecs
+					                                        totalCells: 10
+					                                        convertionValue: 5)
+				                                       andValues: #( 2 1 ))
+		                                      with: 5.
+	aSpaceship := Spaceship launchWithFuel: 60.
+	aSpaceship objectPosition setIndexWith: 10.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 10 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+
+	finalPosition := Position startGame.
+	finalPosition setCell: 9.
+	finalPosition setLap: 1.
+	Spaceship initialize.
+	self
+		assert: (aSpaceship move: 4 on: aBoard) getPosition
+		equals: finalPosition getPosition
+]
+
+{ #category : #fuelTests }
+SpaceshipTest >> test028SpaceshipEntersHyperJumpAfterAnotherOneThenMovesSecondValueAndCompletesOneLap [
+
+	| aBoard finalPosition collectionOfSpecialCellAndPosition aSpaceshipOne aSpaceshipTwo |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: (HyperJumpCell
+				                                       withPosition: 10
+				                                       Parsecs:
+				                                       (Parsecs
+					                                        totalCells: 10
+					                                        convertionValue: 100)
+				                                       andValues: #( 20 10 ))
+		                                      with: 10.
+		
+	aSpaceshipOne := Spaceship launchWithFuel: 60.
+	aSpaceshipTwo := Spaceship launchWithFuel: 60.
+	aSpaceshipOne objectPosition setIndexWith: 10.
+	aSpaceshipTwo objectPosition setIndexWith: 10.
+	
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 10 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	
+	aSpaceshipOne move: 9 on: aBoard.
+
+	finalPosition := Position startGame.
+	finalPosition setCell: 1.
+	finalPosition setLap: 2.
+	Spaceship initialize.
+	self
+		assert: (aSpaceshipTwo move: 9 on: aBoard) getPosition
+		equals: finalPosition getPosition
+]
