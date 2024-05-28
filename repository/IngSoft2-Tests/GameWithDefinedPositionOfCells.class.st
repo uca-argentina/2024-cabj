@@ -62,6 +62,15 @@ GameWithDefinedPositionOfCells >> createCollectionOfRegularCells [
 		put:
 		(AtomicBombCell withPostion: 5 andSpaceships: collectionOfSpaceships).
 
+	aBoard at: 6 put: (BlackHoleCell position: 6).
+
+	aBoard at: 7 put: (MoonWalkCell
+			 withValueToMove: 4
+			 inPosition: 7
+			 andSpaceships: collectionOfSpaceships).
+	
+	aBoard at: 8 put: (HyperGravityCell withValueToMove: 3 inPosition: 8).
+
 	aBoard at: 9 put: (HyperJumpCell
 			 withPosition: 9
 			 Parsecs: (Parsecs totalCells: 10 convertionValue: 5)
