@@ -3,33 +3,24 @@ Class {
 	#superclass : #RegularCell,
 	#instVars : [
 		'value',
-		'position'
+		'game'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition [
-	^(self new) initializeWithValueToMove: aValue inPosition: aPosition.
-]
+{ #category : #'instance creation' }
+MoonWalkCell class >> withValueToMove: aValue onGame: aGame inPosition: aPosition [
 
-{ #category : #'as yet unclassified' }
-MoonWalkCell >> enterWithOtherSpaceship [
-	^position-value.
-]
-
-{ #category : #'as yet unclassified' }
-MoonWalkCell >> enterWithSpaceship: aSpaceship [ 
-	^position.
-]
-
-{ #category : #'as yet unclassified' }
-MoonWalkCell >> enterWithSpaceshipPlaying [
-	^position
+	^ self new
+		  initializeWithValueToMove: aValue
+		  onGame: aGame
+		  inPosition: aPosition
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition [
-	value:=aValue.
-	position:=aPosition .
+MoonWalkCell >> initializeWithValueToMove: aValue onGame: aGame inPosition: aPosition [ 
+
+	game := aGame.
+	value := aValue.
+	cellPosition := aPosition
 ]
