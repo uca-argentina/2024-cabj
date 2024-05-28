@@ -15,7 +15,7 @@ BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeB
 ^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps wormholeBeginningAndEnding: beginningAndEnd andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> amountOfAtomicBombCells [
 
 	| amountOfCells percentageOfAtomicBomb amountOfAtomicBomb |
@@ -28,7 +28,7 @@ BoardCreator >> amountOfAtomicBombCells [
 	^ amountOfAtomicBomb
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> amountOfBlackHoleCells [
 
 	| amountOfCells percentageOfBlackHoles amountOfBlackHoles |
@@ -41,7 +41,7 @@ BoardCreator >> amountOfBlackHoleCells [
 	^ amountOfBlackHoles
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> amountOfHyperGravityCells [
 
 	| amountOfCells percentageOfHyperGravityCells amountOfHyperGravityCells |
@@ -54,7 +54,7 @@ BoardCreator >> amountOfHyperGravityCells [
 	^ amountOfHyperGravityCells
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> amountOfHyperJumpCells [
 
 	| amountOfCells percentageOfHyperJump amountOfHyperJump |
@@ -67,7 +67,7 @@ BoardCreator >> amountOfHyperJumpCells [
 	^ amountOfHyperJump
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> amountOfMoonWalkCells [
 
 	| amountOfCells percentageOfMoonWalk amountOfMoonWalk |
@@ -80,7 +80,7 @@ BoardCreator >> amountOfMoonWalkCells [
 	^ amountOfMoonWalk
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> amountOfRegularCells [
 
 	| amountOfCells percentageOfRegularCells amountOfRegularCells |
@@ -93,25 +93,25 @@ BoardCreator >> amountOfRegularCells [
 	^ amountOfRegularCells
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> getBeginning [
 
 	^ beginningAndEnd at: 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> getCells [
 
 	^ collectionAmountOfCellsAndLaps at: 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> getEnding [
 
 	^ beginningAndEnd at: 2
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 BoardCreator >> getLaps [
 
 	^ collectionAmountOfCellsAndLaps at: 2

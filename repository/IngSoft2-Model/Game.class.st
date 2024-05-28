@@ -7,21 +7,18 @@ Class {
 		'amountOfFuel',
 		'collectionOfSpaceships',
 		'turnManager',
-		'amountOfIndex',
-		'amountOfCells',
-		'numberOfLaps',
-		'finishLine'
+		'finishLine',
+		'boardCreator'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: numberOfCellsAndLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
-		  boardWithCellsAndLaps: numberOfCellsAndLaps
-		  wormholeStartAndEnd: beginningAndEnd
+		  withBoardCreator: aBoardCreator
 		  playWithDice: aCollectionOfDice
 ]
 
@@ -36,12 +33,13 @@ Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 { #category : #initialization }
 Game >> collectSpaceships: anAmountOfSpaceships [
 
-	| aSpaceship |
+	| aSpaceship anAmountOfCells |
+	anAmountOfCells := boardCreator getCells.
 	collectionOfSpaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
 		aSpaceship := Spaceship launchWithFuel: amountOfFuel.
 		collectionOfSpaceships add: aSpaceship.
-		aSpaceship objectPosition setIndexWith: amountOfCells ].
+		aSpaceship objectPosition setIndexWith: anAmountOfCells ].
 
 	Spaceship initialize
 ]
@@ -49,21 +47,27 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 { #category : #initialization }
 Game >> createCollectionOfRegularCells [
 
-	| currentLap |
+	| currentLap anAmountOfCells anAmountOfLaps anAmountOfIndex|
+	anAmountOfCells := boardCreator getCells.
+	anAmountOfLaps := boardCreator getLaps.
+	anAmountOfIndex := anAmountOfLaps * anAmountOfCells .
 	aBoard := OrderedCollection new.
 
-	1 to: amountOfIndex do: [ :index |
-		currentLap := index - 1 // amountOfCells.
+	1 to: anAmountOfIndex do: [ :index |
+		currentLap := index - 1 // anAmountOfCells.
 		aBoard add:
-			(RegularCell position: index - (amountOfCells * currentLap)) ]
+			(RegularCell position: index - (anAmountOfCells * currentLap)) ]
 ]
 
 { #category : #initialization }
 Game >> createWormholeOn: aBeginning and: anEnd [
 
-	| positionWithinLap |
-	1 to: numberOfLaps do: [ :lap |
-		positionWithinLap := amountOfCells * (lap - 1).
+	| positionWithinLap anAmountOfCells anAmountOfLaps |
+	anAmountOfCells := boardCreator getCells.
+	anAmountOfLaps := boardCreator getLaps.
+
+	1 to: anAmountOfLaps do: [ :lap |
+		positionWithinLap := anAmountOfCells * (lap - 1).
 		aBoard
 			at: aBeginning + positionWithinLap
 			put: (RegularCell position: anEnd + positionWithinLap).
@@ -118,19 +122,13 @@ Game >> getWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps: numberOfCellsAndLaps wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
-
-	amountOfCells := numberOfCellsAndLaps at: 1.
-	numberOfLaps := numberOfCellsAndLaps at: 2.
-	amountOfIndex := amountOfCells * numberOfLaps.
-	self createCollectionOfRegularCells.
-	self
-		createWormholeOn: (beginningAndEnd at: 1)
-		and: (beginningAndEnd at: 2).
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+	
+	boardCreator := aBoardCreator .
 
 	finishLine := OrderedCollection
-		              with: amountOfCells
-		              with: numberOfLaps.
+		              with: boardCreator getCells
+		              with: boardCreator getLaps.
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
@@ -138,15 +136,21 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships boardWithCellsAndLaps
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships
 		                          withAmountOfFuel: amountOfFuel
-		                          indexCalculateWith: amountOfCells.
+		                          indexCalculateWith: boardCreator getCells.
 
-	turnManager := TurnManager manage: collectionOfSpaceships
+	turnManager := TurnManager manage: collectionOfSpaceships.
+
+	self createCollectionOfRegularCells.
+	self
+		createWormholeOn: (aBoardCreator getBeginning)
+		and: (aBoardCreator getEnding)
 ]
 
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition |
+	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition anAmountOfIndex |
+	anAmountOfIndex := boardCreator getCells * boardCreator getLaps.
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
@@ -154,8 +158,8 @@ Game >> moveSpaceship [
 	positionOfNextSpaceship := nextSpaceship objectPosition.
 	currentPosition := positionOfNextSpaceship getIndex .
 
-	currentPosition + throwResult > amountOfIndex ifTrue: [
-		throwResult := amountOfIndex - currentPosition ].
+	currentPosition + throwResult > anAmountOfIndex ifTrue: [
+		throwResult := anAmountOfIndex - currentPosition ].
 
 	positionOfSpaceship := (nextSpaceship
 		                        move: throwResult
