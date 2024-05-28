@@ -3,17 +3,17 @@ Class {
 	#superclass : #RegularCell,
 	#instVars : [
 		'value',
-		'spaceships'
+		'game'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-MoonWalkCell class >> withValueToMove: aValue spaceships: collectionOfSpaceships inPosition: aPosition [
+MoonWalkCell class >> withValueToMove: aValue onGame: aGame inPosition: aPosition [
 
 	^ self new
 		  initializeWithValueToMove: aValue
-		  spaceships: collectionOfSpaceships
+		  onGame: aGame
 		  inPosition: aPosition
 ]
 
@@ -33,9 +33,9 @@ MoonWalkCell >> enterWithSpaceshipPlaying [
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue spaceships: collectionOfSpaceships inPosition: aPosition [
+MoonWalkCell >> initializeWithValueToMove: aValue onGame: aGame inPosition: aPosition [
 
-	spaceships := collectionOfSpaceships.
+	game := aGame.
 	value := aValue.
 	cellPosition := aPosition
 ]
