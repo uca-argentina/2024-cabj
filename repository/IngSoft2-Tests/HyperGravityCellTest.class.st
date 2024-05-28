@@ -7,16 +7,8 @@ Class {
 { #category : #tests }
 HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravityCellThenThePositionIsTheSame [
 
-	| aHyperGravityCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
-
+	| aHyperGravityCell |
 	aHyperGravityCell := HyperGravityCell
-		                     newOn: aGame
 		                     withValueToMove: 6
 		                     inPosition: 5.
 
@@ -26,16 +18,8 @@ HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravity
 { #category : #tests }
 HyperGravityCellTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGravityCellThenTrue [
 
-	| aHyperGravityCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
-
+	| aHyperGravityCell |
 	aHyperGravityCell := HyperGravityCell
-		                     newOn: aGame
 		                     withValueToMove: 6
 		                     inPosition: 5.
 
@@ -45,16 +29,8 @@ HyperGravityCellTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGrav
 { #category : #tests }
 HyperGravityCellTest >> test03WhenAValueIsLessThanTheConfiguredInTheHyperGravityCellThenFalse [
 
-	| aHyperGravityCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
-
+	| aHyperGravityCell |
 	aHyperGravityCell := HyperGravityCell
-		                     newOn: aGame
 		                     withValueToMove: 6
 		                     inPosition: 5.
 

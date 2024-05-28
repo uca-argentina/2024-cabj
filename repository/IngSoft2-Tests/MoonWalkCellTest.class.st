@@ -7,34 +7,34 @@ Class {
 { #category : #tests }
 MoonWalkCellTest >> test01WhenTheSpaceshipItsNotPlayingThenTheMoonWalkCellReturnsItsPositionMinusTheValueConfigured [
 
-	| aMoonWalkCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
+	| aMoonWalkCell collectionOfSpaceships aSpaceship |
+	collectionOfSpaceships := OrderedCollection new.
+	5 timesRepeat: [
+		aSpaceship := Spaceship launchWithFuel: 20.
+		collectionOfSpaceships add: aSpaceship.
+		aSpaceship objectPosition setIndexWith: 10 ].
+
 	aMoonWalkCell := MoonWalkCell
-		                 newOn: aGame
 		                 withValueToMove: 3
+		                 spaceships: collectionOfSpaceships
 		                 inPosition: 6.
 
-	self assert: aMoonWalkCell enterWithOtherSpaceship equals: 3
+	self assert: aMoonWalkCell enter equals: 6
 ]
 
 { #category : #tests }
 MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntChangeItsPosition [
 
-	| aMoonWalkCell aLoadedDie aGame |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
+	| aMoonWalkCell collectionOfSpaceships aSpaceship |
+	collectionOfSpaceships := OrderedCollection new.
+	5 timesRepeat: [
+		aSpaceship := Spaceship launchWithFuel: 20.
+		collectionOfSpaceships add: aSpaceship.
+		aSpaceship objectPosition setIndexWith: 10 ].
+
 	aMoonWalkCell := MoonWalkCell
-		                 newOn: aGame
 		                 withValueToMove: 3
+		                 spaceships: collectionOfSpaceships
 		                 inPosition: 6.
 
 	self assert: aMoonWalkCell enterWithSpaceshipPlaying equals: 6
@@ -43,17 +43,16 @@ MoonWalkCellTest >> test02WhenTheSpaceshipItsPlayingThenTheMoonWalkCellDoesntCha
 { #category : #tests }
 MoonWalkCellTest >> test03WhenTheSpaceshipItsPlayingStaysTheSame [
 
-	| aMoonWalkCell aLoadedDie aGame aSpaceship |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         boardWithCellsAndLaps: #( 10 1 )
-		         wormholeStartAndEnd: #( 2 3 )
-		         playWithDice: aLoadedDie.
+	| aMoonWalkCell collectionOfSpaceships aSpaceship |
+	collectionOfSpaceships := OrderedCollection new.
+	5 timesRepeat: [
+		aSpaceship := Spaceship launchWithFuel: 20.
+		collectionOfSpaceships add: aSpaceship.
+		aSpaceship objectPosition setIndexWith: 10 ].
+
 	aMoonWalkCell := MoonWalkCell
-		                 newOn: aGame
 		                 withValueToMove: 3
+		                 spaceships: collectionOfSpaceships
 		                 inPosition: 6.
-	aSpaceship := Spaceship launchWithFuel: 10.
 	self assert: (aMoonWalkCell enterWithSpaceship: aSpaceship) equals: 6
 ]

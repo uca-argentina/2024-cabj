@@ -2,18 +2,16 @@ Class {
 	#name : #HyperGravityCell,
 	#superclass : #RegularCell,
 	#instVars : [
-		'value',
-		'game'
+		'value'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-HyperGravityCell class >> newOn: aGame withValueToMove: aValue inPosition: aPosition [
+HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [
 
 	^ self new
-		  initializeNewOn: aGame
-		  withValueToMove: aValue
+		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
 ]
 
@@ -31,9 +29,8 @@ HyperGravityCell >> exit: aValue [
 ]
 
 { #category : #initialization }
-HyperGravityCell >> initializeNewOn: aGame withValueToMove: aValue inPosition: aPosition [
+HyperGravityCell >> initializeWithValueToMove: aValue inPosition: aPosition [
 
-	game := aGame.
 	value := aValue.
 	cellPosition := aPosition
 ]
