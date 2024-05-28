@@ -9,19 +9,30 @@ HyperGravityCellTest >> test01WhenAValueIsLessThanTheConfiguredInTheHyperGravity
 
 	| aHyperGravityCell |
 	aHyperGravityCell := HyperGravityCell
-		                     withValueToMove: 5
-		                     inPosition: 6.
+		                     withValueToMove: 6
+		                     inPosition: 5.
 
-	self assert: (aHyperGravityCell moveWithValue: 4) equals: 6
+	self assert: aHyperGravityCell enter equals: 5
 ]
 
 { #category : #tests }
-HyperGravityCellTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGravityCellThenReturnsTheNewPositionWithTheMovement [
+HyperGravityCellTest >> test02WhenAValueIsGreaterThanTheConfiguredInTheHyperGravityCellThenTrue [
 
 	| aHyperGravityCell |
 	aHyperGravityCell := HyperGravityCell
-		                     withValueToMove: 5
-		                     inPosition: 6.
+		                     withValueToMove: 6
+		                     inPosition: 5.
 
-	self assert: (aHyperGravityCell moveWithValue: 10) equals: 16
+	self assert: (aHyperGravityCell exit: 10)
+]
+
+{ #category : #tests }
+HyperGravityCellTest >> test03WhenAValueIsLessThanTheConfiguredInTheHyperGravityCellThenFalse [
+
+	| aHyperGravityCell |
+	aHyperGravityCell := HyperGravityCell
+		                     withValueToMove: 6
+		                     inPosition: 5.
+
+	self deny: (aHyperGravityCell exit: 4)
 ]
