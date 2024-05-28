@@ -3,18 +3,20 @@ Class {
 	#superclass : #RegularCell,
 	#instVars : [
 		'value',
-		'spaceships'
+		'spaceships',
+		'turnManager'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition andSpaceships: aCollectionOfSpaceships [
+MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition andSpaceships: aCollectionOfSpaceships managedBy: aTurnManager [
 
 	^ self new
 		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
 		  andSpaceships: aCollectionOfSpaceships
+		  managedBy: nil
 ]
 
 { #category : #action }
@@ -27,9 +29,10 @@ MoonWalkCell >> enter [
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition andSpaceships: aCollectionOfSpaceships [
+MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition andSpaceships: aCollectionOfSpaceships managedBy: aTurnManager [
 
 	spaceships := aCollectionOfSpaceships.
 	value := aValue.
-	cellPosition := aPosition
+	cellPosition := aPosition.
+	turnManager := aTurnManager
 ]

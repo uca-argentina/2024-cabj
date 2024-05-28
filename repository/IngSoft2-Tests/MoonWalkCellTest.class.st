@@ -39,16 +39,19 @@ MoonWalkCellTest >> createdBoardOfCellsAndLaps: anAmountOfCellsAndLaps withWormh
 { #category : #tests }
 MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 
-	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard |
+	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard aTurnManager |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 	
+	aTurnManager := TurnManager manage: aCollectionOfSpaceships .
+	
 	aMoonWalkCell := MoonWalkCell
 		                 withValueToMove: 4
 		                 inPosition: 5
-		                 andSpaceships: aCollectionOfSpaceships.
+		                 andSpaceships: aCollectionOfSpaceships
+							  managedBy: aTurnManager.
 		
 	collectionOfSpecialCellAndPosition := OrderedCollection
 		                                      with: aMoonWalkCell
@@ -68,36 +71,39 @@ MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 { #category : #tests }
 MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptThreeMovesBackwards [
 
-	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard result |
+	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard result aTurnManager |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 	
+	aTurnManager := TurnManager manage: aCollectionOfSpaceships .
+
 	aMoonWalkCell := MoonWalkCell
 		                 withValueToMove: 4
 		                 inPosition: 5
-		                 andSpaceships: aCollectionOfSpaceships.
-		
+		                 andSpaceships: aCollectionOfSpaceships
+		                 managedBy: aTurnManager.
+
 	collectionOfSpecialCellAndPosition := OrderedCollection
 		                                      with: aMoonWalkCell
 		                                      with: 5.
-	
+
 	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
 	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
 	(aCollectionOfSpaceships at: 3) objectPosition setCell: 1.
-	
+
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
 		          withWormhole: #( 2 3 )
 		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
-		
+
 	result := Dictionary new.
 	result at: 1 put: 6.
 	result at: 2 put: 4.
 	result at: 3 put: 5.
-	
-	((aCollectionOfSpaceships at: 3) move: 4 on: aBoard).
-	
-	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result 
+
+	(aCollectionOfSpaceships at: 3) move: 4 on: aBoard.
+
+	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result
 ]

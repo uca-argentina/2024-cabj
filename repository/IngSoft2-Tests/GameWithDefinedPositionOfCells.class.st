@@ -67,8 +67,9 @@ GameWithDefinedPositionOfCells >> createCollectionOfRegularCells [
 	aBoard at: 7 put: (MoonWalkCell
 			 withValueToMove: 4
 			 inPosition: 7
-			 andSpaceships: collectionOfSpaceships).
-	
+			 andSpaceships: collectionOfSpaceships
+			 managedBy: turnManager).
+
 	aBoard at: 8 put: (HyperGravityCell withValueToMove: 3 inPosition: 8).
 
 	aBoard at: 9 put: (HyperJumpCell
