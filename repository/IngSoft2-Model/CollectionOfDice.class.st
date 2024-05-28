@@ -8,8 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-CollectionOfDice class >> of: aCollectionOfFaces [ 
-	^ (self new) initializeOf: aCollectionOfFaces .
+CollectionOfDice class >> of: aCollectionOfFaces [
+
+	^ self new initializeOf: aCollectionOfFaces
 ]
 
 { #category : #initialization }

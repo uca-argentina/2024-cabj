@@ -25,11 +25,10 @@ RegularCellTest >> test01RegularCellInitializeWithPositionThenEnterReturnsIt [
 ]
 
 { #category : #tests }
-RegularCellTest >> test02PositionOfTheRegularCellHasToBeGreaterThanZero [ 
+RegularCellTest >> test02PositionOfTheRegularCellHasToBeGreaterThanZero [
 
 	self
 		should: [ RegularCell position: 0 ]
 		raise: Error
 		withMessage: 'A cell must have position greater than zero'
-
 ]

@@ -17,9 +17,10 @@ LoadedDie class >> of: anAmountOfFaces [
 ]
 
 { #category : #initialization }
-LoadedDie >> initializeOf: anAmountOfFaces [ 
-	faces:= anAmountOfFaces.
-	index:=1.
+LoadedDie >> initializeOf: anAmountOfFaces [
+
+	faces := anAmountOfFaces.
+	index := 1
 ]
 
 { #category : #action }

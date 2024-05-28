@@ -9,8 +9,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-TurnManager class >> manage: collectionOfSpaceships [ 
-	^(self new) initializeManage: collectionOfSpaceships .
+TurnManager class >> manage: collectionOfSpaceships [
+
+	^ self new initializeManage: collectionOfSpaceships
 ]
 
 { #category : #initialization }

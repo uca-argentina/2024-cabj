@@ -15,9 +15,10 @@ Board class >> of: anAmountOfBoxes withWormholeBeginning: aBeginning andEnding: 
 		Error signal: 'A Board must have more than one box.' ].
 	anEnd <= aBeginning ifTrue: [
 		Error signal: 'The ending must be greater than the beginning' ].
-	(aBeginning = 1 or: anEnd  = anAmountOfBoxes )ifTrue: [
-		Error signal: 'The beggining  and the ending position of the wormhole can not be in the limits' ].
-	
+	(aBeginning = 1 or: anEnd = anAmountOfBoxes) ifTrue: [
+		Error signal:
+			'The beggining  and the ending position of the wormhole can not be in the limits' ].
+
 	^ self new
 		  initializeOf: anAmountOfBoxes
 		  withWormholeBeginning: aBeginning

@@ -9,8 +9,10 @@ Class {
 
 { #category : #accessing }
 RegularCell class >> position: aPosition [
-	aPosition <1 ifTrue: [ Error signal: 'A cell must have position greater than zero' ]. 
-	^(self new) initializePosition: aPosition.
+
+	aPosition < 1 ifTrue: [
+		Error signal: 'A cell must have position greater than zero' ].
+	^ self new initializePosition: aPosition
 ]
 
 { #category : #'instance creation' }

@@ -22,5 +22,6 @@ CollectionOfLoadedDice >> initializeOf: aCollectionOfFaces [
 
 { #category : #action }
 CollectionOfLoadedDice >> throw [
-	^ aCollectionOfLoadedDie sum: [:die | die throw].
+
+	^ aCollectionOfLoadedDie sum: [ :die | die throw ]
 ]

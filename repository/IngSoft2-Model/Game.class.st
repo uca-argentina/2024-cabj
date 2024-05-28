@@ -13,11 +13,12 @@ Class {
 
 { #category : #'instance creation' }
 Game class >> numberOfSpaceships: anAmountOfSpaceships boardBoxes: anAmountOfBoxes wormholeStartAndEnd: beginningAndEnd playWithDice: aCollectionOfDice [
+
 	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships 
+		  initializeNumberOfSpaceships: anAmountOfSpaceships
 		  boardBoxes: anAmountOfBoxes
 		  wormholeStartAndEnd: beginningAndEnd
-		  playWithDice: aCollectionOfDice.
+		  playWithDice: aCollectionOfDice
 ]
 
 { #category : #initialization }
