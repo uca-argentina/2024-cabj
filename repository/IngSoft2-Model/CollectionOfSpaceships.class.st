@@ -72,6 +72,12 @@ CollectionOfSpaceships >> getRanking [
 	^ collectionOfRanking first: 3
 ]
 
+{ #category : #accessing }
+CollectionOfSpaceships >> indexOf: aSpaceship [
+
+	^ collection indexOf: aSpaceship
+]
+
 { #category : #initialization }
 CollectionOfSpaceships >> initializeNumberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel indexCalculateWith: anAmountOfCells [
 
