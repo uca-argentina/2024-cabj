@@ -261,7 +261,7 @@ SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 	self assert: ((aSpaceship move: 8 on: aBoard) cell) equals: 10
 ]
 
-{ #category : #fuelTests }
+{ #category : #move }
 SpaceshipTest >> test017WhenSpaceshipMovesMoreThanAmountOfCellsThenPositionGoesToAnotherLap [
 
 	| aSpaceship aBoard collectionOfPosition |
@@ -277,7 +277,7 @@ SpaceshipTest >> test017WhenSpaceshipMovesMoreThanAmountOfCellsThenPositionGoesT
 	self assert: (aSpaceship move: 10 on: aBoard) getPosition equals: collectionOfPosition getPosition
 ]
 
-{ #category : #fuelTests }
+{ #category : #specialCells }
 SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
@@ -297,7 +297,7 @@ SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
 	self assert: (aSpaceship move: 9 on: aBoard) getPosition equals: finalPosition getPosition
 ]
 
-{ #category : #fuelTests }
+{ #category : #specialCells }
 SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsPlusFour [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
@@ -359,7 +359,7 @@ SpaceshipTest >> test024SpaceshipGoesBackToStartReloadsFuelAndMovesThenCellEqual
 	self assert: (aSpaceship objectPosition cell) equals: 5
 ]
 
-{ #category : #fuelTests }
+{ #category : #specialCells }
 SpaceshipTest >> test025SpaceshipEnterHyperGravityAndDoesntRollValueThenStaysThere [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
@@ -381,7 +381,7 @@ SpaceshipTest >> test025SpaceshipEnterHyperGravityAndDoesntRollValueThenStaysThe
 	self assert: (aSpaceship move: 4 on: aBoard) getPosition equals: finalPosition getPosition
 ]
 
-{ #category : #fuelTests }
+{ #category : #specialCells }
 SpaceshipTest >> test026SpaceshipEntersHyperGravityAndRollsValueTheLeaves [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
@@ -403,7 +403,7 @@ SpaceshipTest >> test026SpaceshipEntersHyperGravityAndRollsValueTheLeaves [
 	self assert: (aSpaceship move: 6 on: aBoard) getPosition equals: finalPosition getPosition
 ]
 
-{ #category : #fuelTests }
+{ #category : #specialCells }
 SpaceshipTest >> test027SpacceshipEntersHyperJumpThenPositionEqulasParsecMovement [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
@@ -432,7 +432,7 @@ SpaceshipTest >> test027SpacceshipEntersHyperJumpThenPositionEqulasParsecMovemen
 		equals: finalPosition getPosition
 ]
 
-{ #category : #fuelTests }
+{ #category : #specialCells }
 SpaceshipTest >> test028SpaceshipEntersHyperJumpAfterAnotherOneThenMovesSecondValueAndCompletesOneLap [
 
 	| aBoard finalPosition collectionOfSpecialCellAndPosition aSpaceshipOne aSpaceshipTwo |
@@ -465,4 +465,58 @@ SpaceshipTest >> test028SpaceshipEntersHyperJumpAfterAnotherOneThenMovesSecondVa
 	self
 		assert: (aSpaceshipTwo move: 8 on: aBoard) getPosition
 		equals: finalPosition getPosition
+]
+
+{ #category : #specialCells }
+SpaceshipTest >> test029SpaceshipEntersOnHyperJumpThenSpaceshipHasLessFuelThanMovements [
+
+	| aSpaceship aBoard collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: (HyperJumpCell
+				                                       withPosition: 5
+				                                       Parsecs:
+				                                       (Parsecs
+					                                        totalCells: 10
+					                                        convertionValue: 5)
+				                                       andValues: #( 2 1 ))
+		                                      with: 5.
+	aSpaceship := Spaceship launchWithFuel: 30.
+	aSpaceship objectPosition setIndexWith: 10.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 10 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+
+	aSpaceship move: 4 on: aBoard.
+	Spaceship initialize.
+	self
+		assert: aSpaceship getFuel
+		equals: 22
+]
+
+{ #category : #specialCells }
+SpaceshipTest >> test030SpaceshipLooseFuelAfterAMovementeBeacuseOfAnEffectOfACell [
+
+	| aSpaceship aBoard collectionOfSpecialCellAndPosition |
+	collectionOfSpecialCellAndPosition := OrderedCollection
+		                                      with: (HyperJumpCell
+				                                       withPosition: 5
+				                                       Parsecs:
+				                                       (Parsecs
+					                                        totalCells: 10
+					                                        convertionValue: 5)
+				                                       andValues: #( 2 1 ))
+		                                      with: 5.
+	aSpaceship := Spaceship launchWithFuel: 6.
+	aSpaceship objectPosition setIndexWith: 10.
+	aBoard := self
+		          createdBoardOfCellsAndLaps: #( 10 3 )
+		          withWormhole: #( 2 3 )
+		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+
+	aSpaceship move: 4 on: aBoard.
+	Spaceship initialize.
+	self
+		assert: aSpaceship objectPosition cell
+		equals: 1
 ]
