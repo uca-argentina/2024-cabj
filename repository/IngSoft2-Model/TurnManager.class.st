@@ -3,7 +3,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
-		'turn'
+		'anAllShipsDisabledHandler',
+		'currentSpaceship',
+		'turnsToSkip'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,11 +27,12 @@ TurnManager >> decrementTurnsOfSpaceship [
 TurnManager >> initializeManage: collectionOfSpaceships [
 
 	spaceships := collectionOfSpaceships.
-	anAllShipsDisabledHandler := AllShipsDisabledHandler fakeLaunch .
+	anAllShipsDisabledHandler := AllShipsDisabledHandler fakeLaunch.
 	currentSpaceship := spaceships at: 1.
 	turnsToSkip := Dictionary new.
 	turnsToSkip at: anAllShipsDisabledHandler put: 2.
-	spaceships do: [ :each | turnsToSkip at: each put: 0 ]
+	1 to: spaceships size do: [ :index |
+	turnsToSkip at: (spaceships at: index) put: 0 ]
 ]
 
 { #category : #action }
