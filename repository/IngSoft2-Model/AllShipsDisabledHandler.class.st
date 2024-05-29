@@ -42,9 +42,3 @@ AllShipsDisabledHandler >> objectPosition [
 
 	^ objectPosition
 ]
-
-{ #category : #accessing }
-AllShipsDisabledHandler >> position [
-
-	^ OrderedCollection with: 1 with: 1
-]
