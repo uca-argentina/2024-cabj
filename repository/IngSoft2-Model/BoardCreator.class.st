@@ -184,8 +184,3 @@ BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps worm
 	randomCollection := OrderedCollection new.
 	counterForCreation := self getCells
 ]
-
-{ #category : #'instance creation' }
-BoardCreator >> new [
-	self shouldBeImplemented.
-]
