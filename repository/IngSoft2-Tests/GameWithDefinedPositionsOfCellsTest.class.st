@@ -22,12 +22,12 @@ GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomic
 	| result aLoadedDie aGame aBoardCreator|
 	aLoadedDie := LoadedDie of: #( 9 8 4 ).
 	
-	aBoardCreator := BoardCreator
+	aBoardCreator := BoardCreatorWithDefinedCellPositions 
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 .
 
-	aGame := GameWithDefinedPositionOfCells
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -50,12 +50,12 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 9 8 3 ).
 
-	aBoardCreator := BoardCreator
+	aBoardCreator := BoardCreatorWithDefinedCellPositions 
 		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 wormholeBeginningAndEnding: #( 2 3 ).
+		                
 	
-	aGame := GameWithDefinedPositionOfCells
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -78,12 +78,12 @@ GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEve
 	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 9 9 6 ).
 
-	aBoardCreator := BoardCreator
+	aBoardCreator := BoardCreatorWithDefinedCellPositions 
 		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 wormholeBeginningAndEnding: #( 2 3 ).
+		                 
 	
-	aGame := GameWithDefinedPositionOfCells
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -106,12 +106,12 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 5 9 9 ).
 
-	aBoardCreator := BoardCreator
+	aBoardCreator := BoardCreatorWithDefinedCellPositions 
 		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 wormholeBeginningAndEnding: #( 2 3 ).
+		                 
 		
-	aGame := GameWithDefinedPositionOfCells
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -134,12 +134,12 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 2 ).
 
-	aBoardCreator := BoardCreator
+	aBoardCreator := BoardCreatorWithDefinedCellPositions 
 		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 wormholeBeginningAndEnding: #( 2 3 ).
+		                 
 	
-	aGame := GameWithDefinedPositionOfCells
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -163,12 +163,11 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 4 ).
 
-	aBoardCreator := BoardCreator
+	aBoardCreator := BoardCreatorWithDefinedCellPositions 
 		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 wormholeBeginningAndEnding: #( 2 3 ).
 	
-	aGame := GameWithDefinedPositionOfCells
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
