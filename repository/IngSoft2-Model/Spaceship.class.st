@@ -39,7 +39,7 @@ Spaceship >> getId [
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-	collectionActualPosition:= OrderedCollection with: 1 with: 1.
+	collectionActualPosition := Position startGame.
 	fuel := anAmountOfFuel.
 	id := counterId
 ]
@@ -52,26 +52,40 @@ Spaceship >> loadFuel: anAmountOfFuel [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements on: aBoard [
 
-	| actualPosition actualLap |
-	actualPosition := collectionActualPosition at: 1.
-	actualLap := collectionActualPosition at: 2.
-	aNumberOfMovements >= self getFuel ifTrue: [
-		collectionActualPosition := aBoard enter:
-			                            (OrderedCollection
-				                             with: 1
-				                             with: actualLap).
-		fuel := 0.
+	| actualPosition actualIndex nextIndex completedLaps extraMovements |
+	actualIndex := collectionActualPosition getIndex.
+	nextIndex := aNumberOfMovements + actualIndex.
+	completedLaps := collectionActualPosition completedLaps.
+	
+	((aBoard at: actualIndex) exit: aNumberOfMovements) ifFalse: [
 		^ collectionActualPosition ].
-	collectionActualPosition := aBoard enter: (OrderedCollection
-			                             with:
-			                             actualPosition + aNumberOfMovements
-			                             with: actualLap).
-	fuel := fuel - aNumberOfMovements.
+
+	actualPosition := (aBoard at: nextIndex) enter.
+	collectionActualPosition
+		setCellAndLapWith: nextIndex
+		and: actualPosition.
+		
+	actualIndex := collectionActualPosition getIndex.
+	extraMovements := (actualIndex - nextIndex) abs.
+	
+	fuel := fuel - aNumberOfMovements .
+	fuel := fuel - extraMovements.
+	
+	fuel <= 0 ifTrue: [
+		actualPosition := (aBoard at: 1) enter.
+		fuel := 0.
+		collectionActualPosition
+			setCellAndLapWith: completedLaps + 1
+			and: actualPosition.
+		^ collectionActualPosition ].
+
+	completedLaps := collectionActualPosition completedLaps.
+
 	^ collectionActualPosition
 ]
 
-{ #category : #accessing }
-Spaceship >> position [
+{ #category : #'set and get' }
+Spaceship >> objectPosition [
 
-	^ collectionActualPosition 
+	^ collectionActualPosition
 ]

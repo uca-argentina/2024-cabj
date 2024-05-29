@@ -33,3 +33,12 @@ RegularCellTest >> test02PositionOfTheRegularCellHasToBeGreaterThanZero [
 		withMessage: 'A cell must have position greater than zero'
 
 ]
+
+{ #category : #tests }
+RegularCellTest >> test03RegularCellExitThenReturnsTrue [
+
+	| aCell |
+	aCell := RegularCell position: 1.
+
+	self assert: (aCell exit: 3)
+]

@@ -1,5 +1,5 @@
 Class {
-	#name : #Game,
+	#name : #GameOldVersion,
 	#superclass : #Object,
 	#instVars : [
 		'aBoard',
@@ -10,11 +10,11 @@ Class {
 		'finishLine',
 		'boardCreator'
 	],
-	#category : #'IngSoft2-Model'
+	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+GameOldVersion class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
@@ -23,7 +23,7 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 ]
 
 { #category : #action }
-Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
+GameOldVersion >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 
 	nextSpaceship getFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
@@ -31,7 +31,7 @@ Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 ]
 
 { #category : #initialization }
-Game >> collectSpaceships: anAmountOfSpaceships [
+GameOldVersion >> collectSpaceships: anAmountOfSpaceships [
 
 	| aSpaceship anAmountOfCells |
 	anAmountOfCells := boardCreator getCells.
@@ -45,7 +45,22 @@ Game >> collectSpaceships: anAmountOfSpaceships [
 ]
 
 { #category : #initialization }
-Game >> createWormholeOn: aBeginning and: anEnd [
+GameOldVersion >> createCollectionOfRegularCells [
+
+	| currentLap anAmountOfCells anAmountOfLaps anAmountOfIndex|
+	anAmountOfCells := boardCreator getCells.
+	anAmountOfLaps := boardCreator getLaps.
+	anAmountOfIndex := anAmountOfLaps * anAmountOfCells .
+	aBoard := OrderedCollection new.
+
+	1 to: anAmountOfIndex do: [ :index |
+		currentLap := index - 1 // anAmountOfCells.
+		aBoard add:
+			(RegularCell position: index - (anAmountOfCells * currentLap)) ]
+]
+
+{ #category : #initialization }
+GameOldVersion >> createWormholeOn: aBeginning and: anEnd [
 
 	| positionWithinLap anAmountOfCells anAmountOfLaps |
 	anAmountOfCells := boardCreator getCells.
@@ -62,31 +77,31 @@ Game >> createWormholeOn: aBeginning and: anEnd [
 ]
 
 { #category : #results }
-Game >> finalLapsOfSpaceships [
+GameOldVersion >> finalLapsOfSpaceships [
 
 	^ collectionOfSpaceships lapsOfSpaceships
 ]
 
 { #category : #results }
-Game >> finalPositionOfSpaceships [
+GameOldVersion >> finalPositionOfSpaceships [
 
 	^ collectionOfSpaceships cellsOfSpaceships
 ]
 
 { #category : #results }
-Game >> finalResultsOfSpaceships [
+GameOldVersion >> finalResultsOfSpaceships [
 
 	^ collectionOfSpaceships positionsOfSpaceships
 ]
 
 { #category : #results }
-Game >> getRankingOfSpaceships [
+GameOldVersion >> getRankingOfSpaceships [
 
 	^ collectionOfSpaceships getRanking
 ]
 
 { #category : #results }
-Game >> getWinner [
+GameOldVersion >> getWinner [
 
 	| maxPosition maxLap winner aDictionaryOfPositions |
 	aDictionaryOfPositions := self finalResultsOfSpaceships.
@@ -107,7 +122,7 @@ Game >> getWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+GameOldVersion >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 	
 	boardCreator := aBoardCreator .
 
@@ -125,14 +140,14 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 	turnManager := TurnManager manage: collectionOfSpaceships.
 
-	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) .
+	self createCollectionOfRegularCells .
 	self
 		createWormholeOn: (aBoardCreator getBeginning)
 		and: (aBoardCreator getEnding)
 ]
 
 { #category : #action }
-Game >> moveSpaceship [
+GameOldVersion >> moveSpaceship [
 
 	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition anAmountOfIndex |
 	anAmountOfIndex := boardCreator getCells * boardCreator getLaps.
@@ -162,7 +177,7 @@ Game >> moveSpaceship [
 ]
 
 { #category : #action }
-Game >> reloadSpaceship [
+GameOldVersion >> reloadSpaceship [
 	| nextSpaceship |
 	nextSpaceship := turnManager nextTurn.
 	nextSpaceship loadFuel: amountOfFuel.
