@@ -18,9 +18,9 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion 
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -38,9 +38,9 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 15 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -59,9 +59,9 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 15 1 )
 		                 wormholeBeginningAndEnding: #( 6 8 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -79,9 +79,9 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -102,9 +102,9 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -125,9 +125,9 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -149,9 +149,9 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -174,9 +174,9 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 6 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -194,9 +194,9 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 6 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -215,9 +215,9 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -237,9 +237,9 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -262,9 +262,9 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -285,9 +285,9 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -309,9 +309,9 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -331,9 +331,9 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -355,9 +355,9 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -382,9 +382,9 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -408,9 +408,9 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -433,9 +433,9 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
@@ -458,9 +458,9 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 4
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.

@@ -23,9 +23,9 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aDie.
@@ -42,9 +42,9 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aCollectionOfDice.
@@ -64,9 +64,9 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aDie.
@@ -84,12 +84,12 @@ GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
 	
 	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 10 ).
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 4 with: 1).
-	aGame := GameOldVersion
+	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aCollectionOfDice.
