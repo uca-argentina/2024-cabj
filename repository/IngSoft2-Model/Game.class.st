@@ -31,20 +31,6 @@ Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 ]
 
 { #category : #initialization }
-Game >> collectSpaceships: anAmountOfSpaceships [
-
-	| aSpaceship anAmountOfCells |
-	anAmountOfCells := boardCreator getCells.
-	collectionOfSpaceships := OrderedCollection new.
-	anAmountOfSpaceships timesRepeat: [
-		aSpaceship := Spaceship launchWithFuel: amountOfFuel.
-		collectionOfSpaceships add: aSpaceship.
-		aSpaceship objectPosition setIndexWith: anAmountOfCells ].
-
-	Spaceship initialize
-]
-
-{ #category : #initialization }
 Game >> createWormholeOn: aBeginning and: anEnd [
 
 	| positionWithinLap anAmountOfCells anAmountOfLaps |
