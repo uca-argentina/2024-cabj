@@ -158,7 +158,7 @@ BoardCreator >> getBeginning [
 
 { #category : #'set and get' }
 BoardCreator >> getCells [
-
+ 
 	^ collectionAmountOfCellsAndLaps at: 1
 ]
 
