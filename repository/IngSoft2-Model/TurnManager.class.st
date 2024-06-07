@@ -28,7 +28,7 @@ TurnManager >> decrementTurnsOfSpaceship [
 TurnManager >> initializeManage: collectionOfSpaceships [
 
 	spaceships := collectionOfSpaceships.
-	anAllShipsDisabledHandler := AllShipsDisabledHandler fakeLaunch.
+
 	currentSpaceship := spaceships at: 1.
 	spaceshipPlaying := spaceships at: 1.
 	turnsToSkip := Dictionary new.
@@ -61,7 +61,7 @@ TurnManager >> nextTurn [
 		ifTrue: [
 			self decrementTurnsOfSpaceship.
 			self nextSpaceship.
-			^ anAllShipsDisabledHandler ].
+			 ].
 
 	(turnsToSkip at: currentSpaceship) > 0 ifTrue: [
 		self decrementTurnsOfSpaceship.
