@@ -222,8 +222,8 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
-	aGame moveSpaceship.
-
+	
+	
 	position := OrderedCollection with: 1 with: 1.
 	self assert: aGame moveSpaceship equals: position
 ]
