@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-WormholeCreatorTest >> test00WhenAWormholeIsCreatedThenTheBegginingAndEndingOfTheWormholeEntersOnAPosition [
+WormholeCreatorTest >> test00WhenAWormholeIsCreatedThenTheBegginingOfTheWormholeCanEnterOnAPosition [
 
 	| aWormholeCreator aWormholeBeginning |
 	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
@@ -14,7 +14,7 @@ WormholeCreatorTest >> test00WhenAWormholeIsCreatedThenTheBegginingAndEndingOfTh
 ]
 
 { #category : #tests }
-WormholeCreatorTest >> test02 [
+WormholeCreatorTest >> test01WhenAWormholeIsCreatedThenTheEndingCanEnterToThePosition [
 
 	| aWormholeCreator aWormholeEnding |
 	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
