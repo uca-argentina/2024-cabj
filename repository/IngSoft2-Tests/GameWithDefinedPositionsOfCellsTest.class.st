@@ -21,17 +21,15 @@ GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomic
 
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 9 8 4 ).
-	
-	aBoardCreator := BoardCreatorWithDefinedCellPositions 
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 .
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
+		                 wormholeBeginningAndEnding: #( 2 3 ).
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
-					withWormholeCreator: aWormholeCreator.
+		         playWithDice: aLoadedDie.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -51,16 +49,15 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 9 8 3 ).
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions 
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-		                
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
+
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
-					withWormholeCreator:aWormholeCreator.
+		         playWithDice: aLoadedDie.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -80,16 +77,15 @@ GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEve
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 9 9 6 ).
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions 
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
-	
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
-					withWormholeCreator: aWormholeCreator.
+		         playWithDice: aLoadedDie.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -109,16 +105,15 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 5 9 9 ).
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions 
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-		                 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
+
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
-					withWormholeCreator:aWormholeCreator.
+		         playWithDice: aLoadedDie.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -138,16 +133,15 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 2 ).
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions 
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-		                 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
+
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
-					withWormholeCreator: aWormholeCreator.
+		         playWithDice: aLoadedDie.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -168,24 +162,23 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 4 ).
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions 
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-	
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
+
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
-					withWormholeCreator: aWormholeCreator.
-	
+		         playWithDice: aLoadedDie.
+
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
 	result := Dictionary new.
-	result at: 1 put: 3.
+	result at: 1 put: 2.
 	result at: 2 put: 10.
 	result at: 3 put: 10.
 

@@ -15,13 +15,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice withWormholeCreator: aWormholeCreator [
+Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
 		  withBoardCreator: aBoardCreator
 		  playWithDice: aCollectionOfDice
-		  withWormholeCreator: aWormholeCreator
 ]
 
 { #category : #action }
@@ -95,7 +94,7 @@ Game >> getWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice withWormholeCreator: aWormholeCreator [
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 	
 	boardCreator := aBoardCreator .
 
@@ -105,7 +104,6 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
-	wormholeCreator:=aWormholeCreator .
 
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships
