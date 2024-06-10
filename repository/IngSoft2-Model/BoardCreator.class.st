@@ -7,15 +7,16 @@ Class {
 		'percentagesOfDistrubitionSpecialCells',
 		'numbers',
 		'randomCollection',
-		'counterForCreation'
+		'counterForCreation',
+		'wormholeCreator'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeBeginningAndEnding: beginningAndEnd andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
+BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
 
-^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps wormholeBeginningAndEnding: beginningAndEnd andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
+^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator  andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
 ]
 
 { #category : #'set and get' }
@@ -151,21 +152,9 @@ BoardCreator >> createMoonWalkCellsWith: aCollectionOfSpaceships and: aTurnManag
 ]
 
 { #category : #'set and get' }
-BoardCreator >> getBeginning [
-
-	^ beginningAndEnd at: 1
-]
-
-{ #category : #'set and get' }
 BoardCreator >> getCells [
  
 	^ collectionAmountOfCellsAndLaps at: 1
-]
-
-{ #category : #'set and get' }
-BoardCreator >> getEnding [
-
-	^ beginningAndEnd at: 2
 ]
 
 { #category : #'set and get' }
@@ -175,10 +164,10 @@ BoardCreator >> getLaps [
 ]
 
 { #category : #initialization }
-BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps wormholeBeginningAndEnding: aBeginningAndEnd andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
+BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
-	beginningAndEnd := aBeginningAndEnd.
+	wormholeCreator := aWormholeCreator .
 	percentagesOfDistrubitionSpecialCells := aPercentagesOfDistrubitionSpecialCells.
 	numbers := (1 to: self getCells ) asOrderedCollection.
 	randomCollection := OrderedCollection new.

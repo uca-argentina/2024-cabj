@@ -15,15 +15,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
-]
-
-{ #category : #'instance creation' }
 Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice withWormholeCreator: aWormholeCreator [
 
 	^ self new
@@ -104,31 +95,6 @@ Game >> getWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-	
-	boardCreator := aBoardCreator .
-
-	finishLine := OrderedCollection
-		              with: boardCreator getCells
-		              with: boardCreator getLaps.
-
-	collectionOfDice := aCollectionOfDice.
-	amountOfFuel := collectionOfDice amountOfFaces * 2.
-
-	collectionOfSpaceships := CollectionOfSpaceships
-		                          numberOfSpaceships: anAmountOfSpaceships
-		                          withAmountOfFuel: amountOfFuel
-		                          indexCalculateWith: boardCreator getCells.
-
-	turnManager := TurnManager manage: collectionOfSpaceships.
-
-	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) .
-	self
-		createWormholeOn: (aBoardCreator getBeginning)
-		and: (aBoardCreator getEnding)
-]
-
-{ #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice withWormholeCreator: aWormholeCreator [
 	
 	boardCreator := aBoardCreator .
@@ -149,9 +115,7 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	turnManager := TurnManager manage: collectionOfSpaceships.
 
 	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) .
-	self
-		createWormholeOn: (aBoardCreator getBeginning)
-		and: (aBoardCreator getEnding)
+
 ]
 
 { #category : #action }
