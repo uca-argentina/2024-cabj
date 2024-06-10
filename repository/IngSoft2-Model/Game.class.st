@@ -8,7 +8,8 @@ Class {
 		'collectionOfSpaceships',
 		'turnManager',
 		'finishLine',
-		'boardCreator'
+		'boardCreator',
+		'wormholeCreator'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -20,6 +21,16 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
 		  withBoardCreator: aBoardCreator
 		  playWithDice: aCollectionOfDice
+]
+
+{ #category : #'instance creation' }
+Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice withWormholeCreator: aWormholeCreator [
+
+	^ self new
+		  initializeNumberOfSpaceships: anAmountOfSpaceships
+		  withBoardCreator: aBoardCreator
+		  playWithDice: aCollectionOfDice
+		  withWormholeCreator: aWormholeCreator
 ]
 
 { #category : #action }
@@ -40,11 +51,11 @@ Game >> createWormholeOn: aBeginning and: anEnd [
 	1 to: anAmountOfLaps do: [ :lap |
 		positionWithinLap := anAmountOfCells * (lap - 1).
 		aBoard
-			at: aBeginning + positionWithinLap
-			put: (RegularCell position: anEnd + positionWithinLap).
+			at: (wormholeCreator beginning) enter + positionWithinLap
+			put: ((wormholeCreator ending )).
 		aBoard
-			at: anEnd + positionWithinLap
-			put: (RegularCell position: aBeginning + positionWithinLap) ]
+			at: (wormholeCreator ending )enter + positionWithinLap
+			put: ((wormholeCreator beginning) ) ]
 ]
 
 { #category : #results }
@@ -103,6 +114,32 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
+
+	collectionOfSpaceships := CollectionOfSpaceships
+		                          numberOfSpaceships: anAmountOfSpaceships
+		                          withAmountOfFuel: amountOfFuel
+		                          indexCalculateWith: boardCreator getCells.
+
+	turnManager := TurnManager manage: collectionOfSpaceships.
+
+	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) .
+	self
+		createWormholeOn: (aBoardCreator getBeginning)
+		and: (aBoardCreator getEnding)
+]
+
+{ #category : #initialization }
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice withWormholeCreator: aWormholeCreator [
+	
+	boardCreator := aBoardCreator .
+
+	finishLine := OrderedCollection
+		              with: boardCreator getCells
+		              with: boardCreator getLaps.
+
+	collectionOfDice := aCollectionOfDice.
+	amountOfFuel := collectionOfDice amountOfFaces * 2.
+	wormholeCreator:=aWormholeCreator .
 
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships

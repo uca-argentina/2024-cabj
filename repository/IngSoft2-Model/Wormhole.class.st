@@ -17,6 +17,11 @@ Wormhole >> enter [
 	^cellPosition .
 ]
 
+{ #category : #action }
+Wormhole >> exit: aValue [
+	^true .
+]
+
 { #category : #initialization }
 Wormhole >> initializeIn: aPosition [
 	cellPosition:= aPosition .

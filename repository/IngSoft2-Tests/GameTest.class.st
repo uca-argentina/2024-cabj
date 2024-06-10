@@ -17,18 +17,19 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 { #category : #testsGame002 }
 GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces [
 
-	| aGame aDie aBoardCreator |
+	| aGame aDie aBoardCreator aWormholeCreator |
 	aDie := Die of: 5.
 	
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-	
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aDie.
+		         playWithDice: aDie
+					withWormholeCreator: aWormholeCreator.
 
 	self assert: ((aGame moveSpaceship at: 1) between: 2 and: 6)
 ]
@@ -36,18 +37,19 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 { #category : #tests }
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
-	| aGame aCollectionOfDice aBoardCreator |
+	| aGame aCollectionOfDice aBoardCreator aWormholeCreator |
 	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 ).
 	
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-	
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
+		         playWithDice: aCollectionOfDice
+					withWormholeCreator: aWormholeCreator.
 	aGame moveSpaceship.
 	self
 		should: [ aGame moveSpaceship ]
@@ -58,18 +60,19 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 { #category : #tests }
 GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePosition [
 
-	| aGame aDie aBoardCreator |
+	| aGame aDie aBoardCreator aWormholeCreator |
 	aDie := Die of: 6.
 	
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-	
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aDie.
+		         playWithDice: aDie
+					withWormholeCreator:aWormholeCreator.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -79,20 +82,21 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 { #category : #tests }
 GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 
-	| aGame resultOfGame aCollectionOfDice aBoardCreator |
+	| aGame resultOfGame aCollectionOfDice aBoardCreator aWormholeCreator |
 	
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 wormholeBeginningAndEnding: #( 2 3 )
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-	
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #(2 3).
 	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 10 ).
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 4 with: 1).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
+		         playWithDice: aCollectionOfDice
+					withWormholeCreator: aWormholeCreator.
 
 	self assert: aGame moveSpaceship equals: resultOfGame
 ]

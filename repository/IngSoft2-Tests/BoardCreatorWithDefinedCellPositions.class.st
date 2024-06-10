@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'collectionAmountOfCellsAndLaps',
 		'beginningAndEnd',
-		'collection'
+		'collection',
+		'wormholeCreator'
 	],
 	#category : #'IngSoft2-Tests'
 }
