@@ -68,17 +68,17 @@ Position >> setCell: aCellNumber [
 ]
 
 { #category : #'set and get' }
-Position >> setCellAndLapWith: anIndex and: aCell [
+Position >> setCellAndLapWith: anIndex [
 
 	| actualLap difference temporalIndex temporalCell |
 	temporalIndex := anIndex.
-	temporalCell := aCell.
+	temporalCell := ((anIndex - 1) \\ amountOfCells) + 1.
 	actualLap := self lap.
-	aCell - completedLaps < 0 ifTrue: [ actualLap := actualLap - 1 ].
-	aCell > amountOfCells ifTrue: [
-		difference := aCell - anIndex.
+	temporalCell - completedLaps < 0 ifTrue: [ actualLap := actualLap - 1 ].
+	temporalCell > amountOfCells ifTrue: [
+		difference := temporalCell - anIndex.
 		temporalIndex := anIndex + difference.
-		temporalCell := aCell - amountOfCells ].
+		temporalCell := temporalCell - amountOfCells ].
 	actualLap := temporalIndex - 1 // amountOfCells + 1.
 	self setCell: temporalCell.
 	self setLap: actualLap.

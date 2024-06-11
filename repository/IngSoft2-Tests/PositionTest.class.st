@@ -95,7 +95,7 @@ PositionTest >> test10CalculateLapWithNewIndexElevenThenCompletedOneLap [
 	| aPosition |
 	aPosition := Position startGame.
 	aPosition setIndexWith: 10.
-	aPosition setCellAndLapWith: 11 and: 1.
+	aPosition setCellAndLapWith: 11.
 	self assert: aPosition completedLaps equals: 10
 ]
 
@@ -105,6 +105,6 @@ PositionTest >> test11DoOneLapThenCellEqualsOne [
 	| aPosition |
 	aPosition := Position startGame.
 	aPosition setIndexWith: 10.
-	aPosition setCellAndLapWith: 11 and: 1.
-	self assert: (aPosition cell ) equals: 1
+	aPosition setCellAndLapWith: 11.
+	self assert: aPosition cell equals: 1
 ]

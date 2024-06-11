@@ -124,19 +124,19 @@ Game >> moveSpaceship [
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
-	
+
 	positionOfNextSpaceship := nextSpaceship objectPosition.
-	currentPosition := positionOfNextSpaceship getIndex .
+	currentPosition := positionOfNextSpaceship getIndex.
 
 	currentPosition + throwResult > anAmountOfIndex ifTrue: [
 		throwResult := anAmountOfIndex - currentPosition ].
-	
+
 	((aBoard at: currentPosition) exit: throwResult) ifFalse: [
 		^ positionOfNextSpaceship getPosition ].
 
-	positionOfSpaceship := (nextSpaceship
-		                        move: throwResult
-		                        on: aBoard) getPosition.
+	positionOfSpaceship := (aBoard at: currentPosition + throwResult)
+		                       enter.
+	(nextSpaceship move: throwResult) getPosition.
 
 	self
 		checkIf: nextSpaceship

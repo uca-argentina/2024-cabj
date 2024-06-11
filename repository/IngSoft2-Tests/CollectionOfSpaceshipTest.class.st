@@ -65,8 +65,8 @@ CollectionOfSpaceshipTest >> test04GetRankingThenReturnsRankingOfSpaceships [
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 3.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 2.
+	(aCollectionOfSpaceships at: 1) move: 2.
+	(aCollectionOfSpaceships at: 2) move: 1.
 	result := #( 1 2 3 ) asOrderedCollection.
 
 	self assert: aCollectionOfSpaceships getRanking equals: result
@@ -81,9 +81,9 @@ CollectionOfSpaceshipTest >> test05ResetToCellOneThenEverySpaceshipIsOnCellOne [
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
-	(aCollectionOfSpaceships at: 3) objectPosition setCell: 5.
+	(aCollectionOfSpaceships at: 1) move: 9.
+	(aCollectionOfSpaceships at: 2) move: 7.
+	(aCollectionOfSpaceships at: 3) move: 4.
 
 	result := Dictionary new.
 	result at: 1 put: 1.
@@ -103,10 +103,10 @@ CollectionOfSpaceshipTest >> test06ResetToCellOneThenLapRemainsTheSame [
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
+	(aCollectionOfSpaceships at: 1) move: 9.
+	(aCollectionOfSpaceships at: 2) move: 7.
 	(aCollectionOfSpaceships at: 2) objectPosition setLap: 2.
-	(aCollectionOfSpaceships at: 3) objectPosition setCell: 5.
+	(aCollectionOfSpaceships at: 3) move: 4.
 	(aCollectionOfSpaceships at: 3) objectPosition setLap: 3.
 
 	result := Dictionary new.
@@ -127,9 +127,9 @@ CollectionOfSpaceshipTest >> test07MoveBackwardsExpectSpaceshipThreeThenEverySpa
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
-	(aCollectionOfSpaceships at: 3) objectPosition setCell: 5.
+	(aCollectionOfSpaceships at: 1) move: 9.
+	(aCollectionOfSpaceships at: 2) move: 7.
+	(aCollectionOfSpaceships at: 3) move: 4.
 
 	result := Dictionary new.
 	result at: 1 put: 6.

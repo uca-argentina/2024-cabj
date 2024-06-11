@@ -111,9 +111,7 @@ CollectionOfSpaceships >> moveBackwards: anAmountOfMovements except: aSpaceship 
 		aPositionNewIndex := aSpaceshipPosition getIndex
 		                     - anAmountOfMovements.
 		aPositionNewCell := aSpaceshipPosition cell - anAmountOfMovements.
-		aSpaceshipPosition
-			setCellAndLapWith: aPositionNewIndex
-			and: aPositionNewCell ]
+		aSpaceshipPosition setCellAndLapWith: aPositionNewIndex ]
 ]
 
 { #category : #accessing }
