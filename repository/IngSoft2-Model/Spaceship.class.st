@@ -52,7 +52,7 @@ Spaceship >> loadFuel: anAmountOfFuel [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements [
 
-	| actualIndex nextIndex completedLaps extraMovements |
+	| actualIndex nextIndex completedLaps |
 	actualIndex := collectionActualPosition getIndex.
 	nextIndex := aNumberOfMovements + actualIndex.
 	completedLaps := collectionActualPosition completedLaps.
@@ -60,10 +60,8 @@ Spaceship >> move: aNumberOfMovements [
 	collectionActualPosition setCellAndLapWith: nextIndex.
 
 	actualIndex := collectionActualPosition getIndex.
-	extraMovements := (actualIndex - nextIndex) abs.
 
-	fuel := fuel - aNumberOfMovements.
-	fuel := fuel - extraMovements.
+	fuel := fuel - (aNumberOfMovements) abs.
 
 	fuel <= 0 ifTrue: [
 		fuel := 0.

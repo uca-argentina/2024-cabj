@@ -136,7 +136,9 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship := (aBoard at: currentPosition + throwResult)
 		                       enter.
-	(nextSpaceship move: throwResult) getPosition.
+	nextSpaceship move: throwResult.
+	nextSpaceship move: positionOfSpaceship - nextSpaceship objectPosition cell .
+	positionOfSpaceship := nextSpaceship objectPosition getPosition.
 
 	self
 		checkIf: nextSpaceship
