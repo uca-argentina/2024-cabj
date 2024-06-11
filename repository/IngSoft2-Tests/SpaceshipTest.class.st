@@ -364,9 +364,8 @@ SpaceshipTest >> test026SpaceshipEntersHyperGravityAndRollsValueTheLeaves [
 		          withWormhole: #( 2 3 )
 		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
 
-	finalPosition := Position startGame.
-	finalPosition setCell: 16.
-	finalPosition setLap: 1.
+	finalPosition := OrderedCollection with: 16 with: 1.
+
 	aSpaceship move: 9.
 	aSpaceship move: 6.
 	Spaceship initialize.
@@ -395,9 +394,8 @@ SpaceshipTest >> test027SpacceshipEntersHyperJumpThenPositionEqulasParsecMovemen
 		          withWormhole: #( 2 3 )
 		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
 
-	finalPosition := Position startGame.
-	finalPosition setCell: 9.
-	finalPosition setLap: 1.
+	finalPosition := OrderedCollection with: 9 with: 1.
+
 	aSpaceship move: 4.
 	Spaceship initialize.
 	self
@@ -432,9 +430,8 @@ SpaceshipTest >> test028SpaceshipEntersHyperJumpAfterAnotherOneThenMovesSecondVa
 	aSpaceshipOne move: 8.
 	aSpaceshipTwo move: 8.
 
-	finalPosition := Position startGame.
-	finalPosition setCell: 3.
-	finalPosition setLap: 2.
+	finalPosition := OrderedCollection with: 3 with: 2.
+
 	Spaceship initialize.
 	self
 		assert: aSpaceshipTwo objectPosition getPosition

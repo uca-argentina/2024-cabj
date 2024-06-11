@@ -100,14 +100,12 @@ CollectionOfSpaceshipTest >> test06ResetToCellOneThenLapRemainsTheSame [
 	| aCollectionOfSpaceships result |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 10
+		                           withAmountOfFuel: 50
 		                           indexCalculateWith: 20.
 
 	(aCollectionOfSpaceships at: 1) move: 9.
-	(aCollectionOfSpaceships at: 2) move: 7.
-	(aCollectionOfSpaceships at: 2) objectPosition setLap: 2.
-	(aCollectionOfSpaceships at: 3) move: 4.
-	(aCollectionOfSpaceships at: 3) objectPosition setLap: 3.
+	(aCollectionOfSpaceships at: 2) move: 26.
+	(aCollectionOfSpaceships at: 3) move: 43.
 
 	result := Dictionary new.
 	result at: 1 put: 1.

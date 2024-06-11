@@ -62,9 +62,9 @@ Position >> lap [
 ]
 
 { #category : #initialization }
-Position >> setCell: aCellNumber [
+Position >> resetToOne [
 
-	cell := aCellNumber.
+	cell := 1
 ]
 
 { #category : #'set and get' }
@@ -80,8 +80,8 @@ Position >> setCellAndLapWith: anIndex [
 		temporalIndex := anIndex + difference.
 		temporalCell := temporalCell - amountOfCells ].
 	actualLap := temporalIndex - 1 // amountOfCells + 1.
-	self setCell: temporalCell.
-	self setLap: actualLap.
+	cell := temporalCell.
+	lap := actualLap.
 	self setIndexWith: amountOfCells
 ]
 
@@ -91,10 +91,4 @@ Position >> setIndexWith: anAmountOfCells [
 	amountOfCells := anAmountOfCells.
 	index := self cell + (self completedLapsWith: anAmountOfCells).
 	^ index
-]
-
-{ #category : #initialization }
-Position >> setLap: aLapNumber [
-
-	lap := aLapNumber
 ]

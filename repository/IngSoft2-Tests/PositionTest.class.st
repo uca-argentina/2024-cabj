@@ -27,7 +27,8 @@ PositionTest >> test03PositioninitializeSetCellTwoThenCellEqualsTwo [
 
 	| aPosition |
 	aPosition := Position startGame.
-	aPosition setCell: 2.
+	aPosition setIndexWith: 10.
+	aPosition setCellAndLapWith: 2.
 
 	self assert: aPosition cell equals: 2
 ]
@@ -37,7 +38,8 @@ PositionTest >> test04PositioninitializeSetLapTwoThenLapEqualsTwo [
 
 	| aPosition |
 	aPosition := Position startGame.
-	aPosition setLap: 2.
+	aPosition setIndexWith: 10.
+	aPosition setCellAndLapWith: 11.
 
 	self assert: aPosition lap equals: 2
 ]
@@ -66,9 +68,10 @@ PositionTest >> test07PositionCellOneLapTwoWithTenCellsThenIndexEqualsEleven [
 
 	| aPosition |
 	aPosition := Position startGame.
-	aPosition setLap: 2.
+	aPosition setIndexWith: 10.
+	aPosition setCellAndLapWith: 11.
 
-	self assert: (aPosition setIndexWith: 10) equals: 11
+	self assert: aPosition getIndex equals: 11
 ]
 
 { #category : #tests }
@@ -85,8 +88,10 @@ PositionTest >> test09PositionLapSetOnTwoThenCompletedLapsEqualsAmountOfCells [
 
 	| aPosition |
 	aPosition := Position startGame.
-	aPosition setLap: 2.
-	self assert: (aPosition completedLapsWith: 10) equals: 10
+	aPosition setIndexWith: 10.
+	aPosition setCellAndLapWith: 11.
+
+	self assert: (aPosition completedLaps) equals: 10
 ]
 
 { #category : #tests }

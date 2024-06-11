@@ -57,8 +57,8 @@ MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 		                                      with: aMoonWalkCell
 		                                      with: 5.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
+	(aCollectionOfSpaceships at: 1) move: 9.
+	(aCollectionOfSpaceships at: 2) move: 7.
 
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )
@@ -90,9 +90,8 @@ MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptTh
 		                                      with: aMoonWalkCell
 		                                      with: 5.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
-	(aCollectionOfSpaceships at: 3) objectPosition setCell: 1.
+	(aCollectionOfSpaceships at: 1) move: 9.
+	(aCollectionOfSpaceships at: 2) move: 7.
 
 	aBoard := self
 		          createdBoardOfCellsAndLaps: #( 20 1 )

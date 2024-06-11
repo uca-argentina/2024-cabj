@@ -29,9 +29,9 @@ AtomicBombCellTest >> test02AtomicBombEnterThenMoveEverySpaceshipToOne [
 		                           withAmountOfFuel: 10
 		                           indexCalculateWith: 20.
 
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
-	(aCollectionOfSpaceships at: 3) objectPosition setCell: 5.
+	(aCollectionOfSpaceships at: 1) move: 9.
+	(aCollectionOfSpaceships at: 2) move: 7.
+	(aCollectionOfSpaceships at: 3) move: 4.
 
 	anAtomicBombCell := AtomicBombCell
 		                    withPostion: 5

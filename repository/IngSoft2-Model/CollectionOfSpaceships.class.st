@@ -133,7 +133,7 @@ CollectionOfSpaceships >> resetToCellOne [
 	| aSpaceship |
 	1 to: collection size do: [ :index |
 		aSpaceship := collection at: index.
-		aSpaceship objectPosition setCell: 1 ]
+		aSpaceship objectPosition resetToOne ]
 ]
 
 { #category : #accessing }
