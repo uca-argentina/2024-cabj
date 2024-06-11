@@ -130,6 +130,9 @@ Game >> moveSpaceship [
 
 	currentPosition + throwResult > anAmountOfIndex ifTrue: [
 		throwResult := anAmountOfIndex - currentPosition ].
+	
+	((aBoard at: currentPosition) exit: throwResult) ifFalse: [
+		^ positionOfNextSpaceship getPosition ].
 
 	positionOfSpaceship := (nextSpaceship
 		                        move: throwResult

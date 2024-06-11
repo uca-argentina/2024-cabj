@@ -56,9 +56,6 @@ Spaceship >> move: aNumberOfMovements on: aBoard [
 	actualIndex := collectionActualPosition getIndex.
 	nextIndex := aNumberOfMovements + actualIndex.
 	completedLaps := collectionActualPosition completedLaps.
-	
-	((aBoard at: actualIndex) exit: aNumberOfMovements) ifFalse: [
-		^ collectionActualPosition ].
 
 	actualPosition := (aBoard at: nextIndex) enter.
 	collectionActualPosition

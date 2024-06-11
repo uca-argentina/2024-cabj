@@ -360,28 +360,6 @@ SpaceshipTest >> test024SpaceshipGoesBackToStartReloadsFuelAndMovesThenCellEqual
 ]
 
 { #category : #specialCells }
-SpaceshipTest >> test025SpaceshipEnterHyperGravityAndDoesntRollValueThenStaysThere [
-
-	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
-	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: (HyperGravityCell withValueToMove: 5 inPosition: 10)
-		                                      with: 10.
-	aSpaceship := Spaceship launchWithFuel: 60.
-	aSpaceship objectPosition setIndexWith: 20.
-	aBoard := self
-		          createdBoardOfCellsAndLaps: #( 20 3 )
-		          withWormhole: #( 2 3 )
-		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
-	
-	finalPosition := Position startGame.
-	finalPosition setCell: 10.
-	finalPosition setLap: 1 .
-	aSpaceship move: 9 on: aBoard.
-	Spaceship initialize.
-	self assert: (aSpaceship move: 4 on: aBoard) getPosition equals: finalPosition getPosition
-]
-
-{ #category : #specialCells }
 SpaceshipTest >> test026SpaceshipEntersHyperGravityAndRollsValueTheLeaves [
 
 	| aSpaceship aBoard finalPosition collectionOfSpecialCellAndPosition |
