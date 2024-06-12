@@ -157,7 +157,7 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 ]
 
 { #category : #tests }
-GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRollsValueThenSpapceshipCanMove [
+GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRollsValueThenSpaceshipCanMove [
 
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 4 ).
@@ -181,6 +181,34 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	result at: 1 put: 2.
 	result at: 2 put: 10.
 	result at: 3 put: 10.
+
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnterHyperJumpThenThirdMovesLessParsecsThanSecond [
+
+	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	aLoadedDie := LoadedDie of: #( 9 8 8 ).
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeBeginningAndEnding: #( 2 3 ).
+
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 10.
+	result at: 2 put: 3.
+	result at: 3 put: 1.
 
 	self assert: aGame finalPositionOfSpaceships equals: result
 ]
