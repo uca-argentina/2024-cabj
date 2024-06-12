@@ -26,7 +26,7 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 { #category : #action }
 Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 
-	nextSpaceship getFuel = 0 ifTrue: [
+	nextSpaceship amountOfFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
 		nextSpaceship loadFuel: amountOfFuel ]
 ]

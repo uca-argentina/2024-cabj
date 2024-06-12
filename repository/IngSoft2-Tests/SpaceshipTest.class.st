@@ -102,7 +102,7 @@ SpaceshipTest >> test007WhenOneSpaceshipIsInitializeThenTheIdIsOne [
 	| aSpaceshipOne |
 	aSpaceshipOne := Spaceship launchWithFuel: 4.
 	Spaceship initialize.
-	self assert: aSpaceshipOne getId equals: 1
+	self assert: aSpaceshipOne id equals: 1
 ]
 
 { #category : #'tests - initialization' }
@@ -112,7 +112,7 @@ SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo 
 	aSpaceshipOne := Spaceship launchWithFuel: 4.
 	aSpaceshipTwo := Spaceship launchWithFuel: 5.
 	Spaceship initialize.
-	self assert: aSpaceshipTwo getId equals: 2
+	self assert: aSpaceshipTwo id equals: 2
 ]
 
 { #category : #'tests - initialization' }
@@ -132,7 +132,7 @@ SpaceshipTest >> test010WhenSpaceshipIsInitializeWithFuelThenAmountOfFuelStaysTh
 	| aSpaceship |
 	aSpaceship := Spaceship launchWithFuel: 6.
 	Spaceship initialize.
-	self assert: aSpaceship getFuel equals: 6
+	self assert: aSpaceship amountOfFuel equals: 6
 ]
 
 { #category : #fuelTests }
@@ -143,7 +143,7 @@ SpaceshipTest >> test011WhenSpaceshipMovesOnceThenFuelIsOneLessThanInitializeWit
 	aSpaceship objectPosition setIndexWith: 20.
 	aSpaceship move: 1.
 	Spaceship initialize.
-	self assert: aSpaceship getFuel equals: 4
+	self assert: aSpaceship amountOfFuel equals: 4
 ]
 
 { #category : #fuelTests }
@@ -154,7 +154,7 @@ SpaceshipTest >> test012SpaceshipMovesMoreThanOneCellThenFuelWasteNumberOfMoveme
 	aSpaceship objectPosition setIndexWith: 20.
 	aSpaceship move: 7.
 	Spaceship initialize.
-	self assert: aSpaceship getFuel equals: 3
+	self assert: aSpaceship amountOfFuel equals: 3
 ]
 
 { #category : #fuelTests }
@@ -186,9 +186,9 @@ SpaceshipTest >> test015WhenSpaceshipLoadsFuelAfterLosingAllOfItThenFuelEqualsAm
 	aSpaceship := Spaceship launchWithFuel: 5.
 	aSpaceship objectPosition setIndexWith: 20.
 	aSpaceship move: 1.
-	aSpaceship loadFuel: 5.
+	aSpaceship loadFuel: 1.
 	Spaceship initialize.
-	self assert: aSpaceship getFuel equals: 5
+	self assert: aSpaceship amountOfFuel equals: 5
 ]
 
 { #category : #fuelTests }
@@ -247,7 +247,7 @@ SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsP
 	aSpaceship move: 9.
 	aSpaceship move: -4.
 	Spaceship initialize.
-	self assert: aSpaceship getFuel equals: 27
+	self assert: aSpaceship amountOfFuel equals: 27
 ]
 
 { #category : #fuelTests }

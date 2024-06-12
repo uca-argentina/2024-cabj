@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'fuel',
 		'amountOfCells',
-		'collection'
+		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,7 +21,7 @@ CollectionOfSpaceships class >> numberOfSpaceships: anAmountOfSpaceships withAmo
 { #category : #accessing }
 CollectionOfSpaceships >> at: anIndex [
 
-	^ collection at: anIndex
+	^ spaceships at: anIndex
 ]
 
 { #category : #accessing }
@@ -29,9 +29,9 @@ CollectionOfSpaceships >> cellsOfSpaceships [
 
 	| dictionaryOfCellPositions |
 	dictionaryOfCellPositions := Dictionary new.
-	collection do: [ :spaceship |
+	spaceships do: [ :spaceship |
 		dictionaryOfCellPositions
-			at: spaceship getId
+			at: spaceship id
 			put: spaceship objectPosition cell ].
 
 	^ dictionaryOfCellPositions
@@ -41,10 +41,10 @@ CollectionOfSpaceships >> cellsOfSpaceships [
 CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 
 	| aSpaceship |
-	collection := OrderedCollection new.
+	spaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
 		aSpaceship := Spaceship launchWithFuel: fuel.
-		collection add: aSpaceship.
+		spaceships add: aSpaceship.
 		aSpaceship objectPosition setIndexWith: amountOfCells ].
 	Spaceship initialize
 ]
@@ -53,7 +53,7 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 CollectionOfSpaceships >> getRanking [
 
 	| sortedSpaceships collectionOfRanking |
-	sortedSpaceships := collection  asSortedCollection: [:a :b |
+	sortedSpaceships := spaceships  asSortedCollection: [:a :b |
     | lapsA lapsB positionsA positionsB |
     lapsA := (a objectPosition lap ).
     lapsB := (b objectPosition lap).
@@ -67,7 +67,7 @@ CollectionOfSpaceships >> getRanking [
 
 	collectionOfRanking := OrderedCollection new.
 	sortedSpaceships do: [ :spaceship |
-		collectionOfRanking add: spaceship getId ].
+		collectionOfRanking add: spaceship id ].
 
 	^ collectionOfRanking first: 3
 ]
@@ -75,7 +75,7 @@ CollectionOfSpaceships >> getRanking [
 { #category : #accessing }
 CollectionOfSpaceships >> indexOf: aSpaceship [
 
-	^ collection indexOf: aSpaceship
+	^ spaceships indexOf: aSpaceship
 ]
 
 { #category : #initialization }
@@ -91,9 +91,9 @@ CollectionOfSpaceships >> lapsOfSpaceships [
 
 	| dictionaryOfCellPositions |
 	dictionaryOfCellPositions := Dictionary new.
-	collection do: [ :spaceship |
+	spaceships do: [ :spaceship |
 		dictionaryOfCellPositions
-			at: spaceship getId
+			at: spaceship id
 			put: spaceship objectPosition lap ].
 
 	^ dictionaryOfCellPositions
@@ -103,7 +103,7 @@ CollectionOfSpaceships >> lapsOfSpaceships [
 CollectionOfSpaceships >> move: anAmountOfMovements except: aSpaceship [
 
 	| aSpaceshipAux collectionMinusSpaceship |
-	collectionMinusSpaceship := collection copy.
+	collectionMinusSpaceship := spaceships copy.
 	collectionMinusSpaceship remove: aSpaceship.
 	1 to: collectionMinusSpaceship size do: [ :index |
 		aSpaceshipAux := (collectionMinusSpaceship at: index).
@@ -115,9 +115,9 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 
 	| dictionaryOfCellPositions |
 	dictionaryOfCellPositions := Dictionary new.
-	collection do: [ :spaceship |
+	spaceships do: [ :spaceship |
 		dictionaryOfCellPositions
-			at: spaceship getId
+			at: spaceship id
 			put: spaceship objectPosition getPosition ].
 
 	^ dictionaryOfCellPositions
@@ -127,13 +127,13 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 CollectionOfSpaceships >> resetToCellOne [
 
 	| aSpaceship |
-	1 to: collection size do: [ :index |
-		aSpaceship := collection at: index.
+	1 to: spaceships size do: [ :index |
+		aSpaceship := spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
 ]
 
 { #category : #accessing }
 CollectionOfSpaceships >> size [
 
-	^ collection size
+	^ spaceships size
 ]

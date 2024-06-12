@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'fuel',
-		'collectionActualPosition'
+		'collectionActualPosition',
+		'aFuelTank'
 	],
 	#classInstVars : [
 		'counterId'
@@ -25,13 +25,13 @@ Spaceship class >> launchWithFuel: anAmountOfFuel [
 ]
 
 { #category : #'set and get' }
-Spaceship >> getFuel [
+Spaceship >> amountOfFuel [
 
-	^ fuel
+	^ aFuelTank loadedWith
 ]
 
 { #category : #accessing }
-Spaceship >> getId [
+Spaceship >> id [
 
 	^ id
 ]
@@ -40,13 +40,14 @@ Spaceship >> getId [
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
 	collectionActualPosition := Position startGame.
-	fuel := anAmountOfFuel.
+	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId
 ]
 
 { #category : #setter }
-Spaceship >> loadFuel: anAmountOfFuel [ 
-	^fuel:=anAmountOfFuel .
+Spaceship >> loadFuel: anAmountOfFuel [
+
+	aFuelTank loadFuel: anAmountOfFuel
 ]
 
 { #category : #action }
@@ -59,10 +60,9 @@ Spaceship >> move: aNumberOfMovements [
 
 	collectionActualPosition setCellAndLapWith: nextIndex.
 
-	fuel := fuel - aNumberOfMovements abs.
+	aFuelTank useFuel: aNumberOfMovements abs.
 
-	fuel <= 0 ifTrue: [
-		fuel := 0.
+	aFuelTank isEmpty ifTrue: [
 		collectionActualPosition setCellAndLapWith: completedLaps + 1 ]
 ]
 
