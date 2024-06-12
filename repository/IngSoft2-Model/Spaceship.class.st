@@ -59,9 +59,7 @@ Spaceship >> move: aNumberOfMovements [
 
 	collectionActualPosition setCellAndLapWith: nextIndex.
 
-	actualIndex := collectionActualPosition getIndex.
-
-	fuel := fuel - (aNumberOfMovements) abs.
+	fuel := fuel - aNumberOfMovements abs.
 
 	fuel <= 0 ifTrue: [
 		fuel := 0.
