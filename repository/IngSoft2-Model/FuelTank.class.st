@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 FuelTank class >> fullWith: anAmountOfFuel [
 
 	^ self new initializeFullWith: anAmountOfFuel
@@ -19,31 +19,27 @@ FuelTank >> initializeFullWith: anAmountOfFuel [
 	fuel := anAmountOfFuel
 ]
 
-{ #category : #testing }
+{ #category : #asserting }
 FuelTank >> isEmpty [
 
 	^ fuel <= 0
 ]
 
-{ #category : #'as yet unclassified' }
-FuelTank >> loadFuel [
-	self shouldBeImplemented.
-]
-
-{ #category : #setter }
+{ #category : #action }
 FuelTank >> loadFuel: anAmountOfFuel [
 
 	fuel := fuel + anAmountOfFuel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 FuelTank >> loadedWith [
 
 	^ fuel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 FuelTank >> useFuel: anAmountOfFuel [
 
-	fuel := fuel - anAmountOfFuel
+	fuel := fuel - anAmountOfFuel.
+	self isEmpty ifTrue: [ fuel := 0 ]
 ]

@@ -51,3 +51,13 @@ FuelTankTest >> test05FuelTankInitializedWithoutFuelThenIsEmpty [
 	
 	self assert: aFuelTank isEmpty
 ]
+
+{ #category : #tests }
+FuelTankTest >> test06UseMoreFuelThanLoadedWithThenFuelTankLoadedWithZero [
+
+	| aFuelTank |
+	aFuelTank := FuelTank fullWith: 5.
+	aFuelTank useFuel: 6.
+	
+	self assert: aFuelTank loadedWith equals: 0
+]
