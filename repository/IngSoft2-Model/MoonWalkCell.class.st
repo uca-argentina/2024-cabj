@@ -23,8 +23,8 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition andSpaceship
 MoonWalkCell >> enter [
 
 	| aSpaceship |
-	aSpaceship := turnManager spaceshipPlaying .
-	spaceships moveBackwards: value except: aSpaceship.
+	aSpaceship := turnManager spaceshipPlaying.
+	spaceships move: value negated except: aSpaceship.
 	^ cellPosition
 ]
 

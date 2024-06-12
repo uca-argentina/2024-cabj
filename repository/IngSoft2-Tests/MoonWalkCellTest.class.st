@@ -39,7 +39,7 @@ MoonWalkCellTest >> createdBoardOfCellsAndLaps: anAmountOfCellsAndLaps withWormh
 { #category : #tests }
 MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 
-	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard aTurnManager |
+	| aMoonWalkCell aCollectionOfSpaceships aTurnManager |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
 		                           withAmountOfFuel: 10
@@ -52,18 +52,11 @@ MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 		                 inPosition: 5
 		                 andSpaceships: aCollectionOfSpaceships
 		                 managedBy: aTurnManager.
-
-	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: aMoonWalkCell
-		                                      with: 5.
-
+	aTurnManager nextTurn.
 	(aCollectionOfSpaceships at: 1) move: 9.
+	aTurnManager nextTurn.
 	(aCollectionOfSpaceships at: 2) move: 7.
-
-	aBoard := self
-		          createdBoardOfCellsAndLaps: #( 20 1 )
-		          withWormhole: #( 2 3 )
-		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
+	aTurnManager nextTurn.
 	(aCollectionOfSpaceships at: 3) move: 4.
 
 	self assert: ((aCollectionOfSpaceships at: 3) objectPosition) cell equals: 5
@@ -72,10 +65,10 @@ MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 { #category : #tests }
 MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptThreeMovesBackwards [
 
-	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard result aTurnManager |
+	| aMoonWalkCell aCollectionOfSpaceships result aTurnManager |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 10
+		                           withAmountOfFuel: 50
 		                           indexCalculateWith: 20.
 
 	aTurnManager := TurnManager manage: aCollectionOfSpaceships.
@@ -85,29 +78,19 @@ MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptTh
 		                 inPosition: 5
 		                 andSpaceships: aCollectionOfSpaceships
 		                 managedBy: aTurnManager.
-
-	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: aMoonWalkCell
-		                                      with: 5.
-
+	aTurnManager nextTurn.
 	(aCollectionOfSpaceships at: 1) move: 9.
+	aTurnManager nextTurn.
 	(aCollectionOfSpaceships at: 2) move: 7.
-
-	aBoard := self
-		          createdBoardOfCellsAndLaps: #( 20 1 )
-		          withWormhole: #( 2 3 )
-		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
-
+	aTurnManager nextTurn.
+	(aCollectionOfSpaceships at: 3) move: 4.
+	
+	aMoonWalkCell enter.
 	result := Dictionary new.
 	result at: 1 put: 6.
 	result at: 2 put: 4.
 	result at: 3 put: 5.
 
-	aTurnManager nextTurn.
-	aTurnManager nextTurn.
-	aTurnManager nextTurn.
-
-	(aCollectionOfSpaceships at: 3) move: 4.
 
 	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result
 ]

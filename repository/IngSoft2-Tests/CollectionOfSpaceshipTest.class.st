@@ -122,7 +122,7 @@ CollectionOfSpaceshipTest >> test07MoveBackwardsExpectSpaceshipThreeThenEverySpa
 	| aCollectionOfSpaceships result |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 10
+		                           withAmountOfFuel: 50
 		                           indexCalculateWith: 20.
 
 	(aCollectionOfSpaceships at: 1) move: 9.
@@ -135,7 +135,7 @@ CollectionOfSpaceshipTest >> test07MoveBackwardsExpectSpaceshipThreeThenEverySpa
 	result at: 3 put: 5.
 
 	aCollectionOfSpaceships
-		moveBackwards: 4
+		move: 4 negated
 		except: (aCollectionOfSpaceships at: 3).
 	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result
 ]

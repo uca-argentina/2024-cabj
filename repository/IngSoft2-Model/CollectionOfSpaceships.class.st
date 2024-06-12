@@ -100,18 +100,14 @@ CollectionOfSpaceships >> lapsOfSpaceships [
 ]
 
 { #category : #action }
-CollectionOfSpaceships >> moveBackwards: anAmountOfMovements except: aSpaceship [
+CollectionOfSpaceships >> move: anAmountOfMovements except: aSpaceship [
 
-	| aSpaceshipPosition aPositionNewIndex aPositionNewCell collectionMinusSpaceship |
+	| aSpaceshipAux collectionMinusSpaceship |
 	collectionMinusSpaceship := collection copy.
 	collectionMinusSpaceship remove: aSpaceship.
 	1 to: collectionMinusSpaceship size do: [ :index |
-		aSpaceshipPosition := (collectionMinusSpaceship at: index)
-			                      objectPosition.
-		aPositionNewIndex := aSpaceshipPosition getIndex
-		                     - anAmountOfMovements.
-		aPositionNewCell := aSpaceshipPosition cell - anAmountOfMovements.
-		aSpaceshipPosition setCellAndLapWith: aPositionNewIndex ]
+		aSpaceshipAux := (collectionMinusSpaceship at: index).
+		aSpaceshipAux move: anAmountOfMovements. ]
 ]
 
 { #category : #accessing }
