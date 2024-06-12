@@ -52,24 +52,11 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 { #category : #accessing }
 CollectionOfSpaceships >> getRanking [
 
-	| sortedSpaceships collectionOfRanking |
-	sortedSpaceships := spaceships  asSortedCollection: [:a :b |
-    | lapsA lapsB positionsA positionsB |
-    lapsA := (a objectPosition lap ).
-    lapsB := (b objectPosition lap).
-    positionsA := (a objectPosition cell ).
-    positionsB := (b objectPosition cell).
-    lapsA = lapsB
-        ifTrue: [positionsA > positionsB]
-        ifFalse: [lapsA > lapsB]
-].
-
-
-	collectionOfRanking := OrderedCollection new.
-	sortedSpaceships do: [ :spaceship |
-		collectionOfRanking add: spaceship id ].
-
-	^ collectionOfRanking first: 3
+	| sortedSpaceships |
+	sortedSpaceships := spaceships.
+	sortedSpaceships sort: [ :a :b | a > b ].
+	
+	^sortedSpaceships collect: [ :spaceship | spaceship id ]
 ]
 
 { #category : #accessing }

@@ -8,8 +8,7 @@ Class {
 		'collectionOfSpaceships',
 		'turnManager',
 		'finishLine',
-		'boardCreator',
-		'wormholeCreator'
+		'boardCreator'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -29,23 +28,6 @@ Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 	nextSpaceship amountOfFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
 		nextSpaceship loadFuel: amountOfFuel ]
-]
-
-{ #category : #initialization }
-Game >> createWormholeOn: aBeginning and: anEnd [
-
-	| positionWithinLap anAmountOfCells anAmountOfLaps |
-	anAmountOfCells := boardCreator getCells.
-	anAmountOfLaps := boardCreator getLaps.
-
-	1 to: anAmountOfLaps do: [ :lap |
-		positionWithinLap := anAmountOfCells * (lap - 1).
-		aBoard
-			at: (wormholeCreator beginning) enter + positionWithinLap
-			put: ((wormholeCreator ending )).
-		aBoard
-			at: (wormholeCreator ending )enter + positionWithinLap
-			put: ((wormholeCreator beginning) ) ]
 ]
 
 { #category : #results }
@@ -69,28 +51,13 @@ Game >> finalResultsOfSpaceships [
 { #category : #results }
 Game >> getRankingOfSpaceships [
 
-	^ collectionOfSpaceships getRanking
+	^ collectionOfSpaceships getRanking first: 3
 ]
 
 { #category : #results }
 Game >> getWinner [
 
-	| maxPosition maxLap winner aDictionaryOfPositions |
-	aDictionaryOfPositions := self finalResultsOfSpaceships.
-	maxPosition := (aDictionaryOfPositions values collect: [ :pair |
-		                pair at: 1 ]) max.
-
-	maxLap := (aDictionaryOfPositions values collect: [ :pair |
-		           (pair at: 1) = maxPosition
-			           ifTrue: [ pair at: 2 ]
-			           ifFalse: [ 0 ] ]) max.
-
-	winner := aDictionaryOfPositions keys detect: [ :key |
-		          | pair |
-		          pair := aDictionaryOfPositions at: key.
-		          (pair at: 1) = maxPosition and: (pair at: 2) = maxLap ].
-
-	^ winner
+	^ collectionOfSpaceships getRanking at: 1
 ]
 
 { #category : #initialization }

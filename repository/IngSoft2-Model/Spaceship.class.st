@@ -24,6 +24,23 @@ Spaceship class >> launchWithFuel: anAmountOfFuel [
 	^ self new initializeLaunch: counterId withFuel: anAmountOfFuel .
 ]
 
+{ #category : #comparing }
+Spaceship >> > aSpaceship [
+
+	| completedLaps aSpaceshipCompletedLaps cellPosition aSpaceshipCellPosition |
+	completedLaps := collectionActualPosition completedLaps.
+	aSpaceshipCompletedLaps := aSpaceship objectPosition completedLaps.
+	cellPosition := collectionActualPosition cell.
+	aSpaceshipCellPosition := aSpaceship objectPosition cell.
+
+	^ completedLaps > aSpaceshipCompletedLaps
+		  ifTrue: [ true ]
+		  ifFalse: [
+			  completedLaps = aSpaceshipCompletedLaps
+				  ifTrue: [ cellPosition > aSpaceshipCellPosition ]
+				  ifFalse: [ false ] ]
+]
+
 { #category : #'set and get' }
 Spaceship >> amountOfFuel [
 
