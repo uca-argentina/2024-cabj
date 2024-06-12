@@ -37,6 +37,12 @@ FuelTank >> loadedWith [
 	^ fuel
 ]
 
+{ #category : #accessing }
+FuelTank >> runOutOfFuel: aSpaceship [
+
+	self isEmpty ifTrue: [ aSpaceship resetToOne ]
+]
+
 { #category : #action }
 FuelTank >> useFuel: anAmountOfFuel [
 

@@ -62,12 +62,20 @@ Spaceship >> move: aNumberOfMovements [
 
 	aFuelTank useFuel: aNumberOfMovements abs.
 
-	aFuelTank isEmpty ifTrue: [
-		collectionActualPosition setCellAndLapWith: completedLaps + 1 ]
+	aFuelTank runOutOfFuel: self
 ]
 
 { #category : #'set and get' }
 Spaceship >> objectPosition [
 
 	^ collectionActualPosition
+]
+
+{ #category : #initialization }
+Spaceship >> resetToOne [
+
+	| completedLaps |
+	completedLaps := collectionActualPosition completedLaps.
+
+	collectionActualPosition setCellAndLapWith: completedLaps + 1
 ]
