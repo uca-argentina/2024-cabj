@@ -73,50 +73,6 @@ CollectionOfSpaceshipTest >> test04GetRankingThenReturnsRankingOfSpaceships [
 ]
 
 { #category : #tests }
-CollectionOfSpaceshipTest >> test05ResetToCellOneThenEverySpaceshipIsOnCellOne [
-
-	| aCollectionOfSpaceships result |
-	aCollectionOfSpaceships := CollectionOfSpaceships
-		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 10
-		                           indexCalculateWith: 20.
-
-	(aCollectionOfSpaceships at: 1) move: 9.
-	(aCollectionOfSpaceships at: 2) move: 7.
-	(aCollectionOfSpaceships at: 3) move: 4.
-
-	result := Dictionary new.
-	result at: 1 put: 1.
-	result at: 2 put: 1.
-	result at: 3 put: 1.
-
-	aCollectionOfSpaceships resetToCellOne.
-	self assert: aCollectionOfSpaceships lapsOfSpaceships equals: result
-]
-
-{ #category : #tests }
-CollectionOfSpaceshipTest >> test06ResetToCellOneThenLapRemainsTheSame [
-
-	| aCollectionOfSpaceships result |
-	aCollectionOfSpaceships := CollectionOfSpaceships
-		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 50
-		                           indexCalculateWith: 20.
-
-	(aCollectionOfSpaceships at: 1) move: 9.
-	(aCollectionOfSpaceships at: 2) move: 26.
-	(aCollectionOfSpaceships at: 3) move: 43.
-
-	result := Dictionary new.
-	result at: 1 put: 1.
-	result at: 2 put: 2.
-	result at: 3 put: 3.
-
-	aCollectionOfSpaceships resetToCellOne.
-	self assert: aCollectionOfSpaceships lapsOfSpaceships equals: result
-]
-
-{ #category : #tests }
 CollectionOfSpaceshipTest >> test07MoveBackwardsExpectSpaceshipThreeThenEverySpaceshipExceptThreeMoves [
 
 	| aCollectionOfSpaceships result |

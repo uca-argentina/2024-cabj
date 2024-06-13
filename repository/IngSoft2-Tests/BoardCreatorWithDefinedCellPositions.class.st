@@ -29,7 +29,7 @@ BoardCreatorWithDefinedCellPositions >> amountOfRegularCells [
 ]
 
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult [
+BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
 
 	| amountOfCells anAmountOfIndex |
 	amountOfCells := self getCells.
@@ -39,7 +39,7 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships 
 		AndIndexs: anAmountOfIndex.
 
 	self createOneAtomicBombCellAtPositionFiveWith:
-		aCollectionOfSpaceships.
+		aGame.
 	self createOneBlackHoleCellAtPositionSix.
 	self
 		createOneMoonWalkCellAtPositionSevenWith: aCollectionOfSpaceships
@@ -51,14 +51,14 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships 
 ]
 
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWith: aCollectionOfSpaceships [
+BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWith: aGame [
 
 	collection
 		at: 5
 		put:
 		(AtomicBombCell
 			 withPostion: 5
-			 andSpaceships: aCollectionOfSpaceships)
+			 onTheGame: aGame)
 ]
 
 { #category : #creation }

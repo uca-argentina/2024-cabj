@@ -33,7 +33,7 @@ BoardCreator >> amountOfRegularCells [
 ]
 
 { #category : #'set and get' }
-BoardCreator >> createAtomicBombCells: aCollectionOfSpaceships [
+BoardCreator >> createAtomicBombCells: aGame [
 
 	| amountOfCells percentageOfAtomicBomb amountOfAtomicBomb index aPosition |
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
@@ -46,7 +46,7 @@ BoardCreator >> createAtomicBombCells: aCollectionOfSpaceships [
 		aPosition := numbers at: index.
 		randomCollection at: aPosition put: (AtomicBombCell
 				 withPostion: aPosition
-				 andSpaceships: aCollectionOfSpaceships).
+				 onTheGame: aGame).
 		numbers removeAt: index ]
 ]
 
@@ -69,7 +69,7 @@ BoardCreator >> createBlackHoleCells [
 ]
 
 { #category : #creation }
-BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult [
+BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
 
 	|  amountOfCells anAmountOfIndex currentLap|
 	amountOfCells := self getCells.
@@ -80,7 +80,7 @@ BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMa
 		randomCollection add:
 			(RegularCell position: indexAux - (amountOfCells * currentLap)) ].
 
-	self createAtomicBombCells: aCollectionOfSpaceships.
+	self createAtomicBombCells: aGame.
 	self createBlackHoleCells.
 	self createHyperGravityCells: aThrowResult.
 	self createHyperJumpCells.

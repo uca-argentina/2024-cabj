@@ -110,15 +110,6 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 	^ dictionaryOfCellPositions
 ]
 
-{ #category : #action }
-CollectionOfSpaceships >> resetToCellOne [
-
-	| aSpaceship |
-	1 to: spaceships size do: [ :index |
-		aSpaceship := spaceships at: index.
-		aSpaceship objectPosition resetToOne ]
-]
-
 { #category : #accessing }
 CollectionOfSpaceships >> size [
 

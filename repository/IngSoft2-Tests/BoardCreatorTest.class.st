@@ -46,13 +46,12 @@ BoardCreatorTest >> test05BoardCreatorInitializeThenReturnsAmountOfRegularCells 
 { #category : #tests }
 BoardCreatorTest >> test11BoardCreatorCreatesBoardThenSizeTheExpectedOne [
 
-	| aBoardCreator collectionOfSpaceships aTurnManager aBoard aWormholeCreator |
+	| aBoardCreator collectionOfSpaceships aTurnManager  aWormholeCreator aGame aLoadedDie|
 	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 withWormholeCreator: aWormholeCreator 
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
-	
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
 		                          withAmountOfFuel: 5
@@ -60,7 +59,13 @@ BoardCreatorTest >> test11BoardCreatorCreatesBoardThenSizeTheExpectedOne [
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	
-	aBoard := aBoardCreator createBoardFor: collectionOfSpaceships with: aTurnManager andMaxThrowOf: 30.
+	aLoadedDie:= LoadedDie of:#(5).
+	
+	aGame:=aGame := Game
+		         numberOfSpaceships: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+	
 
-	self assert: aBoard size equals: 50
+	self assert: (aGame board )size equals: 50
 ]

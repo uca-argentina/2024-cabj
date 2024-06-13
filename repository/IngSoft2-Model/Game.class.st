@@ -22,6 +22,12 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 		  playWithDice: aCollectionOfDice
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> board [
+
+	^ aBoard
+]
+
 { #category : #action }
 Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
 
@@ -79,7 +85,7 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 	turnManager := TurnManager manage: collectionOfSpaceships.
 
-	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) .
+	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) on:self.
 
 ]
 
