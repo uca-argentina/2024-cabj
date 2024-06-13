@@ -62,7 +62,39 @@ GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 	result at: 3 put: 1.
 
 	aGame  resetSpaceshipsToCellOne .
+	self assert: aGame finalPositionOfSpaceships   equals: result
+]
+
+{ #category : #tests }
+GameTest >> testResetToCellOneThenLapRemainsTheSame [
+	| result  aGame aLoadedDie aBoardCreator aWormholeCreator  |
+	
+	
+	aLoadedDie := LoadedDie of: #(9 26 43).
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 20 3 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+	
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship .
+	aGame moveSpaceship .
+	aGame moveSpaceship .
+
+	result := Dictionary new.
+	result at: 1 put: 1.
+	result at: 2 put: 2.
+	result at: 3 put: 3.
+
+	aGame  resetSpaceshipsToCellOne .
 	self assert: aGame finalLapsOfSpaceships  equals: result
+
 ]
 
 { #category : #tests }
