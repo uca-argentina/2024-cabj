@@ -89,6 +89,18 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [ 
+
+	| aSpaceshipAux collectionMinusSpaceship aSpaceship |
+	aSpaceship:= turnManager spaceshipPlaying .
+	collectionMinusSpaceship :=( collectionOfSpaceships spaceships) copy.
+	collectionMinusSpaceship remove: aSpaceship.
+	1 to: collectionMinusSpaceship size do: [ :index |
+		aSpaceshipAux := (collectionMinusSpaceship at: index).
+		aSpaceshipAux move: anAmountOfMovements. ]
+]
+
 { #category : #action }
 Game >> moveSpaceship [
 
