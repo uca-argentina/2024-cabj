@@ -35,6 +35,37 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 ]
 
 { #category : #tests }
+GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
+
+	| result  aGame aLoadedDie aBoardCreator aWormholeCreator  |
+	
+	aLoadedDie := LoadedDie of: #(9 7 4).
+	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 50 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+	
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship .
+	aGame moveSpaceship .
+	aGame moveSpaceship .
+
+	result := Dictionary new.
+	result at: 1 put: 1.
+	result at: 2 put: 1.
+	result at: 3 put: 1.
+
+	aGame  resetSpaceshipsToCellOne .
+	self assert: aGame finalLapsOfSpaceships  equals: result
+]
+
+{ #category : #tests }
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame aCollectionOfDice aBoardCreator aWormholeCreator |
