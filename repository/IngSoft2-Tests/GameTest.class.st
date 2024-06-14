@@ -100,15 +100,21 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 { #category : #tests }
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator |
-	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 ).
+	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
+	dice := OrderedCollection
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10).
+	aCollectionOfDice := Dice of: dice.
 	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 withWormholeCreator: aWormholeCreator
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
@@ -145,14 +151,21 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 { #category : #tests }
 GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 
-	| aGame resultOfGame aCollectionOfDice aBoardCreator aWormholeCreator |
+	| aGame resultOfGame aCollectionOfDice aBoardCreator aWormholeCreator dice|
 	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 withWormholeCreator: aWormholeCreator
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-
-	aCollectionOfDice := CollectionOfDice of: #( 10 10 10 10 10 10 ).
+	
+	
+	dice := OrderedCollection
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10).
+	aCollectionOfDice := Dice of: dice.
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 4 with: 1).
 	aGame := Game
