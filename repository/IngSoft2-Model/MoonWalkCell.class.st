@@ -1,11 +1,10 @@
 Class {
 	#name : #MoonWalkCell,
-	#superclass : #RegularCell,
+	#superclass : #Object,
 	#instVars : [
 		'value',
-		'spaceships',
-		'turnManager',
-		'game'
+		'game',
+		'cellPosition'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,7 +22,14 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
 MoonWalkCell >> enter [
 
 	game moveAllTheSpaceshipsThatAreNotPlayingWith: value negated.
+	
 	^ cellPosition
+]
+
+{ #category : #action }
+MoonWalkCell >> exit: aValue [
+
+	^ true
 ]
 
 { #category : #initialization }

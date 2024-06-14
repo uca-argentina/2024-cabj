@@ -86,17 +86,6 @@ CollectionOfSpaceships >> lapsOfSpaceships [
 	^ dictionaryOfCellPositions
 ]
 
-{ #category : #action }
-CollectionOfSpaceships >> move: anAmountOfMovements except: aSpaceship [
-
-	| aSpaceshipAux collectionMinusSpaceship |
-	collectionMinusSpaceship := spaceships copy.
-	collectionMinusSpaceship remove: aSpaceship.
-	1 to: collectionMinusSpaceship size do: [ :index |
-		aSpaceshipAux := (collectionMinusSpaceship at: index).
-		aSpaceshipAux move: anAmountOfMovements. ]
-]
-
 { #category : #accessing }
 CollectionOfSpaceships >> positionsOfSpaceships [
 
