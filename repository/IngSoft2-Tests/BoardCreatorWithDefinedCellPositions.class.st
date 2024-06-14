@@ -42,8 +42,7 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships 
 		aGame.
 	self createOneBlackHoleCellAtPositionSix.
 	self
-		createOneMoonWalkCellAtPositionSevenWith: aCollectionOfSpaceships
-		and: aTurnManager.
+		createOneMoonWalkCellAtPositionSevenWith: aGame.
 	self createOneHyperGravityCellAtPositionEight.
 	self createOneHyperJumpCellAtPositionNine.
 
@@ -85,13 +84,11 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperJumpCellAtPositionNine [
 ]
 
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createOneMoonWalkCellAtPositionSevenWith: aCollectionOfSpaceships and: aTurnManager [
+BoardCreatorWithDefinedCellPositions >> createOneMoonWalkCellAtPositionSevenWith: aGame [
 
-	collection at: 7 put: (MoonWalkCell
-			 withValueToMove: 4
-			 inPosition: 7
-			 andSpaceships: aCollectionOfSpaceships
-			 managedBy: aTurnManager)
+	collection
+		at: 7
+		put: (MoonWalkCell withValueToMove: 4 inPosition: 7 on: aGame)
 ]
 
 { #category : #creation }

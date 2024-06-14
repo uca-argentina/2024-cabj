@@ -4,35 +4,33 @@ Class {
 	#instVars : [
 		'value',
 		'spaceships',
-		'turnManager'
+		'turnManager',
+		'game'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition andSpaceships: aCollectionOfSpaceships managedBy: aTurnManager [
+MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
 
 	^ self new
 		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
-		  andSpaceships: aCollectionOfSpaceships
-		  managedBy: aTurnManager
+		  on:aGame
 ]
 
 { #category : #action }
 MoonWalkCell >> enter [
 
-	| aSpaceship |
-	aSpaceship := turnManager spaceshipPlaying.
-	spaceships move: value negated except: aSpaceship.
+	game moveAllTheSpaceshipsThatAreNotPlayingWith: value negated.
 	^ cellPosition
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition andSpaceships: aCollectionOfSpaceships managedBy: aTurnManager [
+MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition on: aGame [
 
-	spaceships := aCollectionOfSpaceships.
+
 	value := aValue.
 	cellPosition := aPosition.
-	turnManager := aTurnManager
+	game:=aGame.
 ]
