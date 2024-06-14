@@ -8,7 +8,6 @@ Class {
 AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 
 	| anAtomicBombCell aGame aLoadedDie aBoardCreator aWormholeCreator |
-	
 	aLoadedDie := LoadedDie of: #( 10 20 5 1 ).
 	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 
@@ -23,9 +22,7 @@ AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 		         playWithDice: aLoadedDie.
 
 
-	anAtomicBombCell := AtomicBombCell
-		                    withPostion: 5
-		                    onTheGame: aGame.
+	anAtomicBombCell := AtomicBombCell withPostion: 5 onTheGame: aGame.
 
 	self assert: anAtomicBombCell enter equals: 1
 ]

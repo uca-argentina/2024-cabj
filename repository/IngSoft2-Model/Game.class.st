@@ -22,14 +22,14 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 		  playWithDice: aCollectionOfDice
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> board [
 
 	^ aBoard
 ]
 
 { #category : #action }
-Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
+Game >> checkAndHandleFuelDepletionFor: nextSpaceship at: positionOfSpaceship [
 
 	nextSpaceship amountOfFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
@@ -54,26 +54,14 @@ Game >> finalResultsOfSpaceships [
 	^ collectionOfSpaceships positionsOfSpaceships
 ]
 
-{ #category : #results }
-Game >> getRankingOfSpaceships [
-
-	^ collectionOfSpaceships getRanking first: 3
-]
-
-{ #category : #results }
-Game >> getWinner [
-
-	^ collectionOfSpaceships getRanking at: 1
-]
-
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 	
 	boardCreator := aBoardCreator .
 
 	finishLine := OrderedCollection
-		              with: boardCreator getCells
-		              with: boardCreator getLaps.
+		              with: boardCreator cells
+		              with: boardCreator laps.
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
@@ -81,7 +69,7 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships
 		                          withAmountOfFuel: amountOfFuel
-		                          indexCalculateWith: boardCreator getCells.
+		                          indexCalculateWith: boardCreator cells.
 
 	turnManager := TurnManager manage: collectionOfSpaceships.
 
@@ -89,7 +77,7 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [ 
 
 	| aSpaceshipAux collectionMinusSpaceship aSpaceship |
@@ -105,35 +93,41 @@ Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
 Game >> moveSpaceship [
 
 	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition anAmountOfIndex |
-	anAmountOfIndex := boardCreator getCells * boardCreator getLaps.
+	anAmountOfIndex := boardCreator cells * boardCreator laps.
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
 
 	positionOfNextSpaceship := nextSpaceship objectPosition.
-	currentPosition := positionOfNextSpaceship getIndex.
+	currentPosition := positionOfNextSpaceship index.
 
 	currentPosition + throwResult > anAmountOfIndex ifTrue: [
 		throwResult := anAmountOfIndex - currentPosition ].
 
 	((aBoard at: currentPosition) exit: throwResult) ifFalse: [
-		^ positionOfNextSpaceship getPosition ].
+		^ positionOfNextSpaceship position ].
 
 	positionOfSpaceship := (aBoard at: currentPosition + throwResult)
 		                       enter.
 	nextSpaceship move: throwResult.
 	nextSpaceship move: positionOfSpaceship - nextSpaceship objectPosition cell .
-	positionOfSpaceship := nextSpaceship objectPosition getPosition.
+	positionOfSpaceship := nextSpaceship objectPosition position.
 
 	self
-		checkIf: nextSpaceship
-		hasRunOutOfFuelAt: (positionOfSpaceship at: 1).
+		checkAndHandleFuelDepletionFor: nextSpaceship
+		at: (positionOfSpaceship at: 1).
 
 	positionOfSpaceship = finishLine ifTrue: [
 		turnManager := GameOver new.
 		^ self finalResultsOfSpaceships ].
 
 	^ positionOfSpaceship
+]
+
+{ #category : #results }
+Game >> rankingOfSpaceships [
+
+	^ collectionOfSpaceships ranking first: 3
 ]
 
 { #category : #action }
@@ -151,4 +145,10 @@ Game >> resetSpaceshipsToCellOne [
 	1 to: collectionOfSpaceships spaceships size do: [ :index |
 		aSpaceship := collectionOfSpaceships  spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
+]
+
+{ #category : #results }
+Game >> winner [
+
+	^ collectionOfSpaceships ranking at: 1
 ]

@@ -14,7 +14,7 @@ BoardCreatorTest >> test01BoardCreatorInitializeThenGetCellsReturnsCells [
 		                 withWormholeCreator: aWormholeCreator 
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	self assert: aBoardCreator getCells equals: 10
+	self assert: aBoardCreator cells equals: 10
 ]
 
 { #category : #tests }
@@ -27,7 +27,7 @@ BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
 		                 withWormholeCreator: aWormholeCreator 
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	self assert: aBoardCreator getLaps equals: 1
+	self assert: aBoardCreator laps equals: 1
 ]
 
 { #category : #tests }

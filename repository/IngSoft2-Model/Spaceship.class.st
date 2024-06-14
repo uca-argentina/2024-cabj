@@ -71,11 +71,11 @@ Spaceship >> loadFuel: anAmountOfFuel [
 Spaceship >> move: aNumberOfMovements [
 
 	| actualIndex nextIndex completedLaps |
-	actualIndex := collectionActualPosition getIndex.
+	actualIndex := collectionActualPosition index.
 	nextIndex := aNumberOfMovements + actualIndex.
 	completedLaps := collectionActualPosition completedLaps.
 
-	collectionActualPosition setCellAndLapWith: nextIndex.
+	collectionActualPosition updateCellAndLapWith: nextIndex.
 
 	aFuelTank useFuel: aNumberOfMovements abs.
 
@@ -94,5 +94,5 @@ Spaceship >> resetToOne [
 	| completedLaps |
 	completedLaps := collectionActualPosition completedLaps.
 
-	collectionActualPosition setCellAndLapWith: completedLaps + 1
+	collectionActualPosition updateCellAndLapWith: completedLaps + 1
 ]

@@ -28,12 +28,18 @@ BoardCreatorWithDefinedCellPositions >> amountOfRegularCells [
 	^ amountOfCells
 ]
 
+{ #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> cells [
+
+	^ collectionAmountOfCellsAndLaps at: 1
+]
+
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
 
 	| amountOfCells anAmountOfIndex |
-	amountOfCells := self getCells.
-	anAmountOfIndex := amountOfCells * self getLaps.
+	amountOfCells := self cells.
+	anAmountOfIndex := amountOfCells * self laps.
 	self
 		createTheRegularCellsWithAnAmountOfCells: amountOfCells
 		AndIndexs: anAmountOfIndex.
@@ -108,21 +114,9 @@ BoardCreatorWithDefinedCellPositions >> getBeginning [
 ]
 
 { #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getCells [
-
-	^ collectionAmountOfCellsAndLaps at: 1
-]
-
-{ #category : #'set and get' }
 BoardCreatorWithDefinedCellPositions >> getEnding [
 
 	^ beginningAndEnd at: 2
-]
-
-{ #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getLaps [
-
-	^ collectionAmountOfCellsAndLaps at: 2
 ]
 
 { #category : #initialization }
@@ -132,4 +126,10 @@ BoardCreatorWithDefinedCellPositions >> initializeWithCellsAndLaps: aCollectionA
 	beginningAndEnd := aBeginningAndEnd.
 	collection := OrderedCollection new.
 	
+]
+
+{ #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> laps [
+
+	^ collectionAmountOfCellsAndLaps at: 2
 ]

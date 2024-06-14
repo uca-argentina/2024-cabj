@@ -33,6 +33,12 @@ BoardCreator >> amountOfRegularCells [
 ]
 
 { #category : #'set and get' }
+BoardCreator >> cells [
+ 
+	^ collectionAmountOfCellsAndLaps at: 1
+]
+
+{ #category : #'set and get' }
 BoardCreator >> createAtomicBombCells: aGame [
 
 	| amountOfCells percentageOfAtomicBomb amountOfAtomicBomb index aPosition |
@@ -72,8 +78,8 @@ BoardCreator >> createBlackHoleCells [
 BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
 
 	|  amountOfCells anAmountOfIndex currentLap|
-	amountOfCells := self getCells.
-	anAmountOfIndex := amountOfCells * self getLaps.
+	amountOfCells := self cells.
+	anAmountOfIndex := amountOfCells * self laps.
 
 	1 to: anAmountOfIndex do: [ :indexAux |
 		currentLap := indexAux - 1 // amountOfCells.
@@ -155,8 +161,8 @@ BoardCreator >> createMoonWalkCellsWith: aGame [
 BoardCreator >> createWormhole [
 
 	| positionWithinLap anAmountOfCells anAmountOfLaps |
-	anAmountOfCells := self getCells.
-	anAmountOfLaps := self getLaps.
+	anAmountOfCells := self cells.
+	anAmountOfLaps := self laps.
 
 	1 to: anAmountOfLaps do: [ :lap |
 		positionWithinLap := anAmountOfCells * (lap - 1).
@@ -168,25 +174,19 @@ BoardCreator >> createWormhole [
 			put: wormholeCreator beginning ]
 ]
 
-{ #category : #'set and get' }
-BoardCreator >> getCells [
- 
-	^ collectionAmountOfCellsAndLaps at: 1
-]
-
-{ #category : #'set and get' }
-BoardCreator >> getLaps [
-
-	^ collectionAmountOfCellsAndLaps at: 2
-]
-
 { #category : #initialization }
 BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
 	wormholeCreator := aWormholeCreator .
 	percentagesOfDistrubitionSpecialCells := aPercentagesOfDistrubitionSpecialCells.
-	numbers := (1 to: self getCells ) asOrderedCollection.
+	numbers := (1 to: self cells ) asOrderedCollection.
 	randomCollection := OrderedCollection new.
-	counterForCreation := self getCells
+	counterForCreation := self cells
+]
+
+{ #category : #'set and get' }
+BoardCreator >> laps [
+
+	^ collectionAmountOfCellsAndLaps at: 2
 ]

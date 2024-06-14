@@ -45,18 +45,8 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 	anAmountOfSpaceships timesRepeat: [
 		aSpaceship := Spaceship launchWithFuel: fuel.
 		spaceships add: aSpaceship.
-		aSpaceship objectPosition setIndexWith: amountOfCells ].
+		aSpaceship objectPosition updateIndexWith: amountOfCells ].
 	Spaceship initialize
-]
-
-{ #category : #accessing }
-CollectionOfSpaceships >> getRanking [
-
-	| sortedSpaceships |
-	sortedSpaceships := spaceships.
-	sortedSpaceships sort: [ :a :b | a > b ].
-	
-	^sortedSpaceships collect: [ :spaceship | spaceship id ]
 ]
 
 { #category : #accessing }
@@ -94,9 +84,19 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 	spaceships do: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition getPosition ].
+			put: spaceship objectPosition position ].
 
 	^ dictionaryOfCellPositions
+]
+
+{ #category : #accessing }
+CollectionOfSpaceships >> ranking [
+
+	| sortedSpaceships |
+	sortedSpaceships := spaceships.
+	sortedSpaceships sort: [ :a :b | a > b ].
+	
+	^sortedSpaceships collect: [ :spaceship | spaceship id ]
 ]
 
 { #category : #accessing }

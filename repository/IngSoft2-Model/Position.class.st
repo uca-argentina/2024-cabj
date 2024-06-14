@@ -37,15 +37,9 @@ Position >> completedLapsWith: anAmountOfCells [
 ]
 
 { #category : #'set and get' }
-Position >> getIndex [
+Position >> index [
 
 	^ index
-]
-
-{ #category : #'set and get' }
-Position >> getPosition [
-
-	^ OrderedCollection with: cell with: lap
 ]
 
 { #category : #initialization }
@@ -61,6 +55,12 @@ Position >> lap [
 	^ lap
 ]
 
+{ #category : #'set and get' }
+Position >> position [
+
+	^ OrderedCollection with: cell with: lap
+]
+
 { #category : #initialization }
 Position >> resetToOne [
 
@@ -68,7 +68,7 @@ Position >> resetToOne [
 ]
 
 { #category : #'set and get' }
-Position >> setCellAndLapWith: anIndex [
+Position >> updateCellAndLapWith: anIndex [
 
 	| actualLap difference temporalIndex temporalCell |
 	temporalIndex := anIndex.
@@ -82,11 +82,11 @@ Position >> setCellAndLapWith: anIndex [
 	actualLap := temporalIndex - 1 // amountOfCells + 1.
 	cell := temporalCell.
 	lap := actualLap.
-	self setIndexWith: amountOfCells
+	self updateIndexWith: amountOfCells
 ]
 
 { #category : #'set and get' }
-Position >> setIndexWith: anAmountOfCells [
+Position >> updateIndexWith: anAmountOfCells [
 
 	amountOfCells := anAmountOfCells.
 	index := self cell + (self completedLapsWith: anAmountOfCells).

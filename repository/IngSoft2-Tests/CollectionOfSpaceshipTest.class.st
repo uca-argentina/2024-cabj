@@ -69,7 +69,7 @@ CollectionOfSpaceshipTest >> test04GetRankingThenReturnsRankingOfSpaceships [
 	(aCollectionOfSpaceships at: 2) move: 1.
 	result := #( 1 2 3 ) asOrderedCollection.
 
-	self assert: aCollectionOfSpaceships getRanking equals: result
+	self assert: aCollectionOfSpaceships ranking equals: result
 ]
 
 { #category : #tests }

@@ -13,12 +13,12 @@ WormholeCreator class >> withBeginningAndEnd: aCollectionOfBeginningAndEnd [
 	^(self new) initializeWithBeginningAndEnd: aCollectionOfBeginningAndEnd .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 WormholeCreator >> beginning [
 	^ beginningWormhole .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 WormholeCreator >> ending [
 	^ endingWormhole .
 ]

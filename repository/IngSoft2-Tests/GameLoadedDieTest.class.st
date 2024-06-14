@@ -190,7 +190,7 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
-	self assert: aGame getWinner equals: 1
+	self assert: aGame winner equals: 1
 ]
 
 { #category : #tests }
@@ -212,7 +212,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame getWinner equals: 2
+	self assert: aGame winner equals: 2
 ]
 
 { #category : #tests }
@@ -463,7 +463,7 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	self
-		assert: aGame getRankingOfSpaceships
+		assert: aGame rankingOfSpaceships
 		equals: #( 2 1 3 ) asOrderedCollection
 ]
 
@@ -489,6 +489,6 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	self
-		assert: aGame getRankingOfSpaceships
+		assert: aGame rankingOfSpaceships
 		equals: #( 2 1 3 ) asOrderedCollection
 ]
