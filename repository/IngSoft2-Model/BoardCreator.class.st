@@ -84,7 +84,7 @@ BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMa
 	self createBlackHoleCells.
 	self createHyperGravityCells: aThrowResult.
 	self createHyperJumpCells.
-	self createMoonWalkCellsWith: aCollectionOfSpaceships and: aTurnManager.
+	self createMoonWalkCellsWith: aGame.
 	self createWormhole.
 
 	^ randomCollection
@@ -133,7 +133,7 @@ BoardCreator >> createHyperJumpCells [
 ]
 
 { #category : #'set and get' }
-BoardCreator >> createMoonWalkCellsWith: aCollectionOfSpaceships and: aTurnManager [
+BoardCreator >> createMoonWalkCellsWith: aGame [
 
 	| amountOfCells percentageOfMoonWalk amountOfMoonWalk index aPosition |
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
@@ -145,11 +145,10 @@ BoardCreator >> createMoonWalkCellsWith: aCollectionOfSpaceships and: aTurnManag
 		counterForCreation := counterForCreation - 1.
 		aPosition := numbers at: index.
 		randomCollection at: aPosition put: (MoonWalkCell
-				 withValueToMove: (amountOfCells atRandom)
+				 withValueToMove: amountOfCells atRandom
 				 inPosition: aPosition
-				 andSpaceships: aCollectionOfSpaceships
-				 managedBy: aTurnManager).
-		numbers removeAt: index]
+				 on: aGame).
+		numbers removeAt: index ]
 ]
 
 { #category : #'set and get' }
