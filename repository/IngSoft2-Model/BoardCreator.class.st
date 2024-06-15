@@ -7,7 +7,9 @@ Class {
 		'numbers',
 		'randomCollection',
 		'counterForCreation',
-		'wormholeCreator'
+		'wormholeCreator',
+		'game',
+		'throwResult'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -40,7 +42,7 @@ BoardCreator >> cells [
 ]
 
 { #category : #'set and get' }
-BoardCreator >> createAtomicBombCells: aGame [
+BoardCreator >> createAtomicBombCells [
 
 	| amountOfCells percentageOfAtomicBomb amountOfAtomicBomb index aPosition |
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
@@ -53,7 +55,7 @@ BoardCreator >> createAtomicBombCells: aGame [
 		aPosition := numbers at: index.
 		randomCollection at: aPosition put: (AtomicBombCell
 				 withPostion: aPosition
-				 onTheGame: aGame).
+				 onTheGame: game).
 		numbers removeAt: index ]
 ]
 
@@ -76,9 +78,11 @@ BoardCreator >> createBlackHoleCells [
 ]
 
 { #category : #creation }
-BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
+BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on: aGame [
 
 	|  amountOfCells anAmountOfIndex currentLap|
+	game := aGame.
+	throwResult := aThrowResult.
 	amountOfCells := self cells.
 	anAmountOfIndex := amountOfCells * self laps.
 
@@ -87,18 +91,18 @@ BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMa
 		randomCollection add:
 			(RegularCell position: indexAux - (amountOfCells * currentLap)) ].
 
-	self createAtomicBombCells: aGame.
+	self createAtomicBombCells.
 	self createBlackHoleCells.
-	self createHyperGravityCells: aThrowResult.
+	self createHyperGravityCells.
 	self createHyperJumpCells.
-	self createMoonWalkCellsWith: aGame.
+	self createMoonWalkCells.
 	self createWormhole.
 
 	^ randomCollection
 ]
 
 { #category : #'set and get' }
-BoardCreator >> createHyperGravityCells: aThrowMax [
+BoardCreator >> createHyperGravityCells [
 
 	| amountOfCells percentageOfHyperGravityCells amountOfHyperGravityCells index aPosition |
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
@@ -112,7 +116,7 @@ BoardCreator >> createHyperGravityCells: aThrowMax [
 		counterForCreation := counterForCreation - 1.
 		aPosition := numbers at: index.
 		randomCollection at: aPosition put: (HyperGravityCell
-				 withValueToMove: aThrowMax atRandom
+				 withValueToMove: throwResult atRandom
 				 inPosition: aPosition).
 		numbers removeAt: index ]
 ]
@@ -140,7 +144,7 @@ BoardCreator >> createHyperJumpCells [
 ]
 
 { #category : #'set and get' }
-BoardCreator >> createMoonWalkCellsWith: aGame [
+BoardCreator >> createMoonWalkCells [
 
 	| amountOfCells percentageOfMoonWalk amountOfMoonWalk index aPosition |
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
@@ -154,7 +158,7 @@ BoardCreator >> createMoonWalkCellsWith: aGame [
 		randomCollection at: aPosition put: (MoonWalkCell
 				 withValueToMove: amountOfCells atRandom
 				 inPosition: aPosition
-				 on: aGame).
+				 on: game).
 		numbers removeAt: index ]
 ]
 

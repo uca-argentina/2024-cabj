@@ -61,7 +61,7 @@ BoardCreatorTest >> test03BoardCreatorGeneratesNumberBetweenOneAndOneHundred [
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test04BoardCreatorThrwosErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
+BoardCreatorTest >> test04BoardCreatorThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
 
 	| aWormholeCreator |
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
