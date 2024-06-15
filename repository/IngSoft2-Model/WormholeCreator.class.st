@@ -8,9 +8,10 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-WormholeCreator class >> withBeginningAndEnd: aCollectionOfBeginningAndEnd [ 
-	^(self new) initializeWithBeginningAndEnd: aCollectionOfBeginningAndEnd .
+{ #category : #'instance creation' }
+WormholeCreator class >> withBeginning: beginning andEnd: ending [
+
+	^ self new initializeWithBeginning: beginning andEnd: ending
 ]
 
 { #category : #accessing }
@@ -24,9 +25,8 @@ WormholeCreator >> ending [
 ]
 
 { #category : #initialization }
-WormholeCreator >> initializeWithBeginningAndEnd: aCollectionOfBeginningAndEnd [
+WormholeCreator >> initializeWithBeginning: beginning andEnd: ending [
 
-	beginningWormhole := Wormhole in:
-		                     (aCollectionOfBeginningAndEnd at: 1).
-	endingWormhole := Wormhole in: (aCollectionOfBeginningAndEnd at: 2)
+	beginningWormhole := Wormhole in: beginning.
+	endingWormhole := Wormhole in: ending
 ]

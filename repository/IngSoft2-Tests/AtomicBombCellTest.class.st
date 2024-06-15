@@ -9,7 +9,9 @@ AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 
 	| anAtomicBombCell aGame aLoadedDie aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 10 20 5 1 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 2 )

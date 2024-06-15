@@ -19,13 +19,13 @@ Class {
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomicBombThenEveryoneGoesBackToCellOne [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 9 8 4 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
@@ -46,14 +46,12 @@ GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomic
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpThenReturnsNewPositionAdjustedByParsecs [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 9 8 3 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
@@ -74,13 +72,12 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEveryOtherSpaceshipGoesBackAValue [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 9 9 6 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -102,14 +99,13 @@ GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEve
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHoleThenPositionIsMinusFour [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 5 9 9 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
@@ -130,14 +126,13 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRollsLessThanMinuminValueThenStaysThere [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 2 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
@@ -159,14 +154,13 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRollsValueThenSpaceshipCanMove [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 7 9 9 4 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
@@ -188,14 +182,13 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 { #category : #tests }
 GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnterHyperJumpThenThirdMovesLessParsecsThanSecond [
 
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
+	| result aLoadedDie aGame aBoardCreator |
 	aLoadedDie := LoadedDie of: #( 9 8 8 ).
 
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeBeginningAndEnding: #( 2 3 ).
 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator

@@ -15,7 +15,9 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 ).
 
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
@@ -35,7 +37,9 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 5 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 15 1 )
@@ -57,13 +61,15 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 5 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 6 8 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 6
+		                    andEnd: 8.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 15 1 )
-							  withWormholeCreator: aWormholeCreator 
+		                 withWormholeCreator: aWormholeCreator
 		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -78,7 +84,9 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 	| aGame aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
@@ -103,7 +111,9 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 6 5 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
@@ -126,7 +136,9 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
 	| aGame aLoadedDie aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
@@ -151,7 +163,9 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
 	| aGame aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
@@ -177,7 +191,9 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 
 	| aGame aLoadedDie aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 6 1 )
@@ -198,7 +214,9 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 
 	| aGame aLoadedDie aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 6 1 )
@@ -220,7 +238,9 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
@@ -243,7 +263,9 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
@@ -269,7 +291,9 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
@@ -293,7 +317,9 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
@@ -318,7 +344,9 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 
 	| aGame aLoadedDie aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 5 4 2 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 2 )
@@ -341,7 +369,9 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 
 	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 5 4 1 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 2 )
@@ -365,7 +395,9 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 
 	| aGame aLoadedDie resultOfPositions aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
@@ -393,7 +425,9 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	| aGame aLoadedDie resultOfLaps aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 6 3 12 6 1 6 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
@@ -420,7 +454,9 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 
 	| aGame aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 20 5 4 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
@@ -446,7 +482,9 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 
 	| aGame aLoadedDie rankingOfSpaceships aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 12 18 5 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
@@ -472,7 +510,9 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 
 	| aGame aLoadedDie aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 12 20 5 1 ).
-	aWormholeCreator := WormholeCreator withBeginningAndEnd: #( 2 3 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )

@@ -70,18 +70,10 @@ Position >> resetToOne [
 { #category : #'set and get' }
 Position >> updateCellAndLapWith: anIndex [
 
-    | temporalCell temporalLap |
-    
-    temporalCell := ((anIndex - 1) \\ amountOfCells) + 1.
-    temporalLap := ((anIndex - 1) // amountOfCells) + 1.
+	cell := anIndex - 1 \\ amountOfCells + 1.
+	lap := anIndex - 1 // amountOfCells + 1.
 
-    cell := temporalCell.
-    lap := temporalLap.
-
-    self updateIndexWith: amountOfCells.
-
-
-
+	self updateIndexWith: amountOfCells
 ]
 
 { #category : #'set and get' }
