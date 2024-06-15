@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'collectionAmountOfCellsAndLaps',
-		'beginningAndEnd',
 		'percentagesOfDistrubitionSpecialCells',
 		'numbers',
 		'randomCollection',
@@ -15,6 +14,8 @@ Class {
 
 { #category : #'instance creation' }
 BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
+
+(percentagesOfDistrubitionSpecialCells sum = 100) ifFalse: [ Error signal: 'Sum of probabilities must be exactly one hundred'].
 
 ^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator  andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
 ]
@@ -189,4 +190,10 @@ BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps with
 BoardCreator >> laps [
 
 	^ collectionAmountOfCellsAndLaps at: 2
+]
+
+{ #category : #random }
+BoardCreator >> numberGenerator [
+
+	^ 100 atRandom
 ]

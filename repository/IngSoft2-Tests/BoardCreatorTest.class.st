@@ -4,6 +4,16 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+BoardCreatorTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #tests }
 BoardCreatorTest >> test01BoardCreatorInitializeThenGetCellsReturnsCells [
 
@@ -35,45 +45,33 @@ BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test05BoardCreatorInitializeThenReturnsAmountOfRegularCells [
+BoardCreatorTest >> test03BoardCreatorGeneratesNumberBetweenOneAndOneHundred [
 
 	| aBoardCreator aWormholeCreator |
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
 		                    andEnd: 3.
+	
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
+		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	self assert: aBoardCreator amountOfRegularCells equals: 20
+	self assert: (aBoardCreator numberGenerator between: 1 and: 100)
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test11BoardCreatorCreatesBoardThenSizeTheExpectedOne [
+BoardCreatorTest >> test04BoardCreatorThrwosErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
 
-	| aBoardCreator collectionOfSpaceships aTurnManager aWormholeCreator aGame aLoadedDie |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
-	collectionOfSpaceships := CollectionOfSpaceships
-		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+	| aWormholeCreator |
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 
-	aTurnManager := TurnManager manage: collectionOfSpaceships.
-
-	aLoadedDie := LoadedDie of: #( 5 ).
-
-	aGame := aGame := Game
-		                  numberOfSpaceships: 2
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie.
-
-
-	self assert: aGame board size equals: 50
+	self
+		should: [
+			BoardCreator
+				withCellsAndLaps: #( 10 1 )
+				withWormholeCreator: aWormholeCreator
+				andSpecialCellsDistruibution: #( 41 20 20 10 8 2 ) ]
+		raise: Error
+		withMessage: 'Sum of probabilities must be exactly one hundred'
 ]
