@@ -29,3 +29,16 @@ HyperJumpCellTest >> test02HyperJumpCellEntersASecondTimeThenReturnsSecondeValue
 	aHyperJumpCell enter.
 	self assert: aHyperJumpCell enter equals: 6
 ]
+
+{ #category : #tests }
+HyperJumpCellTest >> test03HyperJumpExitThenReturnsTrue [
+
+	| aParsecsObject aHyperJumpCell |
+	aParsecsObject := Parsecs totalCells: 10 convertionValue: 100.
+	aHyperJumpCell := HyperJumpCell
+		                  withPosition: 5
+		                  Parsecs: aParsecsObject
+		                  andValues: #( 20 10 ).
+	aHyperJumpCell enter.
+	self assert: (aHyperJumpCell exit:5)
+]

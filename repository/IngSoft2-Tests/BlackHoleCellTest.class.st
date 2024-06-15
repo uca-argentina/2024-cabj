@@ -12,3 +12,12 @@ BlackHoleCellTest >> test01BlackHoleEnterThenReturnsPositionMinusFour [
 
 	self assert: aBlackHole enter equals: 1
 ]
+
+{ #category : #tests }
+BlackHoleCellTest >> test02BlackHoleExitThenReturnsTrue [
+
+	| aBlackHole |
+	aBlackHole := BlackHoleCell position: 5.
+
+	self assert: (aBlackHole exit:5)
+]

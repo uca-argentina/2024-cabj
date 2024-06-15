@@ -14,6 +14,35 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 		self assert: error messageText equals: anErrorMessage ]
 ]
 
+{ #category : #tests }
+GameTest >> test07GameHasBoardOfOnlyRegularCellsThenBoardHasOnlyRegularCellsWhereThereIsntAWormhole [
+
+	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+		
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 4 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+
+
+	dice := OrderedCollection
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10).
+	aCollectionOfDice := Dice of: dice.
+	aGame := Game
+		         numberOfSpaceships: 1
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aCollectionOfDice.
+
+	self assert: ((aGame board at: 1) isKindOf: RegularCell)
+]
+
 { #category : #testsGame002 }
 GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces [
 

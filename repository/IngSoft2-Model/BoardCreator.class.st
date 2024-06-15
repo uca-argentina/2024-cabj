@@ -143,7 +143,7 @@ BoardCreator >> laps [
 	^ collectionAmountOfCellsAndLaps at: 2
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #position }
 BoardCreator >> nextPosition [
 
 	counterForIndex := counterForIndex + 1.

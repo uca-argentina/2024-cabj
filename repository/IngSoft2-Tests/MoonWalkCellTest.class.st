@@ -66,3 +66,27 @@ MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptTh
 
 	self assert: aGame finalPositionOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+MoonWalkCellTest >> test03MoonWalkExitThenReturnsTrue [
+
+	| aBoardCreator aLoadedDie aGame aWormholeCreator aMoonWalkCell |
+	
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+	
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 20 2 )
+		                 wormholeCreator: aWormholeCreator.
+		
+	aLoadedDie := LoadedDie of: #( 9 7 6 ).
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+	
+	aMoonWalkCell := MoonWalkCell withValueToMove: 4 inPosition: 3 on: aGame.
+
+	self assert: (aMoonWalkCell exit: 5)
+]
