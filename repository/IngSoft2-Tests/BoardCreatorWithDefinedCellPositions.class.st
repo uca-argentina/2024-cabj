@@ -29,6 +29,12 @@ BoardCreatorWithDefinedCellPositions >> amountOfRegularCells [
 ]
 
 { #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> beginning [
+
+	^ beginningAndEnd at: 1
+]
+
+{ #category : #'set and get' }
 BoardCreatorWithDefinedCellPositions >> cells [
 
 	^ collectionAmountOfCellsAndLaps at: 1
@@ -126,13 +132,7 @@ BoardCreatorWithDefinedCellPositions >> createWormhole [
 ]
 
 { #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getBeginning [
-
-	^ beginningAndEnd at: 1
-]
-
-{ #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getEnding [
+BoardCreatorWithDefinedCellPositions >> ending [
 
 	^ beginningAndEnd at: 2
 ]
