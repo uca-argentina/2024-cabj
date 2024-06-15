@@ -29,7 +29,7 @@ Game >> board [
 ]
 
 { #category : #action }
-Game >> checkAndHandleFuelDepletionFor: nextSpaceship at: positionOfSpaceship [
+Game >> checkAndHandleFuelDepletionFor: nextSpaceship [
 
 	nextSpaceship amountOfFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
@@ -93,7 +93,6 @@ Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
 Game >> moveSpaceship [
 
 	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition |
-
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
@@ -110,12 +109,11 @@ Game >> moveSpaceship [
 	positionOfSpaceship := (aBoard at: currentPosition + throwResult)
 		                       enter.
 	nextSpaceship move: throwResult.
-	nextSpaceship move: positionOfSpaceship - nextSpaceship objectPosition cell .
+	nextSpaceship move:
+		positionOfSpaceship - nextSpaceship objectPosition cell.
 	positionOfSpaceship := nextSpaceship objectPosition position.
 
-	self
-		checkAndHandleFuelDepletionFor: nextSpaceship
-		at: (positionOfSpaceship at: 1).
+	self checkAndHandleFuelDepletionFor: nextSpaceship.
 
 	positionOfSpaceship = finishLine ifTrue: [
 		turnManager := GameOver new.
