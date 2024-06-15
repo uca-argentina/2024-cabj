@@ -11,11 +11,11 @@ Class {
 }
 
 { #category : #'instance creation' }
-BoardCreatorWithDefinedCellPositions class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeBeginningAndEnding: beginningAndEnd [
+BoardCreatorWithDefinedCellPositions class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeCreator: aWormholeCreator [
 
 	^ self new
 		  initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps
-		  wormholeBeginningAndEnding: beginningAndEnd
+		  wormholeCreator: aWormholeCreator
 ]
 
 { #category : #'set and get' }
@@ -51,6 +51,7 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships 
 		createOneMoonWalkCellAtPositionSevenWith: aGame.
 	self createOneHyperGravityCellAtPositionEight.
 	self createOneHyperJumpCellAtPositionNine.
+	self createWormhole.
 
 	^ collection
 ]
@@ -108,6 +109,23 @@ BoardCreatorWithDefinedCellPositions >> createTheRegularCellsWithAnAmountOfCells
 ]
 
 { #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> createWormhole [
+
+	| positionWithinLap anAmountOfCells anAmountOfLaps |
+	anAmountOfCells := self cells.
+	anAmountOfLaps := self laps.
+
+	1 to: anAmountOfLaps do: [ :lap |
+		positionWithinLap := anAmountOfCells * (lap - 1).
+		collection
+			at: wormholeCreator beginning enter + positionWithinLap
+			put: wormholeCreator ending.
+		collection
+			at: wormholeCreator ending enter + positionWithinLap
+			put: wormholeCreator beginning ]
+]
+
+{ #category : #'set and get' }
 BoardCreatorWithDefinedCellPositions >> getBeginning [
 
 	^ beginningAndEnd at: 1
@@ -120,12 +138,11 @@ BoardCreatorWithDefinedCellPositions >> getEnding [
 ]
 
 { #category : #initialization }
-BoardCreatorWithDefinedCellPositions >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps wormholeBeginningAndEnding: aBeginningAndEnd [
+BoardCreatorWithDefinedCellPositions >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps wormholeCreator: aWormholeCreator [
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
-	beginningAndEnd := aBeginningAndEnd.
-	collection := OrderedCollection new.
-	
+	wormholeCreator := aWormholeCreator.
+	collection := OrderedCollection new
 ]
 
 { #category : #'set and get' }

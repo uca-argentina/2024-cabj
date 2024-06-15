@@ -7,11 +7,16 @@ Class {
 { #category : #tests }
 MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 
-	| aGame aBoardCreator aLoadedDie|
-
+	| aGame aBoardCreator aLoadedDie aWormholeCreator |
+	
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+	
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 20 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 ).
+		                 wormholeCreator: aWormholeCreator.
+		
 	aLoadedDie:= LoadedDie of:#(9 7 6).
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -35,10 +40,16 @@ MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 { #category : #tests }
 MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptThreeMovesBackwards [
 
-	| aBoardCreator aLoadedDie aGame result |
+	| aBoardCreator aLoadedDie aGame result aWormholeCreator |
+	
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+	
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 20 2 )
-		                 wormholeBeginningAndEnding: #( 2 3 ).
+		                 wormholeCreator: aWormholeCreator.
+		
 	aLoadedDie := LoadedDie of: #( 9 7 6 ).
 	aGame := Game
 		         numberOfSpaceships: 3

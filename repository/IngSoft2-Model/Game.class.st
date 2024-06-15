@@ -8,7 +8,7 @@ Class {
 		'collectionOfSpaceships',
 		'turnManager',
 		'finishLine',
-		'boardCreator'
+		'anAmountOfIndex'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -57,11 +57,11 @@ Game >> finalResultsOfSpaceships [
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 	
-	boardCreator := aBoardCreator .
+	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
 
 	finishLine := OrderedCollection
-		              with: boardCreator cells
-		              with: boardCreator laps.
+		              with: aBoardCreator cells
+		              with: aBoardCreator laps.
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
@@ -69,11 +69,11 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships
 		                          withAmountOfFuel: amountOfFuel
-		                          indexCalculateWith: boardCreator cells.
+		                          indexCalculateWith: aBoardCreator cells.
 
 	turnManager := TurnManager manage: collectionOfSpaceships.
 
-	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) on:self.
+	aBoard := aBoardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) on:self.
 
 ]
 
@@ -92,8 +92,8 @@ Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition anAmountOfIndex |
-	anAmountOfIndex := boardCreator cells * boardCreator laps.
+	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition |
+
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
