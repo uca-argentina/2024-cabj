@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'fuel',
-		'collectionActualPosition'
+		'collectionActualPosition',
+		'aFuelTank'
 	],
 	#classInstVars : [
 		'counterId'
@@ -24,14 +24,31 @@ Spaceship class >> launchWithFuel: anAmountOfFuel [
 	^ self new initializeLaunch: counterId withFuel: anAmountOfFuel .
 ]
 
-{ #category : #'set and get' }
-Spaceship >> getFuel [
+{ #category : #comparing }
+Spaceship >> > aSpaceship [
 
-	^ fuel
+	| completedLaps aSpaceshipCompletedLaps cellPosition aSpaceshipCellPosition |
+	completedLaps := collectionActualPosition completedLaps.
+	aSpaceshipCompletedLaps := aSpaceship objectPosition completedLaps.
+	cellPosition := collectionActualPosition cell.
+	aSpaceshipCellPosition := aSpaceship objectPosition cell.
+
+	^ completedLaps > aSpaceshipCompletedLaps
+		  ifTrue: [ true ]
+		  ifFalse: [
+			  completedLaps = aSpaceshipCompletedLaps
+				  ifTrue: [ cellPosition > aSpaceshipCellPosition ]
+				  ifFalse: [ false ] ]
+]
+
+{ #category : #'set and get' }
+Spaceship >> amountOfFuel [
+
+	^ aFuelTank loadedWith
 ]
 
 { #category : #accessing }
-Spaceship >> getId [
+Spaceship >> id [
 
 	^ id
 ]
@@ -40,52 +57,42 @@ Spaceship >> getId [
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
 	collectionActualPosition := Position startGame.
-	fuel := anAmountOfFuel.
+	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId
 ]
 
 { #category : #setter }
-Spaceship >> loadFuel: anAmountOfFuel [ 
-	^fuel:=anAmountOfFuel .
+Spaceship >> loadFuel: anAmountOfFuel [
+
+	aFuelTank loadFuel: anAmountOfFuel
 ]
 
 { #category : #action }
-Spaceship >> move: aNumberOfMovements on: aBoard [
+Spaceship >> move: aNumberOfMovements [
 
-	| actualPosition actualIndex nextIndex completedLaps extraMovements |
-	actualIndex := collectionActualPosition getIndex.
+	| actualIndex nextIndex completedLaps |
+	actualIndex := collectionActualPosition index.
 	nextIndex := aNumberOfMovements + actualIndex.
 	completedLaps := collectionActualPosition completedLaps.
-	
-	((aBoard at: actualIndex) exit: aNumberOfMovements) ifFalse: [
-		^ collectionActualPosition ].
 
-	actualPosition := (aBoard at: nextIndex) enter.
-	collectionActualPosition
-		setCellAndLapWith: nextIndex
-		and: actualPosition.
-		
-	actualIndex := collectionActualPosition getIndex.
-	extraMovements := (actualIndex - nextIndex) abs.
-	
-	fuel := fuel - aNumberOfMovements .
-	fuel := fuel - extraMovements.
-	
-	fuel <= 0 ifTrue: [
-		actualPosition := (aBoard at: 1) enter.
-		fuel := 0.
-		collectionActualPosition
-			setCellAndLapWith: completedLaps + 1
-			and: actualPosition.
-		^ collectionActualPosition ].
+	collectionActualPosition updateCellAndLapWith: nextIndex.
 
-	completedLaps := collectionActualPosition completedLaps.
+	aFuelTank useFuel: aNumberOfMovements abs.
 
-	^ collectionActualPosition
+	aFuelTank runOutOfFuel: self
 ]
 
 { #category : #'set and get' }
 Spaceship >> objectPosition [
 
 	^ collectionActualPosition
+]
+
+{ #category : #initialization }
+Spaceship >> resetToOne [
+
+	| completedLaps |
+	completedLaps := collectionActualPosition completedLaps.
+
+	collectionActualPosition updateCellAndLapWith: completedLaps + 1
 ]

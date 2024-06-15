@@ -1,10 +1,11 @@
 Class {
 	#name : #HyperJumpCell,
-	#superclass : #RegularCell,
+	#superclass : #Object,
 	#instVars : [
 		'parsecsObject',
 		'collectionOfValues',
-		'currentValue'
+		'currentValue',
+		'cellPosition'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,11 +22,16 @@ HyperJumpCell class >> withPosition: aPosition Parsecs: aParsecs andValues: aCol
 { #category : #action }
 HyperJumpCell >> enter [
 
-	|  convertionOfNextValue |
-	
+	| convertionOfNextValue |
 	convertionOfNextValue := parsecsObject convert: currentValue.
 	self nextValue.
-	^ cellPosition + convertionOfNextValue.
+	^ cellPosition + convertionOfNextValue
+]
+
+{ #category : #action }
+HyperJumpCell >> exit: aValue [
+
+	^ true
 ]
 
 { #category : #initialization }

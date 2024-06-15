@@ -4,112 +4,65 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #board }
-MoonWalkCellTest >> createdBoardOfCellsAndLaps: anAmountOfCellsAndLaps withWormhole: startAndEnd withSpecialCellOn: cellAndPosition [
-
-	| aBoard amountOfCells numberOfLaps start end adjustMovementByLap currentLap |
-	amountOfCells := anAmountOfCellsAndLaps at: 1.
-	numberOfLaps := anAmountOfCellsAndLaps at: 2.
-	start := startAndEnd at: 1.
-	end := startAndEnd at: 2.
-	aBoard := OrderedCollection new.
-	1 to: amountOfCells * numberOfLaps do: [ :index |
-		currentLap := index - 1 // amountOfCells.
-		aBoard add:
-			(RegularCell position: index - (amountOfCells * currentLap)) ].
-
-	1 to: numberOfLaps do: [ :lap |
-		adjustMovementByLap := amountOfCells * (lap - 1).
-		aBoard
-			at: start + adjustMovementByLap
-			put: (RegularCell position: end + adjustMovementByLap).
-		aBoard
-			at: end + adjustMovementByLap
-			put: (RegularCell position: start + adjustMovementByLap) ].
-
-	1 to: numberOfLaps do: [ :lap |
-		aBoard
-			at: ((cellAndPosition at: 2) )
-			put:
-			((cellAndPosition at: 1) initializePosition:
-				( (cellAndPosition at: 2)  )) ].
-	^ aBoard
-]
-
 { #category : #tests }
 MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 
-	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard aTurnManager |
-	aCollectionOfSpaceships := CollectionOfSpaceships
-		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 10
-		                           indexCalculateWith: 20.
+	| aGame aBoardCreator aLoadedDie aWormholeCreator |
+	
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+	
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 20 2 )
+		                 wormholeCreator: aWormholeCreator.
+		
+	aLoadedDie:= LoadedDie of:#(9 7 6).
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship .
+	aGame moveSpaceship .
+	aGame moveSpaceship.
 
-	aTurnManager := TurnManager manage: aCollectionOfSpaceships.
+	self assert: (aGame finalPositionOfSpaceships at:3)  equals: 7
+	
+	
+	
+	
+	
+	
 
-	aMoonWalkCell := MoonWalkCell
-		                 withValueToMove: 4
-		                 inPosition: 5
-		                 andSpaceships: aCollectionOfSpaceships
-		                 managedBy: aTurnManager.
 
-	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: aMoonWalkCell
-		                                      with: 5.
-
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
-
-	aBoard := self
-		          createdBoardOfCellsAndLaps: #( 20 1 )
-		          withWormhole: #( 2 3 )
-		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
-
-	self
-		assert: ((aCollectionOfSpaceships at: 3) move: 4 on: aBoard) cell
-		equals: 5
 ]
 
 { #category : #tests }
 MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptThreeMovesBackwards [
 
-	| aMoonWalkCell aCollectionOfSpaceships collectionOfSpecialCellAndPosition aBoard result aTurnManager |
-	aCollectionOfSpaceships := CollectionOfSpaceships
-		                           numberOfSpaceships: 3
-		                           withAmountOfFuel: 10
-		                           indexCalculateWith: 20.
+	| aBoardCreator aLoadedDie aGame result aWormholeCreator |
 	
-	aTurnManager := TurnManager manage: aCollectionOfSpaceships .
-
-	aMoonWalkCell := MoonWalkCell
-		                 withValueToMove: 4
-		                 inPosition: 5
-		                 andSpaceships: aCollectionOfSpaceships
-		                 managedBy: aTurnManager.
-
-	collectionOfSpecialCellAndPosition := OrderedCollection
-		                                      with: aMoonWalkCell
-		                                      with: 5.
-
-	(aCollectionOfSpaceships at: 1) objectPosition setCell: 10.
-	(aCollectionOfSpaceships at: 2) objectPosition setCell: 8.
-	(aCollectionOfSpaceships at: 3) objectPosition setCell: 1.
-
-	aBoard := self
-		          createdBoardOfCellsAndLaps: #( 20 1 )
-		          withWormhole: #( 2 3 )
-		          withSpecialCellOn: collectionOfSpecialCellAndPosition.
-
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+	
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 20 2 )
+		                 wormholeCreator: aWormholeCreator.
+		
+	aLoadedDie := LoadedDie of: #( 9 7 6 ).
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
 	result := Dictionary new.
 	result at: 1 put: 6.
 	result at: 2 put: 4.
-	result at: 3 put: 5.
-	
-	aTurnManager nextTurn.
-	aTurnManager nextTurn.
-	aTurnManager nextTurn.
-	
-	(aCollectionOfSpaceships at: 3) move: 4 on: aBoard.
+	result at: 3 put: 7.
 
-	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result
+
+	self assert: aGame finalPositionOfSpaceships equals: result
 ]

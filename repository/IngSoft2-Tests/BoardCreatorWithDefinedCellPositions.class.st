@@ -4,17 +4,18 @@ Class {
 	#instVars : [
 		'collectionAmountOfCellsAndLaps',
 		'beginningAndEnd',
-		'collection'
+		'collection',
+		'wormholeCreator'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #'instance creation' }
-BoardCreatorWithDefinedCellPositions class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeBeginningAndEnding: beginningAndEnd [
+BoardCreatorWithDefinedCellPositions class >> withCellsAndLaps: collectionAmountOfCellsAndLaps wormholeCreator: aWormholeCreator [
 
 	^ self new
 		  initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps
-		  wormholeBeginningAndEnding: beginningAndEnd
+		  wormholeCreator: aWormholeCreator
 ]
 
 { #category : #'set and get' }
@@ -27,37 +28,49 @@ BoardCreatorWithDefinedCellPositions >> amountOfRegularCells [
 	^ amountOfCells
 ]
 
+{ #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> beginning [
+
+	^ beginningAndEnd at: 1
+]
+
+{ #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> cells [
+
+	^ collectionAmountOfCellsAndLaps at: 1
+]
+
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult [
+BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
 
 	| amountOfCells anAmountOfIndex |
-	amountOfCells := self getCells.
-	anAmountOfIndex := amountOfCells * self getLaps.
+	amountOfCells := self cells.
+	anAmountOfIndex := amountOfCells * self laps.
 	self
 		createTheRegularCellsWithAnAmountOfCells: amountOfCells
 		AndIndexs: anAmountOfIndex.
 
 	self createOneAtomicBombCellAtPositionFiveWith:
-		aCollectionOfSpaceships.
+		aGame.
 	self createOneBlackHoleCellAtPositionSix.
 	self
-		createOneMoonWalkCellAtPositionSevenWith: aCollectionOfSpaceships
-		and: aTurnManager.
+		createOneMoonWalkCellAtPositionSevenWith: aGame.
 	self createOneHyperGravityCellAtPositionEight.
 	self createOneHyperJumpCellAtPositionNine.
+	self createWormhole.
 
 	^ collection
 ]
 
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWith: aCollectionOfSpaceships [
+BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWith: aGame [
 
 	collection
 		at: 5
 		put:
 		(AtomicBombCell
 			 withPostion: 5
-			 andSpaceships: aCollectionOfSpaceships)
+			 onTheGame: aGame)
 ]
 
 { #category : #creation }
@@ -84,13 +97,11 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperJumpCellAtPositionNine [
 ]
 
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createOneMoonWalkCellAtPositionSevenWith: aCollectionOfSpaceships and: aTurnManager [
+BoardCreatorWithDefinedCellPositions >> createOneMoonWalkCellAtPositionSevenWith: aGame [
 
-	collection at: 7 put: (MoonWalkCell
-			 withValueToMove: 4
-			 inPosition: 7
-			 andSpaceships: aCollectionOfSpaceships
-			 managedBy: aTurnManager)
+	collection
+		at: 7
+		put: (MoonWalkCell withValueToMove: 4 inPosition: 7 on: aGame)
 ]
 
 { #category : #creation }
@@ -104,34 +115,38 @@ BoardCreatorWithDefinedCellPositions >> createTheRegularCellsWithAnAmountOfCells
 ]
 
 { #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getBeginning [
+BoardCreatorWithDefinedCellPositions >> createWormhole [
 
-	^ beginningAndEnd at: 1
+	| positionWithinLap anAmountOfCells anAmountOfLaps |
+	anAmountOfCells := self cells.
+	anAmountOfLaps := self laps.
+
+	1 to: anAmountOfLaps do: [ :lap |
+		positionWithinLap := anAmountOfCells * (lap - 1).
+		collection
+			at: wormholeCreator beginning enter + positionWithinLap
+			put: wormholeCreator ending.
+		collection
+			at: wormholeCreator ending enter + positionWithinLap
+			put: wormholeCreator beginning ]
 ]
 
 { #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getCells [
-
-	^ collectionAmountOfCellsAndLaps at: 1
-]
-
-{ #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getEnding [
+BoardCreatorWithDefinedCellPositions >> ending [
 
 	^ beginningAndEnd at: 2
 ]
 
-{ #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> getLaps [
-
-	^ collectionAmountOfCellsAndLaps at: 2
-]
-
 { #category : #initialization }
-BoardCreatorWithDefinedCellPositions >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps wormholeBeginningAndEnding: aBeginningAndEnd [
+BoardCreatorWithDefinedCellPositions >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps wormholeCreator: aWormholeCreator [
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
-	beginningAndEnd := aBeginningAndEnd.
-	collection := OrderedCollection new.
-	
+	wormholeCreator := aWormholeCreator.
+	collection := OrderedCollection new
+]
+
+{ #category : #'set and get' }
+BoardCreatorWithDefinedCellPositions >> laps [
+
+	^ collectionAmountOfCellsAndLaps at: 2
 ]

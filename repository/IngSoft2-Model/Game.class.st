@@ -8,7 +8,7 @@ Class {
 		'collectionOfSpaceships',
 		'turnManager',
 		'finishLine',
-		'boardCreator'
+		'anAmountOfIndex'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,29 +22,18 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 		  playWithDice: aCollectionOfDice
 ]
 
-{ #category : #action }
-Game >> checkIf: nextSpaceship hasRunOutOfFuelAt: positionOfSpaceship [
+{ #category : #accessing }
+Game >> board [
 
-	nextSpaceship getFuel = 0 ifTrue: [
-		turnManager lostTurns: 2 by: nextSpaceship.
-		nextSpaceship loadFuel: amountOfFuel ]
+	^ aBoard
 ]
 
-{ #category : #initialization }
-Game >> createWormholeOn: aBeginning and: anEnd [
+{ #category : #action }
+Game >> checkAndHandleFuelDepletionFor: nextSpaceship [
 
-	| positionWithinLap anAmountOfCells anAmountOfLaps |
-	anAmountOfCells := boardCreator getCells.
-	anAmountOfLaps := boardCreator getLaps.
-
-	1 to: anAmountOfLaps do: [ :lap |
-		positionWithinLap := anAmountOfCells * (lap - 1).
-		aBoard
-			at: aBeginning + positionWithinLap
-			put: (RegularCell position: anEnd + positionWithinLap).
-		aBoard
-			at: anEnd + positionWithinLap
-			put: (RegularCell position: aBeginning + positionWithinLap) ]
+	nextSpaceship amountOfFuel = 0 ifTrue: [
+		turnManager lostTurns: 2 by: nextSpaceship.
+		nextSpaceship loadFuel: amountOfFuel ]
 ]
 
 { #category : #results }
@@ -65,41 +54,14 @@ Game >> finalResultsOfSpaceships [
 	^ collectionOfSpaceships positionsOfSpaceships
 ]
 
-{ #category : #results }
-Game >> getRankingOfSpaceships [
-
-	^ collectionOfSpaceships getRanking
-]
-
-{ #category : #results }
-Game >> getWinner [
-
-	| maxPosition maxLap winner aDictionaryOfPositions |
-	aDictionaryOfPositions := self finalResultsOfSpaceships.
-	maxPosition := (aDictionaryOfPositions values collect: [ :pair |
-		                pair at: 1 ]) max.
-
-	maxLap := (aDictionaryOfPositions values collect: [ :pair |
-		           (pair at: 1) = maxPosition
-			           ifTrue: [ pair at: 2 ]
-			           ifFalse: [ 0 ] ]) max.
-
-	winner := aDictionaryOfPositions keys detect: [ :key |
-		          | pair |
-		          pair := aDictionaryOfPositions at: key.
-		          (pair at: 1) = maxPosition and: (pair at: 2) = maxLap ].
-
-	^ winner
-]
-
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 	
-	boardCreator := aBoardCreator .
+	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
 
 	finishLine := OrderedCollection
-		              with: boardCreator getCells
-		              with: boardCreator getLaps.
+		              with: aBoardCreator cells
+		              with: aBoardCreator laps.
 
 	collectionOfDice := aCollectionOfDice.
 	amountOfFuel := collectionOfDice amountOfFaces * 2.
@@ -107,44 +69,63 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships
 		                          withAmountOfFuel: amountOfFuel
-		                          indexCalculateWith: boardCreator getCells.
+		                          indexCalculateWith: aBoardCreator cells.
 
 	turnManager := TurnManager manage: collectionOfSpaceships.
 
-	aBoard := boardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) .
-	self
-		createWormholeOn: (aBoardCreator getBeginning)
-		and: (aBoardCreator getEnding)
+	aBoard := aBoardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) on:self.
+
+]
+
+{ #category : #action }
+Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [ 
+
+	| aSpaceshipAux collectionMinusSpaceship aSpaceship |
+	aSpaceship:= turnManager spaceshipPlaying .
+	collectionMinusSpaceship :=( collectionOfSpaceships spaceships) copy.
+	collectionMinusSpaceship remove: aSpaceship.
+	1 to: collectionMinusSpaceship size do: [ :index |
+		aSpaceshipAux := (collectionMinusSpaceship at: index).
+		aSpaceshipAux move: anAmountOfMovements. ]
 ]
 
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition anAmountOfIndex |
-	anAmountOfIndex := boardCreator getCells * boardCreator getLaps.
+	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition |
 	nextSpaceship := turnManager nextTurn.
 
 	throwResult := collectionOfDice throw.
-	
+
 	positionOfNextSpaceship := nextSpaceship objectPosition.
-	currentPosition := positionOfNextSpaceship getIndex .
+	currentPosition := positionOfNextSpaceship index.
 
 	currentPosition + throwResult > anAmountOfIndex ifTrue: [
 		throwResult := anAmountOfIndex - currentPosition ].
 
-	positionOfSpaceship := (nextSpaceship
-		                        move: throwResult
-		                        on: aBoard) getPosition.
+	((aBoard at: currentPosition) exit: throwResult) ifFalse: [
+		^ positionOfNextSpaceship position ].
 
-	self
-		checkIf: nextSpaceship
-		hasRunOutOfFuelAt: (positionOfSpaceship at: 1).
+	positionOfSpaceship := (aBoard at: currentPosition + throwResult)
+		                       enter.
+	nextSpaceship move: throwResult.
+	nextSpaceship move:
+		positionOfSpaceship - nextSpaceship objectPosition cell.
+	positionOfSpaceship := nextSpaceship objectPosition position.
+
+	self checkAndHandleFuelDepletionFor: nextSpaceship.
 
 	positionOfSpaceship = finishLine ifTrue: [
 		turnManager := GameOver new.
 		^ self finalResultsOfSpaceships ].
 
 	^ positionOfSpaceship
+]
+
+{ #category : #results }
+Game >> rankingOfSpaceships [
+
+	^ collectionOfSpaceships ranking first: 3
 ]
 
 { #category : #action }
@@ -154,4 +135,18 @@ Game >> reloadSpaceship [
 	nextSpaceship loadFuel: amountOfFuel.
 
 
+]
+
+{ #category : #initialization }
+Game >> resetSpaceshipsToCellOne [
+	| aSpaceship |
+	1 to: collectionOfSpaceships spaceships size do: [ :index |
+		aSpaceship := collectionOfSpaceships  spaceships at: index.
+		aSpaceship objectPosition resetToOne ]
+]
+
+{ #category : #results }
+Game >> winner [
+
+	^ collectionOfSpaceships ranking at: 1
 ]

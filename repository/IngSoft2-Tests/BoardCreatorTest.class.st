@@ -4,83 +4,74 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+BoardCreatorTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #tests }
 BoardCreatorTest >> test01BoardCreatorInitializeThenGetCellsReturnsCells [
 
-	| aBoardCreator |
+	| aBoardCreator aWormholeCreator |
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 withWormholeCreator: aWormholeCreator
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	self assert: aBoardCreator getCells equals: 10
+	self assert: aBoardCreator cells equals: 10
 ]
 
 { #category : #tests }
 BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
 
-	| aBoardCreator |
+	| aBoardCreator aWormholeCreator |
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
+		                 withWormholeCreator: aWormholeCreator
 		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	self assert: aBoardCreator getLaps equals: 1
+	self assert: aBoardCreator laps equals: 1
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test03BoardCreatorInitializeThenGetBeginningReturnsBeginning [
+BoardCreatorTest >> test03BoardCreatorGeneratesNumberBetweenOneAndOneHundred [
 
-	| aBoardCreator |
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
-
-	self assert: aBoardCreator getBeginning equals: 2
-]
-
-{ #category : #tests }
-BoardCreatorTest >> test04BoardCreatorInitializeThenGetEndingReturnsEnding [
-
-	| aBoardCreator |
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
-
-	self assert: aBoardCreator getEnding equals: 3
-]
-
-{ #category : #tests }
-BoardCreatorTest >> test05BoardCreatorInitializeThenReturnsAmountOfRegularCells [
-
-	| aBoardCreator |
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
-
-	self assert: aBoardCreator amountOfRegularCells equals: 20
-]
-
-{ #category : #tests }
-BoardCreatorTest >> test11BoardCreatorCreatesBoardThenSizeTheExpectedOne [
-
-	| aBoardCreator collectionOfSpaceships aTurnManager aBoard|
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 wormholeBeginningAndEnding: #( 2 3 )
-		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
+	| aBoardCreator aWormholeCreator |
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 	
-	collectionOfSpaceships := CollectionOfSpaceships
-		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 10 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 40 20 20 10 8 2 ).
 
-	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	
-	aBoard := aBoardCreator createBoardFor: collectionOfSpaceships with: aTurnManager andMaxThrowOf: 30.
+	self assert: (aBoardCreator numberGenerator between: 1 and: 100)
+]
 
-	self assert: aBoard size equals: 50
+{ #category : #tests }
+BoardCreatorTest >> test04BoardCreatorThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
+
+	| aWormholeCreator |
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
+	self
+		should: [
+			BoardCreator
+				withCellsAndLaps: #( 10 1 )
+				withWormholeCreator: aWormholeCreator
+				andSpecialCellsDistruibution: #( 41 20 20 10 8 2 ) ]
+		raise: Error
+		withMessage: 'Sum of probabilities must be exactly one hundred'
 ]

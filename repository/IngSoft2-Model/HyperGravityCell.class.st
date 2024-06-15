@@ -1,8 +1,9 @@
 Class {
 	#name : #HyperGravityCell,
-	#superclass : #RegularCell,
+	#superclass : #Object,
 	#instVars : [
-		'value'
+		'value',
+		'cellPosition'
 	],
 	#category : #'IngSoft2-Model'
 }

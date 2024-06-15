@@ -120,7 +120,7 @@ TurnManagerTest >> test06WhenEverySpaceshipsLosesTheirTurnThenReturnAnAllShipsDi
 
 	Spaceship initialize.
 	self assert:
-		(aTurnManager nextTurn isKindOf: AllShipsDisabledHandler)
+		(aTurnManager nextTurn) equals: spaceshipOne.
 ]
 
 { #category : #tests }
