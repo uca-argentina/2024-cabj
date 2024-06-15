@@ -73,7 +73,13 @@ EffectManager >> addRegularCellToDictionary [
 	1 to: regularCellProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
-			put: [ boardCreator createRegularCell ] ]
+			put: [ boardCreator createRegularCells ] ]
+]
+
+{ #category : #'as yet unclassified' }
+EffectManager >> createEffect: aNumber [
+
+	^ dictionaryOfProbabilities at: aNumber
 ]
 
 { #category : #'as yet unclassified' }
