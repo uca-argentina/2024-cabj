@@ -70,19 +70,18 @@ Position >> resetToOne [
 { #category : #'set and get' }
 Position >> updateCellAndLapWith: anIndex [
 
-	| actualLap difference temporalIndex temporalCell |
-	temporalIndex := anIndex.
-	temporalCell := ((anIndex - 1) \\ amountOfCells) + 1.
-	actualLap := self lap.
-	temporalCell - completedLaps < 0 ifTrue: [ actualLap := actualLap - 1 ].
-	temporalCell > amountOfCells ifTrue: [
-		difference := temporalCell - anIndex.
-		temporalIndex := anIndex + difference.
-		temporalCell := temporalCell - amountOfCells ].
-	actualLap := temporalIndex - 1 // amountOfCells + 1.
-	cell := temporalCell.
-	lap := actualLap.
-	self updateIndexWith: amountOfCells
+    | temporalCell temporalLap |
+    
+    temporalCell := ((anIndex - 1) \\ amountOfCells) + 1.
+    temporalLap := ((anIndex - 1) // amountOfCells) + 1.
+
+    cell := temporalCell.
+    lap := temporalLap.
+
+    self updateIndexWith: amountOfCells.
+
+
+
 ]
 
 { #category : #'set and get' }
