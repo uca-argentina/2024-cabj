@@ -220,7 +220,7 @@ SpaceshipTest >> test017WhenSpaceshipMovesMoreThanAmountOfCellsThenPositionGoesT
 ]
 
 { #category : #specialCells }
-SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
+SpaceshipTest >> test018SpaceshipMovesBackwardsThenPositionIsEqualToMovement [
 
 	| aSpaceship finalPosition |
 	finalPosition := OrderedCollection with: 6 with: 1.
@@ -237,13 +237,13 @@ SpaceshipTest >> test018SpaceshipEntersBlackHoleThenReturnsMinusFourPositions [
 ]
 
 { #category : #specialCells }
-SpaceshipTest >> test019SpaceshipEnterOnBlackHoleThenLosesFuelNumberOfMovementsPlusFour [
+SpaceshipTest >> test019SpaceshipMoveBackwardsThenUsesFuel [
 
-	| aSpaceship finalPosition |
+	| aSpaceship |
 
 	aSpaceship := Spaceship launchWithFuel: 40.
 	aSpaceship objectPosition updateIndexWith: 15.
-	finalPosition := OrderedCollection with: 6 with: 1.
+
 	aSpaceship move: 9.
 	aSpaceship move: -4.
 	Spaceship initialize.
@@ -282,4 +282,18 @@ SpaceshipTest >> test024SpaceshipGoesBackToStartReloadsFuelAndMovesThenCellEqual
 	aSpaceship move: 4.
 	Spaceship initialize.
 	self assert: aSpaceship objectPosition cell equals: 5
+]
+
+{ #category : #specialCells }
+SpaceshipTest >> test025SpaceshipMovesBackwardsThenGoesBackOneLap [
+
+	| aSpaceship finalPosition |
+
+	aSpaceship := Spaceship launchWithFuel: 40.
+	aSpaceship objectPosition updateIndexWith: 10.
+	finalPosition := OrderedCollection with: 10 with: 1.
+	aSpaceship move: 10.
+	aSpaceship move: -1.
+	Spaceship initialize.
+	self assert: aSpaceship objectPosition position equals: finalPosition
 ]
