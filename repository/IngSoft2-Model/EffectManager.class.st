@@ -25,7 +25,7 @@ EffectManager class >> for: aBoardCreator probabilitiesDistribution: collectionO
 { #category : #initialization }
 EffectManager >> addAtomicBombToDictionary [
 
-	hyperJumpProbability to: atomicBombProbability do: [ :key |
+	hyperJumpProbability+1 to: atomicBombProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createAtomicBombCells ] ]
@@ -34,7 +34,7 @@ EffectManager >> addAtomicBombToDictionary [
 { #category : #initialization }
 EffectManager >> addBlackHoleToDictionary [
 
-	regularCellProbability to: blackHoleProbability do: [ :key |
+	regularCellProbability+1 to: blackHoleProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createBlackHoleCells ] ]
@@ -43,7 +43,7 @@ EffectManager >> addBlackHoleToDictionary [
 { #category : #initialization }
 EffectManager >> addHyperGravityToDictionary [
 
-	blackHoleProbability to: hyperGravityProbability do: [ :key |
+	blackHoleProbability+1 to: hyperGravityProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createHyperGravityCells ] ]
@@ -52,7 +52,7 @@ EffectManager >> addHyperGravityToDictionary [
 { #category : #initialization }
 EffectManager >> addHyperJumpToDictionary [
 
-	moonWalkProbability to: hyperJumpProbability do: [ :key |
+	moonWalkProbability+1 to: hyperJumpProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createHyperJumpCells ] ]
@@ -61,7 +61,7 @@ EffectManager >> addHyperJumpToDictionary [
 { #category : #initialization }
 EffectManager >> addMoonWalkToDictionary [
 
-	hyperGravityProbability to: moonWalkProbability do: [ :key |
+	hyperGravityProbability+1 to: moonWalkProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createMoonWalkCells ] ]
@@ -76,13 +76,13 @@ EffectManager >> addRegularCellToDictionary [
 			put: [ boardCreator createRegularCells ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #creating }
 EffectManager >> createEffect: aNumber [
 
 	^ dictionaryOfProbabilities at: aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 EffectManager >> dictionaryOfProbabilities [
 	^ dictionaryOfProbabilities
 ]
