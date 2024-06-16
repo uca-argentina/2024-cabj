@@ -144,10 +144,10 @@ Game >> moveSpaceship [
 	self checkAndHandleFuelDepletionFor: currentSpaceship.
 
 	positionOfSpaceship = finishLine ifTrue: [
-		turnManager := GameOver new.
+		collectionOfDice := GameOver new.
 		^ self finalResultsOfSpaceships ].
 
-	currentSpaceship := turnManager nextSpaceship.
+	currentSpaceship := turnManager nextTurn.
 
 	^ positionOfSpaceship
 ]
@@ -183,8 +183,8 @@ Game >> throwDice: aSpaceship [
 
 	| throwResult maxThrow randomValue |
 	randomValue := Random new next.
-	maxThrow := collectionOfDice amountOfFaces.
 	throwResult := collectionOfDice throw.
+	maxThrow := collectionOfDice amountOfFaces.
 	throwResult = maxThrow ifTrue: [
 		randomValue < 0.8
 			ifTrue: [ aSpaceship changeCapacity: 1 ]
