@@ -20,7 +20,7 @@ FuelTank >> capacity [
 	^ capacity
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 FuelTank >> changeCapacity: aNumber [
 
 	capacity := capacity + aNumber
