@@ -108,10 +108,10 @@ Game >> moveSpaceship [
 	((board at: indexOfSpaceship) exit: throwResult) ifFalse: [
 		^ positionOfSpaceship position ].
 	
+	nextSpaceship move: throwResult.
+	
 	cellOfSpaceship := (board at: indexOfSpaceship + throwResult)
 		                       enter.
-		
-	nextSpaceship move: throwResult.
 		
 	nextSpaceship move:
 		cellOfSpaceship - nextSpaceship objectPosition cell.

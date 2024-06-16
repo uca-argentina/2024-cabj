@@ -64,7 +64,8 @@ Position >> position [
 { #category : #initialization }
 Position >> resetToOne [
 
-	cell := 1
+	cell := 1.
+	index := cell * lap
 ]
 
 { #category : #'set and get' }
