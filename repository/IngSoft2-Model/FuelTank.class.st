@@ -2,7 +2,8 @@ Class {
 	#name : #FuelTank,
 	#superclass : #Object,
 	#instVars : [
-		'fuel'
+		'fuel',
+		'capacity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -13,10 +14,23 @@ FuelTank class >> fullWith: anAmountOfFuel [
 	^ self new initializeFullWith: anAmountOfFuel
 ]
 
+{ #category : #accessing }
+FuelTank >> capacity [
+
+	^ capacity
+]
+
+{ #category : #action }
+FuelTank >> changeCapacity: aNumber [
+
+	capacity := capacity + aNumber
+]
+
 { #category : #initialization }
 FuelTank >> initializeFullWith: anAmountOfFuel [
 
-	fuel := anAmountOfFuel
+	fuel := anAmountOfFuel.
+	capacity := anAmountOfFuel
 ]
 
 { #category : #asserting }
@@ -26,9 +40,9 @@ FuelTank >> isEmpty [
 ]
 
 { #category : #action }
-FuelTank >> loadFuel: anAmountOfFuel [
+FuelTank >> loadFuel [
 
-	fuel := fuel + anAmountOfFuel
+	fuel := capacity
 ]
 
 { #category : #'set and get' }
