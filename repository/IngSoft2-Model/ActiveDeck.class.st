@@ -26,12 +26,15 @@ ActiveDeck >> activeCards [
 ]
 
 { #category : #action }
-ActiveDeck >> applyEffectOn: throwResult [
+ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 
 	| auxNumber |
 	auxNumber := throwResult.
 	collectionOfCards do: [ :card |
 		card = AccelerationCard new ifTrue: [ auxNumber := auxNumber + 1 ] ].
+	collectionOfCards do: [ :card |
+		card = OverloadCard new ifTrue: [
+			card id = spaceshipId ifTrue: [ auxNumber := auxNumber - 2 ] ] ].
 	^ auxNumber
 ]
 

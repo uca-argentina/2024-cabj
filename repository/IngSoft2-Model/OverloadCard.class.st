@@ -19,6 +19,12 @@ OverloadCard >> = aCard [
 	^ self class == aCard class
 ]
 
+{ #category : #accessing }
+OverloadCard >> id [
+
+	^ spaceshipId
+]
+
 { #category : #initialization }
 OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 

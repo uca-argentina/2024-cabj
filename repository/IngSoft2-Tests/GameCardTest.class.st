@@ -101,3 +101,26 @@ GameCardTest >> test04SpaceshipPlaysAllCardsThenActiveDeckActiveCardsEqualsTwo [
 
 	self assert: aGame activeCards equals: 2.
 ]
+
+{ #category : #tests }
+GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	aLoadedDie := LoadedDie of: #( 6 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 10 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceships: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
+	aGame moveSpaceship.
+
+	position := OrderedCollection with: 5 with: 1.
+	self assert: aGame moveSpaceship equals: position
+]
