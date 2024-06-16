@@ -19,16 +19,6 @@ BoardCreatorWithDefinedCellPositions class >> withCellsAndLaps: collectionAmount
 ]
 
 { #category : #'set and get' }
-BoardCreatorWithDefinedCellPositions >> amountOfRegularCells [
-
-	| amountOfCells  |
-	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
-	
-
-	^ amountOfCells
-]
-
-{ #category : #'set and get' }
 BoardCreatorWithDefinedCellPositions >> beginning [
 
 	^ beginningAndEnd at: 1
@@ -41,7 +31,7 @@ BoardCreatorWithDefinedCellPositions >> cells [
 ]
 
 { #category : #creation }
-BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on:aGame [
+BoardCreatorWithDefinedCellPositions >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
 
 	| amountOfCells anAmountOfIndex |
 	amountOfCells := self cells.
@@ -50,11 +40,9 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aCollectionOfSpaceships 
 		createTheRegularCellsWithAnAmountOfCells: amountOfCells
 		AndIndexs: anAmountOfIndex.
 
-	self createOneAtomicBombCellAtPositionFiveWith:
-		aGame.
+	self createOneAtomicBombCellAtPositionFiveWith: aGame.
 	self createOneBlackHoleCellAtPositionSix.
-	self
-		createOneMoonWalkCellAtPositionSevenWith: aGame.
+	self createOneMoonWalkCellAtPositionSevenWith: aGame.
 	self createOneHyperGravityCellAtPositionEight.
 	self createOneHyperJumpCellAtPositionNine.
 	self createWormhole.

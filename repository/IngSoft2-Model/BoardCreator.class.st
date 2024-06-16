@@ -44,7 +44,7 @@ BoardCreator >> createBlackHoleCells [
 ]
 
 { #category : #creation }
-BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on: aGame [
+BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
 
 	| amountOfCells anAmountOfIndex aEffectManager |
 	game := aGame.
