@@ -81,7 +81,9 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperJumpCellAtPositionNine [
 	collection at: 9 put: (HyperJumpCell
 			 withPosition: 9
 			 Conversor: (Conversor totalCells: 10 convertionValue: 5)
-			 andValues: #( 2 1 ))
+			 andValues: (OrderedCollection
+					  with: (Parsecs ofValue: 2)
+					  with: (Parsecs ofValue: 1)))
 ]
 
 { #category : #creation }
