@@ -541,3 +541,33 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 		assert: idRanking
 		equals: rankingOfSpaceships
 ]
+
+{ #category : #tests }
+GameLoadedDieTest >> test20 [
+
+	| aGame aLoadedDie aBoardCreator aWormholeCreator rankingOfSpaceships idRanking |
+	aLoadedDie := LoadedDie of: #( 9 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 10 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
+	aGame moveSpaceship.
+	
+	idRanking := aGame rankingOfSpaceships collect: [ :spaceship |
+		             spaceship id ].
+	
+	self
+		assert: idRanking
+		equals: rankingOfSpaceships
+]
