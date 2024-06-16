@@ -33,7 +33,7 @@ Game >> checkAndHandleFuelDepletionFor: nextSpaceship [
 
 	nextSpaceship amountOfFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
-		nextSpaceship loadFuel: amountOfFuel ]
+		nextSpaceship loadFuel ]
 ]
 
 { #category : #results }
@@ -97,7 +97,7 @@ Game >> moveSpaceship [
 	| positionOfSpaceship nextSpaceship throwResult cellOfSpaceship indexOfSpaceship |
 	nextSpaceship := turnManager nextTurn.
 
-	throwResult := collectionOfDice throw.
+	throwResult := self throwDice: nextSpaceship.
 
 	positionOfSpaceship := nextSpaceship objectPosition.
 	indexOfSpaceship := positionOfSpaceship index.
@@ -130,16 +130,19 @@ Game >> moveSpaceship [
 { #category : #results }
 Game >> rankingOfSpaceships [
 
-	^ collectionOfSpaceships ranking first: 3
+	| sortedSpaceships numberOfSpaceshipsToTake |
+	sortedSpaceships := collectionOfSpaceships ranking.
+	numberOfSpaceshipsToTake := sortedSpaceships size min: 3.
+
+	^ sortedSpaceships first: numberOfSpaceshipsToTake
 ]
 
 { #category : #action }
 Game >> reloadSpaceship [
+
 	| nextSpaceship |
 	nextSpaceship := turnManager nextTurn.
-	nextSpaceship loadFuel: amountOfFuel.
-
-
+	nextSpaceship loadFuel
 ]
 
 { #category : #initialization }
@@ -148,6 +151,16 @@ Game >> resetSpaceshipsToCellOne [
 	1 to: collectionOfSpaceships spaceships size do: [ :index |
 		aSpaceship := collectionOfSpaceships  spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
+]
+
+{ #category : #'as yet unclassified' }
+Game >> throwDice: aSpaceship [
+
+	| throwResult maxThrow |
+	maxThrow := collectionOfDice amountOfFaces.
+	throwResult := collectionOfDice throw.
+	throwResult = maxThrow ifTrue: [ aSpaceship changeCapacity: 1 ].
+	^ throwResult
 ]
 
 { #category : #results }

@@ -279,8 +279,6 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
 
 	position := OrderedCollection with: 4 with: 1.
 	self assert: aGame moveSpaceship equals: position
@@ -543,10 +541,10 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 ]
 
 { #category : #tests }
-GameLoadedDieTest >> test20 [
+GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResultOfDice [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator rankingOfSpaceships idRanking |
-	aLoadedDie := LoadedDie of: #( 9 ).
+	| aGame aLoadedDie aBoardCreator aWormholeCreator spaceship |
+	aLoadedDie := LoadedDie of: #( 4 ).
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
 		                    andEnd: 3.
@@ -561,13 +559,12 @@ GameLoadedDieTest >> test20 [
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
-	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
 	aGame moveSpaceship.
+	aGame reloadSpaceship.
 	
-	idRanking := aGame rankingOfSpaceships collect: [ :spaceship |
-		             spaceship id ].
+	spaceship := aGame rankingOfSpaceships at: 1.
 	
 	self
-		assert: idRanking
-		equals: rankingOfSpaceships
+		assert: spaceship amountOfFuel
+		equals: 9
 ]

@@ -47,6 +47,12 @@ Spaceship >> amountOfFuel [
 	^ aFuelTank loadedWith
 ]
 
+{ #category : #action }
+Spaceship >> changeCapacity: aNumber [
+
+	aFuelTank changeCapacity: aNumber
+]
+
 { #category : #accessing }
 Spaceship >> id [
 
@@ -62,9 +68,9 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 ]
 
 { #category : #setter }
-Spaceship >> loadFuel: anAmountOfFuel [
+Spaceship >> loadFuel [
 
-	aFuelTank loadFuel: anAmountOfFuel
+	aFuelTank loadFuel
 ]
 
 { #category : #action }

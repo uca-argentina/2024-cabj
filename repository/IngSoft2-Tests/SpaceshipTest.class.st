@@ -154,7 +154,7 @@ SpaceshipTest >> test015WhenSpaceshipLoadsFuelAfterLosingAllOfItThenFuelEqualsAm
 	aSpaceship := Spaceship launchWithFuel: 5.
 	aSpaceship objectPosition updateIndexWith: 20.
 	aSpaceship move: 1.
-	aSpaceship loadFuel: 1.
+	aSpaceship loadFuel.
 	Spaceship initialize.
 	self assert: aSpaceship amountOfFuel equals: 5
 ]
@@ -166,7 +166,7 @@ SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 	aSpaceship := Spaceship launchWithFuel: 10.
 	aSpaceship objectPosition updateIndexWith: 20.
 	aSpaceship move: 1.
-	aSpaceship loadFuel: 10.
+	aSpaceship loadFuel.
 	aSpaceship move: 8.
 	Spaceship initialize.
 	self assert: aSpaceship objectPosition cell equals: 10
@@ -222,20 +222,17 @@ SpaceshipTest >> test019SpaceshipMoveBackwardsThenUsesFuel [
 SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition [
 
 	| aSpaceship finalPosition |
-
 	aSpaceship := Spaceship launchWithFuel: 10.
 	aSpaceship objectPosition updateIndexWith: 10.
 
 	aSpaceship move: 5.
 	aSpaceship move: 4.
-	aSpaceship loadFuel: 10.
+	aSpaceship loadFuel.
 	aSpaceship move: 1.
-	finalPosition := OrderedCollection with:6 with: 2.
+	finalPosition := OrderedCollection with: 6 with: 2.
 	aSpaceship move: 5.
 	Spaceship initialize.
-	self
-		assert: aSpaceship objectPosition position
-		equals: finalPosition
+	self assert: aSpaceship objectPosition position equals: finalPosition
 ]
 
 { #category : #fuelTests }
@@ -246,7 +243,7 @@ SpaceshipTest >> test024SpaceshipGoesBackToStartReloadsFuelAndMovesThenCellEqual
 	aSpaceship objectPosition updateIndexWith: 20.
 	aSpaceship move: 3.
 	aSpaceship move: 2.
-	aSpaceship loadFuel: 5.
+	aSpaceship loadFuel.
 	aSpaceship move: 4.
 	Spaceship initialize.
 	self assert: aSpaceship objectPosition cell equals: 5

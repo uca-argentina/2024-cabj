@@ -57,13 +57,7 @@ TurnManager >> nextSpaceship [
 { #category : #action }
 TurnManager >> nextTurn [
 
-	(turnsToSkip allSatisfy: [ :spaceship | spaceship value > 0 ])
-		ifTrue: [
-			self decrementTurnsOfSpaceship.
-			self nextSpaceship.
-			 ].
-
-	(turnsToSkip at: currentSpaceship) > 0 ifTrue: [
+	[ (turnsToSkip at: currentSpaceship) > 0 ] whileTrue: [
 		self decrementTurnsOfSpaceship.
 		self nextSpaceship ].
 	spaceshipPlaying := currentSpaceship.
