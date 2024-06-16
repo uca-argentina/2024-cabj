@@ -142,10 +142,10 @@ GameCardTest >> test06 [
 		         playWithDice: aLoadedDie.
 
 	aGame activatePermanentCard: (AllyCard shareFuelWith: 2).
-	aGame moveSpaceship."1 - 8 7"
-	aGame moveSpaceship."2 - 3 13"
-	aGame moveSpaceship."1 - 15 0"
-	aGame moveSpaceship."2 - 4 12"
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
 	aGame moveSpaceship.
 	
 	result := Dictionary new.
