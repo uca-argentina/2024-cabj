@@ -2,7 +2,10 @@ Class {
 	#name : #AllyCard,
 	#superclass : #Object,
 	#instVars : [
-		'allayId'
+		'game',
+		'allayTwoId',
+		'allayOne',
+		'allayTwo'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,5 +25,15 @@ AllyCard >> = aCard [
 { #category : #initialization }
 AllyCard >> initializeShareFuelWith: aSpaceshipId [
 
-	allayId := aSpaceshipId
+	allayTwoId := aSpaceshipId.
+	
+]
+
+{ #category : #accessing }
+AllyCard >> withEffectOn: aGame [
+
+	game := aGame.
+	allayOne := game currentSpaceship.
+	allayTwo := game spaceships detect: [ :spaceship |
+		            spaceship id = allayTwoId ].
 ]

@@ -31,6 +31,7 @@ Game >> activatePermanentCard: aCard [
 	currentSpaceshipCardHand := spaceshipsCardHands at:
 		                            currentSpaceship id.
 	(currentSpaceshipCardHand activateCard: aCard) ifTrue: [
+		aCard withEffectOn: self.
 		aActiveDeck activate: aCard ]
 ]
 
@@ -52,6 +53,12 @@ Game >> checkAndHandleFuelDepletionFor: nextSpaceship [
 	nextSpaceship amountOfFuel = 0 ifTrue: [
 		turnManager lostTurns: 2 by: nextSpaceship.
 		nextSpaceship loadFuel ]
+]
+
+{ #category : #accessing }
+Game >> currentSpaceship [
+
+	^ currentSpaceship
 ]
 
 { #category : #results }
@@ -175,6 +182,12 @@ Game >> resetSpaceshipsToCellOne [
 	1 to: collectionOfSpaceships spaceships size do: [ :index |
 		aSpaceship := collectionOfSpaceships  spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
+]
+
+{ #category : #accessing }
+Game >> spaceships [
+
+	^ collectionOfSpaceships spaceships
 ]
 
 { #category : #action }

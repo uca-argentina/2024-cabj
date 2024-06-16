@@ -2,7 +2,8 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'spaceshipId'
+		'spaceshipId',
+		'game'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -29,4 +30,10 @@ OverloadCard >> id [
 OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 
 	spaceshipId := aSpaceshipId
+]
+
+{ #category : #'as yet unclassified' }
+OverloadCard >> withEffectOn: aGame [
+
+	game := aGame
 ]
