@@ -153,13 +153,17 @@ Game >> resetSpaceshipsToCellOne [
 		aSpaceship objectPosition resetToOne ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Game >> throwDice: aSpaceship [
 
-	| throwResult maxThrow |
+	| throwResult maxThrow randomValue |
+	randomValue := Random new next.
 	maxThrow := collectionOfDice amountOfFaces.
 	throwResult := collectionOfDice throw.
-	throwResult = maxThrow ifTrue: [ aSpaceship changeCapacity: 1 ].
+	throwResult = maxThrow ifTrue: [
+		randomValue < 0.8
+			ifTrue: [ aSpaceship changeCapacity: 1 ]
+			ifFalse: [ aSpaceship changeCapacity: -1 ] ].
 	^ throwResult
 ]
 
