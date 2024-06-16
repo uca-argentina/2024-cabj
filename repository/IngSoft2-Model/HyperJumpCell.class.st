@@ -11,11 +11,11 @@ Class {
 }
 
 { #category : #'instance creation' }
-HyperJumpCell class >> withPosition: aPosition Parsecs: aParsecs andValues: aCollection [
+HyperJumpCell class >> withPosition: aPosition Conversor: aConversor andValues: aCollection [
 
 	^ self new
 		  initializeWithPosition: aPosition
-		  Parsecs: aParsecs
+		  Conversor: aConversor
 		  andValues: aCollection
 ]
 
@@ -35,10 +35,10 @@ HyperJumpCell >> exit: aValue [
 ]
 
 { #category : #initialization }
-HyperJumpCell >> initializeWithPosition: aPosition Parsecs: aParsecs andValues: aCollection [
+HyperJumpCell >> initializeWithPosition: aPosition Conversor: aConversor andValues: aCollection [
 
 	cellPosition := aPosition.
-	parsecsObject := aParsecs.
+	parsecsObject := aConversor.
 	collectionOfValues := aCollection.
 	currentValue := collectionOfValues at: 1
 ]
