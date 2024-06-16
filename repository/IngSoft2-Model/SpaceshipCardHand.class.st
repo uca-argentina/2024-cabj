@@ -50,5 +50,5 @@ SpaceshipCardHand >> initializeStartGameWithId: counterId [
 	id := counterId.
 	collectionOfCards := OrderedCollection
 		                     with: OverloadCard new
-		                     with: OverloadCard new
+		                     with: AccelerationCard new
 ]
