@@ -184,6 +184,7 @@ Game >> throwDice: aSpaceship [
 	| throwResult maxThrow randomValue |
 	randomValue := Random new next.
 	throwResult := collectionOfDice throw.
+	throwResult := aActiveDeck applyEffectOn: throwResult.
 	maxThrow := collectionOfDice amountOfFaces.
 	throwResult = maxThrow ifTrue: [
 		randomValue < 0.8

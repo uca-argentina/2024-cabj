@@ -29,7 +29,7 @@ SpaceshipCardHand >> activateCard: aCard [
 
 	| card |
 	card := collectionOfCards detect: [ :each | each = aCard ].
-	^ card
+	^ card activate value
 ]
 
 { #category : #accessing }

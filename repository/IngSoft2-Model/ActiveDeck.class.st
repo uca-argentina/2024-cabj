@@ -25,6 +25,16 @@ ActiveDeck >> activeCards [
 	^ collectionOfCards size
 ]
 
+{ #category : #action }
+ActiveDeck >> applyEffectOn: throwResult [
+
+	| auxNumber |
+	auxNumber := throwResult.
+	collectionOfCards do: [ :card |
+		card = AccelerationCard new ifTrue: [ auxNumber := auxNumber + 1 ] ].
+	^ auxNumber
+]
+
 { #category : #initialization }
 ActiveDeck >> initializeStartGame [
 
