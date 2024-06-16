@@ -49,9 +49,10 @@ SpaceshipCardHand >> id [
 
 { #category : #initialization }
 SpaceshipCardHand >> initializeStartGameWithId: counterId [
-	
+
 	id := counterId.
 	collectionOfCards := OrderedCollection
 		                     with: OverloadCard new
 		                     with: AccelerationCard new
+		                     with: AllyCard new
 ]

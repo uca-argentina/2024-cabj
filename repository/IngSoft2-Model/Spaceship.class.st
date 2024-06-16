@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'id',
 		'collectionActualPosition',
-		'aFuelTank'
+		'aFuelTank',
+		'lostTurns'
 	],
 	#classInstVars : [
 		'counterId'
@@ -64,13 +65,23 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
 	collectionActualPosition := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
-	id := counterId
+	id := counterId.
+	lostTurns := false
 ]
 
 { #category : #setter }
 Spaceship >> loadFuel [
 
 	aFuelTank loadFuel
+]
+
+{ #category : #accessing }
+Spaceship >> lostTurns [
+
+	| auxVar |
+	auxVar := lostTurns.
+	lostTurns := false.
+	^ auxVar
 ]
 
 { #category : #action }
@@ -89,6 +100,12 @@ Spaceship >> move: aNumberOfMovements [
 ]
 
 { #category : #'set and get' }
+Spaceship >> objectFuelTank [
+
+	^ aFuelTank
+]
+
+{ #category : #'set and get' }
 Spaceship >> objectPosition [
 
 	^ collectionActualPosition
@@ -100,5 +117,7 @@ Spaceship >> resetToOne [
 	| completedLaps |
 	completedLaps := collectionActualPosition completedLaps.
 
-	collectionActualPosition updateCellAndLapWith: completedLaps + 1
+	collectionActualPosition updateCellAndLapWith: completedLaps + 1.
+
+	lostTurns := true
 ]

@@ -126,7 +126,7 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 ]
 
 { #category : #tests }
-GameCardTest >> test06 [
+GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpaceshipTwo [
 
 	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 7 1 ).
@@ -149,7 +149,7 @@ GameCardTest >> test06 [
 	aGame moveSpaceship.
 	
 	result := Dictionary new.
-	result at: 1 put: 23.
+	result at: 1 put: 22.
 	result at: 2 put: 4.
 	
 	self assert: aGame finalPositionOfSpaceships equals: result

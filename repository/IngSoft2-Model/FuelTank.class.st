@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'fuel',
-		'capacity'
+		'capacity',
+		'fuelTankSharing'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,7 +31,8 @@ FuelTank >> changeCapacity: aNumber [
 FuelTank >> initializeFullWith: anAmountOfFuel [
 
 	fuel := anAmountOfFuel.
-	capacity := anAmountOfFuel
+	capacity := anAmountOfFuel.
+	fuelTankSharing := self
 ]
 
 { #category : #asserting }
@@ -54,12 +56,16 @@ FuelTank >> loadedWith [
 { #category : #accessing }
 FuelTank >> runOutOfFuel: aSpaceship [
 
-	self isEmpty ifTrue: [ aSpaceship resetToOne ]
+	(self isEmpty and: fuelTankSharing isEmpty) ifTrue: [
+		aSpaceship resetToOne ]
 ]
 
 { #category : #action }
 FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
-	self isEmpty ifTrue: [ fuel := 0 ]
+	self isEmpty ifTrue: [
+		fuelTankSharing isEmpty ifFalse: [
+			fuelTankSharing useFuel: fuel abs ].
+		fuel := 0 ]
 ]

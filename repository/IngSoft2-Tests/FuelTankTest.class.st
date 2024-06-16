@@ -80,3 +80,16 @@ FuelTankTest >> test08ChangedCapacityOfFuelTankThenCapacityHasChange [
 
 	self assert: aFuelTank capacity equals: 6
 ]
+
+{ #category : #tests }
+FuelTankTest >> test09FuelTankOneSharesWithTwoThenUsesFuelTankTwosFuel [
+
+	| aFuelTankOne aFuelTankTwo |
+	aFuelTankOne := FuelTank fullWith: 0.
+	aFuelTankTwo := FuelTank fullWith: 5.
+	aFuelTankOne shareWith: aFuelTankTwo.
+
+	aFuelTankOne useFuel: 2.
+
+	self assert: aFuelTankTwo loadedWith equals: 3
+]

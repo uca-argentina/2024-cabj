@@ -11,7 +11,7 @@ CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 	aSpaceshipCardHand := SpaceshipCardHand startGame.
 	SpaceshipCardHand initialize.
 
-	self assert: aSpaceshipCardHand amount equals: 2
+	self assert: aSpaceshipCardHand amount equals: 3
 ]
 
 { #category : #tests }

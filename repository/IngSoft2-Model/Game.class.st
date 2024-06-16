@@ -48,11 +48,11 @@ Game >> board [
 ]
 
 { #category : #action }
-Game >> checkAndHandleFuelDepletionFor: nextSpaceship [
+Game >> checkAndHandleFuelDepletion [
 
-	nextSpaceship amountOfFuel = 0 ifTrue: [
-		turnManager lostTurns: 2 by: nextSpaceship.
-		nextSpaceship loadFuel ]
+	currentSpaceship lostTurns ifTrue: [
+		turnManager lostTurns: 2 by: currentSpaceship.
+		currentSpaceship loadFuel ]
 ]
 
 { #category : #accessing }
@@ -147,7 +147,7 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship := currentSpaceship objectPosition position.
 
-	self checkAndHandleFuelDepletionFor: currentSpaceship.
+	self checkAndHandleFuelDepletion.
 
 	positionOfSpaceship = finishLine ifTrue: [
 		collectionOfDice := GameOver new.
