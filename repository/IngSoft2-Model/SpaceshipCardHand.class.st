@@ -27,9 +27,12 @@ SpaceshipCardHand class >> startGame [
 { #category : #action }
 SpaceshipCardHand >> activateCard: aCard [
 
-	| card |
-	card := collectionOfCards detect: [ :each | each = aCard ].
-	^ card activate value
+	| cardToRemove |
+	cardToRemove := collectionOfCards
+		                detect: [ :card | card = aCard ]
+		                ifNone: [ ^ false ].
+	collectionOfCards remove: cardToRemove.
+	^ true
 ]
 
 { #category : #accessing }

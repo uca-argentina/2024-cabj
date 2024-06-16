@@ -27,12 +27,11 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 { #category : #activation }
 Game >> activatePermanentCard: aCard [
 
-	| currentSpaceshipCardHand cardToActivate |
+	| currentSpaceshipCardHand |
 	currentSpaceshipCardHand := spaceshipsCardHands at:
 		                            currentSpaceship id.
-	cardToActivate := currentSpaceshipCardHand activateCard: aCard.
-	aActiveDeck activate: cardToActivate.
-
+	(currentSpaceshipCardHand activateCard: aCard) ifTrue: [
+		aActiveDeck activate: aCard ]
 ]
 
 { #category : #accessing }

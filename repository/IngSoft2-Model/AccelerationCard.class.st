@@ -9,9 +9,3 @@ AccelerationCard >> = aCard [
 
 	^ self class == aCard class
 ]
-
-{ #category : #activation }
-AccelerationCard >> activate [
-
-	^ [ self ]
-]

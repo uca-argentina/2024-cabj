@@ -7,19 +7,20 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+OverloadCard class >> reduceThrowOf: aSpaceshipId [
+
+	^ self new initializeReduceThorwOf: aSpaceshipId
+]
+
 { #category : #comparing }
 OverloadCard >> = aCard [
 
 	^ self class == aCard class
 ]
 
-{ #category : #activation }
-OverloadCard >> activate [
+{ #category : #initialization }
+OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 
-	^ [
-	  spaceshipId := UIManager default request:
-		                 'Please enter id of spaceship to activate overload:'.
-	  Transcript
-		  show: 'User input: ' , spaceshipId;
-		  cr ]
+	spaceshipId := aSpaceshipId
 ]
