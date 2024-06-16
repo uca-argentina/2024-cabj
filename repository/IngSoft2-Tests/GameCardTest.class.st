@@ -124,3 +124,33 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 	position := OrderedCollection with: 5 with: 1.
 	self assert: aGame moveSpaceship equals: position
 ]
+
+{ #category : #tests }
+GameCardTest >> test06 [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 7 1 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceships: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (AllyCard shareFuelWith: 2).
+	aGame moveSpaceship."1 - 8 7"
+	aGame moveSpaceship."2 - 3 13"
+	aGame moveSpaceship."1 - 15 0"
+	aGame moveSpaceship."2 - 4 12"
+	aGame moveSpaceship.
+	
+	result := Dictionary new.
+	result at: 1 put: 23.
+	result at: 2 put: 4.
+	
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
