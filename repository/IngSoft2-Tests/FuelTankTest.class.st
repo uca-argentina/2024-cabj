@@ -70,3 +70,13 @@ FuelTankTest >> test07FuelTankInitializeWithFiveThenCapacityIsFive [
 	
 	self assert: aFuelTank capacity equals: 5
 ]
+
+{ #category : #tests }
+FuelTankTest >> test08ChangedCapacityOfFuelTankThenCapacityHasChange [
+
+	| aFuelTank |
+	aFuelTank := FuelTank fullWith: 5.
+	aFuelTank changeCapacity: 1.
+
+	self assert: aFuelTank capacity equals: 6
+]

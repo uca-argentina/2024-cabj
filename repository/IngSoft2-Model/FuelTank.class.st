@@ -20,6 +20,12 @@ FuelTank >> capacity [
 	^ capacity
 ]
 
+{ #category : #'as yet unclassified' }
+FuelTank >> changeCapacity: aNumber [
+
+	capacity := capacity + aNumber
+]
+
 { #category : #initialization }
 FuelTank >> initializeFullWith: anAmountOfFuel [
 
