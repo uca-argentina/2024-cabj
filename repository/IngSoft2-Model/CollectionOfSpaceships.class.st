@@ -96,7 +96,7 @@ CollectionOfSpaceships >> ranking [
 	sortedSpaceships := spaceships.
 	sortedSpaceships sort: [ :a :b | a > b ].
 	
-	^sortedSpaceships collect: [ :spaceship | spaceship id ]
+	^sortedSpaceships collect: [ :spaceship | spaceship ]
 ]
 
 { #category : #accessing }

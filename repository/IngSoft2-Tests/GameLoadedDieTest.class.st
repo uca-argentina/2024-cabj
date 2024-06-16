@@ -206,7 +206,7 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
-	self assert: aGame winner equals: 1
+	self assert: aGame winner id equals: 1
 ]
 
 { #category : #tests }
@@ -230,7 +230,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame winner equals: 2
+	self assert: aGame winner id equals: 2
 ]
 
 { #category : #tests }
@@ -480,7 +480,7 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 { #category : #tests }
 GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIsInTheSecondPlaceAndTheSpaceshipIsInTheThirdPlaceThenTheRankingIsTwoOneThree [
 
-	| aGame aLoadedDie rankingOfSpaceships aBoardCreator aWormholeCreator |
+	| aGame aLoadedDie rankingOfSpaceships aBoardCreator aWormholeCreator idRanking |
 	aLoadedDie := LoadedDie of: #( 12 18 5 ).
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
@@ -500,15 +500,19 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
+	
+	idRanking := aGame rankingOfSpaceships collect: [ :spaceship |
+		             spaceship id ].
+	
 	self
-		assert: aGame rankingOfSpaceships
-		equals: #( 2 1 3 ) asOrderedCollection
+		assert: idRanking
+		equals: rankingOfSpaceships
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfTheThreeFirstsSpaceships [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator |
+	| aGame aLoadedDie aBoardCreator aWormholeCreator rankingOfSpaceships idRanking |
 	aLoadedDie := LoadedDie of: #( 12 20 5 1 ).
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
@@ -524,11 +528,16 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
+	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
+	
+	idRanking := aGame rankingOfSpaceships collect: [ :spaceship |
+		             spaceship id ].
+	
 	self
-		assert: aGame rankingOfSpaceships
-		equals: #( 2 1 3 ) asOrderedCollection
+		assert: idRanking
+		equals: rankingOfSpaceships
 ]
