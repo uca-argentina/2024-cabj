@@ -180,3 +180,29 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 
 	self assert: aGame finalPositionOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+GameCardTest >> test08GameInitializeSpaceshipPlaysAllCardsThenActiveCardsEqualsTwo [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	aLoadedDie := LoadedDie of: #( 7 7 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (AllyCard shareFuelWith: 1).
+	aGame activatePermanentCard: (AllyCard shareFuelWith: 1).
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 1).
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 1).
+	aGame activatePermanentCard: AccelerationCard new.
+	aGame activatePermanentCard: AccelerationCard new.
+
+	self assert: aGame activeCards equals: 2
+]
