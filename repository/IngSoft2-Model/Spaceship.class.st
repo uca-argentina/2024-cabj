@@ -5,7 +5,8 @@ Class {
 		'id',
 		'collectionActualPosition',
 		'aFuelTank',
-		'lostTurns'
+		'allySpaceship',
+		'fuelDepleted'
 	],
 	#classInstVars : [
 		'counterId'
@@ -55,6 +56,21 @@ Spaceship >> changeCapacity: aNumber [
 ]
 
 { #category : #accessing }
+Spaceship >> emptyTank [
+
+	| auxVar |
+	auxVar := fuelDepleted.
+	fuelDepleted := false.
+	^ auxVar
+]
+
+{ #category : #accessing }
+Spaceship >> fuelDepleted [
+
+	^ fuelDepleted
+]
+
+{ #category : #accessing }
 Spaceship >> id [
 
 	^ id
@@ -66,22 +82,14 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 	collectionActualPosition := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId.
-	lostTurns := false
+	fuelDepleted := false.
+	allySpaceship := self
 ]
 
 { #category : #setter }
 Spaceship >> loadFuel [
 
 	aFuelTank loadFuel
-]
-
-{ #category : #accessing }
-Spaceship >> lostTurns [
-
-	| auxVar |
-	auxVar := lostTurns.
-	lostTurns := false.
-	^ auxVar
 ]
 
 { #category : #action }
@@ -119,5 +127,13 @@ Spaceship >> resetToOne [
 
 	collectionActualPosition updateCellAndLapWith: completedLaps + 1.
 
-	lostTurns := true
+	fuelDepleted := true.
+	(allySpaceship = self or: allySpaceship fuelDepleted)
+		ifFalse: [ allySpaceship resetToOne ]
+]
+
+{ #category : #action }
+Spaceship >> shareWith: aAllySpaceship [
+
+	allySpaceship := aAllySpaceship
 ]

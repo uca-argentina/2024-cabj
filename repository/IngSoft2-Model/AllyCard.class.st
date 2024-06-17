@@ -29,11 +29,15 @@ AllyCard >> initializeShareFuelWith: aSpaceshipId [
 { #category : #accessing }
 AllyCard >> withEffectOn: aGame [
 
-	| fuelTankOne fuelTankTwo |
-	fuelTankOne := aGame currentSpaceship objectFuelTank.
-	fuelTankTwo := (aGame spaceships detect: [ :spaceship |
-		                spaceship id = allayTwoId ]) objectFuelTank.
+	| spaceshipOne spaceshipTwo fuelTankOne fuelTankTwo |
+	spaceshipOne := aGame currentSpaceship.
+	spaceshipTwo := aGame spaceships detect: [ :spaceship |
+		                spaceship id = allayTwoId ].
+	fuelTankOne := spaceshipOne objectFuelTank.
+	fuelTankTwo := spaceshipTwo objectFuelTank.
 
+	spaceshipOne shareWith: spaceshipTwo.
+	spaceshipTwo shareWith: spaceshipOne.
 	fuelTankOne shareWith: fuelTankTwo.
 	fuelTankTwo shareWith: fuelTankOne
 ]

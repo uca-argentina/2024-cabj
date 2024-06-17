@@ -50,7 +50,7 @@ Game >> board [
 { #category : #action }
 Game >> checkAndHandleFuelDepletion [
 
-	currentSpaceship lostTurns ifTrue: [
+	currentSpaceship emptyTank ifTrue: [
 		turnManager lostTurns: 2 by: currentSpaceship.
 		currentSpaceship loadFuel ]
 ]

@@ -154,3 +154,32 @@ GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpacesh
 	
 	self assert: aGame finalPositionOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 7 7 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceships: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (AllyCard shareFuelWith: 2).
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 1.
+	result at: 2 put: 1.
+
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
