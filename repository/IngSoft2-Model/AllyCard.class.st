@@ -39,7 +39,7 @@ AllyCard >> compare: aCard [
 	^ self class == aCard class and: allyTwoId = aCard ally
 ]
 
-{ #category : #private }
+{ #category : #action }
 AllyCard >> deactivate [
 
 	| fuelTankOne fuelTankTwo |
@@ -55,8 +55,7 @@ AllyCard >> deactivate [
 { #category : #initialization }
 AllyCard >> initializeShareFuelWith: aSpaceshipId [
 
-	allyTwoId := aSpaceshipId.
-	
+	allyTwoId := aSpaceshipId
 ]
 
 { #category : #accessing }

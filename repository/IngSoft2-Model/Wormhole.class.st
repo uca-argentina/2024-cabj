@@ -14,15 +14,18 @@ Wormhole class >> in: aPosition [
 
 { #category : #action }
 Wormhole >> enter [
-	^cellPosition .
+
+	^ cellPosition
 ]
 
 { #category : #action }
 Wormhole >> exit: aValue [
-	^true .
+
+	^ true
 ]
 
 { #category : #initialization }
 Wormhole >> initializeIn: aPosition [
-	cellPosition:= aPosition .
+
+	cellPosition := aPosition
 ]

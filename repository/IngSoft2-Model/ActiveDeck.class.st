@@ -2,7 +2,7 @@ Class {
 	#name : #ActiveDeck,
 	#superclass : #Object,
 	#instVars : [
-		'collectionOfCards'
+		'cards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,13 +16,13 @@ ActiveDeck class >> startGame [
 { #category : #convenience }
 ActiveDeck >> activate: aCard [
 
-	collectionOfCards add: aCard
+	cards add: aCard
 ]
 
 { #category : #accessing }
 ActiveDeck >> activeCards [
 
-	^ collectionOfCards size
+	^ cards size
 ]
 
 { #category : #action }
@@ -30,8 +30,8 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 
 	| auxNumber |
 	auxNumber := throwResult.
-	collectionOfCards isEmpty ifTrue: [ ^ throwResult ].
-	collectionOfCards do: [ :card |
+	cards isEmpty ifTrue: [ ^ throwResult ].
+	cards do: [ :card |
 		auxNumber := card applyEffectOn: auxNumber for: spaceshipId ].
 	^ auxNumber
 ]
@@ -39,7 +39,7 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 { #category : #initialization }
 ActiveDeck >> initializeStartGame [
 
-	collectionOfCards := OrderedCollection new.
+	cards := OrderedCollection new
 ]
 
 { #category : #removing }
@@ -47,10 +47,9 @@ ActiveDeck >> remove: cardToCancel [
 
 	| anIndex indexToRemove |
 	anIndex := 1.
-	collectionOfCards do: [ :card |
-		(card compare: cardToCancel) ifTrue: [
-			indexToRemove := anIndex ].
+	cards do: [ :card |
+		(card compare: cardToCancel) ifTrue: [ indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
-	(collectionOfCards at: indexToRemove) deactivate.
-	collectionOfCards removeAt: indexToRemove
+	(cards at: indexToRemove) deactivate.
+	cards removeAt: indexToRemove
 ]

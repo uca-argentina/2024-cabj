@@ -16,12 +16,14 @@ WormholeCreator class >> withBeginning: beginning andEnd: ending [
 
 { #category : #accessing }
 WormholeCreator >> beginning [
-	^ beginningWormhole .
+
+	^ beginningWormhole
 ]
 
 { #category : #accessing }
 WormholeCreator >> ending [
-	^ endingWormhole .
+
+	^ endingWormhole
 ]
 
 { #category : #initialization }

@@ -19,7 +19,7 @@ AtomicBombCell class >> withPostion: aPosition onTheGame: aGame [
 { #category : #action }
 AtomicBombCell >> enter [
 
-	game resetSpaceshipsToCellOne .
+	game resetSpaceshipsToCellOne.
 	^ 1
 ]
 
@@ -32,6 +32,6 @@ AtomicBombCell >> exit: aValue [
 { #category : #initialization }
 AtomicBombCell >> initializeWithPostion: aPosition onTheGame: aGame [
 
-	game:=aGame.
+	game := aGame.
 	cellPosition := aPosition
 ]

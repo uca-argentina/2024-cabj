@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'spaceships',
-		'anAllShipsDisabledHandler',
 		'currentSpaceship',
 		'turnsToSkip',
 		'spaceshipPlaying'
@@ -32,7 +31,6 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 	currentSpaceship := spaceships at: 1.
 	spaceshipPlaying := spaceships at: 1.
 	turnsToSkip := Dictionary new.
-	turnsToSkip at: anAllShipsDisabledHandler put: 2.
 	1 to: spaceships size do: [ :index |
 	turnsToSkip at: (spaceships at: index) put: 0 ]
 ]
@@ -41,17 +39,17 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 TurnManager >> lostTurns: anAmountOfTurns by: aSpaceship [
 
 	(turnsToSkip at: aSpaceship) = 0 ifTrue: [
-		turnsToSkip at: aSpaceship put: anAmountOfTurns  ]
+		turnsToSkip at: aSpaceship put: anAmountOfTurns ]
 ]
 
 { #category : #auxiliar }
 TurnManager >> nextSpaceship [
 
-        | currentIndex nextIndex |
-        currentIndex := spaceships indexOf: currentSpaceship .
-        nextIndex := currentIndex + 1.
-        nextIndex > spaceships size ifTrue: [nextIndex := 1].
-        currentSpaceship:= spaceships at: nextIndex
+	| currentIndex nextIndex |
+	currentIndex := spaceships indexOf: currentSpaceship.
+	nextIndex := currentIndex + 1.
+	nextIndex > spaceships size ifTrue: [ nextIndex := 1 ].
+	currentSpaceship := spaceships at: nextIndex
 ]
 
 { #category : #action }
@@ -67,5 +65,6 @@ TurnManager >> nextTurn [
 
 { #category : #accessing }
 TurnManager >> spaceshipPlaying [
+
 	^ spaceshipPlaying
 ]

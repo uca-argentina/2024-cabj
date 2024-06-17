@@ -24,7 +24,7 @@ BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormh
 
 { #category : #'set and get' }
 BoardCreator >> cells [
- 
+
 	^ collectionAmountOfCellsAndLaps at: 1
 ]
 
@@ -90,11 +90,11 @@ BoardCreator >> createHyperJumpCells [
 	parsecs := Conversor
 		           totalCells: amountOfCells
 		           convertionValue: amountOfCells // 2.
-	
+
 	board add: (HyperJumpCell
-				 withPosition: counterForPosition
-				 Conversor: parsecs
-				 andValues: #( 10 8 6 4 2 )).
+			 withPosition: counterForPosition
+			 Conversor: parsecs
+			 andValues: #( 10 8 6 4 2 )).
 	self nextPosition
 ]
 
@@ -138,7 +138,7 @@ BoardCreator >> createWormhole [
 BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
-	wormholeCreator := aWormholeCreator .
+	wormholeCreator := aWormholeCreator.
 	percentagesOfDistrubitionSpecialCells := aPercentagesOfDistrubitionSpecialCells.
 	board := OrderedCollection new.
 	counterForPosition := 1.
