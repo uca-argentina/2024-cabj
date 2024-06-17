@@ -24,7 +24,7 @@ BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormh
 
 { #category : #'set and get' }
 BoardCreator >> cells [
- 
+
 	^ collectionAmountOfCellsAndLaps at: 1
 ]
 
@@ -44,7 +44,7 @@ BoardCreator >> createBlackHoleCells [
 ]
 
 { #category : #creation }
-BoardCreator >> createBoardFor: aCollectionOfSpaceships with: aTurnManager andMaxThrowOf: aThrowResult on: aGame [
+BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
 
 	| amountOfCells anAmountOfIndex aEffectManager |
 	game := aGame.
@@ -82,11 +82,11 @@ BoardCreator >> createHyperJumpCells [
 	parsecs := Parsecs
 		           totalCells: amountOfCells
 		           convertionValue: amountOfCells // 2.
-	
+
 	board add: (HyperJumpCell
-				 withPosition: counterForPosition
-				 Parsecs: parsecs
-				 andValues: #( 10 8 6 4 2 )).
+			 withPosition: counterForPosition
+			 Parsecs: parsecs
+			 andValues: #( 10 8 6 4 2 )).
 	self nextPosition
 ]
 
@@ -130,7 +130,7 @@ BoardCreator >> createWormhole [
 BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
-	wormholeCreator := aWormholeCreator .
+	wormholeCreator := aWormholeCreator.
 	percentagesOfDistrubitionSpecialCells := aPercentagesOfDistrubitionSpecialCells.
 	board := OrderedCollection new.
 	counterForPosition := 1.

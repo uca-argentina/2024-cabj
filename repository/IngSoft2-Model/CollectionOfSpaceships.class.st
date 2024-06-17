@@ -9,7 +9,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 CollectionOfSpaceships class >> numberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel indexCalculateWith: anAmountOfCells [
 
 	^ self new
@@ -95,8 +95,8 @@ CollectionOfSpaceships >> ranking [
 	| sortedSpaceships |
 	sortedSpaceships := spaceships.
 	sortedSpaceships sort: [ :a :b | a > b ].
-	
-	^sortedSpaceships collect: [ :spaceship | spaceship id ]
+
+	^ sortedSpaceships collect: [ :spaceship | spaceship id ]
 ]
 
 { #category : #accessing }

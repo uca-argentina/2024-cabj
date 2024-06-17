@@ -2,13 +2,13 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'aBoard',
-		'collectionOfDice',
 		'amountOfFuel',
-		'collectionOfSpaceships',
 		'turnManager',
 		'finishLine',
-		'anAmountOfIndex'
+		'anAmountOfIndex',
+		'board',
+		'dice',
+		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,7 +25,7 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 { #category : #accessing }
 Game >> board [
 
-	^ aBoard
+	^ board
 ]
 
 { #category : #action }
@@ -39,78 +39,82 @@ Game >> checkAndHandleFuelDepletionFor: nextSpaceship [
 { #category : #results }
 Game >> finalLapsOfSpaceships [
 
-	^ collectionOfSpaceships lapsOfSpaceships
+	^ spaceships lapsOfSpaceships
 ]
 
 { #category : #results }
 Game >> finalPositionOfSpaceships [
 
-	^ collectionOfSpaceships cellsOfSpaceships
+	^ spaceships cellsOfSpaceships
 ]
 
 { #category : #results }
 Game >> finalResultsOfSpaceships [
 
-	^ collectionOfSpaceships positionsOfSpaceships
+	^ spaceships positionsOfSpaceships
 ]
 
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-	
+
 	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
 
 	finishLine := OrderedCollection
 		              with: aBoardCreator cells
 		              with: aBoardCreator laps.
 
-	collectionOfDice := aCollectionOfDice.
-	amountOfFuel := collectionOfDice amountOfFaces * 2.
+	dice := aCollectionOfDice.
+	amountOfFuel := dice amountOfFaces * 2.
 
-	collectionOfSpaceships := CollectionOfSpaceships
+	spaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: anAmountOfSpaceships
 		                          withAmountOfFuel: amountOfFuel
 		                          indexCalculateWith: aBoardCreator cells.
 
-	turnManager := TurnManager manage: collectionOfSpaceships.
+	turnManager := TurnManager manage: spaceships.
 
-	aBoard := aBoardCreator createBoardFor: collectionOfSpaceships with: turnManager andMaxThrowOf: (collectionOfDice amountOfFaces) on:self.
-
+	board := aBoardCreator
+		         createBoardFor: self
+		         with: turnManager
+		         andMaxThrowOf: dice amountOfFaces
 ]
 
 { #category : #action }
-Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [ 
+Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
 
 	| aSpaceshipAux collectionMinusSpaceship aSpaceship |
-	aSpaceship:= turnManager spaceshipPlaying .
-	collectionMinusSpaceship :=( collectionOfSpaceships spaceships) copy.
+	aSpaceship := turnManager spaceshipPlaying.
+	collectionMinusSpaceship := spaceships spaceships copy.
 	collectionMinusSpaceship remove: aSpaceship.
 	1 to: collectionMinusSpaceship size do: [ :index |
-		aSpaceshipAux := (collectionMinusSpaceship at: index).
-		aSpaceshipAux move: anAmountOfMovements. ]
+		aSpaceshipAux := collectionMinusSpaceship at: index.
+		aSpaceshipAux move: anAmountOfMovements ]
 ]
 
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship nextSpaceship throwResult positionOfNextSpaceship currentPosition |
+	| positionOfSpaceship nextSpaceship throwResult cellOfSpaceship indexOfSpaceship |
 	nextSpaceship := turnManager nextTurn.
 
-	throwResult := collectionOfDice throw.
+	throwResult := dice throw.
 
-	positionOfNextSpaceship := nextSpaceship objectPosition.
-	currentPosition := positionOfNextSpaceship index.
+	positionOfSpaceship := nextSpaceship objectPosition.
+	indexOfSpaceship := positionOfSpaceship index.
 
-	currentPosition + throwResult > anAmountOfIndex ifTrue: [
-		throwResult := anAmountOfIndex - currentPosition ].
+	indexOfSpaceship + throwResult > anAmountOfIndex ifTrue: [
+		throwResult := anAmountOfIndex - indexOfSpaceship ].
 
-	((aBoard at: currentPosition) exit: throwResult) ifFalse: [
-		^ positionOfNextSpaceship position ].
+	((board at: indexOfSpaceship) exit: throwResult) ifFalse: [
+		^ positionOfSpaceship position ].
 
-	positionOfSpaceship := (aBoard at: currentPosition + throwResult)
-		                       enter.
 	nextSpaceship move: throwResult.
+
+	cellOfSpaceship := (board at: indexOfSpaceship + throwResult) enter.
+
 	nextSpaceship move:
-		positionOfSpaceship - nextSpaceship objectPosition cell.
+		cellOfSpaceship - nextSpaceship objectPosition cell.
+
 	positionOfSpaceship := nextSpaceship objectPosition position.
 
 	self checkAndHandleFuelDepletionFor: nextSpaceship.
@@ -125,28 +129,28 @@ Game >> moveSpaceship [
 { #category : #results }
 Game >> rankingOfSpaceships [
 
-	^ collectionOfSpaceships ranking first: 3
+	^ spaceships ranking first: 3
 ]
 
 { #category : #action }
 Game >> reloadSpaceship [
+
 	| nextSpaceship |
 	nextSpaceship := turnManager nextTurn.
-	nextSpaceship loadFuel: amountOfFuel.
-
-
+	nextSpaceship loadFuel: amountOfFuel
 ]
 
 { #category : #initialization }
 Game >> resetSpaceshipsToCellOne [
+
 	| aSpaceship |
-	1 to: collectionOfSpaceships spaceships size do: [ :index |
-		aSpaceship := collectionOfSpaceships  spaceships at: index.
+	1 to: spaceships spaceships size do: [ :index |
+		aSpaceship := spaceships spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
 ]
 
 { #category : #results }
 Game >> winner [
 
-	^ collectionOfSpaceships ranking at: 1
+	^ spaceships ranking at: 1
 ]
