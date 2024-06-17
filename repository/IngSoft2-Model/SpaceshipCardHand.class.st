@@ -18,10 +18,20 @@ SpaceshipCardHand class >> initialize [
 ]
 
 { #category : #'instance creation' }
-SpaceshipCardHand class >> startGame [
+SpaceshipCardHand class >> startGameWith: aCard and: anotherCard [
 
 	counterId := counterId + 1.
-	^ self new initializeStartGameWithId: counterId
+	^ self new
+		  initializeStartGameWithId: counterId
+		  with: aCard
+		  and: anotherCard
+]
+
+{ #category : #'instance creation' }
+SpaceshipCardHand class >> startGameWithAllCards: aGameDeck [
+
+	counterId := counterId + 1.
+	^ self new initializeStartGameWithId: counterId with: aGameDeck
 ]
 
 { #category : #action }
@@ -48,11 +58,15 @@ SpaceshipCardHand >> id [
 ]
 
 { #category : #initialization }
-SpaceshipCardHand >> initializeStartGameWithId: counterId [
+SpaceshipCardHand >> initializeStartGameWithId: counterId with: aGameDeck [
 
 	id := counterId.
-	collectionOfCards := OrderedCollection
-		                     with: OverloadCard new
-		                     with: AccelerationCard new
-		                     with: AllyCard new
+	collectionOfCards := aGameDeck availableCards
+]
+
+{ #category : #initialization }
+SpaceshipCardHand >> initializeStartGameWithId: counterId with: aCard and: anotherCard [
+
+	id := counterId.
+	collectionOfCards := OrderedCollection with: aCard with: anotherCard
 ]

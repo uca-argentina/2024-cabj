@@ -13,6 +13,12 @@ GameDeck class >> startGame [
 	^ self new initializeStartGame
 ]
 
+{ #category : #accessing }
+GameDeck >> availableCards [
+
+	^ availableCards
+]
+
 { #category : #initialization }
 GameDeck >> initializeStartGame [
 
@@ -22,7 +28,7 @@ GameDeck >> initializeStartGame [
 		                  with: AccelerationCard new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 GameDeck >> pickACard [
 
 	^ availableCards at: 3 atRandom

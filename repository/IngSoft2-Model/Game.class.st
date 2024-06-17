@@ -24,6 +24,16 @@ Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardC
 		  playWithDice: aCollectionOfDice
 ]
 
+{ #category : #'instance creation' }
+Game class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+
+	^ self new
+		  initializeNumberOfSpaceshipsPlayingWithAllCards:
+		  anAmountOfSpaceships
+		  withBoardCreator: aBoardCreator
+		  playWithDice: aCollectionOfDice
+]
+
 { #category : #activation }
 Game >> activatePermanentCard: aCard [
 
@@ -82,8 +92,10 @@ Game >> finalResultsOfSpaceships [
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
+	| aGameDeck |
 	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
 
+	aGameDeck := GameDeck startGame.
 	aActiveDeck := ActiveDeck startGame.
 
 	finishLine := OrderedCollection
@@ -98,8 +110,45 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 		                          collectionOfDice amountOfFaces * 2
 		                          indexCalculateWith: aBoardCreator cells.
 
-	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [:index |
-		                       SpaceshipCardHand startGame ].
+	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
+		                       SpaceshipCardHand
+			                       startGameWith: aGameDeck pickACard
+			                       and: aGameDeck pickACard ].
+	SpaceshipCardHand initialize.
+
+	turnManager := TurnManager manage: collectionOfSpaceships.
+	currentSpaceship := turnManager nextTurn.
+
+	board := aBoardCreator
+		         createBoardFor: self
+		         with: turnManager
+		         andMaxThrowOf: collectionOfDice amountOfFaces
+]
+
+{ #category : #initialization }
+Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+
+	| aGameDeck |
+	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
+
+	aGameDeck := GameDeck startGame.
+	aActiveDeck := ActiveDeck startGame.
+
+	finishLine := OrderedCollection
+		              with: aBoardCreator cells
+		              with: aBoardCreator laps.
+
+	collectionOfDice := aCollectionOfDice.
+
+	collectionOfSpaceships := CollectionOfSpaceships
+		                          numberOfSpaceships: anAmountOfSpaceships
+		                          withAmountOfFuel:
+		                          collectionOfDice amountOfFaces * 2
+		                          indexCalculateWith: aBoardCreator cells.
+
+	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
+		                       SpaceshipCardHand startGameWithAllCards:
+			                       aGameDeck ].
 	SpaceshipCardHand initialize.
 
 	turnManager := TurnManager manage: collectionOfSpaceships.

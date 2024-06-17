@@ -8,10 +8,12 @@ Class {
 CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 
 	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand startGame.
+	aSpaceshipCardHand := SpaceshipCardHand
+		                      startGameWith: OverloadCard new
+		                      and: AccelerationCard new.
 	SpaceshipCardHand initialize.
 
-	self assert: aSpaceshipCardHand amount equals: 3
+	self assert: aSpaceshipCardHand amount equals: 2
 ]
 
 { #category : #tests }
@@ -27,7 +29,9 @@ CardTest >> test02ActiveDeckInitializeThenActiveCardsEqualsZero [
 CardTest >> test04SpaceshipCardHandInitializeThenIdEqualsOne [
 
 	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand startGame.
+	aSpaceshipCardHand := SpaceshipCardHand
+		                      startGameWith: OverloadCard new
+		                      and: AccelerationCard new.
 	SpaceshipCardHand initialize.
 	self assert: aSpaceshipCardHand id equals: 1
 ]
