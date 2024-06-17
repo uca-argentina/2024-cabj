@@ -40,3 +40,14 @@ CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
 
 	self assert: aGameDeck size equals: 3
 ]
+
+{ #category : #tests }
+CardTest >> test06SpaceshipCardHandGainsACardThenAmountOfCardsEqualsThree [
+
+	| aSpaceshipCardHand |
+	aSpaceshipCardHand := SpaceshipCardHand startGame.
+	SpaceshipCardHand initialize.
+	aSpaceshipCardHand gainACard.
+
+	self assert: aSpaceshipCardHand amount equals: 3
+]

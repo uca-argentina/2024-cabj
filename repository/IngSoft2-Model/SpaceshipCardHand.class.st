@@ -49,6 +49,12 @@ SpaceshipCardHand >> amount [
 	^ collectionOfCards size
 ]
 
+{ #category : #'as yet unclassified' }
+SpaceshipCardHand >> gainACard [
+
+	collectionOfCards add: aGameDeck pickACard
+]
+
 { #category : #accessing }
 SpaceshipCardHand >> id [
 
