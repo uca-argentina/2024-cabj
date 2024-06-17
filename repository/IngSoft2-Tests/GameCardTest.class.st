@@ -318,3 +318,29 @@ GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanD
 	position := OrderedCollection with: 8 with: 1.
 	self assert: aGame moveSpaceship equals: position
 ]
+
+{ #category : #tests }
+GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithoutEffect [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	aLoadedDie := LoadedDie of: #( 7 7 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: AccelerationCard new.
+	aGame
+		spaceshipId: 2
+		activateInstantCard: (CancellationCard cancel: AccelerationCard new).
+	aGame moveSpaceship.
+
+	position := OrderedCollection with: 8 with: 1.
+	self assert: aGame moveSpaceship equals: position
+]

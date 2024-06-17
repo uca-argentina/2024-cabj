@@ -25,7 +25,7 @@ AccelerationCard >> compare: aCard [
 	^ self = aCard
 ]
 
-{ #category : #private }
+{ #category : #action }
 AccelerationCard >> deactivate [
 
 	^ true

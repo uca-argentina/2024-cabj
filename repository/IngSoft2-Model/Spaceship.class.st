@@ -128,8 +128,8 @@ Spaceship >> resetToOne [
 	collectionActualPosition updateCellAndLapWith: completedLaps + 1.
 
 	fuelDepleted := true.
-	(allySpaceship = self or: allySpaceship fuelDepleted)
-		ifFalse: [ allySpaceship resetToOne ]
+	(allySpaceship = self or: allySpaceship fuelDepleted) ifFalse: [
+		allySpaceship resetToOne ]
 ]
 
 { #category : #action }

@@ -13,5 +13,5 @@ GameOver >> nextTurn [
 { #category : #action }
 GameOver >> throw [
 
-Error signal: 'The Game is Over'.
+	Error signal: 'The Game is Over'
 ]

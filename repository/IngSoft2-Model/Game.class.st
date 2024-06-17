@@ -99,7 +99,7 @@ Game >> finalResultsOfSpaceships [
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
 	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
-	
+
 	aActiveDeck := ActiveDeck startGame.
 
 	finishLine := OrderedCollection
@@ -109,13 +109,12 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	dice := aCollectionOfDice.
 
 	spaceships := CollectionOfSpaceships
-		                          numberOfSpaceships: anAmountOfSpaceships
-		                          withAmountOfFuel:
-		                          dice amountOfFaces * 2
-		                          indexCalculateWith: aBoardCreator cells.
+		              numberOfSpaceships: anAmountOfSpaceships
+		              withAmountOfFuel: dice amountOfFaces * 2
+		              indexCalculateWith: aBoardCreator cells.
 
 	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
-		                       SpaceshipCardHand startGame].
+		                       SpaceshipCardHand startGame ].
 	SpaceshipCardHand initialize.
 
 	turnManager := TurnManager manage: spaceships.
@@ -141,10 +140,9 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 	dice := aCollectionOfDice.
 
 	spaceships := CollectionOfSpaceships
-		                          numberOfSpaceships: anAmountOfSpaceships
-		                          withAmountOfFuel:
-		                          dice amountOfFaces * 2
-		                          indexCalculateWith: aBoardCreator cells.
+		              numberOfSpaceships: anAmountOfSpaceships
+		              withAmountOfFuel: dice amountOfFaces * 2
+		              indexCalculateWith: aBoardCreator cells.
 
 	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
 		                       SpaceshipCardHand startGameWithAllCards ].
@@ -230,7 +228,7 @@ Game >> resetSpaceshipsToCellOne [
 
 	| aSpaceship |
 	1 to: spaceships spaceships size do: [ :index |
-		aSpaceship := spaceships  spaceships at: index.
+		aSpaceship := spaceships spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
 ]
 
@@ -255,11 +253,11 @@ Game >> throwDice: aSpaceship [
 	| throwResult maxThrow randomValue |
 	randomValue := Random new next.
 	throwResult := dice throw.
-	
+
 	throwResult := aActiveDeck
 		               applyEffectOn: throwResult
 		               withCurrentSpaceship: currentSpaceship id.
-		
+
 	maxThrow := dice amountOfFaces.
 	throwResult = maxThrow ifTrue: [
 		randomValue < 0.8

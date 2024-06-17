@@ -92,9 +92,9 @@ BoardCreator >> createHyperJumpCells [
 		           convertionValue: amountOfCells // 2.
 
 	board add: (HyperJumpCell
-				 withPosition: counterForPosition
-				 Conversor: parsecs
-				 andValues: #( 10 8 6 4 2 )).
+			 withPosition: counterForPosition
+			 Conversor: parsecs
+			 andValues: #( 10 8 6 4 2 )).
 	self nextPosition
 ]
 

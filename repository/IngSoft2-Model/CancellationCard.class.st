@@ -30,5 +30,5 @@ CancellationCard >> activateEffectOn: anActiveDeck [
 { #category : #initialization }
 CancellationCard >> initializeCancel: aCard [
 
-	cardToCancel := aCard.
+	cardToCancel := aCard
 ]

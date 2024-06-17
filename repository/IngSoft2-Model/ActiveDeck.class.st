@@ -39,7 +39,7 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 { #category : #initialization }
 ActiveDeck >> initializeStartGame [
 
-	cards := OrderedCollection new.
+	cards := OrderedCollection new
 ]
 
 { #category : #removing }
@@ -48,8 +48,7 @@ ActiveDeck >> remove: cardToCancel [
 	| anIndex indexToRemove |
 	anIndex := 1.
 	cards do: [ :card |
-		(card compare: cardToCancel) ifTrue: [
-			indexToRemove := anIndex ].
+		(card compare: cardToCancel) ifTrue: [ indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
 	(cards at: indexToRemove) deactivate.
 	cards removeAt: indexToRemove
