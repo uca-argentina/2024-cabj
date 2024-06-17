@@ -49,7 +49,7 @@ SpaceshipCardHand >> amount [
 	^ collectionOfCards size
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 SpaceshipCardHand >> gainACard [
 
 	collectionOfCards add: aGameDeck pickACard
