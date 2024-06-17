@@ -31,3 +31,12 @@ CardTest >> test04SpaceshipCardHandInitializeThenIdEqualsOne [
 	SpaceshipCardHand initialize.
 	self assert: aSpaceshipCardHand id equals: 1
 ]
+
+{ #category : #tests }
+CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
+
+	| aGameDeck |
+	aGameDeck := GameDeck startGame.
+
+	self assert: aGameDeck size equals: 3
+]
