@@ -1,5 +1,5 @@
 Class {
-	#name : #Parsecs,
+	#name : #LightYear,
 	#superclass : #Object,
 	#instVars : [
 		'value'
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #'instance creation' }
-Parsecs class >> ofValue: aValue [
+LightYear class >> ofValue: aValue [
 
 	^ self new initializeOfValue: aValue
 ]
 
 { #category : #converting }
-Parsecs >> convertToParsec [
+LightYear >> convertToParsec [
 
-	^ value
+	^ value / 3
 ]
 
 { #category : #initialization }
-Parsecs >> initializeOfValue: aValue [
+LightYear >> initializeOfValue: aValue [
 
 	value := aValue
 ]

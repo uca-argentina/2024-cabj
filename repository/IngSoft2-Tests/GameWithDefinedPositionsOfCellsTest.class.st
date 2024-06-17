@@ -221,3 +221,27 @@ GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnt
 
 	self assert: aGame finalPositionOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmountOfCardsOnHandEqualsThree [
+
+	| aLoadedDie aGame aBoardCreator aWormholeCreator |
+	aLoadedDie := LoadedDie of: #( 3 ).
+	
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+	
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeCreator: aWormholeCreator.
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+
+	self assert: aGame currentSpaceshipCardHand amount equals: 3
+]

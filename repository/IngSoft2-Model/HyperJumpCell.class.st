@@ -2,20 +2,20 @@ Class {
 	#name : #HyperJumpCell,
 	#superclass : #Object,
 	#instVars : [
-		'parsecsObject',
 		'collectionOfValues',
 		'currentValue',
-		'cellPosition'
+		'cellPosition',
+		'conversor'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-HyperJumpCell class >> withPosition: aPosition Parsecs: aParsecs andValues: aCollection [
+HyperJumpCell class >> withPosition: aPosition Conversor: aConversor andValues: aCollection [
 
 	^ self new
 		  initializeWithPosition: aPosition
-		  Parsecs: aParsecs
+		  Conversor: aConversor
 		  andValues: aCollection
 ]
 
@@ -23,7 +23,7 @@ HyperJumpCell class >> withPosition: aPosition Parsecs: aParsecs andValues: aCol
 HyperJumpCell >> enter [
 
 	| convertionOfNextValue |
-	convertionOfNextValue := parsecsObject convert: currentValue.
+	convertionOfNextValue := conversor convert: currentValue.
 	self nextValue.
 	^ cellPosition + convertionOfNextValue
 ]
@@ -35,10 +35,10 @@ HyperJumpCell >> exit: aValue [
 ]
 
 { #category : #initialization }
-HyperJumpCell >> initializeWithPosition: aPosition Parsecs: aParsecs andValues: aCollection [
+HyperJumpCell >> initializeWithPosition: aPosition Conversor: aConversor andValues: aCollection [
 
 	cellPosition := aPosition.
-	parsecsObject := aParsecs.
+	conversor := aConversor.
 	collectionOfValues := aCollection.
 	currentValue := collectionOfValues at: 1
 ]

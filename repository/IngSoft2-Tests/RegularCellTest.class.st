@@ -17,10 +17,10 @@ RegularCellTest >> should: anErrorBlock raise: anErrorClass withMessage: anError
 { #category : #tests }
 RegularCellTest >> test01RegularCellInitializeWithPositionThenEnterReturnsIt [ 
 
-	| aBox |
-	aBox := RegularCell position: 1.
+	| aCell |
+	aCell := RegularCell position: 1.
 
-	self assert: aBox enter equals: 1
+	self assert: aCell enter equals: 1
 
 ]
 

@@ -17,7 +17,7 @@ Class {
 { #category : #'instance creation' }
 BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
 
-(percentagesOfDistrubitionSpecialCells sum = 100) ifFalse: [ Error signal: 'Sum of probabilities must be exactly one hundred'].
+(percentagesOfDistrubitionSpecialCells sum <= 100) ifFalse: [ Error signal: 'Sum of probabilities must be lower or equal to one hundred'].
 
 ^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator  andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
 ]
@@ -66,6 +66,14 @@ BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowRe
 ]
 
 { #category : #'set and get' }
+BoardCreator >> createCardDispenserCells [
+
+	board add:
+		(CardDispenserCell withPostion: counterForPosition onTheGame: game).
+	self nextPosition
+]
+
+{ #category : #'set and get' }
 BoardCreator >> createHyperGravityCells [
 
 	board add: (HyperGravityCell
@@ -79,13 +87,13 @@ BoardCreator >> createHyperJumpCells [
 
 	| amountOfCells parsecs |
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
-	parsecs := Parsecs
+	parsecs := Conversor
 		           totalCells: amountOfCells
 		           convertionValue: amountOfCells // 2.
 
 	board add: (HyperJumpCell
 			 withPosition: counterForPosition
-			 Parsecs: parsecs
+			 Conversor: parsecs
 			 andValues: #( 10 8 6 4 2 )).
 	self nextPosition
 ]

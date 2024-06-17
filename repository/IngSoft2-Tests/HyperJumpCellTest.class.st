@@ -7,12 +7,12 @@ Class {
 { #category : #tests }
 HyperJumpCellTest >> test01HyperJumpCreatedOnPositionFiveThenEnterReturnsNine [
 
-	| aParsecsObject aHyperJumpCell |
-	aParsecsObject := Parsecs totalCells: 10 convertionValue: 5.
+	| aConversor aHyperJumpCell |
+	aConversor := Conversor totalCells: 10 convertionValue: 5.
 	aHyperJumpCell := HyperJumpCell
 		                  withPosition: 5
-		                  Parsecs: aParsecsObject
-		                  andValues: #( 2 1 ).
+		                  Conversor: aConversor
+		                  andValues: (OrderedCollection with: (Parsecs ofValue: 2) with: (Parsecs ofValue: 1) ).
 
 	self assert: aHyperJumpCell enter equals: 9
 ]
@@ -20,12 +20,12 @@ HyperJumpCellTest >> test01HyperJumpCreatedOnPositionFiveThenEnterReturnsNine [
 { #category : #tests }
 HyperJumpCellTest >> test02HyperJumpCellEntersASecondTimeThenReturnsSecondeValueOfCollection [
 
-	| aParsecsObject aHyperJumpCell |
-	aParsecsObject := Parsecs totalCells: 10 convertionValue: 100.
+	| aConversor aHyperJumpCell |
+	aConversor := Conversor totalCells: 10 convertionValue: 100.
 	aHyperJumpCell := HyperJumpCell
 		                  withPosition: 5
-		                  Parsecs: aParsecsObject
-		                  andValues: #( 20 10 ).
+		                  Conversor: aConversor
+		                  andValues: (OrderedCollection with: (Parsecs ofValue: 20) with: (Parsecs ofValue: 10) ).
 	aHyperJumpCell enter.
 	self assert: aHyperJumpCell enter equals: 6
 ]
@@ -33,12 +33,43 @@ HyperJumpCellTest >> test02HyperJumpCellEntersASecondTimeThenReturnsSecondeValue
 { #category : #tests }
 HyperJumpCellTest >> test03HyperJumpExitThenReturnsTrue [
 
-	| aParsecsObject aHyperJumpCell |
-	aParsecsObject := Parsecs totalCells: 10 convertionValue: 100.
+	| aConversor aHyperJumpCell |
+	aConversor := Conversor totalCells: 10 convertionValue: 100.
 	aHyperJumpCell := HyperJumpCell
 		                  withPosition: 5
-		                  Parsecs: aParsecsObject
-		                  andValues: #( 20 10 ).
+		                  Conversor: aConversor
+		                  andValues: (OrderedCollection with: (Parsecs ofValue: 20) with: (Parsecs ofValue: 10) ).
 	aHyperJumpCell enter.
 	self assert: (aHyperJumpCell exit:5)
+]
+
+{ #category : #tests }
+HyperJumpCellTest >> test04HyperJumpRecivesLightYearsThenConvertsToParsecs [
+
+	| aConversor aHyperJumpCell |
+	aConversor := Conversor totalCells: 10 convertionValue: 5.
+	aHyperJumpCell := HyperJumpCell
+		                  withPosition: 5
+		                  Conversor: aConversor
+		                  andValues: (OrderedCollection
+				                   with: (LightYear ofValue: 6)
+				                   with: (LightYear ofValue: 3)).
+				
+	self assert: aHyperJumpCell enter equals: 9
+]
+
+{ #category : #tests }
+HyperJumpCellTest >> test05HyperJumpCreatedWithTwoMetricsThenEnterConvertsBothMetrics [
+
+	| aConversor aHyperJumpCell |
+	aConversor := Conversor totalCells: 10 convertionValue: 5.
+	aHyperJumpCell := HyperJumpCell
+		                  withPosition: 5
+		                  Conversor: aConversor
+		                  andValues: (OrderedCollection
+				                   with: (Parsecs ofValue: 2)
+				                   with: (LightYear ofValue: 3)).
+
+	self assert: aHyperJumpCell enter equals: 9.
+	self assert: aHyperJumpCell enter equals: 7
 ]

@@ -39,7 +39,8 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aGame with: aTurnManager
 	self
 		createTheRegularCellsWithAnAmountOfCells: amountOfCells
 		AndIndexs: anAmountOfIndex.
-
+	
+	self createOneCardDispenserCellAtPositionFourWith: aGame.
 	self createOneAtomicBombCellAtPositionFiveWith: aGame.
 	self createOneBlackHoleCellAtPositionSix.
 	self createOneMoonWalkCellAtPositionSevenWith: aGame.
@@ -55,16 +56,21 @@ BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWit
 
 	board
 		at: 5
-		put:
-		(AtomicBombCell
-			 withPostion: 5
-			 onTheGame: aGame)
+		put: (AtomicBombCell withPostion: 5 onTheGame: aGame)
 ]
 
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneBlackHoleCellAtPositionSix [
 
 	board at: 6 put: (BlackHoleCell position: 6)
+]
+
+{ #category : #creation }
+BoardCreatorWithDefinedCellPositions >> createOneCardDispenserCellAtPositionFourWith: aGame [
+
+	board
+		at: 4
+		put: (CardDispenserCell withPostion: 4 onTheGame: aGame)
 ]
 
 { #category : #creation }
@@ -80,8 +86,10 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperJumpCellAtPositionNine [
 
 	board at: 9 put: (HyperJumpCell
 			 withPosition: 9
-			 Parsecs: (Parsecs totalCells: 10 convertionValue: 5)
-			 andValues: #( 2 1 ))
+			 Conversor: (Conversor totalCells: 10 convertionValue: 5)
+			 andValues: (OrderedCollection
+					  with: (Parsecs ofValue: 2)
+					  with: (Parsecs ofValue: 1)))
 ]
 
 { #category : #creation }

@@ -6,6 +6,7 @@ Class {
 		'dictionaryOfProbabilities',
 		'atomicBombCeilOfDistribution',
 		'blackHoleCeilOfDistribution',
+		'cardDispenserCellCeilOfDistribution',
 		'hyperGravityCeilOfDistribution',
 		'hyperJumpCeilOfDistribution',
 		'moonWalkCeilOfDistribution',
@@ -25,7 +26,8 @@ EffectManager class >> for: aBoardCreator probabilitiesDistribution: collectionO
 { #category : #initialization }
 EffectManager >> addAtomicBombToDictionary [
 
-	hyperJumpCeilOfDistribution + 1 to: atomicBombCeilOfDistribution do: [ :key |
+	hyperJumpCeilOfDistribution + 1 to: atomicBombCeilOfDistribution do: [
+		:key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createAtomicBombCells ] ]
@@ -34,25 +36,37 @@ EffectManager >> addAtomicBombToDictionary [
 { #category : #initialization }
 EffectManager >> addBlackHoleToDictionary [
 
-	regularCellCeilOfDistribution + 1 to: blackHoleCeilOfDistribution do: [ :key |
+	cardDispenserCellCeilOfDistribution + 1 to:
+		blackHoleCeilOfDistribution do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createBlackHoleCells ] ]
 ]
 
 { #category : #initialization }
-EffectManager >> addHyperGravityToDictionary [
+EffectManager >> addCardDispenserToDictionary [
 
-	blackHoleCeilOfDistribution + 1 to: hyperGravityCeilOfDistribution do: [ :key |
+	1 to: cardDispenserCellCeilOfDistribution do: [ :key |
 		dictionaryOfProbabilities
 			at: key
-			put: [ boardCreator createHyperGravityCells ] ]
+			put: [ boardCreator createCardDispenserCells ] ]
+]
+
+{ #category : #initialization }
+EffectManager >> addHyperGravityToDictionary [
+
+	blackHoleCeilOfDistribution + 1 to: hyperGravityCeilOfDistribution
+		do: [ :key |
+			dictionaryOfProbabilities
+				at: key
+				put: [ boardCreator createHyperGravityCells ] ]
 ]
 
 { #category : #initialization }
 EffectManager >> addHyperJumpToDictionary [
 
-	moonWalkCeilOfDistribution + 1 to: hyperJumpCeilOfDistribution do: [ :key |
+	moonWalkCeilOfDistribution + 1 to: hyperJumpCeilOfDistribution do: [
+		:key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createHyperJumpCells ] ]
@@ -61,7 +75,8 @@ EffectManager >> addHyperJumpToDictionary [
 { #category : #initialization }
 EffectManager >> addMoonWalkToDictionary [
 
-	hyperGravityCeilOfDistribution + 1 to: moonWalkCeilOfDistribution do: [ :key |
+	hyperGravityCeilOfDistribution + 1 to: moonWalkCeilOfDistribution do: [
+		:key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createMoonWalkCells ] ]
@@ -70,10 +85,11 @@ EffectManager >> addMoonWalkToDictionary [
 { #category : #initialization }
 EffectManager >> addRegularCellToDictionary [
 
-	1 to: regularCellCeilOfDistribution do: [ :key |
-		dictionaryOfProbabilities
-			at: key
-			put: [ boardCreator createRegularCells ] ]
+	atomicBombCeilOfDistribution + 1 to: regularCellCeilOfDistribution
+		do: [ :key |
+			dictionaryOfProbabilities
+				at: key
+				put: [ boardCreator createRegularCells ] ]
 ]
 
 { #category : #creating }
@@ -92,22 +108,25 @@ EffectManager >> dictionaryOfProbabilities [
 EffectManager >> initializeFor: aBoardCreator probabilitiesDistribution: collectionOfProbabilities [
 
 	boardCreator := aBoardCreator.
-	regularCellCeilOfDistribution := collectionOfProbabilities at: 1.
+	cardDispenserCellCeilOfDistribution := collectionOfProbabilities at:
+		                                       1.
 	blackHoleCeilOfDistribution := (collectionOfProbabilities at: 2)
-	                        + regularCellCeilOfDistribution.
+	                               + cardDispenserCellCeilOfDistribution.
 	hyperGravityCeilOfDistribution := (collectionOfProbabilities at: 3)
-	                           + blackHoleCeilOfDistribution.
+	                                  + blackHoleCeilOfDistribution.
 	moonWalkCeilOfDistribution := (collectionOfProbabilities at: 4)
-	                       + hyperGravityCeilOfDistribution.
+	                              + hyperGravityCeilOfDistribution.
 	hyperJumpCeilOfDistribution := (collectionOfProbabilities at: 5)
-	                        + moonWalkCeilOfDistribution.
+	                               + moonWalkCeilOfDistribution.
 	atomicBombCeilOfDistribution := (collectionOfProbabilities at: 6)
-	                         + hyperJumpCeilOfDistribution.
+	                                + hyperJumpCeilOfDistribution.
+	regularCellCeilOfDistribution := 100.
 	dictionaryOfProbabilities := Dictionary new.
-	self addRegularCellToDictionary.
+	self addCardDispenserToDictionary.
 	self addBlackHoleToDictionary.
 	self addHyperGravityToDictionary.
 	self addMoonWalkToDictionary.
 	self addHyperJumpToDictionary.
-	self addAtomicBombToDictionary
+	self addAtomicBombToDictionary.
+	self addRegularCellToDictionary
 ]

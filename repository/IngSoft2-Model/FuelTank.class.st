@@ -2,7 +2,9 @@ Class {
 	#name : #FuelTank,
 	#superclass : #Object,
 	#instVars : [
-		'fuel'
+		'fuel',
+		'capacity',
+		'fuelTankSharing'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -13,10 +15,24 @@ FuelTank class >> fullWith: anAmountOfFuel [
 	^ self new initializeFullWith: anAmountOfFuel
 ]
 
+{ #category : #accessing }
+FuelTank >> capacity [
+
+	^ capacity
+]
+
+{ #category : #action }
+FuelTank >> changeCapacity: aNumber [
+
+	capacity := capacity + aNumber
+]
+
 { #category : #initialization }
 FuelTank >> initializeFullWith: anAmountOfFuel [
 
-	fuel := anAmountOfFuel
+	fuel := anAmountOfFuel.
+	capacity := anAmountOfFuel.
+	fuelTankSharing := self
 ]
 
 { #category : #asserting }
@@ -26,9 +42,9 @@ FuelTank >> isEmpty [
 ]
 
 { #category : #action }
-FuelTank >> loadFuel: anAmountOfFuel [
+FuelTank >> loadFuel [
 
-	fuel := fuel + anAmountOfFuel
+	fuel := capacity
 ]
 
 { #category : #'set and get' }
@@ -40,12 +56,28 @@ FuelTank >> loadedWith [
 { #category : #accessing }
 FuelTank >> runOutOfFuel: aSpaceship [
 
-	self isEmpty ifTrue: [ aSpaceship resetToOne ]
+	(self isEmpty and: fuelTankSharing isEmpty) ifTrue: [
+		aSpaceship resetToOne ]
+]
+
+{ #category : #action }
+FuelTank >> shareWith: aFuelTank [
+
+	fuelTankSharing := aFuelTank
+]
+
+{ #category : #action }
+FuelTank >> stopSharing [
+
+	fuelTankSharing := self
 ]
 
 { #category : #action }
 FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
-	self isEmpty ifTrue: [ fuel := 0 ]
+	self isEmpty ifTrue: [
+		fuelTankSharing isEmpty ifFalse: [
+			fuelTankSharing useFuel: fuel abs ].
+		fuel := 0 ]
 ]

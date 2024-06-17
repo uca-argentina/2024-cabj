@@ -59,7 +59,7 @@ CollectionOfSpaceshipTest >> test03PositionsOfSpaceshipsThenReturnEachPositionFo
 { #category : #tests }
 CollectionOfSpaceshipTest >> test04GetRankingThenReturnsRankingOfSpaceships [
 
-	| aCollectionOfSpaceships result |
+	| aCollectionOfSpaceships result idRanking |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 3
 		                           withAmountOfFuel: 10
@@ -69,7 +69,10 @@ CollectionOfSpaceshipTest >> test04GetRankingThenReturnsRankingOfSpaceships [
 	(aCollectionOfSpaceships at: 2) move: 1.
 	result := #( 1 2 3 ) asOrderedCollection.
 
-	self assert: aCollectionOfSpaceships ranking equals: result
+	idRanking := aCollectionOfSpaceships ranking collect: [ :spaceship |
+		             spaceship id ].
+
+	self assert: idRanking equals: result
 ]
 
 { #category : #tests }

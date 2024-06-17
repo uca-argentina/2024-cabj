@@ -16,7 +16,7 @@ AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -41,7 +41,7 @@ AtomicBombCellTest >> test02AtomicBombExitThenReturnsTrue [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 3
