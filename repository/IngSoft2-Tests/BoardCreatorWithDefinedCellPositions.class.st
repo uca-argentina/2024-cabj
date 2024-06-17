@@ -68,7 +68,7 @@ BoardCreatorWithDefinedCellPositions >> createOneBlackHoleCellAtPositionSix [
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneCardDispenserCellAtPositionFourWith: aGame [
 
-	collection
+	board
 		at: 4
 		put: (CardDispenserCell withPostion: 4 onTheGame: aGame)
 ]
