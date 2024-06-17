@@ -71,6 +71,12 @@ Game >> currentSpaceship [
 	^ currentSpaceship
 ]
 
+{ #category : #accessing }
+Game >> currentSpaceshipCardHand [
+
+	^ spaceshipsCardHands at: currentSpaceship id
+]
+
 { #category : #results }
 Game >> finalLapsOfSpaceships [
 

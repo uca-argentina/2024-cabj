@@ -12,9 +12,9 @@ EffectManagerTest >> test01EffectManagerInitializeThenDictionaryIsOfSizeOneHundr
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 50 20 30 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 50 20 0 0 0 0 ).
 
-	aEffectManager := EffectManager for: aBoardCreator probabilitiesDistribution: #( 50 20 30 0 0 0 ).
+	aEffectManager := EffectManager for: aBoardCreator probabilitiesDistribution: #( 50 20 0 0 0 0 ).
 
 	self assert: aEffectManager dictionaryOfProbabilities size equals: 100
 ]

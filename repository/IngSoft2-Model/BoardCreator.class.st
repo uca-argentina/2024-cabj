@@ -17,7 +17,7 @@ Class {
 { #category : #'instance creation' }
 BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
 
-(percentagesOfDistrubitionSpecialCells sum = 100) ifFalse: [ Error signal: 'Sum of probabilities must be exactly one hundred'].
+(percentagesOfDistrubitionSpecialCells sum <= 100) ifFalse: [ Error signal: 'Sum of probabilities must be lower or equal to one hundred'].
 
 ^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator  andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
 ]
@@ -63,6 +63,14 @@ BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowRe
 	self createWormhole.
 
 	^ board
+]
+
+{ #category : #'set and get' }
+BoardCreator >> createCardDispenserCells [
+
+	board add:
+		(CardDispenserCell withPostion: counterForPosition onTheGame: game).
+	self nextPosition
 ]
 
 { #category : #'set and get' }

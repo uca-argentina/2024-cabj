@@ -21,7 +21,7 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -44,7 +44,7 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 15 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -68,7 +68,7 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 15 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -91,7 +91,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -118,7 +118,7 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -143,7 +143,7 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -170,7 +170,7 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -198,7 +198,7 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 6 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -221,7 +221,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 6 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -245,7 +245,7 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -270,7 +270,7 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -296,7 +296,7 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -322,7 +322,7 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 20 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -349,7 +349,7 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -374,7 +374,7 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -400,7 +400,7 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -430,7 +430,7 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -459,7 +459,7 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -487,7 +487,7 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -519,7 +519,7 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 12 2 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 4
@@ -550,7 +550,7 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1

@@ -9,7 +9,8 @@ Class {
 		'hyperGravityProbability',
 		'moonWalkProbability',
 		'hyperJumpProbability',
-		'atomicBombProbability'
+		'atomicBombProbability',
+		'cardDispenserCellProbability'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -34,10 +35,19 @@ EffectManager >> addAtomicBombToDictionary [
 { #category : #initialization }
 EffectManager >> addBlackHoleToDictionary [
 
-	regularCellProbability+1 to: blackHoleProbability do: [ :key |
+	cardDispenserCellProbability+1 to: blackHoleProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createBlackHoleCells ] ]
+]
+
+{ #category : #initialization }
+EffectManager >> addCardDispenserToDictionary [
+
+	1 to: cardDispenserCellProbability do: [ :key |
+		dictionaryOfProbabilities
+			at: key
+			put: [ boardCreator createCardDispenserCells ] ]
 ]
 
 { #category : #initialization }
@@ -70,7 +80,7 @@ EffectManager >> addMoonWalkToDictionary [
 { #category : #initialization }
 EffectManager >> addRegularCellToDictionary [
 
-	1 to: regularCellProbability do: [ :key |
+	atomicBombProbability+1 to: regularCellProbability do: [ :key |
 		dictionaryOfProbabilities
 			at: key
 			put: [ boardCreator createRegularCells ] ]
@@ -91,17 +101,19 @@ EffectManager >> dictionaryOfProbabilities [
 EffectManager >> initializeFor: aBoardCreator probabilitiesDistribution: collectionOfProbabilities [
 
 	boardCreator := aBoardCreator.
-	regularCellProbability := collectionOfProbabilities at: 1.
-	blackHoleProbability := (collectionOfProbabilities at: 2) + regularCellProbability.
+	cardDispenserCellProbability := collectionOfProbabilities at: 1.
+	blackHoleProbability := (collectionOfProbabilities at: 2) + cardDispenserCellProbability.
 	hyperGravityProbability := (collectionOfProbabilities at: 3) + blackHoleProbability.
 	moonWalkProbability := (collectionOfProbabilities at: 4) + hyperGravityProbability.
 	hyperJumpProbability := (collectionOfProbabilities at: 5) + moonWalkProbability.
 	atomicBombProbability := (collectionOfProbabilities at: 6) + hyperJumpProbability.
+	regularCellProbability := 100.
 	dictionaryOfProbabilities := Dictionary new.
-	self addRegularCellToDictionary.
+	self addCardDispenserToDictionary.
 	self addBlackHoleToDictionary.
 	self addHyperGravityToDictionary.
 	self addMoonWalkToDictionary.
 	self addHyperJumpToDictionary.
 	self addAtomicBombToDictionary.
+	self addRegularCellToDictionary.
 ]

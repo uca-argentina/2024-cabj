@@ -25,7 +25,7 @@ GameTest >> test07GameHasBoardOfOnlyRegularCellsThenBoardHasOnlyRegularCellsWher
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 4 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 
 	dice := OrderedCollection
@@ -186,6 +186,35 @@ GameTest >> test12GameHasBoardOnlyAtomicBombThenBoardHasAtomicBombWhereThereIsnt
 		         playWithDice: aCollectionOfDice.
 
 	self assert: ((aGame board at: 1) isKindOf: AtomicBombCell)
+]
+
+{ #category : #tests }
+GameTest >> test13GameHasBoardOnlyCardDispenserThenBoardHasCardDispenserWhereThereIsntAWormHole [
+
+	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
+		
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 4 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+
+
+	dice := OrderedCollection
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10).
+	aCollectionOfDice := Dice of: dice.
+	aGame := Game
+		         numberOfSpaceships: 1
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aCollectionOfDice.
+
+	self assert: ((aGame board at: 1) isKindOf: CardDispenserCell)
 ]
 
 { #category : #testsGame002 }

@@ -14,7 +14,7 @@ GameCardTest >> test01GameActivatesAOverloadCardThenActiveCardsEqualsOne [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -38,7 +38,7 @@ GameCardTest >> test02GameActivatesAAccelerationCardThenActiveCardsEqualsOne [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 1
 		         withBoardCreator: aBoardCreator
@@ -59,7 +59,7 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 1
 		         withBoardCreator: aBoardCreator
@@ -84,7 +84,7 @@ GameCardTest >> test04SpaceshipPlaysAllCardsThenActiveDeckActiveCardsEqualsTwo [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 1
 		         withBoardCreator: aBoardCreator
@@ -109,7 +109,7 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 10 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -132,7 +132,7 @@ GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpacesh
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 30 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -162,7 +162,7 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 30 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -191,7 +191,7 @@ GameCardTest >> test08GameInitializeSpaceshipPlaysAllCardsThenActiveCardsEqualsT
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 30 1 )
 		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
