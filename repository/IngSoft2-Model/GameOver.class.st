@@ -5,9 +5,9 @@ Class {
 }
 
 { #category : #action }
-GameOver >> nextTurn [ 
+GameOver >> nextTurn [
 
-Error signal: 'The Game is Over'.
+	Error signal: 'The Game is Over'
 ]
 
 { #category : #action }

@@ -39,17 +39,17 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 TurnManager >> lostTurns: anAmountOfTurns by: aSpaceship [
 
 	(turnsToSkip at: aSpaceship) = 0 ifTrue: [
-		turnsToSkip at: aSpaceship put: anAmountOfTurns  ]
+		turnsToSkip at: aSpaceship put: anAmountOfTurns ]
 ]
 
 { #category : #auxiliar }
 TurnManager >> nextSpaceship [
 
-        | currentIndex nextIndex |
-        currentIndex := spaceships indexOf: currentSpaceship .
-        nextIndex := currentIndex + 1.
-        nextIndex > spaceships size ifTrue: [nextIndex := 1].
-        currentSpaceship:= spaceships at: nextIndex
+	| currentIndex nextIndex |
+	currentIndex := spaceships indexOf: currentSpaceship.
+	nextIndex := currentIndex + 1.
+	nextIndex > spaceships size ifTrue: [ nextIndex := 1 ].
+	currentSpaceship := spaceships at: nextIndex
 ]
 
 { #category : #action }
@@ -65,5 +65,6 @@ TurnManager >> nextTurn [
 
 { #category : #accessing }
 TurnManager >> spaceshipPlaying [
+
 	^ spaceshipPlaying
 ]

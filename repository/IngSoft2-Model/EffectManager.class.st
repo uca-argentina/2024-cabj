@@ -94,6 +94,7 @@ EffectManager >> createEffect: aNumber [
 
 { #category : #'set and get' }
 EffectManager >> dictionaryOfProbabilities [
+
 	^ dictionaryOfProbabilities
 ]
 

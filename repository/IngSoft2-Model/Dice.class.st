@@ -14,7 +14,8 @@ Dice class >> of: aCollectionOfDice [
 
 { #category : #'set and get' }
 Dice >> amountOfFaces [
-	^ aCollectionOfDie sum: [:die | die amountOfFaces].
+
+	^ aCollectionOfDie sum: [ :die | die amountOfFaces ]
 ]
 
 { #category : #initialization }
@@ -25,5 +26,6 @@ Dice >> initializeOf: aCollectionOfDice [
 
 { #category : #action }
 Dice >> throw [
-	^ aCollectionOfDie sum: [:die | die throw].
+
+	^ aCollectionOfDie sum: [ :die | die throw ]
 ]

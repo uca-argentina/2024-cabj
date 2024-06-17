@@ -153,6 +153,7 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := turnManager nextTurn.
 
+
 	board := aBoardCreator
 		         createBoardFor: self
 		         with: turnManager
@@ -175,6 +176,7 @@ Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult cellOfSpaceship indexOfSpaceship |
 	throwResult := self throwDice: currentSpaceship.
+
 
 	positionOfSpaceship := currentSpaceship objectPosition.
 	indexOfSpaceship := positionOfSpaceship index.
@@ -225,6 +227,7 @@ Game >> reloadSpaceship [
 
 { #category : #initialization }
 Game >> resetSpaceshipsToCellOne [
+
 	| aSpaceship |
 	1 to: spaceships spaceships size do: [ :index |
 		aSpaceship := spaceships  spaceships at: index.
