@@ -22,7 +22,7 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
 MoonWalkCell >> enter [
 
 	game moveAllTheSpaceshipsThatAreNotPlayingWith: value negated.
-	
+
 	^ cellPosition
 ]
 
@@ -35,8 +35,7 @@ MoonWalkCell >> exit: aValue [
 { #category : #initialization }
 MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition on: aGame [
 
-
 	value := aValue.
 	cellPosition := aPosition.
-	game:=aGame.
+	game := aGame
 ]

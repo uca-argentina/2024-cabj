@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'collectionAmountOfCellsAndLaps',
 		'beginningAndEnd',
-		'collection',
-		'wormholeCreator'
+		'wormholeCreator',
+		'board'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -47,13 +47,13 @@ BoardCreatorWithDefinedCellPositions >> createBoardFor: aGame with: aTurnManager
 	self createOneHyperJumpCellAtPositionNine.
 	self createWormhole.
 
-	^ collection
+	^ board
 ]
 
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWith: aGame [
 
-	collection
+	board
 		at: 5
 		put:
 		(AtomicBombCell
@@ -64,13 +64,13 @@ BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWit
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneBlackHoleCellAtPositionSix [
 
-	collection at: 6 put: (BlackHoleCell position: 6)
+	board at: 6 put: (BlackHoleCell position: 6)
 ]
 
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneHyperGravityCellAtPositionEight [
 
-	collection
+	board
 		at: 8
 		put: (HyperGravityCell withValueToMove: 3 inPosition: 8)
 ]
@@ -78,7 +78,7 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperGravityCellAtPositionEight
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneHyperJumpCellAtPositionNine [
 
-	collection at: 9 put: (HyperJumpCell
+	board at: 9 put: (HyperJumpCell
 			 withPosition: 9
 			 Parsecs: (Parsecs totalCells: 10 convertionValue: 5)
 			 andValues: #( 2 1 ))
@@ -87,7 +87,7 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperJumpCellAtPositionNine [
 { #category : #creation }
 BoardCreatorWithDefinedCellPositions >> createOneMoonWalkCellAtPositionSevenWith: aGame [
 
-	collection
+	board
 		at: 7
 		put: (MoonWalkCell withValueToMove: 4 inPosition: 7 on: aGame)
 ]
@@ -98,7 +98,7 @@ BoardCreatorWithDefinedCellPositions >> createTheRegularCellsWithAnAmountOfCells
 	| currentLap |
 	1 to: anAmountOfIndex do: [ :indexAux |
 		currentLap := indexAux - 1 // amountOfCells.
-		collection add:
+		board add:
 			(RegularCell position: indexAux - (amountOfCells * currentLap)) ]
 ]
 
@@ -111,10 +111,10 @@ BoardCreatorWithDefinedCellPositions >> createWormhole [
 
 	1 to: anAmountOfLaps do: [ :lap |
 		positionWithinLap := anAmountOfCells * (lap - 1).
-		collection
+		board
 			at: wormholeCreator beginning enter + positionWithinLap
 			put: wormholeCreator ending.
-		collection
+		board
 			at: wormholeCreator ending enter + positionWithinLap
 			put: wormholeCreator beginning ]
 ]
@@ -130,7 +130,7 @@ BoardCreatorWithDefinedCellPositions >> initializeWithCellsAndLaps: aCollectionA
 
 	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
 	wormholeCreator := aWormholeCreator.
-	collection := OrderedCollection new
+	board := OrderedCollection new
 ]
 
 { #category : #'set and get' }
