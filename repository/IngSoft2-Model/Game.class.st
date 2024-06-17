@@ -160,15 +160,14 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 ]
 
 { #category : #action }
-Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [ 
+Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
 
-	| aSpaceshipAux collectionMinusSpaceship aSpaceship |
-	aSpaceship:= turnManager spaceshipPlaying .
-	collectionMinusSpaceship :=( collectionOfSpaceships spaceships) copy.
-	collectionMinusSpaceship remove: aSpaceship.
+	| aSpaceshipAux collectionMinusSpaceship |
+	collectionMinusSpaceship := collectionOfSpaceships spaceships copy.
+	collectionMinusSpaceship remove: currentSpaceship.
 	1 to: collectionMinusSpaceship size do: [ :index |
-		aSpaceshipAux := (collectionMinusSpaceship at: index).
-		aSpaceshipAux move: anAmountOfMovements. ]
+		aSpaceshipAux := collectionMinusSpaceship at: index.
+		aSpaceshipAux move: anAmountOfMovements ]
 ]
 
 { #category : #action }

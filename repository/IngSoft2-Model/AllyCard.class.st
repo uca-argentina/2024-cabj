@@ -19,13 +19,13 @@ AllyCard >> = aCard [
 	^ self class == aCard class
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 AllyCard >> ally [
 
 	^ allyTwoId
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #effect }
 AllyCard >> applyEffectOn: throwResult for: spaceshipId [
 
 	^ throwResult

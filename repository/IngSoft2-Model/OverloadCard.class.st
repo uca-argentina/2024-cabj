@@ -20,7 +20,7 @@ OverloadCard >> = aCard [
 	^ self class == aCard class
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #effect }
 OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
 
 	spaceshipId = aSpaceshipId ifTrue: [ ^ throwResult - 2 ].
@@ -45,7 +45,7 @@ OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 	spaceshipId := aSpaceshipId
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #effect }
 OverloadCard >> withEffectOn: aGame [
 
 	game := aGame

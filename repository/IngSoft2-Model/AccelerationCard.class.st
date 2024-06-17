@@ -13,7 +13,7 @@ AccelerationCard >> = aCard [
 	^ self class == aCard class
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #effect }
 AccelerationCard >> applyEffectOn: throwResult for: spaceshipId [
 
 	^ throwResult + 1
@@ -25,7 +25,7 @@ AccelerationCard >> compare: aCard [
 	^ self = aCard
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #effect }
 AccelerationCard >> withEffectOn: aGame [
 
 	game := aGame
