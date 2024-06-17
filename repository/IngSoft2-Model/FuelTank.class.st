@@ -61,6 +61,12 @@ FuelTank >> runOutOfFuel: aSpaceship [
 ]
 
 { #category : #action }
+FuelTank >> shareWith: aFuelTank [
+
+	fuelTankSharing := aFuelTank
+]
+
+{ #category : #action }
 FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
