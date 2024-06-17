@@ -20,6 +20,19 @@ OverloadCard >> = aCard [
 	^ self class == aCard class
 ]
 
+{ #category : #'as yet unclassified' }
+OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
+
+	spaceshipId = aSpaceshipId ifTrue: [ ^ throwResult - 2 ].
+	^ throwResult
+]
+
+{ #category : #comparing }
+OverloadCard >> equals: aCard [
+
+	^ self = aCard and: spaceshipId = aCard id
+]
+
 { #category : #accessing }
 OverloadCard >> id [
 

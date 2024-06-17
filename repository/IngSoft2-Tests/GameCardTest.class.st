@@ -206,3 +206,60 @@ GameCardTest >> test08GameInitializeSpaceshipPlaysAllCardsThenActiveCardsEqualsT
 
 	self assert: aGame activeCards equals: 2
 ]
+
+{ #category : #tests }
+GameCardTest >> test09SpaceshipTwoUsesCancellationCardThenActiveCardBySpaceshipOneIsEliminated [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	aLoadedDie := LoadedDie of: #( 7 7 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
+	aGame moveSpaceship.
+
+	aGame
+		spaceshipId: 2
+		activateInstantCard:
+		(CancellationCard cancel: (OverloadCard reduceThrowOf: 2)).
+
+	self assert: aGame activeCards equals: 0
+]
+
+{ #category : #tests }
+GameCardTest >> test10 [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	aLoadedDie := LoadedDie of: #( 7 7 7 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
+	aGame moveSpaceship.
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 3).
+	aGame moveSpaceship.
+
+	aGame
+		spaceshipId: 2
+		activateInstantCard:
+		(CancellationCard cancel: (OverloadCard reduceThrowOf: 3)).
+
+	position := OrderedCollection with: 8 with: 1.
+	self assert: aGame moveSpaceship equals: position
+]

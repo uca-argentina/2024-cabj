@@ -38,7 +38,7 @@ CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
 	| aGameDeck |
 	aGameDeck := GameDeck startGame.
 
-	self assert: aGameDeck size equals: 3
+	self assert: aGameDeck size equals: 4
 ]
 
 { #category : #tests }

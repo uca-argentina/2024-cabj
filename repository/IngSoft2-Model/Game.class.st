@@ -232,6 +232,15 @@ Game >> resetSpaceshipsToCellOne [
 		aSpaceship objectPosition resetToOne ]
 ]
 
+{ #category : #activation }
+Game >> spaceshipId: anId activateInstantCard: aCard [
+
+	| spaceshipCardHand |
+	spaceshipCardHand := spaceshipsCardHands at: anId.
+	(spaceshipCardHand activateCard: aCard) ifTrue: [
+		aCard activateEffectOn: aActiveDeck ]
+]
+
 { #category : #accessing }
 Game >> spaceships [
 

@@ -30,11 +30,9 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 
 	| auxNumber |
 	auxNumber := throwResult.
+	collectionOfCards isEmpty ifTrue: [ ^ throwResult ].
 	collectionOfCards do: [ :card |
-		card = AccelerationCard new ifTrue: [ auxNumber := auxNumber + 1 ] ].
-	collectionOfCards do: [ :card |
-		card = OverloadCard new ifTrue: [
-			card id = spaceshipId ifTrue: [ auxNumber := auxNumber - 2 ] ] ].
+		auxNumber := card applyEffectOn: auxNumber for: spaceshipId ].
 	^ auxNumber
 ]
 
@@ -42,4 +40,12 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 ActiveDeck >> initializeStartGame [
 
 	collectionOfCards := OrderedCollection new.
+]
+
+{ #category : #removing }
+ActiveDeck >> remove: cardToCancel [
+
+	| aCard |
+	aCard := collectionOfCards detect: [ :card | card equals: cardToCancel ].
+	collectionOfCards remove: aCard
 ]

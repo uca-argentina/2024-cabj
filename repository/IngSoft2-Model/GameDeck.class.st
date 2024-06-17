@@ -26,6 +26,7 @@ GameDeck >> initializeStartGame [
 		                  with: AllyCard new
 		                  with: OverloadCard new
 		                  with: AccelerationCard new
+		                  with: CancellationCard new
 ]
 
 { #category : #action }

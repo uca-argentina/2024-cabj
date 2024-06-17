@@ -2,7 +2,7 @@ Class {
 	#name : #AllyCard,
 	#superclass : #Object,
 	#instVars : [
-		'allayTwoId'
+		'allyTwoId'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,10 +19,28 @@ AllyCard >> = aCard [
 	^ self class == aCard class
 ]
 
+{ #category : #'as yet unclassified' }
+AllyCard >> ally [
+
+	^ allyTwoId
+]
+
+{ #category : #'as yet unclassified' }
+AllyCard >> applyEffectOn: throwResult for: spaceshipId [
+
+	^ throwResult
+]
+
+{ #category : #comparing }
+AllyCard >> equals: aCard [
+
+	^ self class == aCard class and: allyTwoId = aCard ally
+]
+
 { #category : #initialization }
 AllyCard >> initializeShareFuelWith: aSpaceshipId [
 
-	allayTwoId := aSpaceshipId.
+	allyTwoId := aSpaceshipId.
 	
 ]
 
@@ -32,7 +50,7 @@ AllyCard >> withEffectOn: aGame [
 	| spaceshipOne spaceshipTwo fuelTankOne fuelTankTwo |
 	spaceshipOne := aGame currentSpaceship.
 	spaceshipTwo := aGame spaceships detect: [ :spaceship |
-		                spaceship id = allayTwoId ].
+		                spaceship id = allyTwoId ].
 	fuelTankOne := spaceshipOne objectFuelTank.
 	fuelTankTwo := spaceshipTwo objectFuelTank.
 
