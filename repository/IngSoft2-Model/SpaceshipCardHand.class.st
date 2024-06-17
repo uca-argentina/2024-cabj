@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'collectionOfCards',
-		'id'
+		'id',
+		'aGameDeck'
 	],
 	#classInstVars : [
 		'counterId'
@@ -18,20 +19,17 @@ SpaceshipCardHand class >> initialize [
 ]
 
 { #category : #'instance creation' }
-SpaceshipCardHand class >> startGameWith: aCard and: anotherCard [
+SpaceshipCardHand class >> startGame [
 
 	counterId := counterId + 1.
-	^ self new
-		  initializeStartGameWithId: counterId
-		  with: aCard
-		  and: anotherCard
+	^ self new initializeStartGameWithId: counterId
 ]
 
 { #category : #'instance creation' }
-SpaceshipCardHand class >> startGameWithAllCards: aGameDeck [
+SpaceshipCardHand class >> startGameWithAllCards [
 
 	counterId := counterId + 1.
-	^ self new initializeStartGameWithId: counterId with: aGameDeck
+	^ self new initializeStartGameAllCardsWithId: counterId
 ]
 
 { #category : #action }
@@ -58,15 +56,19 @@ SpaceshipCardHand >> id [
 ]
 
 { #category : #initialization }
-SpaceshipCardHand >> initializeStartGameWithId: counterId with: aGameDeck [
+SpaceshipCardHand >> initializeStartGameAllCardsWithId: counterId [
 
 	id := counterId.
+	aGameDeck := GameDeck startGame.
 	collectionOfCards := aGameDeck availableCards
 ]
 
 { #category : #initialization }
-SpaceshipCardHand >> initializeStartGameWithId: counterId with: aCard and: anotherCard [
+SpaceshipCardHand >> initializeStartGameWithId: counterId [
 
 	id := counterId.
-	collectionOfCards := OrderedCollection with: aCard with: anotherCard
+	aGameDeck := GameDeck startGame.
+	collectionOfCards := OrderedCollection
+		                     with: aGameDeck pickACard
+		                     with: aGameDeck pickACard
 ]

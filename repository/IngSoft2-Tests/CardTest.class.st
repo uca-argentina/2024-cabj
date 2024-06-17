@@ -8,9 +8,7 @@ Class {
 CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 
 	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand
-		                      startGameWith: OverloadCard new
-		                      and: AccelerationCard new.
+	aSpaceshipCardHand := SpaceshipCardHand startGame.
 	SpaceshipCardHand initialize.
 
 	self assert: aSpaceshipCardHand amount equals: 2
@@ -29,9 +27,7 @@ CardTest >> test02ActiveDeckInitializeThenActiveCardsEqualsZero [
 CardTest >> test04SpaceshipCardHandInitializeThenIdEqualsOne [
 
 	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand
-		                      startGameWith: OverloadCard new
-		                      and: AccelerationCard new.
+	aSpaceshipCardHand := SpaceshipCardHand startGame.
 	SpaceshipCardHand initialize.
 	self assert: aSpaceshipCardHand id equals: 1
 ]
