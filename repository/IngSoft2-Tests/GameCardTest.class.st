@@ -235,7 +235,7 @@ GameCardTest >> test09SpaceshipTwoUsesCancellationCardThenActiveCardBySpaceshipO
 ]
 
 { #category : #tests }
-GameCardTest >> test10 [
+GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect [
 
 	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
 	aLoadedDie := LoadedDie of: #( 7 7 7 ).

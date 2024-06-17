@@ -51,3 +51,15 @@ CardTest >> test06SpaceshipCardHandGainsACardThenAmountOfCardsEqualsThree [
 
 	self assert: aSpaceshipCardHand amount equals: 3
 ]
+
+{ #category : #tests }
+CardTest >> test07ActiveDeckRemoveOverloadCardThenNoEffectOnThatId [
+	| aActiveDeck |
+	aActiveDeck := ActiveDeck startGame.
+	aActiveDeck activate: (OverloadCard reduceThrowOf: 2).
+	aActiveDeck activate: (OverloadCard reduceThrowOf: 3).
+	
+	aActiveDeck remove: (OverloadCard reduceThrowOf: 3).
+
+	self assert: (aActiveDeck applyEffectOn: 10 withCurrentSpaceship: 3) equals: 10
+]

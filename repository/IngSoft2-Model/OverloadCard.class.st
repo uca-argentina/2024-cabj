@@ -28,9 +28,9 @@ OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
 ]
 
 { #category : #comparing }
-OverloadCard >> equals: aCard [
+OverloadCard >> compare: aCard [
 
-	^ self = aCard and: spaceshipId = aCard id
+	^ spaceshipId = aCard id and: self = aCard
 ]
 
 { #category : #accessing }

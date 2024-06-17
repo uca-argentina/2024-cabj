@@ -13,12 +13,6 @@ AccelerationCard >> = aCard [
 	^ self class == aCard class
 ]
 
-{ #category : #comparing }
-AccelerationCard >> == aCard [
-
-	^ self class == aCard class
-]
-
 { #category : #'as yet unclassified' }
 AccelerationCard >> applyEffectOn: throwResult for: spaceshipId [
 
@@ -26,7 +20,7 @@ AccelerationCard >> applyEffectOn: throwResult for: spaceshipId [
 ]
 
 { #category : #comparing }
-AccelerationCard >> equals: aCard [
+AccelerationCard >> compare: aCard [
 
 	^ self = aCard
 ]

@@ -32,7 +32,7 @@ AllyCard >> applyEffectOn: throwResult for: spaceshipId [
 ]
 
 { #category : #comparing }
-AllyCard >> equals: aCard [
+AllyCard >> compare: aCard [
 
 	^ self class == aCard class and: allyTwoId = aCard ally
 ]

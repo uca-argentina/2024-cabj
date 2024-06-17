@@ -45,7 +45,11 @@ ActiveDeck >> initializeStartGame [
 { #category : #removing }
 ActiveDeck >> remove: cardToCancel [
 
-	| aCard |
-	aCard := collectionOfCards detect: [ :card | card equals: cardToCancel ].
-	collectionOfCards remove: aCard
+	| anIndex indexToRemove |
+	anIndex := 1.
+	collectionOfCards do: [ :card |
+		(card compare: cardToCancel) ifTrue: [
+			indexToRemove := anIndex ].
+		anIndex := anIndex + 1 ].
+	collectionOfCards removeAt: indexToRemove
 ]
