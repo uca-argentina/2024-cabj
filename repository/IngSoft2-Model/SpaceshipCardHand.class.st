@@ -3,33 +3,21 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'collectionOfCards',
-		'id',
 		'aGameDeck'
-	],
-	#classInstVars : [
-		'counterId'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'class initialization' }
-SpaceshipCardHand class >> initialize [
-
-	counterId := 0
-]
-
 { #category : #'instance creation' }
 SpaceshipCardHand class >> startGame [
 
-	counterId := counterId + 1.
-	^ self new initializeStartGameWithId: counterId
+	^ self new initializeStartGame
 ]
 
 { #category : #'instance creation' }
 SpaceshipCardHand class >> startGameWithAllCards [
 
-	counterId := counterId + 1.
-	^ self new initializeStartGameAllCardsWithId: counterId
+	^ self new initializeStartGameAllCards
 ]
 
 { #category : #action }
@@ -55,26 +43,18 @@ SpaceshipCardHand >> gainACard [
 	collectionOfCards add: aGameDeck pickACard
 ]
 
-{ #category : #accessing }
-SpaceshipCardHand >> id [
-
-	^ id
-]
-
 { #category : #initialization }
-SpaceshipCardHand >> initializeStartGameAllCardsWithId: counterId [
+SpaceshipCardHand >> initializeStartGame [
 
-	id := counterId.
-	aGameDeck := GameDeck startGame.
-	collectionOfCards := aGameDeck availableCards
-]
-
-{ #category : #initialization }
-SpaceshipCardHand >> initializeStartGameWithId: counterId [
-
-	id := counterId.
 	aGameDeck := GameDeck startGame.
 	collectionOfCards := OrderedCollection
 		                     with: aGameDeck pickACard
 		                     with: aGameDeck pickACard
+]
+
+{ #category : #initialization }
+SpaceshipCardHand >> initializeStartGameAllCards [
+
+	aGameDeck := GameDeck startGame.
+	collectionOfCards := aGameDeck availableCards
 ]

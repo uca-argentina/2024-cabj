@@ -24,15 +24,6 @@ CardTest >> test02ActiveDeckInitializeThenActiveCardsEqualsZero [
 ]
 
 { #category : #tests }
-CardTest >> test04SpaceshipCardHandInitializeThenIdEqualsOne [
-
-	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand startGame.
-	SpaceshipCardHand initialize.
-	self assert: aSpaceshipCardHand id equals: 1
-]
-
-{ #category : #tests }
 CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
 
 	| aGameDeck |
