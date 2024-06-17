@@ -2,7 +2,9 @@ Class {
 	#name : #AllyCard,
 	#superclass : #Object,
 	#instVars : [
-		'allyTwoId'
+		'allyTwoId',
+		'spaceshipOne',
+		'spaceshipTwo'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -37,6 +39,19 @@ AllyCard >> compare: aCard [
 	^ self class == aCard class and: allyTwoId = aCard ally
 ]
 
+{ #category : #private }
+AllyCard >> deactivate [
+
+	| fuelTankOne fuelTankTwo |
+	fuelTankOne := spaceshipOne objectFuelTank.
+	fuelTankTwo := spaceshipTwo objectFuelTank.
+
+	spaceshipOne stopSharing.
+	spaceshipTwo stopSharing.
+	fuelTankOne stopSharing.
+	fuelTankTwo stopSharing
+]
+
 { #category : #initialization }
 AllyCard >> initializeShareFuelWith: aSpaceshipId [
 
@@ -47,7 +62,7 @@ AllyCard >> initializeShareFuelWith: aSpaceshipId [
 { #category : #accessing }
 AllyCard >> withEffectOn: aGame [
 
-	| spaceshipOne spaceshipTwo fuelTankOne fuelTankTwo |
+	| fuelTankOne fuelTankTwo |
 	spaceshipOne := aGame currentSpaceship.
 	spaceshipTwo := aGame spaceships detect: [ :spaceship |
 		                spaceship id = allyTwoId ].

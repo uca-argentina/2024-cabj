@@ -25,6 +25,12 @@ AccelerationCard >> compare: aCard [
 	^ self = aCard
 ]
 
+{ #category : #private }
+AccelerationCard >> deactivate [
+
+	^ true
+]
+
 { #category : #effect }
 AccelerationCard >> withEffectOn: aGame [
 

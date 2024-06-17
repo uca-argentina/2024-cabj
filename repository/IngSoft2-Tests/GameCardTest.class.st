@@ -263,3 +263,58 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 	position := OrderedCollection with: 8 with: 1.
 	self assert: aGame moveSpaceship equals: position
 ]
+
+{ #category : #tests }
+GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	aLoadedDie := LoadedDie of: #( 7 1 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (AllyCard shareFuelWith: 2).
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 2
+		activateInstantCard:
+		(CancellationCard cancel: (AllyCard shareFuelWith: 2)).
+	aGame moveSpaceship.
+
+	position := OrderedCollection with: 1 with: 1.
+	self assert: aGame moveSpaceship equals: position
+]
+
+{ #category : #tests }
+GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanDoTheEffect [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	aLoadedDie := LoadedDie of: #( 7 7 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
+	aGame
+		spaceshipId: 2
+		activateInstantCard:
+		(CancellationCard cancel: (OverloadCard reduceThrowOf: 2)).
+	aGame moveSpaceship.
+
+	position := OrderedCollection with: 8 with: 1.
+	self assert: aGame moveSpaceship equals: position
+]

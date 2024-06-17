@@ -51,5 +51,6 @@ ActiveDeck >> remove: cardToCancel [
 		(card compare: cardToCancel) ifTrue: [
 			indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
+	(collectionOfCards at: indexToRemove) deactivate.
 	collectionOfCards removeAt: indexToRemove
 ]

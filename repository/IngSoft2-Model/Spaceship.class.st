@@ -137,3 +137,9 @@ Spaceship >> shareWith: aAllySpaceship [
 
 	allySpaceship := aAllySpaceship
 ]
+
+{ #category : #action }
+Spaceship >> stopSharing [
+
+	allySpaceship := self
+]

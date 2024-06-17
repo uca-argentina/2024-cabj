@@ -33,6 +33,12 @@ OverloadCard >> compare: aCard [
 	^ spaceshipId = aCard id and: self = aCard
 ]
 
+{ #category : #private }
+OverloadCard >> deactivate [
+
+	^ true
+]
+
 { #category : #accessing }
 OverloadCard >> id [
 

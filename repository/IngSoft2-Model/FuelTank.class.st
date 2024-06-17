@@ -67,6 +67,12 @@ FuelTank >> shareWith: aFuelTank [
 ]
 
 { #category : #action }
+FuelTank >> stopSharing [
+
+	fuelTankSharing := self
+]
+
+{ #category : #action }
 FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
