@@ -2,9 +2,7 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'cardToCancel',
-		'spaceshipAffected',
-		'activeDeck'
+		'cardToCancel'
 	],
 	#category : #'IngSoft2-Model'
 }

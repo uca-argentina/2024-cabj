@@ -40,9 +40,9 @@ Game >> activatePermanentCard: aCard [
 	| currentSpaceshipCardHand |
 	currentSpaceshipCardHand := spaceshipsCardHands at:
 		                            currentSpaceship id.
-	(currentSpaceshipCardHand activateCard: aCard) ifTrue: [
-		aCard withEffectOn: self.
-		aActiveDeck activate: aCard ]
+	(currentSpaceshipCardHand activateCard: aCard) ifFalse: [ ^ self ].
+	aCard withEffectOn: self.
+	aActiveDeck activate: aCard
 ]
 
 { #category : #accessing }
@@ -60,9 +60,9 @@ Game >> board [
 { #category : #action }
 Game >> checkAndHandleFuelDepletion [
 
-	currentSpaceship emptyTank ifTrue: [
-		turnManager lostTurns: 2 by: currentSpaceship.
-		currentSpaceship loadFuel ]
+	currentSpaceship emptyTank ifFalse: [ ^ self ].
+	turnManager lostTurns: 2 by: currentSpaceship.
+	currentSpaceship loadFuel
 ]
 
 { #category : #accessing }
