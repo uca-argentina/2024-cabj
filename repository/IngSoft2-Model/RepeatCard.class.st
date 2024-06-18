@@ -1,6 +1,6 @@
 Class {
 	#name : #RepeatCard,
-	#superclass : #Object,
+	#superclass : #InstantCard,
 	#instVars : [
 		'spaceshipId'
 	],
@@ -11,12 +11,6 @@ Class {
 RepeatCard class >> repeatEffectFor: anId [
 
 	^ self new initializeRepeatEffectFor: anId
-]
-
-{ #category : #comparing }
-RepeatCard >> = aCard [
-
-	^ self class == aCard class
 ]
 
 { #category : #accessing }
