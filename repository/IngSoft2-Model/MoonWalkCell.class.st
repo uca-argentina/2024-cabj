@@ -18,6 +18,12 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
 		  on:aGame
 ]
 
+{ #category : #'as yet unclassified' }
+MoonWalkCell >> changeCellPositionTo: aCellPosition [
+
+	cellPosition := aCellPosition
+]
+
 { #category : #action }
 MoonWalkCell >> enter [
 

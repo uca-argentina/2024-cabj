@@ -13,6 +13,12 @@ BlackHoleCell class >> position: aPosition [
 	^(self new) initializePosition: aPosition.
 ]
 
+{ #category : #'as yet unclassified' }
+BlackHoleCell >> changeCellPositionTo: aCellPosition [
+
+	cellPosition := aCellPosition
+]
+
 { #category : #action }
 BlackHoleCell >> enter [
 

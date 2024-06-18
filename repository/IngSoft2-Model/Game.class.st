@@ -10,7 +10,8 @@ Class {
 		'aActiveDeck',
 		'currentSpaceship',
 		'dice',
-		'spaceships'
+		'spaceships',
+		'cellToEnter'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -158,6 +159,12 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 		         andMaxThrowOf: dice amountOfFaces
 ]
 
+{ #category : #accessing }
+Game >> lastCellEffect [
+
+	^ cellToEnter
+]
+
 { #category : #action }
 Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
 
@@ -186,8 +193,10 @@ Game >> moveSpaceship [
 		^ positionOfSpaceship position ].
 
 	currentSpaceship move: throwResult.
-
-	cellOfSpaceship := (board at: indexOfSpaceship + throwResult) enter.
+	
+	cellToEnter := (board at: indexOfSpaceship + throwResult).
+	 
+	cellOfSpaceship := cellToEnter enter.
 
 	currentSpaceship move:
 		cellOfSpaceship - currentSpaceship objectPosition cell.

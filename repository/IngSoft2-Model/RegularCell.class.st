@@ -13,6 +13,12 @@ RegularCell class >> position: aPosition [
 	^(self new) initializePosition: aPosition.
 ]
 
+{ #category : #'as yet unclassified' }
+RegularCell >> changeCellPositionTo: aCellPosition [
+
+	cellPosition := aCellPosition
+]
+
 { #category : #action }
 RegularCell >> enter [
 
