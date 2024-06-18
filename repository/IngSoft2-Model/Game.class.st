@@ -67,7 +67,7 @@ Game >> cardHand: aSpaceshipId [
 { #category : #action }
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 
-	aSpaceship emptyTank ifFalse: [ ^ self ].
+	aSpaceship objectFuelTank areBothEmpty ifFalse: [ ^ self ].
 	turnManager lostTurns: 2 by: aSpaceship.
 	aSpaceship loadFuel
 ]

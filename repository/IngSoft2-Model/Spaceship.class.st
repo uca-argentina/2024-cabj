@@ -56,15 +56,6 @@ Spaceship >> changeCapacity: aNumber [
 ]
 
 { #category : #accessing }
-Spaceship >> emptyTank [
-
-	| auxVar |
-	auxVar := fuelDepleted.
-	fuelDepleted := false.
-	^ auxVar
-]
-
-{ #category : #accessing }
 Spaceship >> fuelDepleted [
 
 	^ fuelDepleted
@@ -82,7 +73,7 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 	collectionActualPosition := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId.
-	fuelDepleted := false.
+	fuelDepleted := aFuelTank areBothEmpty.
 	allySpaceship := self
 ]
 
@@ -123,11 +114,11 @@ Spaceship >> objectPosition [
 Spaceship >> resetToOne [
 
 	| completedLaps |
+	fuelDepleted := aFuelTank isEmpty .
 	completedLaps := collectionActualPosition completedLaps.
 
 	collectionActualPosition updateCellAndLapWith: completedLaps + 1.
 
-	fuelDepleted := true.
 	(allySpaceship = self or: allySpaceship fuelDepleted) ifFalse: [
 		allySpaceship resetToOne ]
 ]
