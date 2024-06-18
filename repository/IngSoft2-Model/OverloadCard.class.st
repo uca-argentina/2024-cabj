@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : #'instance creation' }
+OverloadCard class >> redo: aSpaceshipId [
+
+	^ self new initializeReduceThorwOf: aSpaceshipId
+]
+
+{ #category : #'instance creation' }
 OverloadCard class >> reduceThrowOf: aSpaceshipId [
 
 	^ self new initializeReduceThorwOf: aSpaceshipId
@@ -55,4 +61,11 @@ OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 OverloadCard >> withEffectOn: aGame [
 
 	game := aGame
+]
+
+{ #category : #effect }
+OverloadCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
+
+	game := aGame.
+	aGame activeDeck activate: self
 ]

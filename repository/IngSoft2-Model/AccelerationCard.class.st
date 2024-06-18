@@ -7,6 +7,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+AccelerationCard class >> redo: null [
+
+	^ self new
+]
+
 { #category : #comparing }
 AccelerationCard >> = aCard [
 
@@ -35,4 +41,11 @@ AccelerationCard >> deactivate [
 AccelerationCard >> withEffectOn: aGame [
 
 	game := aGame
+]
+
+{ #category : #effect }
+AccelerationCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
+
+	game := aGame.
+	aGame activeDeck activate: self
 ]

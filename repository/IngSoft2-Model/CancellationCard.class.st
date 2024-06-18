@@ -15,6 +15,12 @@ CancellationCard class >> cancel: aCard [
 	^ self new initializeCancel: aCard
 ]
 
+{ #category : #'instance creation' }
+CancellationCard class >> redo: aCard [
+
+	^ self new initializeCancel: aCard
+]
+
 { #category : #comparing }
 CancellationCard >> = aCard [
 
@@ -22,13 +28,19 @@ CancellationCard >> = aCard [
 ]
 
 { #category : #accessing }
-CancellationCard >> activateEffectOn: anActiveDeck [
+CancellationCard >> activateEffectOn: aGame forSpaceship: anId [
 
-	anActiveDeck remove: cardToCancel
+	aGame activeDeck removeACard: cardToCancel
 ]
 
 { #category : #initialization }
 CancellationCard >> initializeCancel: aCard [
 
 	cardToCancel := aCard
+]
+
+{ #category : #accessing }
+CancellationCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
+
+	aGame activeDeck removeACard: aCardToCancel
 ]

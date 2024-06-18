@@ -46,9 +46,9 @@ Game >> activatePermanentCard: aCard [
 ]
 
 { #category : #accessing }
-Game >> activeCards [
+Game >> activeDeck [
 
-	^ aActiveDeck activeCards
+	^ aActiveDeck
 ]
 
 { #category : #accessing }
@@ -238,7 +238,7 @@ Game >> spaceshipId: anId activateInstantCard: aCard [
 	| spaceshipCardHand |
 	spaceshipCardHand := spaceshipsCardHands at: anId.
 	(spaceshipCardHand activateCard: aCard) ifTrue: [
-		aCard activateEffectOn: aActiveDeck ]
+		aCard activateEffectOn: self forSpaceship: anId ]
 ]
 
 { #category : #accessing }

@@ -10,6 +10,12 @@ Class {
 }
 
 { #category : #'instance creation' }
+AllyCard class >> redo: aSpaceshipId [
+
+	^ self new initializeShareFuelWith: aSpaceshipId
+]
+
+{ #category : #'instance creation' }
 AllyCard class >> shareFuelWith: aSpaceshipId [
 
 	^ self new initializeShareFuelWith: aSpaceshipId
@@ -63,6 +69,24 @@ AllyCard >> withEffectOn: aGame [
 
 	| fuelTankOne fuelTankTwo |
 	spaceshipOne := aGame currentSpaceship.
+	spaceshipTwo := aGame spaceships detect: [ :spaceship |
+		                spaceship id = allyTwoId ].
+	fuelTankOne := spaceshipOne objectFuelTank.
+	fuelTankTwo := spaceshipTwo objectFuelTank.
+
+	spaceshipOne shareWith: spaceshipTwo.
+	spaceshipTwo shareWith: spaceshipOne.
+	fuelTankOne shareWith: fuelTankTwo.
+	fuelTankTwo shareWith: fuelTankOne
+]
+
+{ #category : #accessing }
+AllyCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
+
+	| fuelTankOne fuelTankTwo |
+	aGame activeDeck activate: self.
+	spaceshipOne := aGame spaceships detect: [ :spaceship |
+		                spaceship id = anId ].
 	spaceshipTwo := aGame spaceships detect: [ :spaceship |
 		                spaceship id = allyTwoId ].
 	fuelTankOne := spaceshipOne objectFuelTank.

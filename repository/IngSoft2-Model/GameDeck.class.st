@@ -27,6 +27,7 @@ GameDeck >> initializeStartGame [
 		                  with: OverloadCard new
 		                  with: AccelerationCard new
 		                  with: CancellationCard new
+		                  with: RedoCard new
 ]
 
 { #category : #action }
