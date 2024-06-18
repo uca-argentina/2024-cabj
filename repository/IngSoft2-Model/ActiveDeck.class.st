@@ -44,7 +44,7 @@ ActiveDeck >> initializeStartGame [
 	cards := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 ActiveDeck >> instantCardPlayed: aCard [
 
 	lastCardPlayed := aCard class
