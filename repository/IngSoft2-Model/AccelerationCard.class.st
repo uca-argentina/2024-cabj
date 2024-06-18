@@ -4,12 +4,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-AccelerationCard class >> redo: null [
-
-	^ self new
-]
-
 { #category : #effect }
 AccelerationCard >> applyEffectOn: throwResult for: spaceshipId [
 

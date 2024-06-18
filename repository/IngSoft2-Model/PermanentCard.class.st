@@ -7,6 +7,12 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+PermanentCard class >> redo: null [
+
+	^ self new
+]
+
 { #category : #comparing }
 PermanentCard >> = aCard [
 
@@ -25,7 +31,7 @@ PermanentCard >> compare: aCard [
 	^ self = aCard
 ]
 
-{ #category : #private }
+{ #category : #action }
 PermanentCard >> deactivate [
 
 	^ true
