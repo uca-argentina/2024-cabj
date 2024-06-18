@@ -1,0 +1,96 @@
+Class {
+	#name : #UserInterface,
+	#superclass : #Object,
+	#instVars : [
+		'turnManager',
+		'finishLine',
+		'anAmountOfIndex',
+		'board',
+		'spaceshipsCardHands',
+		'aActiveDeck',
+		'currentSpaceship',
+		'dice',
+		'spaceships',
+		'cellToEnter',
+		'aGame'
+	],
+	#category : #'IngSoft2-Model'
+}
+
+{ #category : #'instance creation' }
+UserInterface class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+
+	^ self new
+		  initializeNumberOfSpaceships: anAmountOfSpaceships
+		  withBoardCreator: aBoardCreator
+		  playWithDice: aCollectionOfDice
+]
+
+{ #category : #activation }
+UserInterface >> activatePermanentCard: aCard [
+
+	aGame activatePermanentCard: aCard
+]
+
+{ #category : #results }
+UserInterface >> finalLapsOfSpaceships [
+
+	^ spaceships lapsOfSpaceships
+]
+
+{ #category : #results }
+UserInterface >> finalPositionOfSpaceships [
+
+	^ spaceships cellsOfSpaceships
+]
+
+{ #category : #results }
+UserInterface >> finalResultsOfSpaceships [
+
+	^ spaceships positionsOfSpaceships
+]
+
+{ #category : #initialization }
+UserInterface >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+
+	aGame := Game
+		         numberOfSpaceships: anAmountOfSpaceships
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aCollectionOfDice.
+
+	spaceships := aGame spaceships
+]
+
+{ #category : #action }
+UserInterface >> moveSpaceship [
+
+	aGame moveSpaceship
+]
+
+{ #category : #results }
+UserInterface >> rankingOfSpaceships [
+
+	| sortedSpaceships numberOfSpaceshipsToTake |
+	sortedSpaceships := spaceships ranking.
+	numberOfSpaceshipsToTake := sortedSpaceships size min: 3.
+
+	^ sortedSpaceships first: numberOfSpaceshipsToTake
+]
+
+{ #category : #action }
+UserInterface >> reloadSpaceship [
+
+	aGame reloadSpaceship
+]
+
+{ #category : #activation }
+UserInterface >> spaceshipId: anId activateInstantCard: aCard [
+
+	aGame spaceshipId: anId activateInstantCard: aCard
+]
+
+{ #category : #results }
+UserInterface >> winner [
+
+	^ spaceships ranking at: 1
+]

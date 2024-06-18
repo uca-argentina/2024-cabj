@@ -414,7 +414,7 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 	aGame moveSpaceship.
 
 	self
-		assert: aGame finalPositionOfSpaceships
+		assert: aGame spaceships cellsOfSpaceships
 		equals: resultOfPositions
 ]
 
@@ -444,7 +444,7 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame finalLapsOfSpaceships equals: resultOfLaps
+	self assert: aGame spaceships lapsOfSpaceships equals: resultOfLaps
 ]
 
 { #category : #tests }
@@ -499,7 +499,7 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	
-	idRanking := aGame rankingOfSpaceships collect: [ :spaceship |
+	idRanking := aGame spaceships ranking collect: [ :spaceship |
 		             spaceship id ].
 	
 	self
@@ -532,7 +532,7 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	
-	idRanking := aGame rankingOfSpaceships collect: [ :spaceship |
+	idRanking := (aGame spaceships ranking first: 3) collect: [ :spaceship |
 		             spaceship id ].
 	
 	self
@@ -560,7 +560,7 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
 
-	spaceship := aGame rankingOfSpaceships at: 1.
+	spaceship := aGame spaceships ranking at: 1.
 
 	self assert: (spaceship amountOfFuel between: 7 and: 9)
 ]

@@ -26,7 +26,7 @@ MoonWalkCellTest >> test01MoonWalkEnterThenReturnsPositionOfCell [
 	aGame moveSpaceship .
 	aGame moveSpaceship.
 
-	self assert: (aGame finalPositionOfSpaceships at:3)  equals: 7
+	self assert: (aGame spaceships cellsOfSpaceships at:3)  equals: 7
 	
 	
 	
@@ -64,7 +64,7 @@ MoonWalkCellTest >> test02SpaceshipThreeEntersMoonWalkThenEverySpaceshipExceptTh
 	result at: 3 put: 7.
 
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }

@@ -49,6 +49,18 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 	Spaceship initialize
 ]
 
+{ #category : #copying }
+CollectionOfSpaceships >> copy [
+
+	^ spaceships copy
+]
+
+{ #category : #enumerating }
+CollectionOfSpaceships >> detect: aBlock [
+
+	^ spaceships detect: aBlock
+]
+
 { #category : #accessing }
 CollectionOfSpaceships >> indexOf: aSpaceship [
 
@@ -108,5 +120,5 @@ CollectionOfSpaceships >> size [
 { #category : #accessing }
 CollectionOfSpaceships >> spaceships [
 
-	^ spaceships
+	^ self
 ]
