@@ -1,9 +1,8 @@
 Class {
 	#name : #OverloadCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#instVars : [
-		'spaceshipId',
-		'game'
+		'spaceshipId'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -20,12 +19,6 @@ OverloadCard class >> reduceThrowOf: aSpaceshipId [
 	^ self new initializeReduceThorwOf: aSpaceshipId
 ]
 
-{ #category : #comparing }
-OverloadCard >> = aCard [
-
-	^ self class == aCard class
-]
-
 { #category : #effect }
 OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
 
@@ -39,12 +32,6 @@ OverloadCard >> compare: aCard [
 	^ spaceshipId = aCard id and: self = aCard
 ]
 
-{ #category : #private }
-OverloadCard >> deactivate [
-
-	^ true
-]
-
 { #category : #accessing }
 OverloadCard >> id [
 
@@ -55,17 +42,4 @@ OverloadCard >> id [
 OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 
 	spaceshipId := aSpaceshipId
-]
-
-{ #category : #effect }
-OverloadCard >> withEffectOn: aGame [
-
-	game := aGame
-]
-
-{ #category : #effect }
-OverloadCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
-
-	game := aGame.
-	aGame activeDeck activate: self
 ]

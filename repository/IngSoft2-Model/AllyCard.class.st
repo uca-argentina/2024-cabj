@@ -1,6 +1,6 @@
 Class {
 	#name : #AllyCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#instVars : [
 		'allyTwoId',
 		'spaceshipOne',
@@ -21,22 +21,10 @@ AllyCard class >> shareFuelWith: aSpaceshipId [
 	^ self new initializeShareFuelWith: aSpaceshipId
 ]
 
-{ #category : #comparing }
-AllyCard >> = aCard [
-
-	^ self class == aCard class
-]
-
 { #category : #'set and get' }
 AllyCard >> ally [
 
 	^ allyTwoId
-]
-
-{ #category : #effect }
-AllyCard >> applyEffectOn: throwResult for: spaceshipId [
-
-	^ throwResult
 ]
 
 { #category : #comparing }
