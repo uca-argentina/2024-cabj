@@ -236,7 +236,7 @@ Game >> reloadSpaceship [
 Game >> resetSpaceshipsToCellOne [
 
 	| aSpaceship |
-	1 to: spaceships spaceships size do: [ :index |
+	1 to: spaceships size do: [ :index |
 		aSpaceship := spaceships spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
 ]
