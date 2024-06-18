@@ -44,6 +44,12 @@ ActiveDeck >> initializeStartGame [
 	cards := OrderedCollection new
 ]
 
+{ #category : #'as yet unclassified' }
+ActiveDeck >> instantCardPlayed: aCard [
+
+	lastCardPlayed := aCard class
+]
+
 { #category : #accessing }
 ActiveDeck >> lastCardPlayed [
 
@@ -54,7 +60,6 @@ ActiveDeck >> lastCardPlayed [
 ActiveDeck >> removeACard: cardToCancel [
 
 	| anIndex indexToRemove |
-	lastCardPlayed := CancellationCard.
 	anIndex := 1.
 	cards do: [ :card |
 		(card compare: cardToCancel) ifTrue: [ indexToRemove := anIndex ].

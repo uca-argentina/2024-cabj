@@ -637,3 +637,65 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards 
 
 	self assert: (aGame cardHand: 2) amount equals: 6
 ]
+
+{ #category : #tests }
+GameCardTest >> test24RepeatCardRepeatsWormholeThenPositionsStayTheSame [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 9 1 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeCreator: aWormholeCreator.
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 2
+		activateInstantCard: (RepeatCard repeatEffectFor: 1).
+	
+	result := Dictionary new.
+	result at: 1 put: 10.
+	result at: 2 put: 3.
+
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test25RedoCardPlyedAfterRepeatCardThenCellEffectRepeatsTwice [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 9 5 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeCreator: aWormholeCreator.
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 2
+		activateInstantCard: (RepeatCard repeatEffectFor: 1).
+	aGame
+		spaceshipId: 2
+		activateInstantCard:
+		(RedoCard forSpaceshipId: 1 orCardToCancel: nil).
+
+	result := Dictionary new.
+	result at: 1 put: 2.
+	result at: 2 put: 2.
+
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
