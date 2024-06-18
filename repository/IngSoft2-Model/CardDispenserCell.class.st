@@ -1,6 +1,6 @@
 Class {
 	#name : #CardDispenserCell,
-	#superclass : #RegularCell,
+	#superclass : #Cell,
 	#instVars : [
 		'game'
 	],

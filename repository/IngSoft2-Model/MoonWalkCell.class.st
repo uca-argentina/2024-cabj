@@ -1,6 +1,6 @@
 Class {
 	#name : #MoonWalkCell,
-	#superclass : #RegularCell,
+	#superclass : #Cell,
 	#instVars : [
 		'value',
 		'game'

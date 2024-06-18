@@ -1,6 +1,6 @@
 Class {
 	#name : #AtomicBombCell,
-	#superclass : #RegularCell,
+	#superclass : #Cell,
 	#instVars : [
 		'game'
 	],

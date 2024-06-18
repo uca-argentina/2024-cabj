@@ -502,7 +502,7 @@ GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThe
 ]
 
 { #category : #tests }
-GameCardTest >> test19ReapeatCardRepeatsARegularCellThenNothingChanges [
+GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 
 	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 9 ).

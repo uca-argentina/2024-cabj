@@ -1,6 +1,6 @@
 Class {
 	#name : #HyperJumpCell,
-	#superclass : #RegularCell,
+	#superclass : #Cell,
 	#instVars : [
 		'collectionOfValues',
 		'currentValue',

@@ -1,6 +1,6 @@
 Class {
 	#name : #HyperGravityCell,
-	#superclass : #RegularCell,
+	#superclass : #Cell,
 	#instVars : [
 		'value'
 	],

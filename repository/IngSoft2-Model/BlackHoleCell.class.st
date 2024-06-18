@@ -1,6 +1,6 @@
 Class {
 	#name : #BlackHoleCell,
-	#superclass : #RegularCell,
+	#superclass : #Cell,
 	#category : #'IngSoft2-Model'
 }
 
