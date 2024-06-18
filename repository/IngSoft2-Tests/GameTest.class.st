@@ -15,7 +15,7 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 ]
 
 { #category : #tests }
-GameTest >> test07GameHasBoardOfOnlyRegularCellsThenBoardHasOnlyRegularCellsWhereThereIsntAWormhole [
+GameTest >> test07GameHasBoardOfOnlyCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
 
 	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
 	aWormholeCreator := WormholeCreator
@@ -40,7 +40,7 @@ GameTest >> test07GameHasBoardOfOnlyRegularCellsThenBoardHasOnlyRegularCellsWher
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aCollectionOfDice.
 
-	self assert: ((aGame board at: 1) isKindOf: RegularCell)
+	self assert: ((aGame board at: 1) isKindOf: Cell)
 ]
 
 { #category : #tests }

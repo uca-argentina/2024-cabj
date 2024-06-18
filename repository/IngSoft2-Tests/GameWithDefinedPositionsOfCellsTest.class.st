@@ -227,11 +227,9 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmo
 
 	| aLoadedDie aGame aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-	
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
 	aBoardCreator := BoardCreatorWithDefinedCellPositions
 		                 withCellsAndLaps: #( 10 2 )
 		                 wormholeCreator: aWormholeCreator.
@@ -243,5 +241,5 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmo
 
 	aGame moveSpaceship.
 
-	self assert: aGame currentSpaceshipCardHand amount equals: 3
+	self assert: (aGame cardHand: 1) amount equals: 3
 ]

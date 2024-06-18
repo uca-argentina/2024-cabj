@@ -76,8 +76,7 @@ FuelTank >> stopSharing [
 FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
-	self isEmpty ifTrue: [
-		fuelTankSharing isEmpty ifFalse: [
-			fuelTankSharing useFuel: fuel abs ].
-		fuel := 0 ]
+	self isEmpty ifFalse: [ ^ self ].
+	fuelTankSharing isEmpty ifFalse: [ fuelTankSharing useFuel: fuel abs ].
+	fuel := 0
 ]

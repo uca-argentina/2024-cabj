@@ -74,6 +74,13 @@ BoardCreator >> createCardDispenserCells [
 ]
 
 { #category : #'set and get' }
+BoardCreator >> createCells [
+
+	board add: (Cell position: counterForPosition).
+	self nextPosition
+]
+
+{ #category : #'set and get' }
 BoardCreator >> createHyperGravityCells [
 
 	board add: (HyperGravityCell
@@ -107,13 +114,6 @@ BoardCreator >> createMoonWalkCells [
 			 withValueToMove: amountOfCells atRandom
 			 inPosition: counterForPosition
 			 on: game).
-	self nextPosition
-]
-
-{ #category : #'set and get' }
-BoardCreator >> createRegularCells [
-
-	board add: (RegularCell position: counterForPosition).
 	self nextPosition
 ]
 

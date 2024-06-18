@@ -107,7 +107,7 @@ BoardCreatorWithDefinedCellPositions >> createTheRegularCellsWithAnAmountOfCells
 	1 to: anAmountOfIndex do: [ :indexAux |
 		currentLap := indexAux - 1 // amountOfCells.
 		board add:
-			(RegularCell position: indexAux - (amountOfCells * currentLap)) ]
+			(Cell position: indexAux - (amountOfCells * currentLap)) ]
 ]
 
 { #category : #'set and get' }

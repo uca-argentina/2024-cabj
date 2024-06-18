@@ -12,8 +12,20 @@ Wormhole class >> in: aPosition [
 	^(self new) initializeIn: aPosition.
 ]
 
+{ #category : #'set and get' }
+Wormhole >> changeCellPositionTo: aCellPosition [
+
+	cellPosition := aCellPosition
+]
+
 { #category : #action }
 Wormhole >> enter [
+
+	^ cellPosition
+]
+
+{ #category : #action }
+Wormhole >> enterWithoutTurn: aSpaceship [
 
 	^ cellPosition
 ]

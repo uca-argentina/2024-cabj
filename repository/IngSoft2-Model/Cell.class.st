@@ -1,5 +1,5 @@
 Class {
-	#name : #RegularCell,
+	#name : #Cell,
 	#superclass : #Object,
 	#instVars : [
 		'cellPosition'
@@ -8,25 +8,37 @@ Class {
 }
 
 { #category : #accessing }
-RegularCell class >> position: aPosition [
+Cell class >> position: aPosition [
 	aPosition <1 ifTrue: [ Error signal: 'A cell must have position greater than zero' ]. 
 	^(self new) initializePosition: aPosition.
 ]
 
+{ #category : #'set and get' }
+Cell >> changeCellPositionTo: aCellPosition [
+
+	cellPosition := aCellPosition
+]
+
 { #category : #action }
-RegularCell >> enter [
+Cell >> enter [
 
 	^ cellPosition
 ]
 
 { #category : #action }
-RegularCell >> exit: aValue [
+Cell >> enterWithoutTurn: aSpaceship [
+
+	^ cellPosition
+]
+
+{ #category : #action }
+Cell >> exit: aValue [
 
 	^ true
 ]
 
 { #category : #initialization }
-RegularCell >> initializePosition: aPosition [
+Cell >> initializePosition: aPosition [
 
 	cellPosition := aPosition
 ]

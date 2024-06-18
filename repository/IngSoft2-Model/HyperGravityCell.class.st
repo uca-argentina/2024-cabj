@@ -1,9 +1,8 @@
 Class {
 	#name : #HyperGravityCell,
-	#superclass : #Object,
+	#superclass : #Cell,
 	#instVars : [
-		'value',
-		'cellPosition'
+		'value'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,12 +13,6 @@ HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [
 	^ self new
 		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
-]
-
-{ #category : #action }
-HyperGravityCell >> enter [
-
-	^ cellPosition
 ]
 
 { #category : #action }

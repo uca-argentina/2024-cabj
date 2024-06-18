@@ -1,6 +1,6 @@
 Class {
 	#name : #AllyCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#instVars : [
 		'allyTwoId',
 		'spaceshipOne',
@@ -10,27 +10,21 @@ Class {
 }
 
 { #category : #'instance creation' }
-AllyCard class >> shareFuelWith: aSpaceshipId [
+AllyCard class >> redo: aSpaceshipId [
 
 	^ self new initializeShareFuelWith: aSpaceshipId
 ]
 
-{ #category : #comparing }
-AllyCard >> = aCard [
+{ #category : #'instance creation' }
+AllyCard class >> shareFuelWith: aSpaceshipId [
 
-	^ self class == aCard class
+	^ self new initializeShareFuelWith: aSpaceshipId
 ]
 
 { #category : #'set and get' }
 AllyCard >> ally [
 
 	^ allyTwoId
-]
-
-{ #category : #effect }
-AllyCard >> applyEffectOn: throwResult for: spaceshipId [
-
-	^ throwResult
 ]
 
 { #category : #comparing }
@@ -63,6 +57,24 @@ AllyCard >> withEffectOn: aGame [
 
 	| fuelTankOne fuelTankTwo |
 	spaceshipOne := aGame currentSpaceship.
+	spaceshipTwo := aGame spaceships detect: [ :spaceship |
+		                spaceship id = allyTwoId ].
+	fuelTankOne := spaceshipOne objectFuelTank.
+	fuelTankTwo := spaceshipTwo objectFuelTank.
+
+	spaceshipOne shareWith: spaceshipTwo.
+	spaceshipTwo shareWith: spaceshipOne.
+	fuelTankOne shareWith: fuelTankTwo.
+	fuelTankTwo shareWith: fuelTankOne
+]
+
+{ #category : #accessing }
+AllyCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
+
+	| fuelTankOne fuelTankTwo |
+	aGame activeDeck activate: self.
+	spaceshipOne := aGame spaceships detect: [ :spaceship |
+		                spaceship id = anId ].
 	spaceshipTwo := aGame spaceships detect: [ :spaceship |
 		                spaceship id = allyTwoId ].
 	fuelTankOne := spaceshipOne objectFuelTank.

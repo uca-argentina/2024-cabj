@@ -2,7 +2,8 @@ Class {
 	#name : #ActiveDeck,
 	#superclass : #Object,
 	#instVars : [
-		'cards'
+		'cards',
+		'lastCardPlayed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,13 +17,8 @@ ActiveDeck class >> startGame [
 { #category : #convenience }
 ActiveDeck >> activate: aCard [
 
-	cards add: aCard
-]
-
-{ #category : #accessing }
-ActiveDeck >> activeCards [
-
-	^ cards size
+	cards add: aCard.
+	lastCardPlayed := aCard class
 ]
 
 { #category : #action }
@@ -36,14 +32,32 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 	^ auxNumber
 ]
 
+{ #category : #accessing }
+ActiveDeck >> cards [
+
+	^ cards
+]
+
 { #category : #initialization }
 ActiveDeck >> initializeStartGame [
 
 	cards := OrderedCollection new
 ]
 
+{ #category : #'set and get' }
+ActiveDeck >> instantCardPlayed: aCard [
+
+	lastCardPlayed := aCard class
+]
+
+{ #category : #accessing }
+ActiveDeck >> lastCardPlayed [
+
+	^ lastCardPlayed
+]
+
 { #category : #removing }
-ActiveDeck >> remove: cardToCancel [
+ActiveDeck >> removeACard: cardToCancel [
 
 	| anIndex indexToRemove |
 	anIndex := 1.

@@ -71,6 +71,11 @@ Position >> resetToOne [
 { #category : #'set and get' }
 Position >> updateCellAndLapWith: anIndex [
 
+	anIndex < 1 ifTrue: [
+		cell := 1.
+		lap := 1.
+		self updateIndexWith: amountOfCells.
+		^ self ].
 	cell := anIndex - 1 \\ amountOfCells + 1.
 	lap := anIndex - 1 // amountOfCells + 1.
 

@@ -1,17 +1,8 @@
 Class {
 	#name : #BlackHoleCell,
-	#superclass : #Object,
-	#instVars : [
-		'cellPosition'
-	],
+	#superclass : #Cell,
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #accessing }
-BlackHoleCell class >> position: aPosition [
-	aPosition <1 ifTrue: [ Error signal: 'A cell must have position greater than zero' ]. 
-	^(self new) initializePosition: aPosition.
-]
 
 { #category : #action }
 BlackHoleCell >> enter [
@@ -20,13 +11,7 @@ BlackHoleCell >> enter [
 ]
 
 { #category : #action }
-BlackHoleCell >> exit: aValue [
+BlackHoleCell >> enterWithoutTurn: aSpaceship [
 
-	^ true
-]
-
-{ #category : #initialization }
-BlackHoleCell >> initializePosition: aPosition [
-
-	cellPosition := aPosition
+	^ cellPosition - 4
 ]

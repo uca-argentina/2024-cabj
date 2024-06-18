@@ -1,10 +1,8 @@
 Class {
 	#name : #CancellationCard,
-	#superclass : #Object,
+	#superclass : #InstantCard,
 	#instVars : [
-		'cardToCancel',
-		'spaceshipAffected',
-		'activeDeck'
+		'cardToCancel'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,20 +13,28 @@ CancellationCard class >> cancel: aCard [
 	^ self new initializeCancel: aCard
 ]
 
-{ #category : #comparing }
-CancellationCard >> = aCard [
+{ #category : #'instance creation' }
+CancellationCard class >> redo: aCard [
 
-	^ self class == aCard class
+	^ self new initializeCancel: aCard
 ]
 
 { #category : #accessing }
-CancellationCard >> activateEffectOn: anActiveDeck [
-
-	anActiveDeck remove: cardToCancel
+CancellationCard >> activateEffectOn: aGame forSpaceship: anId [
+	
+	aGame activeDeck instantCardPlayed: self.
+	aGame activeDeck removeACard: cardToCancel
 ]
 
 { #category : #initialization }
 CancellationCard >> initializeCancel: aCard [
 
 	cardToCancel := aCard
+]
+
+{ #category : #accessing }
+CancellationCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
+	
+	aGame activeDeck instantCardPlayed: self.
+	aGame activeDeck removeACard: aCardToCancel
 ]

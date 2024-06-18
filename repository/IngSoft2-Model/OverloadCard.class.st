@@ -1,23 +1,22 @@
 Class {
 	#name : #OverloadCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#instVars : [
-		'spaceshipId',
-		'game'
+		'spaceshipId'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-OverloadCard class >> reduceThrowOf: aSpaceshipId [
+OverloadCard class >> redo: aSpaceshipId [
 
 	^ self new initializeReduceThorwOf: aSpaceshipId
 ]
 
-{ #category : #comparing }
-OverloadCard >> = aCard [
+{ #category : #'instance creation' }
+OverloadCard class >> reduceThrowOf: aSpaceshipId [
 
-	^ self class == aCard class
+	^ self new initializeReduceThorwOf: aSpaceshipId
 ]
 
 { #category : #effect }
@@ -33,12 +32,6 @@ OverloadCard >> compare: aCard [
 	^ spaceshipId = aCard id and: self = aCard
 ]
 
-{ #category : #private }
-OverloadCard >> deactivate [
-
-	^ true
-]
-
 { #category : #accessing }
 OverloadCard >> id [
 
@@ -49,10 +42,4 @@ OverloadCard >> id [
 OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 
 	spaceshipId := aSpaceshipId
-]
-
-{ #category : #effect }
-OverloadCard >> withEffectOn: aGame [
-
-	game := aGame
 ]

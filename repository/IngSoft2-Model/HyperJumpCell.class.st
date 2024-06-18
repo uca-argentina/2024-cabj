@@ -1,11 +1,11 @@
 Class {
 	#name : #HyperJumpCell,
-	#superclass : #Object,
+	#superclass : #Cell,
 	#instVars : [
 		'collectionOfValues',
 		'currentValue',
-		'cellPosition',
-		'conversor'
+		'conversor',
+		'previousValue'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -24,14 +24,17 @@ HyperJumpCell >> enter [
 
 	| convertionOfNextValue |
 	convertionOfNextValue := conversor convert: currentValue.
+	previousValue := currentValue.
 	self nextValue.
 	^ cellPosition + convertionOfNextValue
 ]
 
 { #category : #action }
-HyperJumpCell >> exit: aValue [
+HyperJumpCell >> enterWithoutTurn: aSpaceship [
 
-	^ true
+	| convertionOfNextValue |
+	convertionOfNextValue := conversor convert: previousValue.
+	^ cellPosition + convertionOfNextValue
 ]
 
 { #category : #initialization }
