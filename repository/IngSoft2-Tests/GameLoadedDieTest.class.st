@@ -206,7 +206,7 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 
-	self assert: aGame winner id equals: 1
+	self assert: aGame winner equals: 1
 ]
 
 { #category : #tests }
@@ -230,7 +230,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
-	self assert: aGame winner id equals: 2
+	self assert: aGame winner equals: 2
 ]
 
 { #category : #tests }

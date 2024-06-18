@@ -2,16 +2,7 @@ Class {
 	#name : #UserInterface,
 	#superclass : #Object,
 	#instVars : [
-		'turnManager',
-		'finishLine',
-		'anAmountOfIndex',
-		'board',
-		'spaceshipsCardHands',
-		'aActiveDeck',
-		'currentSpaceship',
-		'dice',
 		'spaceships',
-		'cellToEnter',
 		'aGame'
 	],
 	#category : #'IngSoft2-Model'
@@ -22,6 +13,16 @@ UserInterface class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
+		  withBoardCreator: aBoardCreator
+		  playWithDice: aCollectionOfDice
+]
+
+{ #category : #'instance creation' }
+UserInterface class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+
+	^ self new
+		  initializeNumberOfSpaceshipsPlayingWithAllCards:
+		  anAmountOfSpaceships
 		  withBoardCreator: aBoardCreator
 		  playWithDice: aCollectionOfDice
 ]
@@ -61,10 +62,21 @@ UserInterface >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCre
 	spaceships := aGame spaceships
 ]
 
+{ #category : #initialization }
+UserInterface >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aCollectionOfDice.
+
+	spaceships := aGame spaceships
+]
+
 { #category : #action }
 UserInterface >> moveSpaceship [
 
-	aGame moveSpaceship
+	^aGame moveSpaceship
 ]
 
 { #category : #results }
@@ -92,5 +104,5 @@ UserInterface >> spaceshipId: anId activateInstantCard: aCard [
 { #category : #results }
 UserInterface >> winner [
 
-	^ spaceships ranking at: 1
+	^ aGame winner
 ]

@@ -250,5 +250,5 @@ Game >> throwDice: aSpaceship [
 { #category : #results }
 Game >> winner [
 
-	^ spaceships ranking at: 1
+	^ (spaceships ranking at: 1) id
 ]
