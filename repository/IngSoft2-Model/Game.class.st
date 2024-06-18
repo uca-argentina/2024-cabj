@@ -58,24 +58,24 @@ Game >> board [
 	^ board
 ]
 
-{ #category : #action }
-Game >> checkAndHandleFuelDepletion [
+{ #category : #accessing }
+Game >> cardHand: aSpaceshipId [
 
-	currentSpaceship emptyTank ifFalse: [ ^ self ].
-	turnManager lostTurns: 2 by: currentSpaceship.
-	currentSpaceship loadFuel
+	^ spaceshipsCardHands at: aSpaceshipId
+]
+
+{ #category : #action }
+Game >> checkAndHandleFuelDepletion: aSpaceship [
+
+	aSpaceship emptyTank ifFalse: [ ^ self ].
+	turnManager lostTurns: 2 by: aSpaceship.
+	aSpaceship loadFuel
 ]
 
 { #category : #accessing }
 Game >> currentSpaceship [
 
 	^ currentSpaceship
-]
-
-{ #category : #accessing }
-Game >> currentSpaceshipCardHand [
-
-	^ spaceshipsCardHands at: currentSpaceship id
 ]
 
 { #category : #results }
@@ -166,14 +166,14 @@ Game >> lastCellEffect [
 ]
 
 { #category : #action }
-Game >> moveAllTheSpaceshipsThatAreNotPlayingWith: anAmountOfMovements [
+Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovements [
 
 	| aSpaceshipAux collectionMinusSpaceship |
 	collectionMinusSpaceship := spaceships spaceships copy.
-	collectionMinusSpaceship remove: currentSpaceship.
+	collectionMinusSpaceship remove: aSpaceship.
 	1 to: collectionMinusSpaceship size do: [ :index |
 		aSpaceshipAux := collectionMinusSpaceship at: index.
-		aSpaceshipAux move: anAmountOfMovements ]
+		aSpaceshipAux move: aNumberOfMovements ]
 ]
 
 { #category : #action }
@@ -193,9 +193,9 @@ Game >> moveSpaceship [
 		^ positionOfSpaceship position ].
 
 	currentSpaceship move: throwResult.
-	
-	cellToEnter := (board at: indexOfSpaceship + throwResult).
-	 
+
+	cellToEnter := board at: indexOfSpaceship + throwResult.
+
 	cellOfSpaceship := cellToEnter enter.
 
 	currentSpaceship move:
@@ -203,7 +203,7 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship := currentSpaceship objectPosition position.
 
-	self checkAndHandleFuelDepletion.
+	self checkAndHandleFuelDepletion: currentSpaceship.
 
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.

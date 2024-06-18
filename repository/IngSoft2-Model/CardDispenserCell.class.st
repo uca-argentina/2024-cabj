@@ -1,8 +1,7 @@
 Class {
 	#name : #CardDispenserCell,
-	#superclass : #Object,
+	#superclass : #RegularCell,
 	#instVars : [
-		'cellPosition',
 		'game'
 	],
 	#category : #'IngSoft2-Model'
@@ -20,14 +19,17 @@ CardDispenserCell class >> withPostion: aPosition onTheGame: aGame [
 { #category : #action }
 CardDispenserCell >> enter [
 
-	game currentSpaceshipCardHand gainACard.
+	| currentSpaceship |
+	currentSpaceship := game currentSpaceship id.
+	(game cardHand: currentSpaceship) gainACard.
 	^ cellPosition
 ]
 
-{ #category : #initialization }
-CardDispenserCell >> exit: aValue [
+{ #category : #action }
+CardDispenserCell >> enterWithoutTurn: aSpaceship [
 
-	^ true
+	(game cardHand: aSpaceship id) gainACard.
+	^ cellPosition
 ]
 
 { #category : #initialization }

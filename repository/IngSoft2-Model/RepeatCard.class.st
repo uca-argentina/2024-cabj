@@ -27,12 +27,15 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 		                          spaceship id = spaceshipId ].
 	cellPosition := spaceshipToApplyEffect objectPosition cell.
 
-	cellToEnter := (aGame lastCellEffect copy) changeCellPositionTo: cellPosition.
+	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
+		               cellPosition.
 
-	cellOfSpaceship := cellToEnter enter.
+	cellOfSpaceship := cellToEnter enterWithoutTurn:
+		                   spaceshipToApplyEffect.
 
-	spaceshipToApplyEffect move:
-		cellOfSpaceship - cellPosition
+	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
+
+	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
 ]
 
 { #category : #initialization }

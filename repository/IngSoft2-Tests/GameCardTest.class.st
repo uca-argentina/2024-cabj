@@ -530,10 +530,38 @@ GameCardTest >> test19ReapeatCardRepeatsARegularCellThenNothingChanges [
 ]
 
 { #category : #tests }
-GameCardTest >> test20 [
+GameCardTest >> test20RepeatCradRepeatsMoonWalkThenSpaceshipTwoIsinPositionOne [
 
 	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 6 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeCreator: aWormholeCreator.
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 2
+		activateInstantCard: (RepeatCard repeatEffectFor: 1).
+		
+	result := Dictionary new.
+	result at: 1 put: 7.
+	result at: 2 put: 1.
+
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 4 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 
@@ -555,4 +583,57 @@ GameCardTest >> test20 [
 	result at: 2 put: 1.
 
 	self assert: aGame finalPositionOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsecs [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 8 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeCreator: aWormholeCreator.
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 1
+		activateInstantCard: (RepeatCard repeatEffectFor: 2).
+		
+	result := Dictionary new.
+	result at: 1 put: 3.
+	result at: 2 put: 5.
+
+	self assert: aGame finalPositionOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	aLoadedDie := LoadedDie of: #( 3 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+
+	aBoardCreator := BoardCreatorWithDefinedCellPositions
+		                 withCellsAndLaps: #( 10 2 )
+		                 wormholeCreator: aWormholeCreator.
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 2
+		activateInstantCard: (RepeatCard repeatEffectFor: 2).
+
+
+	self assert: (aGame cardHand: 2) amount equals: 6
 ]

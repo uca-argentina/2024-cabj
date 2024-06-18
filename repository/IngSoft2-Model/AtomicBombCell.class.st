@@ -1,9 +1,8 @@
 Class {
 	#name : #AtomicBombCell,
-	#superclass : #Object,
+	#superclass : #RegularCell,
 	#instVars : [
-		'game',
-		'cellPosition'
+		'game'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -24,9 +23,10 @@ AtomicBombCell >> enter [
 ]
 
 { #category : #action }
-AtomicBombCell >> exit: aValue [
+AtomicBombCell >> enterWithoutTurn: aSpaceship [
 
-	^ true
+	game resetSpaceshipsToCellOne.
+	^ 1
 ]
 
 { #category : #initialization }
