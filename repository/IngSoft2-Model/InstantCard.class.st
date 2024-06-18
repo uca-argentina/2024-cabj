@@ -9,9 +9,3 @@ InstantCard >> = aCard [
 
 	^ self class == aCard class
 ]
-
-{ #category : #accessing }
-InstantCard >> activateEffectOn: aGame forSpaceship: anId [
-
-
-]

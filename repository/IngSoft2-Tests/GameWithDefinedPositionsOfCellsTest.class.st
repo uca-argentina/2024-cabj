@@ -32,7 +32,7 @@ GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomic
 	result at: 2 put: 1.
 	result at: 3 put: 1.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -62,7 +62,7 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 	result at: 2 put: 3.
 	result at: 3 put: 4.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -93,7 +93,7 @@ GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEve
 	result at: 2 put: 6.
 	result at: 3 put: 7.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -124,7 +124,7 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 	result at: 2 put: 10.
 	result at: 3 put: 10.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -156,7 +156,7 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 	result at: 2 put: 10.
 	result at: 3 put: 10.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -188,7 +188,7 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	result at: 2 put: 10.
 	result at: 3 put: 10.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -219,7 +219,7 @@ GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnt
 	result at: 2 put: 3.
 	result at: 3 put: 1.
 
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }

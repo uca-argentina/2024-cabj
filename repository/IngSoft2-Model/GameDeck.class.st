@@ -34,7 +34,7 @@ GameDeck >> initializeStartGame [
 { #category : #action }
 GameDeck >> pickACard [
 
-	^ availableCards at: 3 atRandom
+	^ availableCards at: (availableCards size) atRandom.
 ]
 
 { #category : #accessing }

@@ -268,7 +268,7 @@ GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 	result at: 3 put: 1.
 
 	aGame resetSpaceshipsToCellOne.
-	self assert: aGame finalPositionOfSpaceships equals: result
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -300,7 +300,7 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 	result at: 3 put: 3.
 
 	aGame resetSpaceshipsToCellOne.
-	self assert: aGame finalLapsOfSpaceships equals: result
+	self assert: aGame spaceships lapsOfSpaceships equals: result
 ]
 
 { #category : #tests }

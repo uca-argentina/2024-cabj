@@ -67,7 +67,7 @@ Game >> cardHand: aSpaceshipId [
 { #category : #action }
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 
-	aSpaceship emptyTank ifFalse: [ ^ self ].
+	aSpaceship objectFuelTank areBothEmpty ifFalse: [ ^ self ].
 	turnManager lostTurns: 2 by: aSpaceship.
 	aSpaceship loadFuel
 ]
@@ -76,24 +76,6 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 Game >> currentSpaceship [
 
 	^ currentSpaceship
-]
-
-{ #category : #results }
-Game >> finalLapsOfSpaceships [
-
-	^ spaceships lapsOfSpaceships
-]
-
-{ #category : #results }
-Game >> finalPositionOfSpaceships [
-
-	^ spaceships cellsOfSpaceships
-]
-
-{ #category : #results }
-Game >> finalResultsOfSpaceships [
-
-	^ spaceships positionsOfSpaceships
 ]
 
 { #category : #initialization }
@@ -169,7 +151,7 @@ Game >> lastCellEffect [
 Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovements [
 
 	| aSpaceshipAux collectionMinusSpaceship |
-	collectionMinusSpaceship := spaceships spaceships copy.
+	collectionMinusSpaceship := spaceships copy.
 	collectionMinusSpaceship remove: aSpaceship.
 	1 to: collectionMinusSpaceship size do: [ :index |
 		aSpaceshipAux := collectionMinusSpaceship at: index.
@@ -207,21 +189,11 @@ Game >> moveSpaceship [
 
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.
-		^ self finalResultsOfSpaceships ].
+		^ self spaceships positionsOfSpaceships ].
 
 	currentSpaceship := turnManager nextTurn.
 
 	^ positionOfSpaceship
-]
-
-{ #category : #results }
-Game >> rankingOfSpaceships [
-
-	| sortedSpaceships numberOfSpaceshipsToTake |
-	sortedSpaceships := spaceships ranking.
-	numberOfSpaceshipsToTake := sortedSpaceships size min: 3.
-
-	^ sortedSpaceships first: numberOfSpaceshipsToTake
 ]
 
 { #category : #action }
@@ -236,7 +208,7 @@ Game >> reloadSpaceship [
 Game >> resetSpaceshipsToCellOne [
 
 	| aSpaceship |
-	1 to: spaceships spaceships size do: [ :index |
+	1 to: spaceships size do: [ :index |
 		aSpaceship := spaceships spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
 ]
@@ -278,5 +250,5 @@ Game >> throwDice: aSpaceship [
 { #category : #results }
 Game >> winner [
 
-	^ spaceships ranking at: 1
+	^ (spaceships ranking at: 1) id
 ]
