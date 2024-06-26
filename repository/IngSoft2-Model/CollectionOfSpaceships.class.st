@@ -116,9 +116,3 @@ CollectionOfSpaceships >> size [
 
 	^ spaceships size
 ]
-
-{ #category : #accessing }
-CollectionOfSpaceships >> spaceships [
-
-	^ self
-]

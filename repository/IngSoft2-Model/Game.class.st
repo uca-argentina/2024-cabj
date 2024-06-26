@@ -162,7 +162,7 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult cellOfSpaceship indexOfSpaceship |
-	throwResult := self throwDice: currentSpaceship.
+	throwResult := self throwDiceAndCheckReward: currentSpaceship.
 
 
 	positionOfSpaceship := currentSpaceship objectPosition.
@@ -209,7 +209,7 @@ Game >> resetSpaceshipsToCellOne [
 
 	| aSpaceship |
 	1 to: spaceships size do: [ :index |
-		aSpaceship := spaceships spaceships at: index.
+		aSpaceship := spaceships at: index.
 		aSpaceship objectPosition resetToOne ]
 ]
 
@@ -225,11 +225,11 @@ Game >> spaceshipId: anId activateInstantCard: aCard [
 { #category : #accessing }
 Game >> spaceships [
 
-	^ spaceships spaceships
+	^ spaceships 
 ]
 
 { #category : #action }
-Game >> throwDice: aSpaceship [
+Game >> throwDiceAndCheckReward: aSpaceship [
 
 	| throwResult maxThrow randomValue |
 	randomValue := Random new next.

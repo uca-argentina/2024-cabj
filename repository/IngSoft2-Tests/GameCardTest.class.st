@@ -729,3 +729,38 @@ GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpe
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEffectOfIt [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 14 12 12 1).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (AccelerationCard new).
+	aGame
+		spaceshipId: 1
+		activateInstantCard:
+		(CancellationCard cancel: (AccelerationCard new )).
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame activatePermanentCard: (AccelerationCard new).
+	aGame  moveSpaceship .
+	
+	result := Dictionary new.
+	result at: 1 put: 16.
+	result at: 2 put: 13.
+	result at: 3 put:13.
+	
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
