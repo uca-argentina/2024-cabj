@@ -18,10 +18,10 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
 ]
 
 { #category : #action }
-MoonWalkCell >> enter [
+MoonWalkCell >> enterOn: aGame [
 
-	game
-		moveAllTheSpaceshipsExcept: game currentSpaceship
+	aGame
+		moveAllTheSpaceshipsExcept: aGame currentSpaceship
 		withValueToMove: value negated.
 
 	^ cellPosition

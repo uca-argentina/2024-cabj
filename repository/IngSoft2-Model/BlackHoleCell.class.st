@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #action }
-BlackHoleCell >> enter [
+BlackHoleCell >> enterOn:aGame [
 
 	^ cellPosition - 4
 ]

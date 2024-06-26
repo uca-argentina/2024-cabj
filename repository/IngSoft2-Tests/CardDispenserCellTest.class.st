@@ -35,7 +35,7 @@ CardDispenserCellTest >> test01CardDispenserCellInitializeWithPositionThenEnterR
 	
 	aCardDispenserCell := CardDispenserCell withPostion: 1 onTheGame: aGame.
 
-	self assert: aCardDispenserCell enter equals: 1
+	self assert: (aCardDispenserCell enterOn:aGame) equals: 1
 ]
 
 { #category : #tests }

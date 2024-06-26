@@ -178,7 +178,7 @@ Game >> moveSpaceship [
 
 	cellToEnter := board at: indexOfSpaceship + throwResult.
 
-	cellOfSpaceship := cellToEnter enter.
+	cellOfSpaceship := cellToEnter enterOn:self.
 
 	currentSpaceship move:
 		cellOfSpaceship - currentSpaceship objectPosition cell.

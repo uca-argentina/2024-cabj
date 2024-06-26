@@ -19,7 +19,7 @@ Wormhole >> changeCellPositionTo: aCellPosition [
 ]
 
 { #category : #action }
-Wormhole >> enter [
+Wormhole >> enterOn:aGame [
 
 	^ cellPosition
 ]

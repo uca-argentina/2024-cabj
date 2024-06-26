@@ -20,7 +20,7 @@ HyperJumpCell class >> withPosition: aPosition Conversor: aConversor andValues: 
 ]
 
 { #category : #action }
-HyperJumpCell >> enter [
+HyperJumpCell >> enterOn:aGame [
 
 	| convertionOfNextValue |
 	convertionOfNextValue := conversor convert: currentValue.

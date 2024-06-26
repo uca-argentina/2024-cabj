@@ -26,7 +26,7 @@ AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 
 	anAtomicBombCell := AtomicBombCell withPostion: 5 onTheGame: aGame.
 
-	self assert: anAtomicBombCell enter equals: 1
+	self assert: (anAtomicBombCell enterOn:aGame )equals: 1
 ]
 
 { #category : #tests }

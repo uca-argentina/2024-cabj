@@ -127,10 +127,10 @@ BoardCreator >> createWormhole [
 	1 to: anAmountOfLaps do: [ :lap |
 		positionWithinLap := anAmountOfCells * (lap - 1).
 		board
-			at: wormholeCreator beginning enter + positionWithinLap
+			at: (wormholeCreator beginning enterOn:game) + positionWithinLap
 			put: wormholeCreator ending.
 		board
-			at: wormholeCreator ending enter + positionWithinLap
+			at: (wormholeCreator ending enterOn:game) + positionWithinLap
 			put: wormholeCreator beginning ]
 ]
 

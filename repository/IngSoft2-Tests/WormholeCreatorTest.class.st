@@ -7,25 +7,25 @@ Class {
 { #category : #tests }
 WormholeCreatorTest >> test00WhenAWormholeIsCreatedThenTheBegginingOfTheWormholeCanEnterOnAPosition [
 
-	| aWormholeCreator aWormholeBeginning |
+	| aWormholeCreator aWormholeBeginning aGame |
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
 		                    andEnd: 3.
 	aWormholeBeginning := Wormhole in: 2.
 	self
-		assert: aWormholeCreator beginning enter
-		equals: aWormholeBeginning enter
+		assert: (aWormholeCreator beginning enterOn:aGame)
+		equals: (aWormholeBeginning enterOn:aGame)
 ]
 
 { #category : #tests }
 WormholeCreatorTest >> test01WhenAWormholeIsCreatedThenTheEndingCanEnterToThePosition [
 
-	| aWormholeCreator aWormholeEnding |
+	| aWormholeCreator aWormholeEnding aGame |
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
 		                    andEnd: 3.
 	aWormholeEnding := Wormhole in: 3.
 	self
-		assert: aWormholeCreator ending enter
-		equals: aWormholeEnding enter
+		assert: (aWormholeCreator ending enterOn:aGame)
+		equals:( aWormholeEnding enterOn:aGame)
 ]

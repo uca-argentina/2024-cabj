@@ -20,7 +20,7 @@ Cell >> changeCellPositionTo: aCellPosition [
 ]
 
 { #category : #action }
-Cell >> enter [
+Cell >> enterOn:aGame [
 
 	^ cellPosition
 ]

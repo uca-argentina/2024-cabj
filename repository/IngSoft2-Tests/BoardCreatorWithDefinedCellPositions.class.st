@@ -5,7 +5,8 @@ Class {
 		'collectionAmountOfCellsAndLaps',
 		'beginningAndEnd',
 		'wormholeCreator',
-		'board'
+		'board',
+		'game'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -34,6 +35,7 @@ BoardCreatorWithDefinedCellPositions >> cells [
 BoardCreatorWithDefinedCellPositions >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
 
 	| amountOfCells anAmountOfIndex |
+	game:=aGame.
 	amountOfCells := self cells.
 	anAmountOfIndex := amountOfCells * self laps.
 	self
@@ -120,10 +122,10 @@ BoardCreatorWithDefinedCellPositions >> createWormhole [
 	1 to: anAmountOfLaps do: [ :lap |
 		positionWithinLap := anAmountOfCells * (lap - 1).
 		board
-			at: wormholeCreator beginning enter + positionWithinLap
+			at: (wormholeCreator beginning enterOn:game) + positionWithinLap
 			put: wormholeCreator ending.
 		board
-			at: wormholeCreator ending enter + positionWithinLap
+			at: (wormholeCreator ending enterOn:game) + positionWithinLap
 			put: wormholeCreator beginning ]
 ]
 

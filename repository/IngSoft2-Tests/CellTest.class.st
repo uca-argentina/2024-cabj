@@ -17,10 +17,26 @@ CellTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 { #category : #tests }
 CellTest >> test01CellInitializeWithPositionThenEnterReturnsIt [ 
 
-	| aCell |
-	aCell := Cell position: 1.
+	| aCell aGame aLoadedDie aBoardCreator aWormholeCreator |
+	aLoadedDie := LoadedDie of: #( 10 20 5 1 ).
+	aWormholeCreator := WormholeCreator
+		                    withBeginning: 2
+		                    andEnd: 3.
 
-	self assert: aCell enter equals: 1
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 20 2 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+
+	aGame := Game
+		         numberOfSpaceships: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+ 
+	aCell := Cell position: 1.
+	
+
+	self assert: (aCell enterOn:aGame) equals: 1
 
 ]
 

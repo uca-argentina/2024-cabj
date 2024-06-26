@@ -17,11 +17,11 @@ CardDispenserCell class >> withPostion: aPosition onTheGame: aGame [
 ]
 
 { #category : #action }
-CardDispenserCell >> enter [
+CardDispenserCell >> enterOn: aGame [
 
 	| currentSpaceship |
-	currentSpaceship := game currentSpaceship id.
-	(game cardHand: currentSpaceship) gainACard.
+	currentSpaceship := aGame currentSpaceship id.
+	(aGame cardHand: currentSpaceship) gainACard.
 	^ cellPosition
 ]
 

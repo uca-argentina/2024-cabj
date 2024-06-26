@@ -16,7 +16,7 @@ AtomicBombCell class >> withPostion: aPosition onTheGame: aGame [
 ]
 
 { #category : #action }
-AtomicBombCell >> enter [
+AtomicBombCell >> enterOn: aGame [
 
 	game resetSpaceshipsToCellOne.
 	^ 1
