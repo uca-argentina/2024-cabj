@@ -204,6 +204,13 @@ Game >> reloadSpaceship [
 	nextSpaceship loadFuel
 ]
 
+{ #category : #removing }
+Game >> removeTheCard: aCardToCancel andSaveTheLastInstantCardPlayed: aCancellationCard [
+
+	aActiveDeck instantCardPlayed: aCancellationCard .
+	aActiveDeck removeACard: aCardToCancel
+]
+
 { #category : #initialization }
 Game >> resetSpaceshipsToCellOne [
 

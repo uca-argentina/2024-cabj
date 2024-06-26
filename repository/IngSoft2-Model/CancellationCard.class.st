@@ -22,8 +22,8 @@ CancellationCard class >> redo: aCard [
 { #category : #accessing }
 CancellationCard >> activateEffectOn: aGame forSpaceship: anId [
 	
-	aGame activeDeck instantCardPlayed: self.
-	aGame activeDeck removeACard: cardToCancel
+	aGame removeTheCard: cardToCancel andSaveTheLastInstantCardPlayed: self.
+	
 ]
 
 { #category : #initialization }
@@ -35,6 +35,6 @@ CancellationCard >> initializeCancel: aCard [
 { #category : #accessing }
 CancellationCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
 	
-	aGame activeDeck instantCardPlayed: self.
-	aGame activeDeck removeACard: aCardToCancel
+	aGame removeTheCard: aCardToCancel andSaveTheLastInstantCardPlayed: self
+
 ]
