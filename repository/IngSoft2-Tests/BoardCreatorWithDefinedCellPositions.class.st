@@ -58,7 +58,7 @@ BoardCreatorWithDefinedCellPositions >> createOneAtomicBombCellAtPositionFiveWit
 
 	board
 		at: 5
-		put: (AtomicBombCell withPostion: 5 onTheGame: aGame)
+		put: (AtomicBombCell position: 5 )
 ]
 
 { #category : #creation }
@@ -72,7 +72,7 @@ BoardCreatorWithDefinedCellPositions >> createOneCardDispenserCellAtPositionFour
 
 	board
 		at: 4
-		put: (CardDispenserCell withPostion: 4 onTheGame: aGame)
+		put: (CardDispenserCell position: 4)
 ]
 
 { #category : #creation }
@@ -99,7 +99,7 @@ BoardCreatorWithDefinedCellPositions >> createOneMoonWalkCellAtPositionSevenWith
 
 	board
 		at: 7
-		put: (MoonWalkCell withValueToMove: 4 inPosition: 7 on: aGame)
+		put: (MoonWalkCell withValueToMove: 4 inPosition: 7)
 ]
 
 { #category : #creation }

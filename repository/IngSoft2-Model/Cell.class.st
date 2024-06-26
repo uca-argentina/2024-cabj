@@ -26,7 +26,7 @@ Cell >> enterOn:aGame [
 ]
 
 { #category : #action }
-Cell >> enterWithoutTurn: aSpaceship [
+Cell >> enterWithoutTurn: aSpaceship on:aGame [
 
 	^ cellPosition
 ]

@@ -24,7 +24,7 @@ AtomicBombCellTest >> test01WhenAnAtomicBombCellsEnterThenReturnsOne [
 		         playWithDice: aLoadedDie.
 
 
-	anAtomicBombCell := AtomicBombCell withPostion: 5 onTheGame: aGame.
+	anAtomicBombCell := AtomicBombCell position: 5.
 
 	self assert: (anAtomicBombCell enterOn:aGame )equals: 1
 ]
@@ -49,7 +49,7 @@ AtomicBombCellTest >> test02AtomicBombExitThenReturnsTrue [
 		         playWithDice: aLoadedDie.
 
 
-	anAtomicBombCell := AtomicBombCell withPostion: 5 onTheGame: aGame.
+	anAtomicBombCell := AtomicBombCell position: 5 .
 
 	self assert: (anAtomicBombCell exit: 10)
 ]

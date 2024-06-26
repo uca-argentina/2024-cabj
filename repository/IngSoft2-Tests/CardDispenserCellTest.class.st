@@ -33,7 +33,7 @@ CardDispenserCellTest >> test01CardDispenserCellInitializeWithPositionThenEnterR
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	
-	aCardDispenserCell := CardDispenserCell withPostion: 1 onTheGame: aGame.
+	aCardDispenserCell := CardDispenserCell position: 1 .
 
 	self assert: (aCardDispenserCell enterOn:aGame) equals: 1
 ]
@@ -58,7 +58,7 @@ CardDispenserCellTest >> test02PositionOfTheCardDispenserCellHasToBeGreaterThanZ
 		         playWithDice: aLoadedDie.
 	
 	self
-		should: [ CardDispenserCell withPostion: 0 onTheGame: aGame. ]
+		should: [ CardDispenserCell position: 0  . ]
 		raise: Error
 		withMessage: 'A cell must have position greater than zero'
 ]
@@ -82,7 +82,7 @@ CardDispenserCellTest >> test03CardDispenserCellExitThenReturnsTrue [
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	
-	aCardDispenserCell := CardDispenserCell withPostion: 1 onTheGame: aGame.
+	aCardDispenserCell := CardDispenserCell position: 1 .
 
 	self assert: (aCardDispenserCell exit: 3)
 ]

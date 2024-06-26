@@ -31,8 +31,7 @@ BoardCreator >> cells [
 { #category : #'set and get' }
 BoardCreator >> createAtomicBombCells [
 
-	board add:
-		(AtomicBombCell withPostion: counterForPosition onTheGame: game).
+	board add: (AtomicBombCell position: counterForPosition).
 	self nextPosition
 ]
 
@@ -69,7 +68,7 @@ BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowRe
 BoardCreator >> createCardDispenserCells [
 
 	board add:
-		(CardDispenserCell withPostion: counterForPosition onTheGame: game).
+		(CardDispenserCell position: counterForPosition ).
 	self nextPosition
 ]
 
@@ -112,8 +111,7 @@ BoardCreator >> createMoonWalkCells [
 	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
 	board add: (MoonWalkCell
 			 withValueToMove: amountOfCells atRandom
-			 inPosition: counterForPosition
-			 on: game).
+			 inPosition: counterForPosition).
 	self nextPosition
 ]
 

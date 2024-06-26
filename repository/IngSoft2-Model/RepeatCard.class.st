@@ -32,7 +32,7 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 		               cellPosition.
 
 	cellOfSpaceship := cellToEnter enterWithoutTurn:
-		                   spaceshipToApplyEffect.
+		                   spaceshipToApplyEffect on:aGame.
 
 	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
 
@@ -58,7 +58,7 @@ RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardTo
 		               cellPosition.
 
 	cellOfSpaceship := cellToEnter enterWithoutTurn:
-		                   spaceshipToApplyEffect.
+		                   spaceshipToApplyEffect on:aGame.
 
 	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
 

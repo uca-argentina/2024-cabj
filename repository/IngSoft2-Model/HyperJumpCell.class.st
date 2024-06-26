@@ -30,7 +30,7 @@ HyperJumpCell >> enterOn:aGame [
 ]
 
 { #category : #action }
-HyperJumpCell >> enterWithoutTurn: aSpaceship [
+HyperJumpCell >> enterWithoutTurn: aSpaceship on:aGame [
 
 	| convertionOfNextValue |
 	convertionOfNextValue := conversor convert: previousValue.

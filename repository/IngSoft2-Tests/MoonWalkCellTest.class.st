@@ -86,7 +86,7 @@ MoonWalkCellTest >> test03MoonWalkExitThenReturnsTrue [
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	
-	aMoonWalkCell := MoonWalkCell withValueToMove: 4 inPosition: 3 on: aGame.
+	aMoonWalkCell := MoonWalkCell withValueToMove: 4 inPosition: 3 .
 
 	self assert: (aMoonWalkCell exit: 5)
 ]

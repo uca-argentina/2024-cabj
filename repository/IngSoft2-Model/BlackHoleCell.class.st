@@ -11,7 +11,7 @@ BlackHoleCell >> enterOn:aGame [
 ]
 
 { #category : #action }
-BlackHoleCell >> enterWithoutTurn: aSpaceship [
+BlackHoleCell >> enterWithoutTurn: aSpaceship on: aGame [
 
 	^ cellPosition - 4
 ]

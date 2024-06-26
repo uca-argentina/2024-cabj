@@ -9,12 +9,11 @@ Class {
 }
 
 { #category : #'instance creation' }
-MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
-
+MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition [ 
 	^ self new
 		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
-		  on:aGame
+		  
 ]
 
 { #category : #action }
@@ -28,9 +27,9 @@ MoonWalkCell >> enterOn: aGame [
 ]
 
 { #category : #action }
-MoonWalkCell >> enterWithoutTurn: aSpaceship [
+MoonWalkCell >> enterWithoutTurn: aSpaceship on:aGame [
 
-	game
+	aGame
 		moveAllTheSpaceshipsExcept: aSpaceship
 		withValueToMove: value negated.
 
@@ -38,9 +37,8 @@ MoonWalkCell >> enterWithoutTurn: aSpaceship [
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition on: aGame [
+MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition [
 
 	value := aValue.
-	cellPosition := aPosition.
-	game := aGame
+	cellPosition := aPosition
 ]

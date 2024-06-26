@@ -7,15 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #accessing }
-CardDispenserCell class >> withPostion: aPosition onTheGame: aGame [
-
-	aPosition < 1 ifTrue: [
-		Error signal: 'A cell must have position greater than zero' ].
-
-	^ self new initializeWithPostion: aPosition onTheGame: aGame
-]
-
 { #category : #action }
 CardDispenserCell >> enterOn: aGame [
 
@@ -26,15 +17,8 @@ CardDispenserCell >> enterOn: aGame [
 ]
 
 { #category : #action }
-CardDispenserCell >> enterWithoutTurn: aSpaceship [
+CardDispenserCell >> enterWithoutTurn: aSpaceship on:aGame [
 
-	(game cardHand: aSpaceship id) gainACard.
+	(aGame cardHand: aSpaceship id) gainACard.
 	^ cellPosition
-]
-
-{ #category : #initialization }
-CardDispenserCell >> initializeWithPostion: aPosition onTheGame: aGame [
-
-	cellPosition := aPosition.
-	game := aGame
 ]

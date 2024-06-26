@@ -25,7 +25,7 @@ Wormhole >> enterOn:aGame [
 ]
 
 { #category : #action }
-Wormhole >> enterWithoutTurn: aSpaceship [
+Wormhole >> enterWithoutTurn: aSpaceship on:aGame [
 
 	^ cellPosition
 ]
