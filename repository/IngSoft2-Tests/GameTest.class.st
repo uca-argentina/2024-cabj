@@ -222,9 +222,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 
 	| aGame aDie aBoardCreator aWormholeCreator |
 	aDie := Die of: 5.
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 
 	aBoardCreator := BoardCreator
 		                 withCellsAndLaps: #( 50 1 )
@@ -235,8 +233,9 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aDie.
+	aGame moveSpaceship.
 
-	self assert: ((aGame moveSpaceship at: 1) between: 2 and: 6)
+	self assert: ((aGame spaceships cellsOfSpaceships values at:1) between: 2 and: 6)
 ]
 
 { #category : #tests }
@@ -354,8 +353,8 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 		         playWithDice: aDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-
-	self assert: ((aGame moveSpaceship at: 1) between: 1 and: 13)
+	aGame moveSpaceship .
+	self assert: ((aGame spaceships cellsOfSpaceships values at: 1) between: 1 and: 13)
 ]
 
 { #category : #tests }

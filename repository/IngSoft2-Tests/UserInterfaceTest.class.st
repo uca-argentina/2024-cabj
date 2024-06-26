@@ -71,7 +71,7 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 { #category : #tests }
 UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 
-	| aUserInterFace aLoadedDie position aBoardCreator aWormholeCreator |
+	| aUserInterFace aLoadedDie result aBoardCreator aWormholeCreator |
 	aLoadedDie := LoadedDie of: #( 3 ).
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
@@ -89,9 +89,10 @@ UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 
 	aUserInterFace moveSpaceship.
 	aUserInterFace reloadSpaceship.
-
-	position := OrderedCollection with: 7 with: 1.
-	self assert: aUserInterFace moveSpaceship equals: position
+	aUserInterFace  moveSpaceship .	
+	result:=Dictionary new.
+	result at:1 put:7.
+	self assert: aUserInterFace finalPositionOfSpaceships   equals: result.
 ]
 
 { #category : #tests }

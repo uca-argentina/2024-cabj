@@ -52,7 +52,7 @@ GameCardTest >> test02GameActivatesAAccelerationCardThenActiveCardsEqualsOne [
 { #category : #tests }
 GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreThenThrowResult [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -66,9 +66,13 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 		         playWithDice: aLoadedDie.
 
 	aGame activatePermanentCard: AccelerationCard new.
+	
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 8.
 
-	position := OrderedCollection with: 8 with: 1.
-	self assert: aGame moveSpaceship equals: position
+
+	self assert:( aGame spaceships cellsOfSpaceships )equals: result
 ]
 
 { #category : #tests }
@@ -102,7 +106,7 @@ GameCardTest >> test04SpaceshipPlaysAllCardsThenActiveDeckActiveCardsEqualsTwo [
 { #category : #tests }
 GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -117,9 +121,13 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 
 	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
 	aGame moveSpaceship.
+	
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 7.
+	result at:2 put: 5.
 
-	position := OrderedCollection with: 5 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	self assert: aGame spaceships cellsOfSpaceships  equals: result.
 ]
 
 { #category : #tests }
@@ -238,7 +246,7 @@ GameCardTest >> test09SpaceshipTwoUsesCancellationCardThenActiveCardBySpaceshipO
 { #category : #tests }
 GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 7 7 7 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -260,15 +268,19 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 		spaceshipId: 2
 		activateInstantCard:
 		(CancellationCard cancel: (OverloadCard reduceThrowOf: 3)).
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 6.
+	result at: 3 put: 8.
 
-	position := OrderedCollection with: 8 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	self assert: aGame spaceships cellsOfSpaceships equals: result. 
 ]
 
 { #category : #tests }
 GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 7 1 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -288,15 +300,17 @@ GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 		activateInstantCard:
 		(CancellationCard cancel: (AllyCard shareFuelWith: 2)).
 	aGame moveSpaceship.
-
-	position := OrderedCollection with: 1 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 1.
+	result at: 2 put: 3.
+	self assert: aGame spaceships cellsOfSpaceships equals: result.
 ]
 
 { #category : #tests }
 GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanDoTheEffect [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -315,15 +329,19 @@ GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanD
 		activateInstantCard:
 		(CancellationCard cancel: (OverloadCard reduceThrowOf: 2)).
 	aGame moveSpaceship.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 8.
 
-	position := OrderedCollection with: 8 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	
+	self assert: aGame spaceships cellsOfSpaceships equals: result.
 ]
 
 { #category : #tests }
 GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithoutEffect [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -341,15 +359,17 @@ GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithou
 		spaceshipId: 2
 		activateInstantCard: (CancellationCard cancel: AccelerationCard new).
 	aGame moveSpaceship.
-
-	position := OrderedCollection with: 8 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 8.
+	self assert: aGame spaceships cellsOfSpaceships  equals: result.
 ]
 
 { #category : #tests }
 GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThreeCellsMore [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame position |
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -368,9 +388,12 @@ GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThree
 		spaceshipId: 1
 		activateInstantCard:
 		(RedoCard forSpaceshipId: 2 orCardToCancel: nil).
-
-	position := OrderedCollection with: 11 with: 1.
-	self assert: aGame moveSpaceship equals: position
+		
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 11.
+	result at: 2 put: 1.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }

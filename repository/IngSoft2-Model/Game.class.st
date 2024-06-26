@@ -193,7 +193,6 @@ Game >> moveSpaceship [
 
 	currentSpaceship := turnManager nextTurn.
 
-	^ positionOfSpaceship
 ]
 
 { #category : #action }
