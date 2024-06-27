@@ -16,10 +16,9 @@ HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [
 ]
 
 { #category : #action }
-HyperGravityCell >> exit: aValue [
+HyperGravityCell >> enterOn: aGame [
 
-	aValue < value ifTrue: [ ^ false ].
-	^ true
+	^ aGame throwDiceForHyperGravityCellWithValue:value onPosition: cellPosition .
 ]
 
 { #category : #initialization }

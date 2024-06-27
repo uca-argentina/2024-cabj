@@ -49,12 +49,3 @@ CellTest >> test02PositionOfTheCellHasToBeGreaterThanZero [
 		withMessage: 'A cell must have position greater than zero'
 
 ]
-
-{ #category : #tests }
-CellTest >> test03CellExitThenReturnsTrue [
-
-	| aCell |
-	aCell := Cell position: 1.
-
-	self assert: (aCell exit: 3)
-]

@@ -62,27 +62,3 @@ CardDispenserCellTest >> test02PositionOfTheCardDispenserCellHasToBeGreaterThanZ
 		raise: Error
 		withMessage: 'A cell must have position greater than zero'
 ]
-
-{ #category : #tests }
-CardDispenserCellTest >> test03CardDispenserCellExitThenReturnsTrue [
-
-	| aCardDispenserCell aGame aLoadedDie aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 10 20 5 1 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
-
-	aGame := Game
-		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-	
-	aCardDispenserCell := CardDispenserCell position: 1 .
-
-	self assert: (aCardDispenserCell exit: 3)
-]

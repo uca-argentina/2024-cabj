@@ -80,7 +80,7 @@ BoardCreatorWithDefinedCellPositions >> createOneHyperGravityCellAtPositionEight
 
 	board
 		at: 8
-		put: (HyperGravityCell withValueToMove: 3 inPosition: 8)
+		put: (HyperGravityCell withValueToMove: 5 inPosition: 8)
 ]
 
 { #category : #creation }

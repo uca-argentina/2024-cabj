@@ -131,7 +131,7 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRollsLessThanMinuminValueThenStaysThere [
 
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 7 9 9 2 ).
+	aLoadedDie := LoadedDie of: #( 7 3 9 9 2 ).
 	
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
@@ -146,7 +146,6 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
-	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -163,7 +162,7 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRollsValueThenSpaceshipCanMove [
 
 	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 7 9 9 4 ).
+	aLoadedDie := LoadedDie of: #( 7 6 9 9 ).
 	
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 2
@@ -181,10 +180,9 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame moveSpaceship.
 
 	result := Dictionary new.
-	result at: 1 put: 3.
+	result at: 1 put: 4.
 	result at: 2 put: 10.
 	result at: 3 put: 10.
 

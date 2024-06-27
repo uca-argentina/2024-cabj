@@ -162,7 +162,7 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult cellOfSpaceship indexOfSpaceship |
-	throwResult := self throwDiceAndCheckReward: currentSpaceship.
+	throwResult := self throwDiceAndCheckReward.
 
 
 	positionOfSpaceship := currentSpaceship objectPosition.
@@ -171,8 +171,8 @@ Game >> moveSpaceship [
 	indexOfSpaceship + throwResult > anAmountOfIndex ifTrue: [
 		throwResult := anAmountOfIndex - indexOfSpaceship ].
 
-	((board at: indexOfSpaceship) exit: throwResult) ifFalse: [
-		^ positionOfSpaceship position ].
+	"((board at: indexOfSpaceship) exit: throwResult) ifFalse: [
+		^ positionOfSpaceship position ]."
 
 	currentSpaceship move: throwResult.
 
@@ -235,7 +235,7 @@ Game >> spaceships [
 ]
 
 { #category : #action }
-Game >> throwDiceAndCheckReward: aSpaceship [
+Game >> throwDiceAndCheckReward [
 
 	| throwResult maxThrow randomValue |
 	randomValue := Random new next.
@@ -248,9 +248,21 @@ Game >> throwDiceAndCheckReward: aSpaceship [
 	maxThrow := dice amountOfFaces.
 	throwResult = maxThrow ifTrue: [
 		randomValue < 0.8
-			ifTrue: [ aSpaceship changeCapacity: 1 ]
-			ifFalse: [ aSpaceship changeCapacity: -1 ] ].
+			ifTrue: [ currentSpaceship  changeCapacity: 1 ]
+			ifFalse: [ currentSpaceship  changeCapacity: -1 ] ].
 	^ throwResult
+]
+
+{ #category : #action }
+Game >> throwDiceForHyperGravityCellWithValue: aValue onPosition: aPosition [
+	| valueThrown |
+	valueThrown:= self throwDiceAndCheckReward .
+	valueThrown > aValue ifTrue: [ 	currentSpaceship  move: valueThrown .
+		 ^ currentSpaceship objectPosition cell].
+	^ aPosition
+
+	
+	
 ]
 
 { #category : #results }

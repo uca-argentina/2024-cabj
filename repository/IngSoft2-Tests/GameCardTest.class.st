@@ -267,7 +267,7 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 	aGame
 		spaceshipId: 2
 		activateInstantCard:
-		(CancellationCard cancel: (OverloadCard reduceThrowOf: 3)).
+		(CancellationCard cancel: (OverloadCard reduceThrowOf: 1)).
 	aGame moveSpaceship.
 	result := Dictionary new.
 	result at: 1 put: 8.
@@ -728,7 +728,7 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpediment [
 
 	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
-	aLoadedDie := LoadedDie of: #( 7 1 ).
+	aLoadedDie := LoadedDie of: #( 7 1 1).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 

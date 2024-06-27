@@ -31,12 +31,6 @@ Cell >> enterWithoutTurn: aSpaceship on:aGame [
 	^ cellPosition
 ]
 
-{ #category : #action }
-Cell >> exit: aValue [
-
-	^ true
-]
-
 { #category : #initialization }
 Cell >> initializePosition: aPosition [
 
