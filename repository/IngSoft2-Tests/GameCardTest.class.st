@@ -267,7 +267,7 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 	aGame
 		spaceshipId: 2
 		activateInstantCard:
-		(CancellationCard cancel: (OverloadCard reduceThrowOf: 1)).
+		(CancellationCard cancel: (OverloadCard reduceThrowOf: 3)).
 	aGame moveSpaceship.
 	result := Dictionary new.
 	result at: 1 put: 8.
@@ -786,4 +786,41 @@ GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEff
 	result at: 3 put:13.
 	
 	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test28 [
+
+	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	aLoadedDie := LoadedDie of: #( 7 7 7 7 7 7 7 7 7 7 20 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 withCellsAndLaps: #( 30 1 )
+		                 withWormholeCreator: aWormholeCreator
+		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 3
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
+	aGame moveSpaceship.
+	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 3).
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 2
+		activateInstantCard:
+		(CancellationCard cancel: (OverloadCard reduceThrowOf: 2)).
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 15.
+	result at: 2 put: 13.
+	result at: 3 put: 11.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result. 
 ]

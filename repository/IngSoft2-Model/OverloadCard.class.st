@@ -26,12 +26,6 @@ OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
 	^ throwResult
 ]
 
-{ #category : #comparing }
-OverloadCard >> compare: aCard [
-
-	^ spaceshipId = aCard id and: self = aCard
-]
-
 { #category : #accessing }
 OverloadCard >> id [
 
@@ -42,4 +36,10 @@ OverloadCard >> id [
 OverloadCard >> initializeReduceThorwOf: aSpaceshipId [
 
 	spaceshipId := aSpaceshipId
+]
+
+{ #category : #comparing }
+OverloadCard >> isExactlyTheSameCard: aCard [
+
+	^ spaceshipId = aCard id and: self = aCard
 ]
