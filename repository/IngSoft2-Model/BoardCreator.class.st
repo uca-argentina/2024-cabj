@@ -9,10 +9,22 @@ Class {
 		'throwResult',
 		'board',
 		'counterForIndex',
-		'counterForPosition'
+		'counterForPosition',
+		'laps',
+		'cells',
+		'wormhole'
 	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #'instance creation' }
+BoardCreator class >> with: collectionOfCells ofLaps: numberOfLaps withWormholeCreator: aWormholeCreator [
+
+	^ self new
+		  initializeWith: collectionOfCells
+		  ofLaps: numberOfLaps
+		  withWormholeCreator: aWormholeCreator
+]
 
 { #category : #'instance creation' }
 BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
@@ -25,39 +37,40 @@ BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormh
 { #category : #'set and get' }
 BoardCreator >> cells [
 
-	^ collectionAmountOfCellsAndLaps at: 1
+	^ cells size
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createAtomicBombCells [
 
 	board add: (AtomicBombCell position: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createBlackHoleCells [
 
 	board add: (BlackHoleCell position: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #creation }
 BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
 
-	| amountOfCells anAmountOfIndex aEffectManager |
+	| amountOfCells anAmountOfIndex |
 	game := aGame.
 	throwResult := aThrowResult.
-	amountOfCells := self cells.
-	anAmountOfIndex := amountOfCells * self laps.
+	amountOfCells := cells size.
+	anAmountOfIndex := amountOfCells * laps.
 
-	aEffectManager := EffectManager
-		                  for: self
-		                  probabilitiesDistribution:
-		                  percentagesOfDistrubitionSpecialCells.
-
-	anAmountOfIndex timesRepeat: [
-		(aEffectManager createEffect: self numberGenerator) value ].
+	cells do: [ :eachClass |
+		eachClass = Cell ifTrue: [ self createCells ].
+		eachClass = BlackHoleCell ifTrue: [ self createBlackHoleCells ].
+		eachClass = AtomicBombCell ifTrue: [ self createAtomicBombCells ].
+		eachClass = CardDispenserCell ifTrue: [ self createCardDispenserCells ].
+		eachClass = MoonWalkCell ifTrue: [ self createMoonWalkCells ].
+		eachClass = HyperJumpCell ifTrue: [ self createHyperJumpCells ].
+		eachClass = HyperGravityCell ifTrue: [ self createHyperGravityCells ] ].
 
 	self createWormhole.
 
@@ -69,14 +82,14 @@ BoardCreator >> createCardDispenserCells [
 
 	board add:
 		(CardDispenserCell position: counterForPosition ).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createCells [
 
 	board add: (Cell position: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
@@ -85,51 +98,60 @@ BoardCreator >> createHyperGravityCells [
 	board add: (HyperGravityCell
 			 withValueToMove: throwResult atRandom
 			 inPosition: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createHyperJumpCells [
 
-	| amountOfCells parsecs |
-	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
-	parsecs := Conversor
-		           totalCells: amountOfCells
-		           convertionValue: amountOfCells // 2.
+	| amountOfCells aConversor values |
+	amountOfCells := cells size.
+	aConversor := Conversor
+		              totalCells: amountOfCells
+		              convertionValue: amountOfCells // 2.
+	values := OrderedCollection
+		          with: (Parsecs ofValue: 10)
+		          with: (Parsecs ofValue: 8)
+		          with: (Parsecs ofValue: 6)
+		          with: (Parsecs ofValue: 4).
 
 	board add: (HyperJumpCell
 			 withPosition: counterForPosition
-			 Conversor: parsecs
-			 andValues: #( 10 8 6 4 2 )).
-	self nextPosition
+			 Conversor: aConversor
+			 andValues: values).
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createMoonWalkCells [
 
 	| amountOfCells |
-	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	amountOfCells := cells size.
 	board add: (MoonWalkCell
 			 withValueToMove: amountOfCells atRandom
 			 inPosition: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createWormhole [
 
-	| positionWithinLap anAmountOfCells anAmountOfLaps |
-	anAmountOfCells := self cells.
-	anAmountOfLaps := self laps.
+	board
+		at: (wormholeCreator beginning enterOn: game)
+		put: wormholeCreator ending.
+	board
+		at: (wormholeCreator ending enterOn: game)
+		put: wormholeCreator beginning
+]
 
-	1 to: anAmountOfLaps do: [ :lap |
-		positionWithinLap := anAmountOfCells * (lap - 1).
-		board
-			at: (wormholeCreator beginning enterOn:game) + positionWithinLap
-			put: wormholeCreator ending.
-		board
-			at: (wormholeCreator ending enterOn:game) + positionWithinLap
-			put: wormholeCreator beginning ]
+{ #category : #initialization }
+BoardCreator >> initializeWith: collectionOfCells ofLaps: numberOfLaps withWormholeCreator: aWormholeCreator [ 
+	
+	laps := numberOfLaps.
+	cells := collectionOfCells.
+	wormholeCreator := aWormholeCreator.
+	board := OrderedCollection new.
+	counterForPosition := 1.
 ]
 
 { #category : #initialization }
@@ -146,7 +168,7 @@ BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps with
 { #category : #'set and get' }
 BoardCreator >> laps [
 
-	^ collectionAmountOfCellsAndLaps at: 2
+	^ laps
 ]
 
 { #category : #position }

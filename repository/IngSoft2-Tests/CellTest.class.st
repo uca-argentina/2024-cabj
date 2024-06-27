@@ -17,16 +17,20 @@ CellTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 { #category : #tests }
 CellTest >> test01CellInitializeWithPositionThenEnterReturnsIt [ 
 
-	| aCell aGame aLoadedDie aBoardCreator aWormholeCreator |
+	| aCell aGame aLoadedDie aBoardCreator aWormholeCreator collectionOfCells |
 	aLoadedDie := LoadedDie of: #( 10 20 5 1 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	collectionOfCells := OrderedCollection
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell.
 
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 3

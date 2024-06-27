@@ -1,25 +1,40 @@
 Class {
 	#name : #GameCardTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'aLoadedDie',
+		'aWormholeCreator',
+		'aBoardCreator',
+		'collectionOfCells'
+	],
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #tests }
-GameCardTest >> test01GameActivatesAOverloadCardThenActiveCardsEqualsOne [
+{ #category : #running }
+GameCardTest >> setUp [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+
+	30 timesRepeat: [ collectionOfCells add: Cell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+]
+
+{ #category : #tests }
+GameCardTest >> test01GameActivatesAOverloadCardThenActiveCardsEqualsOne [
+	
+	| aGame |
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
-
+	
 	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
 
 	self assert: aGame activeDeck cards size equals: 1
@@ -28,22 +43,11 @@ GameCardTest >> test01GameActivatesAOverloadCardThenActiveCardsEqualsOne [
 { #category : #tests }
 GameCardTest >> test02GameActivatesAAccelerationCardThenActiveCardsEqualsOne [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
-	
-	aLoadedDie := LoadedDie of: #( 6 ).
-
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aGame |
 	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: 1
+		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
-		
 	aGame activatePermanentCard: AccelerationCard new.
 
 	self assert: aGame activeDeck cards size equals: 1.
@@ -52,14 +56,8 @@ GameCardTest >> test02GameActivatesAAccelerationCardThenActiveCardsEqualsOne [
 { #category : #tests }
 GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreThenThrowResult [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
-	aLoadedDie := LoadedDie of: #( 6 ).
+	| result aGame |
 
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 1
 		         withBoardCreator: aBoardCreator
@@ -77,18 +75,10 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 
 { #category : #tests }
 GameCardTest >> test04SpaceshipPlaysAllCardsThenActiveDeckActiveCardsEqualsTwo [
-
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
 	
+	| aGame |
 	aLoadedDie := LoadedDie of: #( 3 ).
 
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 1
 		         withBoardCreator: aBoardCreator
@@ -106,19 +96,13 @@ GameCardTest >> test04SpaceshipPlaysAllCardsThenActiveDeckActiveCardsEqualsTwo [
 { #category : #tests }
 GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
-	aLoadedDie := LoadedDie of: #( 6 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| result aGame |
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
-
+	
 	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
 	aGame moveSpaceship.
 	
@@ -133,14 +117,9 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 { #category : #tests }
 GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpaceshipTwo [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 1 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -163,14 +142,9 @@ GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpacesh
 { #category : #tests }
 GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -192,14 +166,9 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 { #category : #tests }
 GameCardTest >> test08GameInitializeSpaceshipPlaysThenActiveCardsIsBetweenZeroAndTwo [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	| aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -219,14 +188,9 @@ GameCardTest >> test08GameInitializeSpaceshipPlaysThenActiveCardsIsBetweenZeroAn
 { #category : #tests }
 GameCardTest >> test09SpaceshipTwoUsesCancellationCardThenActiveCardBySpaceshipOneIsEliminated [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	| aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -246,14 +210,9 @@ GameCardTest >> test09SpaceshipTwoUsesCancellationCardThenActiveCardBySpaceshipO
 { #category : #tests }
 GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 7 ).
 
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 3
 		         withBoardCreator: aBoardCreator
@@ -280,19 +239,14 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 { #category : #tests }
 GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 1 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
-
+	
 	aGame activatePermanentCard: (AllyCard shareFuelWith: 2).
 	aGame moveSpaceship.
 	aGame
@@ -310,14 +264,9 @@ GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 { #category : #tests }
 GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanDoTheEffect [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -341,19 +290,14 @@ GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanD
 { #category : #tests }
 GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithoutEffect [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
-
+	
 	aGame activatePermanentCard: AccelerationCard new.
 	aGame
 		spaceshipId: 2
@@ -369,14 +313,9 @@ GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithou
 { #category : #tests }
 GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThreeCellsMore [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -399,14 +338,9 @@ GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThree
 { #category : #tests }
 GameCardTest >> test15RedoCardPlayedAfterOverloadThenSpaceshipsAffectedHaveLessMovement [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 3
 		         withBoardCreator: aBoardCreator
@@ -432,14 +366,8 @@ GameCardTest >> test15RedoCardPlayedAfterOverloadThenSpaceshipsAffectedHaveLessM
 { #category : #tests }
 GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuelBeacuseOfIt [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 7 1 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 4
 		         withBoardCreator: aBoardCreator
@@ -471,14 +399,9 @@ GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuel
 { #category : #tests }
 GameCardTest >> test17RedoCardPlayedAfterCancellationThenActiveCardsEqualsZero [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	| aGame |
 	aLoadedDie := LoadedDie of: #( 7 7 7 1 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -500,14 +423,19 @@ GameCardTest >> test17RedoCardPlayedAfterCancellationThenActiveCardsEqualsZero [
 { #category : #tests }
 GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThenSpaceshipOneIsInPositionOne [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 5 ).
-
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 6 put: BlackHoleCell.
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -528,14 +456,9 @@ GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThe
 { #category : #tests }
 GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 9 ).
 
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -556,14 +479,18 @@ GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 { #category : #tests }
 GameCardTest >> test20RepeatCradRepeatsMoonWalkThenSpaceshipTwoIsinPositionOne [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
-	aLoadedDie := LoadedDie of: #( 6 ).
-
+	| aGame result |
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 7 put: MoonWalkCell.
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -584,14 +511,19 @@ GameCardTest >> test20RepeatCradRepeatsMoonWalkThenSpaceshipTwoIsinPositionOne [
 { #category : #tests }
 GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 4 ).
-
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 5 put: AtomicBombCell.
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+	
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -612,14 +544,19 @@ GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 { #category : #tests }
 GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsecs [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 8 ).
-
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	15 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 9 put: HyperJumpCell.
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -640,14 +577,20 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 { #category : #tests }
 GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame |
+	| aGame |
 	aLoadedDie := LoadedDie of: #( 3 ).
-
+	
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 4 put: CardDispenserCell.
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -665,14 +608,9 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards 
 { #category : #tests }
 GameCardTest >> test24RepeatCardRepeatsWormholeThenPositionsStayTheSame [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 9 1 ).
 
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -694,14 +632,20 @@ GameCardTest >> test24RepeatCardRepeatsWormholeThenPositionsStayTheSame [
 { #category : #tests }
 GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 9 5 ).
-
+	
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	30 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 6 put: BlackHoleCell.
 
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -727,14 +671,8 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 { #category : #tests }
 GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpediment [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 7 1 1).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 2
 		         withBoardCreator: aBoardCreator
@@ -756,14 +694,8 @@ GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpe
 { #category : #tests }
 GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEffectOfIt [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aGame result |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 14 12 12 1).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 	aGame := Game
 		         numberOfSpaceshipsPlayingWithAllCards: 3
 		         withBoardCreator: aBoardCreator

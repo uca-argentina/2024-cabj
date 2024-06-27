@@ -5,16 +5,29 @@ Class {
 }
 
 { #category : #tests }
-EffectManagerTest >> test01EffectManagerInitializeThenDictionaryIsOfSizeOneHundred [
+EffectManagerTest >> test02EffectManagerCreatesCollectionOfEffectsSizeTwoThenCollectionSizeEqualsTwo [
 
-	| aBoardCreator aWormholeCreator aEffectManager |
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 50 20 0 0 0 0 ).
+	| aEffectManager array collection |
+	array := OrderedCollection with: Cell.
+	aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 100 ).
 
-	aEffectManager := EffectManager for: aBoardCreator probabilitiesDistribution: #( 50 20 0 0 0 0 ).
+	collection := aEffectManager createCollectionSize: 2.
 
-	self assert: aEffectManager dictionaryOfProbabilities size equals: 100
+	self assert: collection size equals: 2
+]
+
+{ #category : #tests }
+EffectManagerTest >> test03EffectManagerManagesOnlyOneObjectThenCollectionCreatedOnlyHasThatObject [
+
+	| aEffectManager array collection |
+	array := OrderedCollection with: Cell.
+	aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 100 ).
+
+	collection := aEffectManager createCollectionSize: 100.
+
+	self assert: ((collection at: 100 atRandom) = Cell)
 ]
