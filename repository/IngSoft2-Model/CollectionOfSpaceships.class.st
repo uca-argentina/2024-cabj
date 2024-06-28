@@ -49,16 +49,18 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 	Spaceship initialize
 ]
 
-{ #category : #copying }
-CollectionOfSpaceships >> copy [
-
-	^ spaceships copy
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #collection }
 CollectionOfSpaceships >> detectSpaceshipWithId: aSpaceshipId [
 
 	^ spaceships detect: [ :spaceship | spaceship id = aSpaceshipId ]
+]
+
+{ #category : #collection }
+CollectionOfSpaceships >> each: aBlock but: aSpaceshipToSkip [
+
+	spaceships do: [ :spaceship |
+		aSpaceshipToSkip id = spaceship id ifFalse: [
+			aBlock value: spaceship ] ]
 ]
 
 { #category : #accessing }

@@ -182,12 +182,9 @@ Game >> lastCellEffect [
 { #category : #action }
 Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovements [
 
-	| aSpaceshipAux collectionMinusSpaceship |
-	collectionMinusSpaceship := spaceships copy.
-	collectionMinusSpaceship remove: aSpaceship.
-	1 to: collectionMinusSpaceship size do: [ :index |
-		aSpaceshipAux := collectionMinusSpaceship at: index.
-		aSpaceshipAux move: aNumberOfMovements ]
+	spaceships
+		each: [ :spaceship | spaceship move: aNumberOfMovements ]
+		but: aSpaceship
 ]
 
 { #category : #action }
