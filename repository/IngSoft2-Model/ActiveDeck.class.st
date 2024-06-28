@@ -56,7 +56,8 @@ ActiveDeck >> removeACard: cardToCancel [
 	| anIndex indexToRemove |
 	anIndex := 1.
 	cards do: [ :card |
-		(card isExactlyTheSameCard: cardToCancel) ifTrue: [ indexToRemove := anIndex ].
+		(card isExactlyTheSameCard: cardToCancel) ifTrue: [
+			indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
 	(cards at: indexToRemove) deactivate.
 	cards removeAt: indexToRemove

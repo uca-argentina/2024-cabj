@@ -63,12 +63,6 @@ Game >> applyHyperGravityOn: aSpaceship withValue: value [
 ]
 
 { #category : #accessing }
-Game >> board [
-
-	^ board
-]
-
-{ #category : #accessing }
 Game >> cardHand: aSpaceshipId [
 
 	^ spaceshipsCardHands at: aSpaceshipId
@@ -193,7 +187,7 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship throwResult cellOfSpaceship cellXLaps |
+	| positionOfSpaceship throwResult cellXLaps |
 	throwResult := self throwDiceAndCheckReward.
 	
 	throwResult := self checkMoveIsPossible: throwResult.
@@ -205,7 +199,7 @@ Game >> moveSpaceship [
 
 	cellToEnter := board at: positionOfSpaceship cell.
 
-	cellOfSpaceship := cellToEnter applyEffectTo: currentSpaceship on: self.
+	cellToEnter applyEffectTo: currentSpaceship on: self.
 
 	positionOfSpaceship := currentSpaceship objectPosition position.
 
