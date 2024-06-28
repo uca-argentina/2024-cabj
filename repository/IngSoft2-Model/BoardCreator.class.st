@@ -100,7 +100,7 @@ BoardCreator >> createHyperJumpCells [
 	amountOfCells := cells size.
 	aConversor := Conversor
 		              totalCells: amountOfCells
-		              convertionValue: amountOfCells // 2.
+		              convertionValue: amountOfCells * 2.
 	values := OrderedCollection
 		          with: (Parsecs ofValue: 10)
 		          with: (Parsecs ofValue: 8)

@@ -161,22 +161,18 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship throwResult cellOfSpaceship indexOfSpaceship |
+	| positionOfSpaceship throwResult cellOfSpaceship cellXLaps |
 	throwResult := self throwDiceAndCheckReward.
-
-
+	
 	positionOfSpaceship := currentSpaceship objectPosition.
-	indexOfSpaceship := positionOfSpaceship index.
-
-	indexOfSpaceship + throwResult > anAmountOfIndex ifTrue: [
-		throwResult := anAmountOfIndex - indexOfSpaceship ].
-
-	"((board at: indexOfSpaceship) exit: throwResult) ifFalse: [
-		^ positionOfSpaceship position ]."
+	cellXLaps := positionOfSpaceship cell * positionOfSpaceship lap.
+	
+	cellXLaps + throwResult > anAmountOfIndex ifTrue: [
+		throwResult := anAmountOfIndex - cellXLaps ].
 
 	currentSpaceship move: throwResult.
 
-	cellToEnter := board at: indexOfSpaceship + throwResult.
+	cellToEnter := board at: positionOfSpaceship cell.
 
 	cellOfSpaceship := cellToEnter enterOn:self.
 

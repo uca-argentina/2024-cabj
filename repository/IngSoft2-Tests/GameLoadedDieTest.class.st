@@ -283,7 +283,7 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipReturnsLapTwo [
 
 	| aGame result |
-	aLoadedDie := LoadedDie of: #( 5 4 2 ).
+	aLoadedDie := LoadedDie of: #( 5 4 7 ).
 	
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -309,7 +309,7 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTurns [
 
 	| aGame result |
-	aLoadedDie := LoadedDie of: #( 5 4 1 ).
+	aLoadedDie := LoadedDie of: #( 5 4 6 ).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -324,8 +324,8 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
 	aGame moveSpaceship.
-	
-	aGame moveSpaceship .	
+	aGame reloadSpaceship.
+	aGame moveSpaceship.	
 	result:=Dictionary new.
 	result at:1 put:(OrderedCollection with: 6 with: 2).
 	self assert: aGame spaceships positionsOfSpaceships  equals: result.
@@ -357,7 +357,12 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	| aGame resultOfLaps |
-	aLoadedDie := LoadedDie of: #( 6 3 12 6 1 6 ).
+	aLoadedDie := LoadedDie of: #( 15 3 14 ).
+	
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -379,6 +384,11 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 
 	| aGame resultOfGame |
 	aLoadedDie := LoadedDie of: #( 24 5 5 ).
+	
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 2

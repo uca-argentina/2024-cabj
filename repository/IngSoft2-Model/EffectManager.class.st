@@ -8,15 +8,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-EffectManager class >> for: aBoardCreator probabilitiesDistribution: collectionOfProbabilities [
-
-	^ self new
-		  initializeFor: aBoardCreator
-		  probabilitiesDistribution: collectionOfProbabilities
-]
-
-{ #category : #'instance creation' }
 EffectManager class >> manage: aCollectionOfObjects withProbabilitiesDistribution: collectionOfProbabilities [
+	
+	collectionOfProbabilities sum = 100 ifFalse: [ Error signal: 'Sum of probabilities must be equal to one hundred'].
+	aCollectionOfObjects size = collectionOfProbabilities size ifFalse: [ Error signal: 'Size of objects to manage must be equal to size of distribution probabilities'].
 
 	^ self new
 		  initializeManage: aCollectionOfObjects

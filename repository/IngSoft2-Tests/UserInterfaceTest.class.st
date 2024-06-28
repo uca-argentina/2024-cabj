@@ -60,7 +60,16 @@ UserInterfaceTest >> test01UserInterfaceMovesSpaceshipThenGetsFinalPositions [
 UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGamePlaysNormally [
 
 	| aUserInterFace result |
-	aLoadedDie := LoadedDie of: #( 7 7 7 ).
+	aLoadedDie := LoadedDie of: #( 9 9 9 ).
+	
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 	
 	aUserInterFace := UserInterface
 		         numberOfSpaceshipsPlayingWithAllCards: 3
@@ -77,9 +86,9 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 	aUserInterFace moveSpaceship.
 
 	result := Dictionary new.
-	result at: 1 put: 8.
-	result at: 2 put: 6.
-	result at: 3 put: 6.
+	result at: 1 put: 10.
+	result at: 2 put: 8.
+	result at: 3 put: 8.
 
 	self assert: aUserInterFace finalPositionOfSpaceships equals: result
 ]
@@ -107,7 +116,16 @@ UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRanking [
 
 	| aUserInterFace rankingOfSpaceships idRanking |
-	aLoadedDie := LoadedDie of: #( 12 20 5 1 ).
+	aLoadedDie := LoadedDie of: #( 12 15 5 1 ).
+	
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 4
@@ -147,6 +165,15 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 
 	| aUserInterFace resultOfLaps |
 	aLoadedDie := LoadedDie of: #( 6 3 12 6 1 6 ).
+	
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 2
@@ -167,7 +194,16 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 
 	| aUserInterFace resultOfGame |
-	aLoadedDie := LoadedDie of: #( 20 5 4 ).
+	aLoadedDie := LoadedDie of: #( 15 5 4 ).
+	
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 2
@@ -175,7 +211,7 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 		         playWithDice: aLoadedDie.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 12 with: 2).
+	resultOfGame at: 1 put: (OrderedCollection with: 10 with: 2).
 	resultOfGame at: 2 put: (OrderedCollection with: 6 with: 1).
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.

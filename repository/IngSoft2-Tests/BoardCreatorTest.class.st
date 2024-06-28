@@ -48,16 +48,3 @@ BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
 
 	self assert: aBoardCreator laps equals: 1
 ]
-
-{ #category : #tests }
-BoardCreatorTest >> test04BoardCreatorThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
-
-	self
-		should: [
-			BoardCreator
-				withCellsAndLaps: #( 10 1 )
-				withWormholeCreator: aWormholeCreator
-				andSpecialCellsDistruibution: #( 41 20 20 10 8 2 ) ]
-		raise: Error
-		withMessage: 'Sum of probabilities must be lower or equal to one hundred'
-]

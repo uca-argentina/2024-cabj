@@ -546,15 +546,15 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 8 ).
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
 	collectionOfCells := OrderedCollection new.
-	15 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [ collectionOfCells add: Cell ].
 	
 	collectionOfCells at: 9 put: HyperJumpCell.
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
-		                 ofLaps: 1
+		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
@@ -568,8 +568,8 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 		activateInstantCard: (RepeatCard repeatEffectFor: 2).
 		
 	result := Dictionary new.
-	result at: 1 put: 3.
-	result at: 2 put: 5.
+	result at: 1 put: 4.
+	result at: 2 put: 6.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
