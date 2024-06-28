@@ -27,33 +27,6 @@ GameCardTest >> setUp [
 ]
 
 { #category : #tests }
-GameCardTest >> test01GameActivatesAOverloadCardThenActiveCardsEqualsOne [
-	
-	| aGame |
-	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-	
-	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
-
-	self assert: aGame activeDeck cards size equals: 1
-]
-
-{ #category : #tests }
-GameCardTest >> test02GameActivatesAAccelerationCardThenActiveCardsEqualsOne [
-
-	| aGame |
-	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-	aGame activatePermanentCard: AccelerationCard new.
-
-	self assert: aGame activeDeck cards size equals: 1.
-]
-
-{ #category : #tests }
 GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreThenThrowResult [
 
 	| result aGame |
@@ -71,26 +44,6 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 
 
 	self assert:( aGame spaceships cellsOfSpaceships )equals: result
-]
-
-{ #category : #tests }
-GameCardTest >> test04SpaceshipPlaysAllCardsThenActiveDeckActiveCardsEqualsTwo [
-	
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 3 ).
-
-	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-		
-	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
-	aGame moveSpaceship .
-	aGame activatePermanentCard: AccelerationCard new.
-	aGame moveSpaceship .
-	aGame activatePermanentCard: AccelerationCard new.
-
-	self assert: aGame activeDeck cards size equals: 2.
 ]
 
 { #category : #tests }
@@ -161,50 +114,6 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 	result at: 2 put: 1.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
-]
-
-{ #category : #tests }
-GameCardTest >> test08GameInitializeSpaceshipPlaysThenActiveCardsIsBetweenZeroAndTwo [
-
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 7 7 ).
-	
-	aGame := Game
-		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-
-	aGame activatePermanentCard: (AllyCard shareFuelWith: 1).
-	aGame activatePermanentCard: (AllyCard shareFuelWith: 1).
-	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 1).
-	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 1).
-	aGame activatePermanentCard: AccelerationCard new.
-	aGame activatePermanentCard: AccelerationCard new.
-	
-
-	self assert:(( aGame activeDeck cards size) between: 0 and: 2).
-]
-
-{ #category : #tests }
-GameCardTest >> test09SpaceshipTwoUsesCancellationCardThenActiveCardBySpaceshipOneIsEliminated [
-
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 7 7 ).
-	
-	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-
-	aGame activatePermanentCard: (OverloadCard reduceThrowOf: 2).
-	aGame moveSpaceship.
-
-	aGame
-		spaceshipId: 2
-		activateInstantCard:
-		(CancellationCard cancel: (OverloadCard reduceThrowOf: 2)).
-
-	self assert: aGame activeDeck cards size equals: 0
 ]
 
 { #category : #tests }
@@ -397,9 +306,9 @@ GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuel
 ]
 
 { #category : #tests }
-GameCardTest >> test17RedoCardPlayedAfterCancellationThenActiveCardsEqualsZero [
+GameCardTest >> test17TwoAccelerationCardsPlayThenACancellationAndARedoSoNoAccelerationEffectOccurs [
 
-	| aGame |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 7 7 7 1 ).
 	
 	aGame := Game
@@ -416,8 +325,13 @@ GameCardTest >> test17RedoCardPlayedAfterCancellationThenActiveCardsEqualsZero [
 		spaceshipId: 1
 		activateInstantCard:
 		(RedoCard forSpaceshipId: nil orCardToCancel: AccelerationCard new).
+		
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 1.
 
-	self assert: aGame activeDeck cards size equals: 0
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }

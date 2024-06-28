@@ -32,12 +32,6 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 	^ auxNumber
 ]
 
-{ #category : #accessing }
-ActiveDeck >> cards [
-
-	^ cards
-]
-
 { #category : #initialization }
 ActiveDeck >> initializeStartGame [
 

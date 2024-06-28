@@ -15,15 +15,6 @@ CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 ]
 
 { #category : #tests }
-CardTest >> test02ActiveDeckInitializeThenActiveCardsEqualsZero [
-
-	| aActiveDeck |
-	aActiveDeck := ActiveDeck startGame.
-
-	self assert: aActiveDeck cards size equals: 0
-]
-
-{ #category : #tests }
 CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
 
 	| aGameDeck |
