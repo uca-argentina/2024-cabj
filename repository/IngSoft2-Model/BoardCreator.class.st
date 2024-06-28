@@ -26,14 +26,6 @@ BoardCreator class >> with: collectionOfCells ofLaps: numberOfLaps withWormholeC
 		  withWormholeCreator: aWormholeCreator
 ]
 
-{ #category : #'instance creation' }
-BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
-
-(percentagesOfDistrubitionSpecialCells sum <= 100) ifFalse: [ Error signal: 'Sum of probabilities must be lower or equal to one hundred'].
-
-^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator  andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
-]
-
 { #category : #'set and get' }
 BoardCreator >> cells [
 
@@ -154,32 +146,8 @@ BoardCreator >> initializeWith: collectionOfCells ofLaps: numberOfLaps withWormh
 	counterForPosition := 1.
 ]
 
-{ #category : #initialization }
-BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
-
-	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
-	wormholeCreator := aWormholeCreator.
-	percentagesOfDistrubitionSpecialCells := aPercentagesOfDistrubitionSpecialCells.
-	board := OrderedCollection new.
-	counterForPosition := 1.
-	counterForIndex := 1
-]
-
 { #category : #'set and get' }
 BoardCreator >> laps [
 
 	^ laps
-]
-
-{ #category : #position }
-BoardCreator >> nextPosition [
-
-	counterForIndex := counterForIndex + 1.
-	counterForPosition := counterForIndex - 1 \\ self cells + 1
-]
-
-{ #category : #random }
-BoardCreator >> numberGenerator [
-
-	^ 100 atRandom
 ]

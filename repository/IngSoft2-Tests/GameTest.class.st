@@ -1,8 +1,32 @@
 Class {
 	#name : #GameTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'aLoadedDie',
+		'aWormholeCreator',
+		'collectionOfCells',
+		'aBoardCreator',
+		'dice',
+		'aCollectionOfDice'
+	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #running }
+GameTest >> setUp [
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+	
+	dice := OrderedCollection
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10)
+		        with: (Die of: 10).
+	
+	aCollectionOfDice := Dice of: dice.
+]
 
 { #category : #asserting }
 GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
@@ -17,23 +41,15 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 { #category : #tests }
 GameTest >> test07GameHasBoardOfOnlyCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	| aGame aCollectionOfDice |
 		
+	4 timesRepeat: [ collectionOfCells add: Cell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
 	aCollectionOfDice := Dice of: dice.
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -46,24 +62,14 @@ GameTest >> test07GameHasBoardOfOnlyCellsThenBoardHasOnlyCellsWhereThereIsntAWor
 { #category : #tests }
 GameTest >> test08GameHasBoardOnlyBlackHoleThenBoardHasBlackHolesWhereThereIsntAWormHole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-		
+	| aGame |
+	
+	4 timesRepeat: [ collectionOfCells add: BlackHoleCell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 100 0 0 0 0 ).
-
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -75,24 +81,14 @@ GameTest >> test08GameHasBoardOnlyBlackHoleThenBoardHasBlackHolesWhereThereIsntA
 { #category : #tests }
 GameTest >> test09GameHasBoardOnlyHyperGravityThenBoardHasHyperGravityWhereThereIsntAWormHole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-		
+	| aGame |
+	4 timesRepeat: [ collectionOfCells add: HyperGravityCell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 100 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -104,24 +100,14 @@ GameTest >> test09GameHasBoardOnlyHyperGravityThenBoardHasHyperGravityWhereThere
 { #category : #tests }
 GameTest >> test10GameHasBoardOnlyMoonWalkThenBoardHasMoonWalkWhereThereIsntAWormHole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-		
+	| aGame |
+	4 timesRepeat: [ collectionOfCells add: MoonWalkCell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 100 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -133,24 +119,14 @@ GameTest >> test10GameHasBoardOnlyMoonWalkThenBoardHasMoonWalkWhereThereIsntAWor
 { #category : #tests }
 GameTest >> test11GameHasBoardOnlyHyperJumpThenBoardHasHyperJumpWhereThereIsntAWormHole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-		
+	| aGame |
+	4 timesRepeat: [ collectionOfCells add: HyperJumpCell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 100 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -162,24 +138,13 @@ GameTest >> test11GameHasBoardOnlyHyperJumpThenBoardHasHyperJumpWhereThereIsntAW
 { #category : #tests }
 GameTest >> test12GameHasBoardOnlyAtomicBombThenBoardHasAtomicBombWhereThereIsntAWormHole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-		
+	| aGame |
+	4 timesRepeat: [ collectionOfCells add: AtomicBombCell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 100 ).
-
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -191,24 +156,14 @@ GameTest >> test12GameHasBoardOnlyAtomicBombThenBoardHasAtomicBombWhereThereIsnt
 { #category : #tests }
 GameTest >> test13GameHasBoardOnlyCardDispenserThenBoardHasCardDispenserWhereThereIsntAWormHole [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-		
+	| aGame |
+	4 timesRepeat: [ collectionOfCells add: CardDispenserCell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -220,14 +175,14 @@ GameTest >> test13GameHasBoardOnlyCardDispenserThenBoardHasCardDispenserWhereThe
 { #category : #testsGame002 }
 GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces [
 
-	| aGame aDie aBoardCreator aWormholeCreator |
+	| aGame aDie |
 	aDie := Die of: 5.
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	50 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -241,16 +196,14 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 { #category : #tests }
 GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 
-	| result aGame aLoadedDie aBoardCreator aWormholeCreator |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 9 7 4 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	50 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -273,16 +226,14 @@ GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 { #category : #tests }
 GameTest >> testResetToCellOneThenLapRemainsTheSame [
 
-	| result aGame aLoadedDie aBoardCreator aWormholeCreator |
+	| result aGame |
 	aLoadedDie := LoadedDie of: #( 9 26 43 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	20 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 3 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 3
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -305,22 +256,14 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 { #category : #tests }
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
-	| aGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	| aGame |
+
+	4 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -336,16 +279,14 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 { #category : #tests }
 GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePosition [
 
-	| aGame aDie aBoardCreator aWormholeCreator |
+	| aGame aDie |
 	aDie := Die of: 6.
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	50 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -360,23 +301,14 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 { #category : #tests }
 GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 
-	| aGame resultOfGame aCollectionOfDice aBoardCreator aWormholeCreator dice |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	| aGame resultOfGame |
+	4 timesRepeat: [ collectionOfCells add: Cell ].
+
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 4 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 100 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
-
-	dice := OrderedCollection
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10)
-		        with: (Die of: 10).
-	aCollectionOfDice := Dice of: dice.
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 4 with: 1).
 	aGame := Game

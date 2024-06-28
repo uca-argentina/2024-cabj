@@ -50,13 +50,6 @@ BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test03BoardCreatorGeneratesNumberBetweenOneAndOneHundred [
-
-
-	self assert: (aBoardCreator numberGenerator between: 1 and: 100)
-]
-
-{ #category : #tests }
 BoardCreatorTest >> test04BoardCreatorThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
 
 	self

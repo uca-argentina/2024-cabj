@@ -1,22 +1,43 @@
 Class {
 	#name : #UserInterfaceTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'aLoadedDie',
+		'aWormholeCreator',
+		'collectionOfCells',
+		'aBoardCreator'
+	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #running }
+UserInterfaceTest >> setUp [
+
+	aLoadedDie := LoadedDie of: #( 6 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 5 put: AtomicBombCell.
+	collectionOfCells at: 6 put: BlackHoleCell.
+	collectionOfCells at: 4 put: CardDispenserCell.
+	collectionOfCells at: 8 put: HyperGravityCell.
+	collectionOfCells at: 9 put: HyperJumpCell.
+	collectionOfCells at: 7 put: MoonWalkCell.
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+]
 
 { #category : #tests }
 UserInterfaceTest >> test01UserInterfaceMovesSpaceshipThenGetsFinalPositions [
 
-	| result aLoadedDie aUserInterface aBoardCreator aWormholeCreator |
+	| result aUserInterface |
 	aLoadedDie := LoadedDie of: #( 9 8 4 ).
-	
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
 
 	aUserInterface := UserInterface
 		         numberOfSpaceships: 3
@@ -38,14 +59,9 @@ UserInterfaceTest >> test01UserInterfaceMovesSpaceshipThenGetsFinalPositions [
 { #category : #tests }
 UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGamePlaysNormally [
 
-	| aLoadedDie aWormholeCreator aBoardCreator aUserInterFace result |
+	| aUserInterFace result |
 	aLoadedDie := LoadedDie of: #( 7 7 7 ).
-
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 30 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	
 	aUserInterFace := UserInterface
 		         numberOfSpaceshipsPlayingWithAllCards: 3
 		         withBoardCreator: aBoardCreator
@@ -71,16 +87,8 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 { #category : #tests }
 UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 
-	| aUserInterFace aLoadedDie result aBoardCreator aWormholeCreator |
+	| aUserInterFace result |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 1
@@ -98,16 +106,8 @@ UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 { #category : #tests }
 UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRanking [
 
-	| aUserInterFace aLoadedDie aBoardCreator aWormholeCreator rankingOfSpaceships idRanking |
+	| aUserInterFace rankingOfSpaceships idRanking |
 	aLoadedDie := LoadedDie of: #( 12 20 5 1 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 4
@@ -131,16 +131,7 @@ UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRank
 { #category : #tests }
 UserInterfaceTest >> test05UserInterfacePlaysThenGetsWinnerId [
 
-	| aUserInterFace aLoadedDie aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 6 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aUserInterFace  |
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 1
@@ -154,16 +145,8 @@ UserInterfaceTest >> test05UserInterfacePlaysThenGetsWinnerId [
 { #category : #tests }
 UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 
-	| aUserInterFace aLoadedDie resultOfLaps aBoardCreator aWormholeCreator |
+	| aUserInterFace resultOfLaps |
 	aLoadedDie := LoadedDie of: #( 6 3 12 6 1 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 2
@@ -183,16 +166,8 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 { #category : #tests }
 UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 
-	| aUserInterFace aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
+	| aUserInterFace resultOfGame |
 	aLoadedDie := LoadedDie of: #( 20 5 4 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aUserInterFace := UserInterface
 		         numberOfSpaceships: 2
