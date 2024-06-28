@@ -57,8 +57,7 @@ AllyCard >> withEffectOn: aGame [
 
 	| fuelTankOne fuelTankTwo |
 	spaceshipOne := aGame currentSpaceship.
-	spaceshipTwo := aGame spaceships detect: [ :spaceship |
-		                spaceship id = allyTwoId ].
+	spaceshipTwo := aGame spaceships detectSpaceshipWithId: allyTwoId.
 	fuelTankOne := spaceshipOne objectFuelTank.
 	fuelTankTwo := spaceshipTwo objectFuelTank.
 
@@ -73,10 +72,8 @@ AllyCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCan
 
 	| fuelTankOne fuelTankTwo |
 	aGame activeDeck activate: self.
-	spaceshipOne := aGame spaceships detect: [ :spaceship |
-		                spaceship id = anId ].
-	spaceshipTwo := aGame spaceships detect: [ :spaceship |
-		                spaceship id = allyTwoId ].
+	spaceshipOne := aGame spaceships detectSpaceshipWithId: anId.
+	spaceshipTwo := aGame spaceships detectSpaceshipWithId: allyTwoId.
 	fuelTankOne := spaceshipOne objectFuelTank.
 	fuelTankTwo := spaceshipTwo objectFuelTank.
 

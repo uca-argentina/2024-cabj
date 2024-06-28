@@ -55,10 +55,10 @@ CollectionOfSpaceships >> copy [
 	^ spaceships copy
 ]
 
-{ #category : #enumerating }
-CollectionOfSpaceships >> detect: aBlock [
+{ #category : #'as yet unclassified' }
+CollectionOfSpaceships >> detectSpaceshipWithId: aSpaceshipId [
 
-	^ spaceships detect: aBlock
+	^ spaceships detect: [ :spaceship | spaceship id = aSpaceshipId ]
 ]
 
 { #category : #accessing }

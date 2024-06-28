@@ -30,8 +30,7 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 
 	| spaceshipToApplyEffect cellToEnter cellOfSpaceship |
 	aGame activeDeck instantCardPlayed: self.
-	spaceshipToApplyEffect := aGame spaceships detect: [ :spaceship |
-		                          spaceship id = spaceshipId ].
+	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
 
 	cellToEnter := aGame lastCellEffect copy.
 
@@ -52,8 +51,7 @@ RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardTo
 
 	| spaceshipToApplyEffect cellPosition cellToEnter cellOfSpaceship |
 	aGame activeDeck instantCardPlayed: self.
-	spaceshipToApplyEffect := aGame spaceships detect: [ :spaceship |
-		                          spaceship id = spaceshipId ].
+	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
 	cellPosition := spaceshipToApplyEffect objectPosition cell.
 
 	cellToEnter := aGame lastCellEffect copy.
