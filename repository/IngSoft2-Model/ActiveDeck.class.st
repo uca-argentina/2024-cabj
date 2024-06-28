@@ -54,6 +54,7 @@ ActiveDeck >> lastCardPlayed [
 ActiveDeck >> removeACard: cardToCancel [
 
 	| anIndex indexToRemove |
+	indexToRemove := 0.
 	anIndex := 1.
 	cards do: [ :card |
 		(card isExactlyTheSameCard: cardToCancel) ifTrue: [

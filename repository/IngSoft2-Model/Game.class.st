@@ -76,7 +76,7 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 	aSpaceship loadFuel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #checking }
 Game >> checkMoveIsPossible: throwResult [
 
 	| positionOfSpaceship cellXLaps aux |
@@ -99,6 +99,12 @@ Game >> checkMoveIsPossible: throwResult [
 Game >> currentSpaceship [
 
 	^ currentSpaceship
+]
+
+{ #category : #'as yet unclassified' }
+Game >> giveOneCardTo: aSpaceship [
+
+	(spaceshipsCardHands at: aSpaceship id) gainACard
 ]
 
 { #category : #initialization }

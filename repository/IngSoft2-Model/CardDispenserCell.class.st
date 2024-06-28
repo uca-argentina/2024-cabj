@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #action }
-CardDispenserCell >> applyEffectTo: aSpaceship on:aGame [
+CardDispenserCell >> applyEffectTo: aSpaceship on: aGame [
 
-	(aGame cardHand: aSpaceship id) gainACard.
+	aGame giveOneCardTo: aSpaceship
 ]
