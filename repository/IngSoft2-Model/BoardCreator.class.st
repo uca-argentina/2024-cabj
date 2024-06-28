@@ -2,17 +2,13 @@ Class {
 	#name : #BoardCreator,
 	#superclass : #Object,
 	#instVars : [
-		'collectionAmountOfCellsAndLaps',
-		'percentagesOfDistrubitionSpecialCells',
 		'wormholeCreator',
 		'game',
-		'throwResult',
 		'board',
-		'counterForIndex',
 		'counterForPosition',
 		'laps',
 		'cells',
-		'wormhole'
+		'maxThrow'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -47,11 +43,11 @@ BoardCreator >> createBlackHoleCells [
 ]
 
 { #category : #creation }
-BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
+BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aNumber [
 
 	| amountOfCells anAmountOfIndex |
 	game := aGame.
-	throwResult := aThrowResult.
+	maxThrow := aNumber.
 	amountOfCells := cells size.
 	anAmountOfIndex := amountOfCells * laps.
 
@@ -59,7 +55,8 @@ BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowRe
 		eachClass = Cell ifTrue: [ self createCells ].
 		eachClass = BlackHoleCell ifTrue: [ self createBlackHoleCells ].
 		eachClass = AtomicBombCell ifTrue: [ self createAtomicBombCells ].
-		eachClass = CardDispenserCell ifTrue: [ self createCardDispenserCells ].
+		eachClass = CardDispenserCell ifTrue: [
+			self createCardDispenserCells ].
 		eachClass = MoonWalkCell ifTrue: [ self createMoonWalkCells ].
 		eachClass = HyperJumpCell ifTrue: [ self createHyperJumpCells ].
 		eachClass = HyperGravityCell ifTrue: [ self createHyperGravityCells ] ].
@@ -88,7 +85,7 @@ BoardCreator >> createCells [
 BoardCreator >> createHyperGravityCells [
 
 	board add: (HyperGravityCell
-			 withValueToMove: throwResult atRandom
+			 withValueToMove: maxThrow/2
 			 inPosition: counterForPosition).
 	counterForPosition := counterForPosition + 1
 ]
@@ -120,7 +117,7 @@ BoardCreator >> createMoonWalkCells [
 	| amountOfCells |
 	amountOfCells := cells size.
 	board add: (MoonWalkCell
-			 withValueToMove: amountOfCells atRandom
+			 withValueToMove: 4
 			 inPosition: counterForPosition).
 	counterForPosition := counterForPosition + 1
 ]
