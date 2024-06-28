@@ -27,12 +27,6 @@ AllyCard >> ally [
 	^ allyTwoId
 ]
 
-{ #category : #comparing }
-AllyCard >> compare: aCard [
-
-	^ self class == aCard class and: allyTwoId = aCard ally
-]
-
 { #category : #action }
 AllyCard >> deactivate [
 
@@ -50,6 +44,12 @@ AllyCard >> deactivate [
 AllyCard >> initializeShareFuelWith: aSpaceshipId [
 
 	allyTwoId := aSpaceshipId
+]
+
+{ #category : #comparing }
+AllyCard >> isExactlyTheSameCard: aCard [
+
+	^ self class == aCard class and: allyTwoId = aCard ally
 ]
 
 { #category : #accessing }
