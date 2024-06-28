@@ -19,12 +19,6 @@ Cell >> applyEffectTo: aSpaceship on:aGame [
 
 ]
 
-{ #category : #'set and get' }
-Cell >> changeCellPositionTo: aCellPosition [
-
-	cellPosition := aCellPosition
-]
-
 { #category : #initialization }
 Cell >> initializePosition: aPosition [
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #RepeatCard,
-	#superclass : #InstantCard,
+	#superclass : #Object,
 	#instVars : [
 		'spaceshipId'
 	],
@@ -19,20 +19,24 @@ RepeatCard class >> repeatEffectFor: anId [
 	^ self new initializeRepeatEffectFor: anId
 ]
 
+{ #category : #comparing }
+RepeatCard >> = aCard [
+
+	^ self class == aCard class
+]
+
 { #category : #accessing }
 RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 
-	| spaceshipToApplyEffect cellPosition cellToEnter cellOfSpaceship |
+	| spaceshipToApplyEffect cellToEnter cellOfSpaceship |
 	aGame activeDeck instantCardPlayed: self.
 	spaceshipToApplyEffect := aGame spaceships detect: [ :spaceship |
 		                          spaceship id = spaceshipId ].
-	cellPosition := spaceshipToApplyEffect objectPosition cell.
 
-	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
-		               cellPosition.
+	cellToEnter := aGame lastCellEffect copy.
 
 	cellOfSpaceship := cellToEnter applyEffectTo:
-		                   spaceshipToApplyEffect on:aGame.
+		                   spaceshipToApplyEffect on: aGame.
 
 	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
 ]
@@ -52,8 +56,7 @@ RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardTo
 		                          spaceship id = spaceshipId ].
 	cellPosition := spaceshipToApplyEffect objectPosition cell.
 
-	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
-		               cellPosition.
+	cellToEnter := aGame lastCellEffect copy.
 
 	cellOfSpaceship := cellToEnter applyEffectTo:
 		                   spaceshipToApplyEffect on:aGame.

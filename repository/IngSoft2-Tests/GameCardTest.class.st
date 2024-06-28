@@ -569,7 +569,7 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 		
 	result := Dictionary new.
 	result at: 1 put: 4.
-	result at: 2 put: 6.
+	result at: 2 put: 5.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
@@ -606,7 +606,7 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards 
 ]
 
 { #category : #tests }
-GameCardTest >> test24RepeatCardRepeatsWormholeThenPositionsStayTheSame [
+GameCardTest >> test24RepeatCardRepeatsWormholeThenSpaceshipOneGoesToWormhole [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 9 1 ).
@@ -623,7 +623,7 @@ GameCardTest >> test24RepeatCardRepeatsWormholeThenPositionsStayTheSame [
 		activateInstantCard: (RepeatCard repeatEffectFor: 1).
 	
 	result := Dictionary new.
-	result at: 1 put: 10.
+	result at: 1 put: 3.
 	result at: 2 put: 3.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
@@ -750,4 +750,72 @@ GameCardTest >> test28CancellationCardCancelsOnlyTheCardThatIsExactlyTheSameAsTh
 	result at: 3 put: 11.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result. 
+]
+
+{ #category : #tests }
+GameCardTest >> test29RepeatHyperGravityForSpaceshipTwoThenItCannotMoveBeacuseOfIt [
+
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 7 2 ).
+	
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 8 put: HyperGravityCell.
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 1
+		activateInstantCard: (RepeatCard repeatEffectFor: 2).
+	aGame moveSpaceship.
+	
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 1.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThrowGreaterThenValue [
+
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 7 6 ).
+	
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	
+	collectionOfCells at: 8 put: HyperGravityCell.
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 2
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame moveSpaceship.
+	aGame
+		spaceshipId: 1
+		activateInstantCard: (RepeatCard repeatEffectFor: 2).
+	aGame moveSpaceship.
+	
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 7.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

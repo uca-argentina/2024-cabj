@@ -1,6 +1,6 @@
 Class {
 	#name : #RedoCard,
-	#superclass : #InstantCard,
+	#superclass : #Object,
 	#instVars : [
 		'idForCard',
 		'cardToCancel'
@@ -12,6 +12,12 @@ Class {
 RedoCard class >> forSpaceshipId: anId orCardToCancel: aCard [
 
 	^ self new initializeForSpaceshipId: anId orCardToCancel: aCard
+]
+
+{ #category : #comparing }
+RedoCard >> = aCard [
+
+	^ self class == aCard class
 ]
 
 { #category : #accessing }

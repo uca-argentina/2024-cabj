@@ -1,6 +1,6 @@
 Class {
 	#name : #CancellationCard,
-	#superclass : #InstantCard,
+	#superclass : #Object,
 	#instVars : [
 		'cardToCancel'
 	],
@@ -17,6 +17,12 @@ CancellationCard class >> cancel: aCard [
 CancellationCard class >> redo: aCard [
 
 	^ self new initializeCancel: aCard
+]
+
+{ #category : #comparing }
+CancellationCard >> = aCard [
+
+	^ self class == aCard class
 ]
 
 { #category : #accessing }

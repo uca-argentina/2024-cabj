@@ -16,8 +16,11 @@ Wormhole class >> in: aPosition to: anotherPosition [
 
 { #category : #action }
 Wormhole >> applyEffectTo: aSpaceship on: aGame [
-
-	aSpaceship move: positionToGoTo
+	
+	| numberOfMovements cellOfSpaceship |
+	cellOfSpaceship := aSpaceship objectPosition cell.
+	numberOfMovements := positionToGoTo - cellOfSpaceship.
+	aSpaceship move: numberOfMovements
 ]
 
 { #category : #accessing }
@@ -36,5 +39,5 @@ Wormhole >> changeCellPositionTo: aCellPosition [
 Wormhole >> initializeIn: aPosition to: anotherPosition [
 
 	cellPosition := aPosition.
-	positionToGoTo := anotherPosition - cellPosition
+	positionToGoTo := anotherPosition
 ]
