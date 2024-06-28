@@ -29,6 +29,6 @@ WormholeCreator >> ending [
 { #category : #initialization }
 WormholeCreator >> initializeWithBeginning: beginning andEnd: ending [
 
-	beginningWormhole := Wormhole in: beginning.
-	endingWormhole := Wormhole in: ending
+	beginningWormhole := Wormhole in: beginning to: ending.
+	endingWormhole := Wormhole in: ending to: beginning
 ]

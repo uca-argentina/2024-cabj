@@ -5,15 +5,7 @@ Class {
 }
 
 { #category : #action }
-AtomicBombCell >> enterOn: aGame [
+AtomicBombCell >> applyEffectTo: aSpaceship on:aGame [
 
 	aGame resetSpaceshipsToCellOne.
-	^ 1
-]
-
-{ #category : #action }
-AtomicBombCell >> enterWithoutTurn: aSpaceship on:aGame [
-
-	aGame resetSpaceshipsToCellOne.
-	^ 1
 ]

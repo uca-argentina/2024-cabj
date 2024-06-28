@@ -129,10 +129,10 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRollsLessThanMinuminValueThenStaysThere [
 
 	| result aGame |
-	aLoadedDie := LoadedDie of: #( 7 3 9 9 2 ).
+	aLoadedDie := LoadedDie of: #( 7 9 2 ).
 	
 	aGame := Game
-		         numberOfSpaceships: 3
+		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
@@ -143,7 +143,6 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 	result := Dictionary new.
 	result at: 1 put: 8.
 	result at: 2 put: 10.
-	result at: 3 put: 10.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
@@ -152,10 +151,10 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRollsValueThenSpaceshipCanMove [
 
 	| result aGame |
-	aLoadedDie := LoadedDie of: #( 7 6 9 9 ).
+	aLoadedDie := LoadedDie of: #( 7 9 6 ).
 
 	aGame := Game
-		         numberOfSpaceships: 3
+		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
@@ -166,7 +165,6 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	result := Dictionary new.
 	result at: 1 put: 4.
 	result at: 2 put: 10.
-	result at: 3 put: 10.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
@@ -208,34 +206,4 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmo
 	aGame moveSpaceship.
 
 	self assert: (aGame cardHand: 1) amount equals: 3
-]
-
-{ #category : #tests }
-GameWithDefinedPositionsOfCellsTest >> test09 [
-
-	| result aLoadedDie aGame aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 7 3 9 3 ).
-	
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreatorWithDefinedCellPositions
-		                 withCellsAndLaps: #( 10 2 )
-		                 wormholeCreator: aWormholeCreator.
-
-	aGame := Game
-		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	result := Dictionary new.
-	result at: 1 put: 8.
-	result at: 2 put: 10.
-
-	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

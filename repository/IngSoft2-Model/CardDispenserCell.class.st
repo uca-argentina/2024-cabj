@@ -8,17 +8,7 @@ Class {
 }
 
 { #category : #action }
-CardDispenserCell >> enterOn: aGame [
-
-	| currentSpaceship |
-	currentSpaceship := aGame currentSpaceship id.
-	(aGame cardHand: currentSpaceship) gainACard.
-	^ cellPosition
-]
-
-{ #category : #action }
-CardDispenserCell >> enterWithoutTurn: aSpaceship on:aGame [
+CardDispenserCell >> applyEffectTo: aSpaceship on:aGame [
 
 	(aGame cardHand: aSpaceship id) gainACard.
-	^ cellPosition
 ]

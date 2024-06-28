@@ -2,14 +2,28 @@ Class {
 	#name : #Wormhole,
 	#superclass : #Object,
 	#instVars : [
-		'cellPosition'
+		'cellPosition',
+		'positionToGoTo'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #evaluating }
-Wormhole class >> in: aPosition [
-	^(self new) initializeIn: aPosition.
+Wormhole class >> in: aPosition to: anotherPosition [
+
+	^ self new initializeIn: aPosition to: anotherPosition
+]
+
+{ #category : #action }
+Wormhole >> applyEffectTo: aSpaceship on: aGame [
+
+	aSpaceship move: positionToGoTo
+]
+
+{ #category : #accessing }
+Wormhole >> cell [
+
+	^ cellPosition
 ]
 
 { #category : #'set and get' }
@@ -18,26 +32,9 @@ Wormhole >> changeCellPositionTo: aCellPosition [
 	cellPosition := aCellPosition
 ]
 
-{ #category : #action }
-Wormhole >> enterOn:aGame [
-
-	^ cellPosition
-]
-
-{ #category : #action }
-Wormhole >> enterWithoutTurn: aSpaceship on:aGame [
-
-	^ cellPosition
-]
-
-{ #category : #action }
-Wormhole >> exit: aValue [
-
-	^ true
-]
-
 { #category : #initialization }
-Wormhole >> initializeIn: aPosition [
+Wormhole >> initializeIn: aPosition to: anotherPosition [
 
-	cellPosition := aPosition
+	cellPosition := aPosition.
+	positionToGoTo := anotherPosition - cellPosition
 ]

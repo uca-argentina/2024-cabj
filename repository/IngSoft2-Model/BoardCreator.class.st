@@ -85,7 +85,7 @@ BoardCreator >> createCells [
 BoardCreator >> createHyperGravityCells [
 
 	board add: (HyperGravityCell
-			 withValueToMove: maxThrow/2
+			 withValueToMove: maxThrow//2
 			 inPosition: counterForPosition).
 	counterForPosition := counterForPosition + 1
 ]
@@ -126,11 +126,9 @@ BoardCreator >> createMoonWalkCells [
 BoardCreator >> createWormhole [
 
 	board
-		at: (wormholeCreator beginning enterOn: game)
-		put: wormholeCreator ending.
-	board
-		at: (wormholeCreator ending enterOn: game)
-		put: wormholeCreator beginning
+		at: wormholeCreator beginning cell
+		put: wormholeCreator beginning.
+	board at: wormholeCreator ending cell put: wormholeCreator ending
 ]
 
 { #category : #initialization }

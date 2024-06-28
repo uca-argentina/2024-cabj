@@ -5,13 +5,7 @@ Class {
 }
 
 { #category : #action }
-BlackHoleCell >> enterOn:aGame [
+BlackHoleCell >> applyEffectTo: aSpaceship on: aGame [
 
-	^ cellPosition - 4
-]
-
-{ #category : #action }
-BlackHoleCell >> enterWithoutTurn: aSpaceship on: aGame [
-
-	^ cellPosition - 4
+	aSpaceship move: -4
 ]

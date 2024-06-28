@@ -31,10 +31,8 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
 		               cellPosition.
 
-	cellOfSpaceship := cellToEnter enterWithoutTurn:
+	cellOfSpaceship := cellToEnter applyEffectTo:
 		                   spaceshipToApplyEffect on:aGame.
-
-	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
 
 	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
 ]
@@ -57,10 +55,8 @@ RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardTo
 	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
 		               cellPosition.
 
-	cellOfSpaceship := cellToEnter enterWithoutTurn:
+	cellOfSpaceship := cellToEnter applyEffectTo:
 		                   spaceshipToApplyEffect on:aGame.
-
-	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
 
 	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
 ]

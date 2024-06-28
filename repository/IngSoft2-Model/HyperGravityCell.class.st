@@ -16,9 +16,9 @@ HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [
 ]
 
 { #category : #action }
-HyperGravityCell >> enterOn: aGame [
+HyperGravityCell >> applyEffectTo: aSpaceship on: aGame [
 
-	^ aGame throwDiceForHyperGravityCellWithValue:value onPosition: cellPosition .
+	aGame applyHyperGravityOn: aSpaceship withValue: value
 ]
 
 { #category : #initialization }

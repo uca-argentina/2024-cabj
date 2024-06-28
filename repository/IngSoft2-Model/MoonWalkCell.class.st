@@ -17,23 +17,11 @@ MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition [
 ]
 
 { #category : #action }
-MoonWalkCell >> enterOn: aGame [
-
-	aGame
-		moveAllTheSpaceshipsExcept: aGame currentSpaceship
-		withValueToMove: value negated.
-
-	^ cellPosition
-]
-
-{ #category : #action }
-MoonWalkCell >> enterWithoutTurn: aSpaceship on:aGame [
+MoonWalkCell >> applyEffectTo: aSpaceship on:aGame [
 
 	aGame
 		moveAllTheSpaceshipsExcept: aSpaceship
 		withValueToMove: value negated.
-
-	^ cellPosition
 ]
 
 { #category : #initialization }

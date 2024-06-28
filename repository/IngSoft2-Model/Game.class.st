@@ -11,7 +11,8 @@ Class {
 		'currentSpaceship',
 		'dice',
 		'spaceships',
-		'cellToEnter'
+		'cellToEnter',
+		'spaceshipsWithHyperGravity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -52,6 +53,15 @@ Game >> activeDeck [
 	^ aActiveDeck
 ]
 
+{ #category : #action }
+Game >> applyHyperGravityOn: aSpaceship withValue: value [
+	
+	spaceshipsWithHyperGravity at: aSpaceship put: value
+
+	
+	
+]
+
 { #category : #accessing }
 Game >> board [
 
@@ -70,6 +80,25 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 	aSpaceship objectFuelTank areBothEmpty ifFalse: [ ^ self ].
 	turnManager lostTurns: 2 by: aSpaceship.
 	aSpaceship loadFuel
+]
+
+{ #category : #'as yet unclassified' }
+Game >> checkMoveIsPossible: throwResult [
+
+	| positionOfSpaceship cellXLaps aux |
+	aux := throwResult.
+	positionOfSpaceship := currentSpaceship objectPosition.
+	cellXLaps := positionOfSpaceship cell * positionOfSpaceship lap.
+
+	(spaceshipsWithHyperGravity includesKey: currentSpaceship) ifTrue: [
+		throwResult < (spaceshipsWithHyperGravity at: currentSpaceship)
+			ifTrue: [ aux := 0 ]
+			ifFalse: [ spaceshipsWithHyperGravity removeKey: currentSpaceship ] ].
+
+	cellXLaps + throwResult > anAmountOfIndex ifTrue: [
+		aux := anAmountOfIndex - cellXLaps ].
+
+	^ aux
 ]
 
 { #category : #accessing }
@@ -102,6 +131,8 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := turnManager nextTurn.
+	
+	spaceshipsWithHyperGravity := Dictionary new.
 
 	board := aBoardCreator
 		         createBoardFor: self
@@ -133,7 +164,8 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := turnManager nextTurn.
-
+	
+	spaceshipsWithHyperGravity := Dictionary new.
 
 	board := aBoardCreator
 		         createBoardFor: self
@@ -164,20 +196,16 @@ Game >> moveSpaceship [
 	| positionOfSpaceship throwResult cellOfSpaceship cellXLaps |
 	throwResult := self throwDiceAndCheckReward.
 	
+	throwResult := self checkMoveIsPossible: throwResult.
+	
 	positionOfSpaceship := currentSpaceship objectPosition.
 	cellXLaps := positionOfSpaceship cell * positionOfSpaceship lap.
-	
-	cellXLaps + throwResult > anAmountOfIndex ifTrue: [
-		throwResult := anAmountOfIndex - cellXLaps ].
 
 	currentSpaceship move: throwResult.
 
 	cellToEnter := board at: positionOfSpaceship cell.
 
-	cellOfSpaceship := cellToEnter enterOn:self.
-
-	currentSpaceship move:
-		cellOfSpaceship - currentSpaceship objectPosition cell.
+	cellOfSpaceship := cellToEnter applyEffectTo: currentSpaceship on: self.
 
 	positionOfSpaceship := currentSpaceship objectPosition position.
 
@@ -247,18 +275,6 @@ Game >> throwDiceAndCheckReward [
 			ifTrue: [ currentSpaceship  changeCapacity: 1 ]
 			ifFalse: [ currentSpaceship  changeCapacity: -1 ] ].
 	^ throwResult
-]
-
-{ #category : #action }
-Game >> throwDiceForHyperGravityCellWithValue: aValue onPosition: aPosition [
-	| valueThrown |
-	valueThrown:= self throwDiceAndCheckReward .
-	valueThrown > aValue ifTrue: [ 	currentSpaceship  move: valueThrown .
-		 ^ currentSpaceship objectPosition cell].
-	^ aPosition
-
-	
-	
 ]
 
 { #category : #results }
