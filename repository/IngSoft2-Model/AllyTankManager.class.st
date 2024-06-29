@@ -14,10 +14,11 @@ AllyTankManager class >> manage: aCollectionOfSpaceships [
 	^ (self new) initializeManage: aCollectionOfSpaceships
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 AllyTankManager >> ally: aSpaceship with: aSpaceshipTwo [
 
-	(dictionaryOfAllys includesKey: aSpaceship) ifTrue: [ ^ self ].
+	((dictionaryOfAllys includesKey: aSpaceship) or:
+		 (dictionaryOfAllys includesKey: aSpaceshipTwo)) ifTrue: [ ^ self ].
 	dictionaryOfAllys at: aSpaceship put: aSpaceshipTwo.
 	dictionaryOfAllys at: aSpaceshipTwo put: aSpaceship
 ]
@@ -39,7 +40,7 @@ AllyTankManager >> sharingWith: aSpaceshipId [
 	^ dictionaryOfAllys at: aSpaceshipId
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 AllyTankManager >> stopSharing: aSpaceshipId [
 
 	| ally |
@@ -48,7 +49,7 @@ AllyTankManager >> stopSharing: aSpaceshipId [
 	dictionaryOfAllys removeKey: ally
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 AllyTankManager >> use: anAmountOfFuel ofSharedWith: aSpaceshipId [
 
 	| tankSpaceshipToMove tankAllySpaceship fuelToShare |

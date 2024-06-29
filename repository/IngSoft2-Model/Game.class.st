@@ -52,7 +52,7 @@ Game >> activatePermanentCard: aCard [
 	aCard activateEffectOn: self forSpaceship: currentSpaceship id
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> ally: spaceshipOne with: spaceshipTwo [
 
 	anAllyTankManager ally: spaceshipOne with: spaceshipTwo
@@ -275,7 +275,7 @@ Game >> spaceships [
 	^ spaceships 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Game >> stopSharing: aSpaceshipId [
 
 	anAllyTankManager stopSharing: aSpaceshipId

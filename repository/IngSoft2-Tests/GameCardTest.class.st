@@ -733,3 +733,33 @@ GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThr
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlreadyHasAlly [
+
+	| result aGame |
+	aLoadedDie := LoadedDie of: #( 1 1 7 1 ).
+	aGame := Game
+		         numberOfSpaceshipsPlayingWithAllCards: 4
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+
+	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 4.
+	result at: 2 put: 4.
+	result at: 3 put: 1.
+	result at: 4 put: 4.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
