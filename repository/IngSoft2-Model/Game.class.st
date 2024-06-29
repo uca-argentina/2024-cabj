@@ -78,36 +78,22 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 { #category : #checking }
 Game >> checkMoveIsPossible: throwResult for: aSpaceship [
 
-	| positionOfSpaceship cellXLapsOfSpaceship cellXLapsOfFinishLine aux amountOfCells completedLaps nextCell |
-	aux := throwResult.
+	| positionOfSpaceship aNumberOfMovements |
+	aNumberOfMovements := throwResult.
 	positionOfSpaceship := aSpaceship objectPosition.
-	cellXLapsOfSpaceship := positionOfSpaceship cell
-	                        * positionOfSpaceship lap.
-	cellXLapsOfFinishLine := (finishLine at: 1) * (finishLine at: 2).
-	amountOfCells := finishLine at: 1.
 
 	(spaceshipsWithHyperGravity includesKey: aSpaceship) ifTrue: [
 		throwResult < (spaceshipsWithHyperGravity at: aSpaceship)
-			ifTrue: [ aux := 0 ]
+			ifTrue: [
+				aNumberOfMovements := 0.
+				^ aNumberOfMovements ]
 			ifFalse: [ spaceshipsWithHyperGravity removeKey: aSpaceship ] ].
 
-	cellXLapsOfSpaceship + throwResult > cellXLapsOfFinishLine ifTrue: [
-		aux := cellXLapsOfFinishLine - cellXLapsOfSpaceship.
-		positionOfSpaceship updateLap:
-			(finishLine at: 2) - positionOfSpaceship lap ].
+	aNumberOfMovements := positionOfSpaceship
+		                      adjustPositionFor: aNumberOfMovements
+		                      with: finishLine.
 
-	positionOfSpaceship cell + aux > amountOfCells ifTrue: [
-		completedLaps := positionOfSpaceship cell + throwResult - 1
-		                 // amountOfCells + 1 - 1.
-		positionOfSpaceship updateLap: completedLaps.
-		nextCell := positionOfSpaceship cell + throwResult
-		            - (completedLaps * amountOfCells).
-		aux := nextCell - positionOfSpaceship cell ].
-
-	cellXLapsOfSpaceship + aux < 1 ifTrue: [
-		aux := 1 - positionOfSpaceship cell ].
-
-	^ aux
+	^ aNumberOfMovements
 ]
 
 { #category : #accessing }
