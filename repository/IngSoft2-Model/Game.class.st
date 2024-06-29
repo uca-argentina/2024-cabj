@@ -95,12 +95,6 @@ Game >> checkMoveIsPossible: throwResult for: aSpaceship [
 	^ aNumberOfMovements
 ]
 
-{ #category : #accessing }
-Game >> currentSpaceship [
-
-	^ currentSpaceship
-]
-
 { #category : #action }
 Game >> giveOneCardTo: aSpaceship [
 

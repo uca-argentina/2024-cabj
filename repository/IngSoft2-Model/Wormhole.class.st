@@ -29,12 +29,6 @@ Wormhole >> cell [
 	^ cellPosition
 ]
 
-{ #category : #'set and get' }
-Wormhole >> changeCellPositionTo: aCellPosition [
-
-	cellPosition := aCellPosition
-]
-
 { #category : #initialization }
 Wormhole >> initializeIn: aPosition to: anotherPosition [
 
