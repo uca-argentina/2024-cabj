@@ -3,10 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cell',
-		'lap',
-		'completedLaps',
-		'amountOfCells',
-		'index'
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }

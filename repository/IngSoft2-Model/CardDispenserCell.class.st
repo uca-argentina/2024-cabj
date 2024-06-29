@@ -1,9 +1,6 @@
 Class {
 	#name : #CardDispenserCell,
 	#superclass : #Cell,
-	#instVars : [
-		'game'
-	],
 	#category : #'IngSoft2-Model'
 }
 

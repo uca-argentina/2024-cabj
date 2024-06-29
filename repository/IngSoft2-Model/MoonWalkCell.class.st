@@ -2,8 +2,7 @@ Class {
 	#name : #MoonWalkCell,
 	#superclass : #Cell,
 	#instVars : [
-		'value',
-		'game'
+		'value'
 	],
 	#category : #'IngSoft2-Model'
 }

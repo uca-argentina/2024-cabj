@@ -4,7 +4,6 @@ Class {
 	#instVars : [
 		'turnManager',
 		'finishLine',
-		'anAmountOfIndex',
 		'board',
 		'spaceshipsCardHands',
 		'aActiveDeck',
