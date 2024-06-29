@@ -17,61 +17,187 @@ BoardCreatorTest >> should: anErrorBlock raise: anErrorClass withMessage: anErro
 { #category : #tests }
 BoardCreatorTest >> test01BoardCreatorInitializeThenGetCellsReturnsCells [
 
-	| aBoardCreator aWormholeCreator |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 10 20 20 10 8 2 ).
+	| aBoardCreator aWormholeCreator collectionOfCells |
+	collectionOfCells := OrderedCollection
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell.
 
-	self assert: aBoardCreator cells equals: 10
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+
+	self assert: aBoardCreator cells equals: 5
 ]
 
 { #category : #tests }
 BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
+	
+	
+	| aBoardCreator aWormholeCreator collectionOfCells |
+	collectionOfCells := OrderedCollection
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell
+		                     with: Cell.
 
-	| aBoardCreator aWormholeCreator |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 10 20 20 10 8 2 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	self assert: aBoardCreator laps equals: 1
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test03BoardCreatorGeneratesNumberBetweenOneAndOneHundred [
+BoardCreatorTest >> test03BoardCreatorCreatesBoardOfOnlyCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
 
-	| aBoardCreator aWormholeCreator |
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	| board aBoardCreator aWormholeCreator collectionOfCells |
 	
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 10 20 20 10 8 2 ).
+	collectionOfCells := OrderedCollection new.
+	
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: Cell ].
 
-	self assert: (aBoardCreator numberGenerator between: 1 and: 100)
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: nil.
+
+	self assert: ((board at: 1) isKindOf: Cell)
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test04BoardCreatorThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
+BoardCreatorTest >> test04BoardCreatorCreatesBoardOfOnlyBlackHoleCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
 
-	| aWormholeCreator |
+	| board aBoardCreator aWormholeCreator collectionOfCells |
+	
+	collectionOfCells := OrderedCollection new.
+	
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: BlackHoleCell ].
 
-	self
-		should: [
-			BoardCreator
-				withCellsAndLaps: #( 10 1 )
-				withWormholeCreator: aWormholeCreator
-				andSpecialCellsDistruibution: #( 41 20 20 10 8 2 ) ]
-		raise: Error
-		withMessage: 'Sum of probabilities must be lower or equal to one hundred'
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: nil.
+
+	self assert: ((board at: 1) isKindOf: BlackHoleCell)
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test05BoardCreatorCreatesBoardOfOnlyHyperGravityCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
+
+	| board aBoardCreator aWormholeCreator collectionOfCells |
+	
+	collectionOfCells := OrderedCollection new.
+	
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: HyperGravityCell ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: 10.
+
+	self assert: ((board at: 1) isKindOf: HyperGravityCell)
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test06BoardCreatorCreatesBoardOfOnlyMoonWalkCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
+
+	| board aBoardCreator aWormholeCreator collectionOfCells |
+	
+	collectionOfCells := OrderedCollection new.
+	
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: MoonWalkCell ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: 10.
+
+	self assert: ((board at: 1) isKindOf: MoonWalkCell)
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test07BoardCreatorCreatesBoardOfOnlyHyperJumpCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
+
+	| board aBoardCreator aWormholeCreator collectionOfCells |
+	
+	collectionOfCells := OrderedCollection new.
+	
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: HyperJumpCell ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: 10.
+
+	self assert: ((board at: 1) isKindOf: HyperJumpCell)
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test08BoardCreatorCreatesBoardOfOnlyAtomicBombCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
+
+	| board aBoardCreator aWormholeCreator collectionOfCells |
+	
+	collectionOfCells := OrderedCollection new.
+	
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: AtomicBombCell ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: 10.
+
+	self assert: ((board at: 1) isKindOf: AtomicBombCell)
+]
+
+{ #category : #tests }
+BoardCreatorTest >> test09BoardCreatorCreatesBoardOfOnlyCardDispenserCellsThenBoardHasOnlyCellsWhereThereIsntAWormhole [
+
+	| board aBoardCreator aWormholeCreator collectionOfCells |
+	
+	collectionOfCells := OrderedCollection new.
+	
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	
+	4 timesRepeat: [ collectionOfCells add: CardDispenserCell ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+		
+	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: 10.
+
+	self assert: ((board at: 1) isKindOf: CardDispenserCell)
 ]

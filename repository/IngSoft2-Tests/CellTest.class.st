@@ -15,16 +15,6 @@ CellTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 ]
 
 { #category : #tests }
-CellTest >> test01CellInitializeWithPositionThenEnterReturnsIt [ 
-
-	| aCell |
-	aCell := Cell position: 1.
-
-	self assert: aCell enter equals: 1
-
-]
-
-{ #category : #tests }
 CellTest >> test02PositionOfTheCellHasToBeGreaterThanZero [ 
 
 	self
@@ -32,13 +22,4 @@ CellTest >> test02PositionOfTheCellHasToBeGreaterThanZero [
 		raise: Error
 		withMessage: 'A cell must have position greater than zero'
 
-]
-
-{ #category : #tests }
-CellTest >> test03CellExitThenReturnsTrue [
-
-	| aCell |
-	aCell := Cell position: 1.
-
-	self assert: (aCell exit: 3)
 ]

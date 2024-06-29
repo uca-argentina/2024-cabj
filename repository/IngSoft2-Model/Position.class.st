@@ -3,10 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cell',
-		'lap',
-		'completedLaps',
-		'amountOfCells',
-		'index'
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,6 +14,29 @@ Position class >> startGame [
 	^ self new initializeStartGame
 ]
 
+{ #category : #checking }
+Position >> adjustPositionFor: aNumberOfMovements with: aFinishLine [
+
+	| aux cellXLapsOfFinishLine amountOfCells completedLaps nextCell |
+	aux := aNumberOfMovements.
+	amountOfCells := aFinishLine at: 1.
+	cellXLapsOfFinishLine := (aFinishLine at: 1) * (aFinishLine at: 2).
+	self cellsXLaps + aNumberOfMovements > cellXLapsOfFinishLine ifTrue: [
+		aux := cellXLapsOfFinishLine - self cellsXLaps.
+		self updateLap: (aFinishLine at: 2) - lap ].
+
+	cell + aux > amountOfCells ifTrue: [
+		completedLaps := cell + aNumberOfMovements - 1 // amountOfCells + 1
+		                 - 1.
+		self updateLap: completedLaps.
+		nextCell := cell + aNumberOfMovements
+		            - (completedLaps * amountOfCells).
+		aux := nextCell - cell ].
+
+	self cellsXLaps + aux < 1 ifTrue: [ aux := 1 - cell ].
+	^ aux
+]
+
 { #category : #accessing }
 Position >> cell [
 
@@ -24,22 +44,9 @@ Position >> cell [
 ]
 
 { #category : #'set and get' }
-Position >> completedLaps [
+Position >> cellsXLaps [
 
-	^ completedLaps
-]
-
-{ #category : #'set and get' }
-Position >> completedLapsWith: anAmountOfCells [
-
-	completedLaps := anAmountOfCells * (self lap - 1).
-	^ completedLaps
-]
-
-{ #category : #'set and get' }
-Position >> index [
-
-	^ index
+^ cell * lap
 ]
 
 { #category : #initialization }
@@ -65,27 +72,16 @@ Position >> position [
 Position >> resetToOne [
 
 	cell := 1.
-	index := cell * lap
 ]
 
 { #category : #'set and get' }
-Position >> updateCellAndLapWith: anIndex [
+Position >> updateCell: aNumber [
 
-	anIndex < 1 ifTrue: [
-		cell := 1.
-		lap := 1.
-		self updateIndexWith: amountOfCells.
-		^ self ].
-	cell := anIndex - 1 \\ amountOfCells + 1.
-	lap := anIndex - 1 // amountOfCells + 1.
-
-	self updateIndexWith: amountOfCells
+	cell := cell + aNumber
 ]
 
 { #category : #'set and get' }
-Position >> updateIndexWith: anAmountOfCells [
+Position >> updateLap: aNumber [
 
-	amountOfCells := anAmountOfCells.
-	index := self cell + (self completedLapsWith: anAmountOfCells).
-	^ index
+	lap := lap + aNumber
 ]

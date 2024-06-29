@@ -1,6 +1,6 @@
 Class {
 	#name : #CancellationCard,
-	#superclass : #InstantCard,
+	#superclass : #Object,
 	#instVars : [
 		'cardToCancel'
 	],
@@ -8,33 +8,26 @@ Class {
 }
 
 { #category : #'instance creation' }
-CancellationCard class >> cancel: aCard [
+CancellationCard class >> toDoEffectFor: aCard [
 
-	^ self new initializeCancel: aCard
+	^ self new initializeToDoEffectFor: aCard
 ]
 
-{ #category : #'instance creation' }
-CancellationCard class >> redo: aCard [
+{ #category : #comparing }
+CancellationCard >> = aCard [
 
-	^ self new initializeCancel: aCard
+	^ self class == aCard class
 ]
 
 { #category : #accessing }
 CancellationCard >> activateEffectOn: aGame forSpaceship: anId [
 	
-	aGame activeDeck instantCardPlayed: self.
-	aGame activeDeck removeACard: cardToCancel
+	aGame removeTheCard: cardToCancel andSaveTheLastInstantCardPlayed: self.
+	
 ]
 
 { #category : #initialization }
-CancellationCard >> initializeCancel: aCard [
+CancellationCard >> initializeToDoEffectFor: aCard [
 
 	cardToCancel := aCard
-]
-
-{ #category : #accessing }
-CancellationCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
-	
-	aGame activeDeck instantCardPlayed: self.
-	aGame activeDeck removeACard: aCardToCancel
 ]

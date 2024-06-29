@@ -20,21 +20,17 @@ HyperJumpCell class >> withPosition: aPosition Conversor: aConversor andValues: 
 ]
 
 { #category : #action }
-HyperJumpCell >> enter [
+HyperJumpCell >> applyEffectTo: aSpaceship on: aGame [
 
-	| convertionOfNextValue |
+	| convertionOfNextValue aNumberOfMovements |
 	convertionOfNextValue := conversor convert: currentValue.
 	previousValue := currentValue.
 	self nextValue.
-	^ cellPosition + convertionOfNextValue
-]
-
-{ #category : #action }
-HyperJumpCell >> enterWithoutTurn: aSpaceship [
-
-	| convertionOfNextValue |
-	convertionOfNextValue := conversor convert: previousValue.
-	^ cellPosition + convertionOfNextValue
+	aNumberOfMovements := aGame
+		                      checkMoveIsPossible: convertionOfNextValue
+		                      for: aSpaceship.
+	aSpaceship move: aNumberOfMovements.
+	aGame checkAndHandleFuelDepletion: aSpaceship
 ]
 
 { #category : #initialization }

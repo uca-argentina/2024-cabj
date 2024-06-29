@@ -1,34 +1,34 @@
 Class {
 	#name : #RedoCard,
-	#superclass : #InstantCard,
+	#superclass : #Object,
 	#instVars : [
-		'idForCard',
-		'cardToCancel'
+		'idOrCardToRedo'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-RedoCard class >> forSpaceshipId: anId orCardToCancel: aCard [
+RedoCard class >> forCardWith: anIdOrCard [
 
-	^ self new initializeForSpaceshipId: anId orCardToCancel: aCard
+	^ self new initializeForCardWith: anIdOrCard
+]
+
+{ #category : #comparing }
+RedoCard >> = aCard [
+
+	^ self class == aCard class
 ]
 
 { #category : #accessing }
 RedoCard >> activateEffectOn: aGame forSpaceship: anId [
 
-	| cardToActivate activeDeck |
-	activeDeck := aGame activeDeck.
-	cardToActivate := activeDeck lastCardPlayed redo: idForCard.
-	cardToActivate
-		withRedoEffectOn: aGame
-		forSpaceship: anId
-		orCardToCancel: cardToCancel.
+	| cardToRedo |
+	cardToRedo := aGame lastCardPlayed toDoEffectFor: idOrCardToRedo.
+	cardToRedo activateEffectOn: aGame forSpaceship: anId.
 ]
 
 { #category : #initialization }
-RedoCard >> initializeForSpaceshipId: anId orCardToCancel: aCard [
+RedoCard >> initializeForCardWith: anIdOrCard [
 
-	idForCard := anId.
-	cardToCancel := aCard
+	idOrCardToRedo := anIdOrCard
 ]

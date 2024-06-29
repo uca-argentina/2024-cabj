@@ -3,10 +3,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'collectionActualPosition',
 		'aFuelTank',
 		'allySpaceship',
-		'fuelDepleted'
+		'fuelDepleted',
+		'position'
 	],
 	#classInstVars : [
 		'counterId'
@@ -30,9 +30,9 @@ Spaceship class >> launchWithFuel: anAmountOfFuel [
 Spaceship >> > aSpaceship [
 
 	| completedLaps aSpaceshipCompletedLaps cellPosition aSpaceshipCellPosition |
-	completedLaps := collectionActualPosition completedLaps.
-	aSpaceshipCompletedLaps := aSpaceship objectPosition completedLaps.
-	cellPosition := collectionActualPosition cell.
+	completedLaps := position lap - 1.
+	aSpaceshipCompletedLaps := aSpaceship objectPosition lap -1.
+	cellPosition := position cell.
 	aSpaceshipCellPosition := aSpaceship objectPosition cell.
 
 	^ completedLaps > aSpaceshipCompletedLaps
@@ -70,7 +70,7 @@ Spaceship >> id [
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-	collectionActualPosition := Position startGame.
+	position := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId.
 	fuelDepleted := aFuelTank areBothEmpty.
@@ -86,12 +86,7 @@ Spaceship >> loadFuel [
 { #category : #action }
 Spaceship >> move: aNumberOfMovements [
 
-	| actualIndex nextIndex completedLaps |
-	actualIndex := collectionActualPosition index.
-	nextIndex := aNumberOfMovements + actualIndex.
-	completedLaps := collectionActualPosition completedLaps.
-
-	collectionActualPosition updateCellAndLapWith: nextIndex.
+	position updateCell: aNumberOfMovements.
 
 	aFuelTank useFuel: aNumberOfMovements abs.
 
@@ -107,17 +102,17 @@ Spaceship >> objectFuelTank [
 { #category : #'set and get' }
 Spaceship >> objectPosition [
 
-	^ collectionActualPosition
+	^ position
 ]
 
 { #category : #initialization }
 Spaceship >> resetToOne [
 
-	| completedLaps |
-	fuelDepleted := aFuelTank isEmpty .
-	completedLaps := collectionActualPosition completedLaps.
+	| currentCell |
+	fuelDepleted := aFuelTank isEmpty.
+	currentCell := position cell.
 
-	collectionActualPosition updateCellAndLapWith: completedLaps + 1.
+	position updateCell: 1 - currentCell.
 
 	(allySpaceship = self or: allySpaceship fuelDepleted) ifFalse: [
 		allySpaceship resetToOne ]

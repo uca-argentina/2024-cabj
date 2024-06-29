@@ -1,8 +1,30 @@
 Class {
 	#name : #GameLoadedDieTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'aLoadedDie',
+		'aWormholeCreator',
+		'collectionOfCells',
+		'aBoardCreator'
+	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #running }
+GameLoadedDieTest >> setUp [
+
+	aLoadedDie := LoadedDie of: #( 6 ).
+
+	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
+	collectionOfCells := OrderedCollection new.
+
+	15 timesRepeat: [ collectionOfCells add: Cell ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
+]
 
 { #category : #asserting }
 GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [ 
@@ -12,87 +34,67 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 { #category : #testsGame002 }
 GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-
-
-	position := OrderedCollection with: 7 with: 1.
-	self assert: aGame moveSpaceship equals: position
-]
-
-{ #category : #testsGame002 }
-GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
-
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 5 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 15 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aGame result |
 
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
+	result:= Dictionary new.
+	result at:1 put:7..
+	self assert: aGame spaceships cellsOfSpaceships  equals: result
+]
 
-	position := OrderedCollection with: 12 with: 1.
-	self assert: aGame moveSpaceship equals: position
+{ #category : #testsGame002 }
+GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
+
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 6 5 ).
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         withBoardCreator: aBoardCreator
+		         playWithDice: aLoadedDie.
+	aGame moveSpaceship.
+	aGame moveSpaceship .
+	
+	result:=Dictionary new.
+	result at:1 put:12.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result.
 ]
 
 { #category : #testsGame002 }
 GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOtherSide [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 5 ).
 	aWormholeCreator := WormholeCreator
 		                    withBeginning: 6
 		                    andEnd: 8.
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 15 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 1
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
-
-	position := OrderedCollection with: 8 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	aGame moveSpaceship .	
+	result:=Dictionary new.
+	result at:1 put:8.
+	self assert: aGame spaceships cellsOfSpaceships  equals: result
 ]
 
 { #category : #testsGame002 }
 GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
-	| aGame aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
-
+	| aGame resultOfGame |
+	aLoadedDie := LoadedDie of: #( 14 ).
+	
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
@@ -100,25 +102,17 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 12 with: 1).
+	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
 	aGame moveSpaceship.
 
-	self assert: aGame moveSpaceship equals: resultOfGame
+	self assert: aGame spaceships positionsOfSpaceships equals: resultOfGame
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 6 6 5 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 50 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -126,25 +120,20 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-
-	position := OrderedCollection with: 12 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	aGame moveSpaceship.
+		
+	result:=Dictionary new.
+	result at:1 put:12.
+	result at:2 put:7.
+	self assert: aGame spaceships cellsOfSpaceships  equals: result
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
-
+	| aGame |
+	aLoadedDie := LoadedDie of: #( 13 2 1 3 ).
+	
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
@@ -161,24 +150,17 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 { #category : #tests }
 GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
-	| aGame aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
-
+	| aGame resultOfGame |
+	
+	aLoadedDie := LoadedDie of: #( 13 6 1 ).
+	
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 12 with: 1).
+	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
 	resultOfGame at: 2 put: (OrderedCollection with: 7 with: 1).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -189,16 +171,7 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 { #category : #tests }
 GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 6 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aGame |
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -212,16 +185,8 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 { #category : #tests }
 GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinnerReturnsTwo [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator |
+	| aGame |
 	aLoadedDie := LoadedDie of: #( 3 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 6 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -236,41 +201,25 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 { #category : #tests }
 GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	aGame moveSpaceship.
-
-
-	position := OrderedCollection with: 1 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	aGame moveSpaceship .	
+	result:=Dictionary new.
+	result at:1 put:1.
+	self assert: aGame spaceships cellsOfSpaceships  equals: result.
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -279,24 +228,19 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
+	aGame moveSpaceship.
+	
+	result:=Dictionary new.
+	result at:1 put:4.
 
-	position := OrderedCollection with: 4 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFuel [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -305,24 +249,19 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
+	
+	aGame moveSpaceship .	
+	result:=Dictionary new.
+	result at:1 put:7.
 
-	position := OrderedCollection with: 7 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	self assert: aGame spaceships cellsOfSpaceships  equals: result
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceshipCanReloadTheFuelAndMove [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
+	| aGame result |
 	aLoadedDie := LoadedDie of: #( 3 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 20 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -332,49 +271,50 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-
-	position := OrderedCollection with: 7 with: 1.
-	self assert: aGame moveSpaceship equals: position
+	
+	aGame moveSpaceship .	
+	result:=Dictionary new.
+	result at:1 put:1.
+	result at:2 put:7.
+	self assert: aGame spaceships cellsOfSpaceships  equals: result.
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipReturnsLapTwo [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 5 4 2 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 5 4 7 ).
+	
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
+		
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
+	aGame moveSpaceship .	
+	result:=Dictionary new.
+	result at:1 put:2.
 
-	self assert: (aGame moveSpaceship at: 2) equals: 2
+	self assert: (aGame spaceships lapsOfSpaceships ) equals: result.
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTurns [
 
-	| aGame aLoadedDie position aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 5 4 1 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 5 4 6 ).
 
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -384,30 +324,25 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
 	aGame moveSpaceship.
-	position := OrderedCollection with: 6 with: 2.
-	self assert: aGame moveSpaceship equals: position
+	aGame reloadSpaceship.
+	aGame moveSpaceship.	
+	result:=Dictionary new.
+	result at:1 put:(OrderedCollection with: 6 with: 2).
+	self assert: aGame spaceships positionsOfSpaceships  equals: result.
 ]
 
 { #category : #tests }
 GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships [
 
-	| aGame aLoadedDie resultOfPositions aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aGame resultOfPositions |
+	aLoadedDie := LoadedDie of: #( 13 6 1 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 	resultOfPositions := Dictionary new.
-	resultOfPositions at: 1 put: 12.
+	resultOfPositions at: 1 put: 15.
 	resultOfPositions at: 2 put: 7.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -421,16 +356,13 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 { #category : #tests }
 GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
-	| aGame aLoadedDie resultOfLaps aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 6 3 12 6 1 6 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
+	| aGame resultOfLaps |
+	aLoadedDie := LoadedDie of: #( 15 3 14 ).
+	
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -450,16 +382,13 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 { #category : #tests }
 GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEachSpaceship [
 
-	| aGame aLoadedDie resultOfGame aBoardCreator aWormholeCreator |
-	aLoadedDie := LoadedDie of: #( 20 5 4 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
+	| aGame resultOfGame |
+	aLoadedDie := LoadedDie of: #( 24 5 5 ).
+	
 	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -467,7 +396,7 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 		         playWithDice: aLoadedDie.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 12 with: 2).
+	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 2).
 	resultOfGame at: 2 put: (OrderedCollection with: 6 with: 1).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -478,16 +407,8 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 { #category : #tests }
 GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIsInTheSecondPlaceAndTheSpaceshipIsInTheThirdPlaceThenTheRankingIsTwoOneThree [
 
-	| aGame aLoadedDie rankingOfSpaceships aBoardCreator aWormholeCreator idRanking |
-	aLoadedDie := LoadedDie of: #( 12 18 5 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aGame rankingOfSpaceships idRanking |
+	aLoadedDie := LoadedDie of: #( 12 13 5 ).
 
 	aGame := Game
 		         numberOfSpaceships: 3
@@ -510,16 +431,8 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 { #category : #tests }
 GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfTheThreeFirstsSpaceships [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator rankingOfSpaceships idRanking |
-	aLoadedDie := LoadedDie of: #( 12 20 5 1 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 2
-		                    andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 12 2 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
+	| aGame rankingOfSpaceships idRanking |
+	aLoadedDie := LoadedDie of: #( 12 13 5 1 ).
 
 	aGame := Game
 		         numberOfSpaceships: 4
@@ -543,14 +456,8 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 { #category : #tests }
 GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResultOfDice [
 
-	| aGame aLoadedDie aBoardCreator aWormholeCreator spaceship |
+	| aGame spaceship |
 	aLoadedDie := LoadedDie of: #( 4 ).
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 0 0 0 0 0 0 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1

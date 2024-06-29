@@ -44,21 +44,22 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 	spaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
 		aSpaceship := Spaceship launchWithFuel: fuel.
-		spaceships add: aSpaceship.
-		aSpaceship objectPosition updateIndexWith: amountOfCells ].
+		spaceships add: aSpaceship ].
 	Spaceship initialize
 ]
 
-{ #category : #copying }
-CollectionOfSpaceships >> copy [
+{ #category : #collection }
+CollectionOfSpaceships >> detectSpaceshipWithId: aSpaceshipId [
 
-	^ spaceships copy
+	^ spaceships detect: [ :spaceship | spaceship id = aSpaceshipId ]
 ]
 
-{ #category : #enumerating }
-CollectionOfSpaceships >> detect: aBlock [
+{ #category : #collection }
+CollectionOfSpaceships >> each: aBlock but: aSpaceshipToSkip [
 
-	^ spaceships detect: aBlock
+	spaceships do: [ :spaceship |
+		aSpaceshipToSkip id = spaceship id ifFalse: [
+			aBlock value: spaceship ] ]
 ]
 
 { #category : #accessing }
@@ -115,10 +116,4 @@ CollectionOfSpaceships >> ranking [
 CollectionOfSpaceships >> size [
 
 	^ spaceships size
-]
-
-{ #category : #accessing }
-CollectionOfSpaceships >> spaceships [
-
-	^ self
 ]

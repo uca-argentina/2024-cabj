@@ -4,17 +4,68 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+EffectManagerTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #tests }
-EffectManagerTest >> test01EffectManagerInitializeThenDictionaryIsOfSizeOneHundred [
+EffectManagerTest >> test02EffectManagerCreatesCollectionOfEffectsSizeTwoThenCollectionSizeEqualsTwo [
 
-	| aBoardCreator aWormholeCreator aEffectManager |
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
-	aBoardCreator := BoardCreator
-		                 withCellsAndLaps: #( 10 1 )
-		                 withWormholeCreator: aWormholeCreator
-		                 andSpecialCellsDistruibution: #( 50 20 0 0 0 0 ).
+	| aEffectManager array collection |
+	array := OrderedCollection with: Cell.
+	aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 100 ).
 
-	aEffectManager := EffectManager for: aBoardCreator probabilitiesDistribution: #( 50 20 0 0 0 0 ).
+	collection := aEffectManager createCollectionSize: 2.
 
-	self assert: aEffectManager dictionaryOfProbabilities size equals: 100
+	self assert: collection size equals: 2
+]
+
+{ #category : #tests }
+EffectManagerTest >> test03EffectManagerManagesOnlyOneObjectThenCollectionCreatedOnlyHasThatObject [
+
+	| aEffectManager array collection |
+	array := OrderedCollection with: Cell.
+	aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 100 ).
+
+	collection := aEffectManager createCollectionSize: 100.
+
+	self assert: ((collection at: 100 atRandom) = Cell)
+]
+
+{ #category : #tests }
+EffectManagerTest >> test04EffectManagerThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
+
+	| array aEffectManager |
+	array := OrderedCollection with: Cell with: BlackHoleCell.
+	self
+		should: [
+			aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 80 30 ). ]
+		raise: Error
+		withMessage: 'Sum of probabilities must be equal to one hundred'
+]
+
+{ #category : #tests }
+EffectManagerTest >> test05EffectManagerThrowsErrorWhenSizesOfCollectionsRecivedDoNotMatch [
+
+	| array aEffectManager |
+	array := OrderedCollection with: Cell with: BlackHoleCell with: AtomicBombCell.
+	self
+		should: [
+			aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 80 20 ). ]
+		raise: Error
+		withMessage: 'Size of objects to manage must be equal to size of distribution probabilities'
 ]

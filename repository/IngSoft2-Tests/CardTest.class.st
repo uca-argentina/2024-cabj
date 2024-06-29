@@ -15,15 +15,6 @@ CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 ]
 
 { #category : #tests }
-CardTest >> test02ActiveDeckInitializeThenActiveCardsEqualsZero [
-
-	| aActiveDeck |
-	aActiveDeck := ActiveDeck startGame.
-
-	self assert: aActiveDeck cards size equals: 0
-]
-
-{ #category : #tests }
 CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
 
 	| aGameDeck |
@@ -47,10 +38,10 @@ CardTest >> test06SpaceshipCardHandGainsACardThenAmountOfCardsEqualsThree [
 CardTest >> test07ActiveDeckRemoveOverloadCardThenNoEffectOnThatId [
 	| aActiveDeck |
 	aActiveDeck := ActiveDeck startGame.
-	aActiveDeck activate: (OverloadCard reduceThrowOf: 2).
-	aActiveDeck activate: (OverloadCard reduceThrowOf: 3).
+	aActiveDeck activate: (OverloadCard toDoEffectFor: 2).
+	aActiveDeck activate: (OverloadCard toDoEffectFor: 3).
 	
-	aActiveDeck removeACard: (OverloadCard reduceThrowOf: 3).
+	aActiveDeck removeACard: (OverloadCard toDoEffectFor: 3).
 
 	self assert: (aActiveDeck applyEffectOn: 10 withCurrentSpaceship: 3) equals: 10
 ]

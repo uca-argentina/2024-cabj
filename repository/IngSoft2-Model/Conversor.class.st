@@ -20,7 +20,7 @@ Conversor >> convert: aMetric [
 
 	| valueToConvert |
 	valueToConvert := aMetric convertToParsec.
-	^ valueToConvert * oneToOneRatio
+	^ (valueToConvert * oneToOneRatio) asInteger
 ]
 
 { #category : #initialization }

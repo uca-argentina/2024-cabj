@@ -2,45 +2,30 @@ Class {
 	#name : #MoonWalkCell,
 	#superclass : #Cell,
 	#instVars : [
-		'value',
-		'game'
+		'value'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition on:aGame [
-
+MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition [ 
 	^ self new
 		  initializeWithValueToMove: aValue
 		  inPosition: aPosition
-		  on:aGame
+		  
 ]
 
 { #category : #action }
-MoonWalkCell >> enter [
+MoonWalkCell >> applyEffectTo: aSpaceship on:aGame [
 
-	game
-		moveAllTheSpaceshipsExcept: game currentSpaceship
-		withValueToMove: value negated.
-
-	^ cellPosition
-]
-
-{ #category : #action }
-MoonWalkCell >> enterWithoutTurn: aSpaceship [
-
-	game
+	aGame
 		moveAllTheSpaceshipsExcept: aSpaceship
 		withValueToMove: value negated.
-
-	^ cellPosition
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition on: aGame [
+MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition [
 
 	value := aValue.
-	cellPosition := aPosition.
-	game := aGame
+	cellPosition := aPosition
 ]

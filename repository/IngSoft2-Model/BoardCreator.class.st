@@ -2,63 +2,64 @@ Class {
 	#name : #BoardCreator,
 	#superclass : #Object,
 	#instVars : [
-		'collectionAmountOfCellsAndLaps',
-		'percentagesOfDistrubitionSpecialCells',
 		'wormholeCreator',
 		'game',
-		'throwResult',
 		'board',
-		'counterForIndex',
-		'counterForPosition'
+		'counterForPosition',
+		'laps',
+		'cells',
+		'maxThrow'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-BoardCreator class >> withCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells [
+BoardCreator class >> with: collectionOfCells ofLaps: numberOfLaps withWormholeCreator: aWormholeCreator [
 
-(percentagesOfDistrubitionSpecialCells sum <= 100) ifFalse: [ Error signal: 'Sum of probabilities must be lower or equal to one hundred'].
-
-^(self new) initializeWithCellsAndLaps: collectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator  andSpecialCellsDistruibution: percentagesOfDistrubitionSpecialCells
+	^ self new
+		  initializeWith: collectionOfCells
+		  ofLaps: numberOfLaps
+		  withWormholeCreator: aWormholeCreator
 ]
 
 { #category : #'set and get' }
 BoardCreator >> cells [
 
-	^ collectionAmountOfCellsAndLaps at: 1
+	^ cells size
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createAtomicBombCells [
 
-	board add:
-		(AtomicBombCell withPostion: counterForPosition onTheGame: game).
-	self nextPosition
+	board add: (AtomicBombCell position: counterForPosition).
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createBlackHoleCells [
 
 	board add: (BlackHoleCell position: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #creation }
-BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowResult [
+BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aNumber [
 
-	| amountOfCells anAmountOfIndex aEffectManager |
+	| amountOfCells anAmountOfIndex |
 	game := aGame.
-	throwResult := aThrowResult.
-	amountOfCells := self cells.
-	anAmountOfIndex := amountOfCells * self laps.
+	maxThrow := aNumber.
+	amountOfCells := cells size.
+	anAmountOfIndex := amountOfCells * laps.
 
-	aEffectManager := EffectManager
-		                  for: self
-		                  probabilitiesDistribution:
-		                  percentagesOfDistrubitionSpecialCells.
-
-	anAmountOfIndex timesRepeat: [
-		(aEffectManager createEffect: self numberGenerator) value ].
+	cells do: [ :eachClass |
+		eachClass = Cell ifTrue: [ self createCells ].
+		eachClass = BlackHoleCell ifTrue: [ self createBlackHoleCells ].
+		eachClass = AtomicBombCell ifTrue: [ self createAtomicBombCells ].
+		eachClass = CardDispenserCell ifTrue: [
+			self createCardDispenserCells ].
+		eachClass = MoonWalkCell ifTrue: [ self createMoonWalkCells ].
+		eachClass = HyperJumpCell ifTrue: [ self createHyperJumpCells ].
+		eachClass = HyperGravityCell ifTrue: [ self createHyperGravityCells ] ].
 
 	self createWormhole.
 
@@ -69,97 +70,79 @@ BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aThrowRe
 BoardCreator >> createCardDispenserCells [
 
 	board add:
-		(CardDispenserCell withPostion: counterForPosition onTheGame: game).
-	self nextPosition
+		(CardDispenserCell position: counterForPosition ).
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createCells [
 
 	board add: (Cell position: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createHyperGravityCells [
 
 	board add: (HyperGravityCell
-			 withValueToMove: throwResult atRandom
+			 withValueToMove: maxThrow//2
 			 inPosition: counterForPosition).
-	self nextPosition
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createHyperJumpCells [
 
-	| amountOfCells parsecs |
-	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
-	parsecs := Conversor
-		           totalCells: amountOfCells
-		           convertionValue: amountOfCells // 2.
+	| amountOfCells aConversor values |
+	amountOfCells := cells size.
+	aConversor := Conversor
+		              totalCells: amountOfCells
+		              convertionValue: amountOfCells * 2.
+	values := OrderedCollection
+		          with: (Parsecs ofValue: 10)
+		          with: (Parsecs ofValue: 8)
+		          with: (Parsecs ofValue: 6)
+		          with: (Parsecs ofValue: 4).
 
 	board add: (HyperJumpCell
 			 withPosition: counterForPosition
-			 Conversor: parsecs
-			 andValues: #( 10 8 6 4 2 )).
-	self nextPosition
+			 Conversor: aConversor
+			 andValues: values).
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createMoonWalkCells [
 
 	| amountOfCells |
-	amountOfCells := collectionAmountOfCellsAndLaps at: 1.
+	amountOfCells := cells size.
 	board add: (MoonWalkCell
-			 withValueToMove: amountOfCells atRandom
-			 inPosition: counterForPosition
-			 on: game).
-	self nextPosition
+			 withValueToMove: 4
+			 inPosition: counterForPosition).
+	counterForPosition := counterForPosition + 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> createWormhole [
 
-	| positionWithinLap anAmountOfCells anAmountOfLaps |
-	anAmountOfCells := self cells.
-	anAmountOfLaps := self laps.
-
-	1 to: anAmountOfLaps do: [ :lap |
-		positionWithinLap := anAmountOfCells * (lap - 1).
-		board
-			at: wormholeCreator beginning enter + positionWithinLap
-			put: wormholeCreator ending.
-		board
-			at: wormholeCreator ending enter + positionWithinLap
-			put: wormholeCreator beginning ]
+	board
+		at: wormholeCreator beginning cell
+		put: wormholeCreator beginning.
+	board at: wormholeCreator ending cell put: wormholeCreator ending
 ]
 
 { #category : #initialization }
-BoardCreator >> initializeWithCellsAndLaps: aCollectionAmountOfCellsAndLaps withWormholeCreator: aWormholeCreator andSpecialCellsDistruibution: aPercentagesOfDistrubitionSpecialCells [
-
-	collectionAmountOfCellsAndLaps := aCollectionAmountOfCellsAndLaps.
+BoardCreator >> initializeWith: collectionOfCells ofLaps: numberOfLaps withWormholeCreator: aWormholeCreator [ 
+	
+	laps := numberOfLaps.
+	cells := collectionOfCells.
 	wormholeCreator := aWormholeCreator.
-	percentagesOfDistrubitionSpecialCells := aPercentagesOfDistrubitionSpecialCells.
 	board := OrderedCollection new.
 	counterForPosition := 1.
-	counterForIndex := 1
 ]
 
 { #category : #'set and get' }
 BoardCreator >> laps [
 
-	^ collectionAmountOfCellsAndLaps at: 2
-]
-
-{ #category : #position }
-BoardCreator >> nextPosition [
-
-	counterForIndex := counterForIndex + 1.
-	counterForPosition := counterForIndex - 1 \\ self cells + 1
-]
-
-{ #category : #random }
-BoardCreator >> numberGenerator [
-
-	^ 100 atRandom
+	^ laps
 ]

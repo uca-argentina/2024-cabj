@@ -17,7 +17,7 @@ ActiveDeck class >> startGame [
 { #category : #convenience }
 ActiveDeck >> activate: aCard [
 
-	cards add: aCard.
+	aCard class superclass = PermanentCard ifTrue: [ cards add: aCard ].
 	lastCardPlayed := aCard class
 ]
 
@@ -32,22 +32,10 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 	^ auxNumber
 ]
 
-{ #category : #accessing }
-ActiveDeck >> cards [
-
-	^ cards
-]
-
 { #category : #initialization }
 ActiveDeck >> initializeStartGame [
 
 	cards := OrderedCollection new
-]
-
-{ #category : #'set and get' }
-ActiveDeck >> instantCardPlayed: aCard [
-
-	lastCardPlayed := aCard class
 ]
 
 { #category : #accessing }
@@ -60,9 +48,11 @@ ActiveDeck >> lastCardPlayed [
 ActiveDeck >> removeACard: cardToCancel [
 
 	| anIndex indexToRemove |
+	indexToRemove := 0.
 	anIndex := 1.
 	cards do: [ :card |
-		(card compare: cardToCancel) ifTrue: [ indexToRemove := anIndex ].
+		(card isExactlyTheSameCard: cardToCancel) ifTrue: [
+			indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
 	(cards at: indexToRemove) deactivate.
 	cards removeAt: indexToRemove

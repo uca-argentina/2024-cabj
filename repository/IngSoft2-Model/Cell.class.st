@@ -13,28 +13,10 @@ Cell class >> position: aPosition [
 	^(self new) initializePosition: aPosition.
 ]
 
-{ #category : #'set and get' }
-Cell >> changeCellPositionTo: aCellPosition [
-
-	cellPosition := aCellPosition
-]
-
 { #category : #action }
-Cell >> enter [
+Cell >> applyEffectTo: aSpaceship on:aGame [
 
-	^ cellPosition
-]
 
-{ #category : #action }
-Cell >> enterWithoutTurn: aSpaceship [
-
-	^ cellPosition
-]
-
-{ #category : #action }
-Cell >> exit: aValue [
-
-	^ true
 ]
 
 { #category : #initialization }

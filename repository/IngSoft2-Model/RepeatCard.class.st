@@ -1,6 +1,6 @@
 Class {
 	#name : #RepeatCard,
-	#superclass : #InstantCard,
+	#superclass : #Object,
 	#instVars : [
 		'spaceshipId'
 	],
@@ -8,59 +8,32 @@ Class {
 }
 
 { #category : #'instance creation' }
-RepeatCard class >> redo: aSpaceshipId [
+RepeatCard class >> toDoEffectFor: aSpaceshipId [
 
-	^ self new initializeRepeatEffectFor: aSpaceshipId
+	^ self new initializeToDoEffectFor: aSpaceshipId
 ]
 
-{ #category : #'instance creation' }
-RepeatCard class >> repeatEffectFor: anId [
+{ #category : #comparing }
+RepeatCard >> = aCard [
 
-	^ self new initializeRepeatEffectFor: anId
+	^ self class == aCard class
 ]
 
 { #category : #accessing }
 RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 
-	| spaceshipToApplyEffect cellPosition cellToEnter cellOfSpaceship |
-	aGame activeDeck instantCardPlayed: self.
-	spaceshipToApplyEffect := aGame spaceships detect: [ :spaceship |
-		                          spaceship id = spaceshipId ].
-	cellPosition := spaceshipToApplyEffect objectPosition cell.
+	| spaceshipToApplyEffect cellToEnter cellOfSpaceship |
+	aGame activateCard: self.
+	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
 
-	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
-		               cellPosition.
+	cellToEnter := aGame lastCellEffect.
 
-	cellOfSpaceship := cellToEnter enterWithoutTurn:
-		                   spaceshipToApplyEffect.
-
-	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
-
-	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
+	cellOfSpaceship := cellToEnter applyEffectTo:
+		                   spaceshipToApplyEffect on: aGame.
 ]
 
 { #category : #initialization }
-RepeatCard >> initializeRepeatEffectFor: anId [
+RepeatCard >> initializeToDoEffectFor: aSpaceshipId [
 
-	spaceshipId := anId
-]
-
-{ #category : #accessing }
-RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
-
-	| spaceshipToApplyEffect cellPosition cellToEnter cellOfSpaceship |
-	aGame activeDeck instantCardPlayed: self.
-	spaceshipToApplyEffect := aGame spaceships detect: [ :spaceship |
-		                          spaceship id = spaceshipId ].
-	cellPosition := spaceshipToApplyEffect objectPosition cell.
-
-	cellToEnter := aGame lastCellEffect copy changeCellPositionTo:
-		               cellPosition.
-
-	cellOfSpaceship := cellToEnter enterWithoutTurn:
-		                   spaceshipToApplyEffect.
-
-	spaceshipToApplyEffect move: cellOfSpaceship - cellPosition.
-
-	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
+	spaceshipId := aSpaceshipId
 ]
