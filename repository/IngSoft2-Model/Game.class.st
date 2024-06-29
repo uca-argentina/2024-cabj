@@ -101,7 +101,7 @@ Game >> currentSpaceship [
 	^ currentSpaceship
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #action }
 Game >> giveOneCardTo: aSpaceship [
 
 	(spaceshipsCardHands at: aSpaceship id) gainACard
@@ -192,7 +192,6 @@ Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult cellXLaps |
 	throwResult := self throwDiceAndCheckReward.
-	
 	throwResult := self checkMoveIsPossible: throwResult.
 	
 	positionOfSpaceship := currentSpaceship objectPosition.
@@ -201,13 +200,11 @@ Game >> moveSpaceship [
 	currentSpaceship move: throwResult.
 
 	cellToEnter := board at: positionOfSpaceship cell.
-
 	cellToEnter applyEffectTo: currentSpaceship on: self.
-
-	positionOfSpaceship := currentSpaceship objectPosition position.
 
 	self checkAndHandleFuelDepletion: currentSpaceship.
 
+	positionOfSpaceship := currentSpaceship objectPosition position.
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].

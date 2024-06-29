@@ -68,7 +68,7 @@ BoardCreatorTest >> test03BoardCreatorCreatesBoardOfOnlyCellsThenBoardHasOnlyCel
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
-		                 ofLaps: 1
+		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 		
 	board := aBoardCreator createBoardFor: nil with: nil andMaxThrowOf: nil.
