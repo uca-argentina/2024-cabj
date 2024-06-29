@@ -2,7 +2,8 @@ Class {
 	#name : #EffectManager,
 	#superclass : #Object,
 	#instVars : [
-		'dictionary'
+		'dictionary',
+		'objects'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -35,6 +36,7 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 	dictionary := Dictionary new.
 	index := 1.
 	totalCount := 0.
+	objects := aCollectionOfObjects.
 
 	aCollectionOfObjects
 		with: collectionOfProbabilities
@@ -47,4 +49,10 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 				index := index + 1 ].
 
 			totalCount := totalCount + count.]
+]
+
+{ #category : #'as yet unclassified' }
+EffectManager >> objectsToManage [
+
+	^ objects
 ]

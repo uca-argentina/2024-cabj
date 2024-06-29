@@ -12,7 +12,8 @@ Class {
 		'spaceships',
 		'cellToEnter',
 		'spaceshipsWithHyperGravity',
-		'anAllyTankManager'
+		'anAllyTankManager',
+		'gameDeck'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -128,6 +129,15 @@ Game >> giveOneCardTo: aSpaceship [
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
 	aActiveDeck := ActiveDeck startGame.
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard
+				             with: AllyCard
+				             with: OverloadCard
+				             with: RedoCard
+				             with: RepeatCard
+				             with: CancellationCard)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
 
 	finishLine := OrderedCollection
 		              with: aBoardCreator cells
@@ -139,15 +149,15 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 		              numberOfSpaceships: anAmountOfSpaceships
 		              withAmountOfFuel: dice amountOfFaces * 2
 		              indexCalculateWith: aBoardCreator cells.
-	
+
 	anAllyTankManager := AllyTankManager manage: spaceships.
 
 	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
-		                       SpaceshipCardHand startGame ].
+		                       SpaceshipCardHand startGameWith: gameDeck ].
 
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := turnManager nextTurn.
-	
+
 	spaceshipsWithHyperGravity := Dictionary new.
 
 	board := aBoardCreator
@@ -160,6 +170,15 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
 
 	aActiveDeck := ActiveDeck startGame.
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new 
+				             with: RepeatCard new 
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
 
 	finishLine := OrderedCollection
 		              with: aBoardCreator cells
@@ -175,7 +194,7 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 	anAllyTankManager := AllyTankManager manage: spaceships.
 
 	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
-		                       SpaceshipCardHand startGameWithAllCards ].
+		                       SpaceshipCardHand startGameWithAllCards: gameDeck ].
 
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := turnManager nextTurn.
