@@ -36,7 +36,7 @@ Game class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBo
 ]
 
 { #category : #activation }
-Game >> activateInstantCard: aCard [
+Game >> activateCard: aCard [
 
 	aActiveDeck activate: aCard
 ]
@@ -47,9 +47,8 @@ Game >> activatePermanentCard: aCard [
 	| currentSpaceshipCardHand |
 	currentSpaceshipCardHand := spaceshipsCardHands at:
 		                            currentSpaceship id.
-	(currentSpaceshipCardHand activateCard: aCard) ifFalse: [ ^ self ].
-	aCard withEffectOn: self.
-	aActiveDeck activate: aCard
+	(currentSpaceshipCardHand use: aCard) ifFalse: [ ^ self ].
+	aCard activateEffectOn: self forSpaceship: currentSpaceship id
 ]
 
 { #category : #action }
@@ -246,7 +245,7 @@ Game >> spaceshipId: anId activateInstantCard: aCard [
 
 	| spaceshipCardHand |
 	spaceshipCardHand := spaceshipsCardHands at: anId.
-	(spaceshipCardHand activateCard: aCard) ifTrue: [
+	(spaceshipCardHand use: aCard) ifTrue: [
 		aCard activateEffectOn: self forSpaceship: anId ]
 ]
 

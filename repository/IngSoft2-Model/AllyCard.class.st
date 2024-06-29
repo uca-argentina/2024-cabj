@@ -2,29 +2,34 @@ Class {
 	#name : #AllyCard,
 	#superclass : #PermanentCard,
 	#instVars : [
-		'allyTwoId',
 		'spaceshipOne',
 		'spaceshipTwo'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-AllyCard class >> redo: aSpaceshipId [
+{ #category : #accessing }
+AllyCard >> activateEffectOn: aGame forSpaceship: anId [
 
-	^ self new initializeShareFuelWith: aSpaceshipId
-]
+	| fuelTankOne fuelTankTwo |
+	aGame activateCard: self.
+	spaceshipOne := aGame spaceships detectSpaceshipWithId:
+		                anId.
+	spaceshipTwo := aGame spaceships detectSpaceshipWithId:
+		                spaceshipAffected.
+	fuelTankOne := spaceshipOne objectFuelTank.
+	fuelTankTwo := spaceshipTwo objectFuelTank.
 
-{ #category : #'instance creation' }
-AllyCard class >> shareFuelWith: aSpaceshipId [
-
-	^ self new initializeShareFuelWith: aSpaceshipId
+	spaceshipOne shareWith: spaceshipTwo.
+	spaceshipTwo shareWith: spaceshipOne.
+	fuelTankOne shareWith: fuelTankTwo.
+	fuelTankTwo shareWith: fuelTankOne
 ]
 
 { #category : #'set and get' }
 AllyCard >> ally [
 
-	^ allyTwoId
+	^ spaceshipAffected 
 ]
 
 { #category : #action }
@@ -40,45 +45,8 @@ AllyCard >> deactivate [
 	fuelTankTwo stopSharing
 ]
 
-{ #category : #initialization }
-AllyCard >> initializeShareFuelWith: aSpaceshipId [
-
-	allyTwoId := aSpaceshipId
-]
-
 { #category : #comparing }
 AllyCard >> isExactlyTheSameCard: aCard [
 
-	^ self class == aCard class and: allyTwoId = aCard ally
-]
-
-{ #category : #accessing }
-AllyCard >> withEffectOn: aGame [
-
-	| fuelTankOne fuelTankTwo |
-	spaceshipOne := aGame currentSpaceship.
-	spaceshipTwo := aGame spaceships detectSpaceshipWithId: allyTwoId.
-	fuelTankOne := spaceshipOne objectFuelTank.
-	fuelTankTwo := spaceshipTwo objectFuelTank.
-
-	spaceshipOne shareWith: spaceshipTwo.
-	spaceshipTwo shareWith: spaceshipOne.
-	fuelTankOne shareWith: fuelTankTwo.
-	fuelTankTwo shareWith: fuelTankOne
-]
-
-{ #category : #accessing }
-AllyCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
-
-	| fuelTankOne fuelTankTwo |
-	aGame activateInstantCard: self.
-	spaceshipOne := aGame spaceships detectSpaceshipWithId: anId.
-	spaceshipTwo := aGame spaceships detectSpaceshipWithId: allyTwoId.
-	fuelTankOne := spaceshipOne objectFuelTank.
-	fuelTankTwo := spaceshipTwo objectFuelTank.
-
-	spaceshipOne shareWith: spaceshipTwo.
-	spaceshipTwo shareWith: spaceshipOne.
-	fuelTankOne shareWith: fuelTankTwo.
-	fuelTankTwo shareWith: fuelTankOne
+	^ self class == aCard class and: spaceshipAffected = aCard ally
 ]

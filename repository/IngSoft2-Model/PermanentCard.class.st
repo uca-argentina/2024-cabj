@@ -1,19 +1,29 @@
 Class {
 	#name : #PermanentCard,
 	#superclass : #Object,
+	#instVars : [
+		'spaceshipAffected'
+	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-PermanentCard class >> redo: null [
+PermanentCard class >> toDoEffectFor: aSpaceshipId [
 
-	^ self new
+	^ self new initializeToDoEffectFor: aSpaceshipId
 ]
 
 { #category : #comparing }
 PermanentCard >> = aCard [
 
 	^ self class == aCard class
+]
+
+{ #category : #effect }
+PermanentCard >> activateEffectOn: aGame forSpaceship: anId [
+	
+	aGame activateCard: self
+
 ]
 
 { #category : #effect }
@@ -28,14 +38,8 @@ PermanentCard >> deactivate [
 	^ true
 ]
 
-{ #category : #effect }
-PermanentCard >> withEffectOn: aGame [
+{ #category : #initialization }
+PermanentCard >> initializeToDoEffectFor: aSpaceshipId [
 
-
-]
-
-{ #category : #accessing }
-PermanentCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
-
-	aGame activateInstantCard: self
+	spaceshipAffected := aSpaceshipId
 ]

@@ -8,15 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-RepeatCard class >> redo: aSpaceshipId [
+RepeatCard class >> toDoEffectFor: aSpaceshipId [
 
-	^ self new initializeRepeatEffectFor: aSpaceshipId
-]
-
-{ #category : #'instance creation' }
-RepeatCard class >> repeatEffectFor: anId [
-
-	^ self new initializeRepeatEffectFor: anId
+	^ self new initializeToDoEffectFor: aSpaceshipId
 ]
 
 { #category : #comparing }
@@ -29,7 +23,7 @@ RepeatCard >> = aCard [
 RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 
 	| spaceshipToApplyEffect cellToEnter cellOfSpaceship |
-	aGame activateInstantCard: self.
+	aGame activateCard: self.
 	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
 
 	cellToEnter := aGame lastCellEffect.
@@ -39,22 +33,7 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 ]
 
 { #category : #initialization }
-RepeatCard >> initializeRepeatEffectFor: anId [
+RepeatCard >> initializeToDoEffectFor: aSpaceshipId [
 
-	spaceshipId := anId
-]
-
-{ #category : #accessing }
-RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
-
-	| spaceshipToApplyEffect cellPosition cellToEnter cellOfSpaceship |
-	aGame activateInstantCard: self.
-	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
-	cellPosition := spaceshipToApplyEffect objectPosition cell.
-
-	cellToEnter := aGame lastCellEffect copy.
-
-	cellOfSpaceship := cellToEnter applyEffectTo:
-		                   spaceshipToApplyEffect on:aGame.
-
+	spaceshipId := aSpaceshipId
 ]

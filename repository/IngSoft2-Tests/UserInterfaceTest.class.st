@@ -76,11 +76,11 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 		         withBoardCreator: aBoardCreator
 		         playWithDice: aLoadedDie.
 
-	aUserInterFace activatePermanentCard: (OverloadCard reduceThrowOf: 2).
+	aUserInterFace activatePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aUserInterFace
 		spaceshipId: 1
 		activateInstantCard:
-		(RedoCard forSpaceshipId: 3 orCardToCancel: nil).
+		(RedoCard forCardWith: 3).
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.

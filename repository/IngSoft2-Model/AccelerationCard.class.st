@@ -11,6 +11,7 @@ AccelerationCard >> applyEffectOn: throwResult for: spaceshipId [
 ]
 
 { #category : #comparing }
-AccelerationCard >> isExactlyTheSameCard:aCard [
- ^aCard =self. 
+AccelerationCard >> isExactlyTheSameCard: aCard [
+
+	^ aCard = self
 ]

@@ -20,17 +20,6 @@ SpaceshipCardHand class >> startGameWithAllCards [
 	^ self new initializeStartGameAllCards
 ]
 
-{ #category : #action }
-SpaceshipCardHand >> activateCard: aCard [
-
-	| cardToRemove |
-	cardToRemove := collectionOfCards
-		                detect: [ :card | card = aCard ]
-		                ifNone: [ ^ false ].
-	collectionOfCards remove: cardToRemove.
-	^ true
-]
-
 { #category : #accessing }
 SpaceshipCardHand >> amount [
 
@@ -57,4 +46,15 @@ SpaceshipCardHand >> initializeStartGameAllCards [
 
 	aGameDeck := GameDeck startGame.
 	collectionOfCards := aGameDeck availableCards
+]
+
+{ #category : #action }
+SpaceshipCardHand >> use: aCard [
+
+	| cardToRemove |
+	cardToRemove := collectionOfCards
+		                detect: [ :card | card = aCard ]
+		                ifNone: [ ^ false ].
+	collectionOfCards remove: cardToRemove.
+	^ true
 ]
