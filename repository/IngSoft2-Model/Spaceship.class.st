@@ -73,24 +73,27 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 	position := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId.
-	fuelDepleted := aFuelTank areBothEmpty.
+	fuelDepleted := aFuelTank isEmpty.
 	allySpaceship := self
 ]
 
 { #category : #setter }
 Spaceship >> loadFuel [
 
-	aFuelTank loadFuel
+	aFuelTank reloadToCapacity
 ]
 
 { #category : #action }
 Spaceship >> move: aNumberOfMovements [
 
-	position updateCell: aNumberOfMovements.
+	| aux |
+	aux := aNumberOfMovements.
+	aNumberOfMovements > aFuelTank loadedWith ifTrue: [
+		aux := aFuelTank loadedWith ].
 
-	aFuelTank useFuel: aNumberOfMovements abs.
+	position updateCell: aux.
 
-	aFuelTank runOutOfFuel: self
+	aFuelTank useFuel: aux abs
 ]
 
 { #category : #'set and get' }
@@ -109,19 +112,15 @@ Spaceship >> objectPosition [
 Spaceship >> resetToOne [
 
 	| currentCell |
-	fuelDepleted := aFuelTank isEmpty.
 	currentCell := position cell.
-
-	position updateCell: 1 - currentCell.
-
-	(allySpaceship = self or: allySpaceship fuelDepleted) ifFalse: [
-		allySpaceship resetToOne ]
+	position updateCell: 1 - currentCell
 ]
 
 { #category : #action }
 Spaceship >> shareWith: aAllySpaceship [
 
-	allySpaceship := aAllySpaceship
+	allySpaceship := aAllySpaceship.
+	allySpaceship objectFuelTank shareWith: aFuelTank
 ]
 
 { #category : #action }

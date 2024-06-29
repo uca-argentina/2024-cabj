@@ -37,6 +37,12 @@ CollectionOfSpaceships >> cellsOfSpaceships [
 	^ dictionaryOfCellPositions
 ]
 
+{ #category : #enumerating }
+CollectionOfSpaceships >> collect: aBlock [
+
+	^ spaceships collect: aBlock
+]
+
 { #category : #initialization }
 CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 
@@ -52,6 +58,13 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 CollectionOfSpaceships >> detectSpaceshipWithId: aSpaceshipId [
 
 	^ spaceships detect: [ :spaceship | spaceship id = aSpaceshipId ]
+]
+
+{ #category : #collection }
+CollectionOfSpaceships >> each: aBlock [
+
+	spaceships do: [ :spaceship |
+			aBlock value: spaceship ]
 ]
 
 { #category : #collection }

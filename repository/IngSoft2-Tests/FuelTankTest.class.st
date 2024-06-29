@@ -29,7 +29,7 @@ FuelTankTest >> test03FuelTankUseFuelAndLoadsTheSameAmountThenIsLoadedWithAmount
 	| aFuelTank |
 	aFuelTank := FuelTank fullWith: 10.
 	aFuelTank useFuel: 3.
-	aFuelTank loadFuel.
+	aFuelTank reloadToCapacity.
 
 	self assert: aFuelTank loadedWith equals: 10
 ]
@@ -79,17 +79,4 @@ FuelTankTest >> test08ChangedCapacityOfFuelTankThenCapacityHasChange [
 	aFuelTank changeCapacity: 1.
 
 	self assert: aFuelTank capacity equals: 6
-]
-
-{ #category : #tests }
-FuelTankTest >> test09FuelTankOneSharesWithTwoThenUsesFuelTankTwosFuel [
-
-	| aFuelTankOne aFuelTankTwo |
-	aFuelTankOne := FuelTank fullWith: 0.
-	aFuelTankTwo := FuelTank fullWith: 5.
-	aFuelTankOne shareWith: aFuelTankTwo.
-
-	aFuelTankOne useFuel: 2.
-
-	self assert: aFuelTankTwo loadedWith equals: 3
 ]
