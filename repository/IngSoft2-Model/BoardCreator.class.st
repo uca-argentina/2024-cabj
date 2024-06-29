@@ -100,7 +100,7 @@ BoardCreator >> createHyperJumpCells [
 		              convertionValue: amountOfCells * 2.
 	values := OrderedCollection
 		          with: (Parsecs ofValue: 10)
-		          with: (Parsecs ofValue: 8)
+		          with: (LightYear ofValue: 24)
 		          with: (Parsecs ofValue: 6)
 		          with: (Parsecs ofValue: 4).
 
