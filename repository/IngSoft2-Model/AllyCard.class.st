@@ -71,7 +71,7 @@ AllyCard >> withEffectOn: aGame [
 AllyCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
 
 	| fuelTankOne fuelTankTwo |
-	aGame activeDeck activate: self.
+	aGame activateInstantCard: self.
 	spaceshipOne := aGame spaceships detectSpaceshipWithId: anId.
 	spaceshipTwo := aGame spaceships detectSpaceshipWithId: allyTwoId.
 	fuelTankOne := spaceshipOne objectFuelTank.

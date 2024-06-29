@@ -36,6 +36,12 @@ Game class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBo
 ]
 
 { #category : #activation }
+Game >> activateInstantCard: aCard [
+
+	aActiveDeck activate: aCard
+]
+
+{ #category : #activation }
 Game >> activatePermanentCard: aCard [
 
 	| currentSpaceshipCardHand |
@@ -44,12 +50,6 @@ Game >> activatePermanentCard: aCard [
 	(currentSpaceshipCardHand activateCard: aCard) ifFalse: [ ^ self ].
 	aCard withEffectOn: self.
 	aActiveDeck activate: aCard
-]
-
-{ #category : #accessing }
-Game >> activeDeck [
-
-	^ aActiveDeck
 ]
 
 { #category : #action }
@@ -171,6 +171,12 @@ Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships wi
 ]
 
 { #category : #accessing }
+Game >> lastCardPlayed [
+
+	^ aActiveDeck lastCardPlayed
+]
+
+{ #category : #accessing }
 Game >> lastCellEffect [
 
 	^ cellToEnter
@@ -182,7 +188,8 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 	spaceships
 		each: [ :spaceship |
 			spaceship move:
-				(self checkMoveIsPossible: aNumberOfMovements for: spaceship) ]
+				(self checkMoveIsPossible: aNumberOfMovements for: spaceship).
+			self checkAndHandleFuelDepletion: spaceship ]
 		but: aSpaceship
 ]
 
@@ -221,7 +228,7 @@ Game >> reloadSpaceship [
 { #category : #removing }
 Game >> removeTheCard: aCardToCancel andSaveTheLastInstantCardPlayed: aCancellationCard [
 
-	aActiveDeck instantCardPlayed: aCancellationCard .
+	aActiveDeck activate: aCancellationCard .
 	aActiveDeck removeACard: aCardToCancel
 ]
 

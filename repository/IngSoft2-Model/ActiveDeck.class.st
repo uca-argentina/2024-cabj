@@ -17,7 +17,7 @@ ActiveDeck class >> startGame [
 { #category : #convenience }
 ActiveDeck >> activate: aCard [
 
-	cards add: aCard.
+	aCard class superclass = PermanentCard ifTrue: [ cards add: aCard ].
 	lastCardPlayed := aCard class
 ]
 
@@ -36,12 +36,6 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 ActiveDeck >> initializeStartGame [
 
 	cards := OrderedCollection new
-]
-
-{ #category : #'set and get' }
-ActiveDeck >> instantCardPlayed: aCard [
-
-	lastCardPlayed := aCard class
 ]
 
 { #category : #accessing }

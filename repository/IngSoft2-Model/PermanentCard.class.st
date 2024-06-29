@@ -37,5 +37,5 @@ PermanentCard >> withEffectOn: aGame [
 { #category : #accessing }
 PermanentCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: cardToCancel [
 
-	aGame activeDeck activate: self
+	aGame activateInstantCard: self
 ]

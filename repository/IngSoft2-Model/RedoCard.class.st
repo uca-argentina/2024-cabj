@@ -23,9 +23,8 @@ RedoCard >> = aCard [
 { #category : #accessing }
 RedoCard >> activateEffectOn: aGame forSpaceship: anId [
 
-	| cardToActivate activeDeck |
-	activeDeck := aGame activeDeck.
-	cardToActivate := activeDeck lastCardPlayed redo: idForCard.
+	| cardToActivate |
+	cardToActivate := aGame lastCardPlayed redo: idForCard.
 	cardToActivate
 		withRedoEffectOn: aGame
 		forSpaceship: anId

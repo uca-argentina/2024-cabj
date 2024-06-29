@@ -29,15 +29,13 @@ RepeatCard >> = aCard [
 RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 
 	| spaceshipToApplyEffect cellToEnter cellOfSpaceship |
-	aGame activeDeck instantCardPlayed: self.
+	aGame activateInstantCard: self.
 	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
 
-	cellToEnter := aGame lastCellEffect copy.
+	cellToEnter := aGame lastCellEffect.
 
 	cellOfSpaceship := cellToEnter applyEffectTo:
 		                   spaceshipToApplyEffect on: aGame.
-
-	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
 ]
 
 { #category : #initialization }
@@ -50,7 +48,7 @@ RepeatCard >> initializeRepeatEffectFor: anId [
 RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardToCancel [
 
 	| spaceshipToApplyEffect cellPosition cellToEnter cellOfSpaceship |
-	aGame activeDeck instantCardPlayed: self.
+	aGame activateInstantCard: self.
 	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
 	cellPosition := spaceshipToApplyEffect objectPosition cell.
 
@@ -59,5 +57,4 @@ RepeatCard >> withRedoEffectOn: aGame forSpaceship: anId orCardToCancel: aCardTo
 	cellOfSpaceship := cellToEnter applyEffectTo:
 		                   spaceshipToApplyEffect on:aGame.
 
-	aGame checkAndHandleFuelDepletion: spaceshipToApplyEffect
 ]

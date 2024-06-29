@@ -29,7 +29,8 @@ HyperJumpCell >> applyEffectTo: aSpaceship on: aGame [
 	aNumberOfMovements := aGame
 		                      checkMoveIsPossible: convertionOfNextValue
 		                      for: aSpaceship.
-	aSpaceship move: aNumberOfMovements
+	aSpaceship move: aNumberOfMovements.
+	aGame checkAndHandleFuelDepletion: aSpaceship
 ]
 
 { #category : #initialization }
