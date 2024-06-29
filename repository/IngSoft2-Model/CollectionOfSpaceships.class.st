@@ -44,8 +44,7 @@ CollectionOfSpaceships >> collectSpaceships: anAmountOfSpaceships [
 	spaceships := OrderedCollection new.
 	anAmountOfSpaceships timesRepeat: [
 		aSpaceship := Spaceship launchWithFuel: fuel.
-		spaceships add: aSpaceship.
-		aSpaceship objectPosition updateIndexWith: amountOfCells ].
+		spaceships add: aSpaceship ].
 	Spaceship initialize
 ]
 

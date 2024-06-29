@@ -23,25 +23,6 @@ Position >> cell [
 	^ cell
 ]
 
-{ #category : #'set and get' }
-Position >> completedLaps [
-
-	^ completedLaps
-]
-
-{ #category : #'set and get' }
-Position >> completedLapsWith: anAmountOfCells [
-
-	completedLaps := anAmountOfCells * (self lap - 1).
-	^ completedLaps
-]
-
-{ #category : #'set and get' }
-Position >> index [
-
-	^ index
-]
-
 { #category : #initialization }
 Position >> initializeStartGame [
 
@@ -65,27 +46,16 @@ Position >> position [
 Position >> resetToOne [
 
 	cell := 1.
-	index := cell * lap
 ]
 
 { #category : #'set and get' }
-Position >> updateCellAndLapWith: anIndex [
+Position >> updateCell: aNumber [
 
-	anIndex < 1 ifTrue: [
-		cell := 1.
-		lap := 1.
-		self updateIndexWith: amountOfCells.
-		^ self ].
-	cell := anIndex - 1 \\ amountOfCells + 1.
-	lap := anIndex - 1 // amountOfCells + 1.
-
-	self updateIndexWith: amountOfCells
+	cell := cell + aNumber
 ]
 
 { #category : #'set and get' }
-Position >> updateIndexWith: anAmountOfCells [
+Position >> updateLap: aNumber [
 
-	amountOfCells := anAmountOfCells.
-	index := self cell + (self completedLapsWith: anAmountOfCells).
-	^ index
+	lap := lap + aNumber
 ]

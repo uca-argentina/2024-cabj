@@ -77,20 +77,36 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 ]
 
 { #category : #checking }
-Game >> checkMoveIsPossible: throwResult [
+Game >> checkMoveIsPossible: throwResult for: aSpaceship [
 
-	| positionOfSpaceship cellXLaps aux |
+	| positionOfSpaceship cellXLapsOfSpaceship cellXLapsOfFinishLine aux amountOfCells completedLaps nextCell |
 	aux := throwResult.
-	positionOfSpaceship := currentSpaceship objectPosition.
-	cellXLaps := positionOfSpaceship cell * positionOfSpaceship lap.
+	positionOfSpaceship := aSpaceship objectPosition.
+	cellXLapsOfSpaceship := positionOfSpaceship cell
+	                        * positionOfSpaceship lap.
+	cellXLapsOfFinishLine := (finishLine at: 1) * (finishLine at: 2).
+	amountOfCells := finishLine at: 1.
 
-	(spaceshipsWithHyperGravity includesKey: currentSpaceship) ifTrue: [
-		throwResult < (spaceshipsWithHyperGravity at: currentSpaceship)
+	(spaceshipsWithHyperGravity includesKey: aSpaceship) ifTrue: [
+		throwResult < (spaceshipsWithHyperGravity at: aSpaceship)
 			ifTrue: [ aux := 0 ]
-			ifFalse: [ spaceshipsWithHyperGravity removeKey: currentSpaceship ] ].
+			ifFalse: [ spaceshipsWithHyperGravity removeKey: aSpaceship ] ].
 
-	cellXLaps + throwResult > anAmountOfIndex ifTrue: [
-		aux := anAmountOfIndex - cellXLaps ].
+	cellXLapsOfSpaceship + throwResult > cellXLapsOfFinishLine ifTrue: [
+		aux := cellXLapsOfFinishLine - cellXLapsOfSpaceship.
+		positionOfSpaceship updateLap:
+			(finishLine at: 2) - positionOfSpaceship lap ].
+
+	positionOfSpaceship cell + aux > amountOfCells ifTrue: [
+		completedLaps := positionOfSpaceship cell + throwResult - 1
+		                 // amountOfCells + 1 - 1.
+		positionOfSpaceship updateLap: completedLaps.
+		nextCell := positionOfSpaceship cell + throwResult
+		            - (completedLaps * amountOfCells).
+		aux := nextCell - positionOfSpaceship cell ].
+
+	cellXLapsOfSpaceship + aux < 1 ifTrue: [
+		aux := 1 - positionOfSpaceship cell ].
 
 	^ aux
 ]
@@ -109,8 +125,6 @@ Game >> giveOneCardTo: aSpaceship [
 
 { #category : #initialization }
 Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
 
 	aActiveDeck := ActiveDeck startGame.
 
@@ -142,8 +156,6 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 
 { #category : #initialization }
 Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	anAmountOfIndex := aBoardCreator cells * aBoardCreator laps.
 
 	aActiveDeck := ActiveDeck startGame.
 
@@ -183,19 +195,20 @@ Game >> lastCellEffect [
 Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovements [
 
 	spaceships
-		each: [ :spaceship | spaceship move: aNumberOfMovements ]
+		each: [ :spaceship |
+			spaceship move:
+				(self checkMoveIsPossible: aNumberOfMovements for: spaceship) ]
 		but: aSpaceship
 ]
 
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship throwResult cellXLaps |
+	| positionOfSpaceship throwResult |
 	throwResult := self throwDiceAndCheckReward.
-	throwResult := self checkMoveIsPossible: throwResult.
-	
+	throwResult := self checkMoveIsPossible: throwResult for: currentSpaceship.
+
 	positionOfSpaceship := currentSpaceship objectPosition.
-	cellXLaps := positionOfSpaceship cell * positionOfSpaceship lap.
 
 	currentSpaceship move: throwResult.
 
@@ -209,8 +222,7 @@ Game >> moveSpaceship [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].
 
-	currentSpaceship := turnManager nextTurn.
-
+	currentSpaceship := turnManager nextTurn
 ]
 
 { #category : #action }

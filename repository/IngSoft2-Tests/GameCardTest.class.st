@@ -391,7 +391,7 @@ GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 ]
 
 { #category : #tests }
-GameCardTest >> test20RepeatCradRepeatsMoonWalkThenSpaceshipTwoIsinPositionOne [
+GameCardTest >> test20RepeatCardRepeatsMoonWalkThenSpaceshipOneMovesBackwards [
 
 	| aGame result |
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -413,10 +413,10 @@ GameCardTest >> test20RepeatCradRepeatsMoonWalkThenSpaceshipTwoIsinPositionOne [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard repeatEffectFor: 1).
+		activateInstantCard: (RepeatCard repeatEffectFor: 2).
 		
 	result := Dictionary new.
-	result at: 1 put: 7.
+	result at: 1 put: 3.
 	result at: 2 put: 1.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result

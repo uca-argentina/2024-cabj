@@ -27,8 +27,7 @@ PositionTest >> test03PositioninitializeSetCellTwoThenCellEqualsTwo [
 
 	| aPosition |
 	aPosition := Position startGame.
-	aPosition updateIndexWith: 10.
-	aPosition updateCellAndLapWith: 2.
+	aPosition updateCell: 1.
 
 	self assert: aPosition cell equals: 2
 ]
@@ -38,8 +37,7 @@ PositionTest >> test04PositioninitializeSetLapTwoThenLapEqualsTwo [
 
 	| aPosition |
 	aPosition := Position startGame.
-	aPosition updateIndexWith: 10.
-	aPosition updateCellAndLapWith: 11.
+	aPosition updateLap: 1.
 
 	self assert: aPosition lap equals: 2
 ]
@@ -55,61 +53,10 @@ PositionTest >> test05PositionInitializeThenGetPositionEqualsOrderedCollectionWi
 ]
 
 { #category : #tests }
-PositionTest >> test06PositionInitializeThenGetIndexWithEqualsOne [
+PositionTest >> test08PositionInitializeThenIsInLapOne [
 
 	| aPosition |
 	aPosition := Position startGame.
 
-	self assert: (aPosition updateIndexWith: 10) equals: 1
-]
-
-{ #category : #tests }
-PositionTest >> test07PositionCellOneLapTwoWithTenCellsThenIndexEqualsEleven [
-
-	| aPosition |
-	aPosition := Position startGame.
-	aPosition updateIndexWith: 10.
-	aPosition updateCellAndLapWith: 11.
-
-	self assert: aPosition index equals: 11
-]
-
-{ #category : #tests }
-PositionTest >> test08PositionInitializeThenCompletedLapsEqualsZero [
-
-	| aPosition |
-	aPosition := Position startGame.
-
-	self assert: (aPosition completedLapsWith: 10) equals: 0
-]
-
-{ #category : #tests }
-PositionTest >> test09PositionLapSetOnTwoThenCompletedLapsEqualsAmountOfCells [
-
-	| aPosition |
-	aPosition := Position startGame.
-	aPosition updateIndexWith: 10.
-	aPosition updateCellAndLapWith: 11.
-
-	self assert: (aPosition completedLaps) equals: 10
-]
-
-{ #category : #tests }
-PositionTest >> test10CalculateLapWithNewIndexElevenThenCompletedOneLap [
-
-	| aPosition |
-	aPosition := Position startGame.
-	aPosition updateIndexWith: 10.
-	aPosition updateCellAndLapWith: 11.
-	self assert: aPosition completedLaps equals: 10
-]
-
-{ #category : #tests }
-PositionTest >> test11DoOneLapThenCellEqualsOne [
-
-	| aPosition |
-	aPosition := Position startGame.
-	aPosition updateIndexWith: 10.
-	aPosition updateCellAndLapWith: 11.
-	self assert: aPosition cell equals: 1
+	self assert: (aPosition lap) equals: 1
 ]

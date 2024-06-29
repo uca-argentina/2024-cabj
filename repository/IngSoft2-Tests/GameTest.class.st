@@ -94,6 +94,7 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 
 	| result aGame |
 	aLoadedDie := LoadedDie of: #( 9 26 43 ).
+	collectionOfCells := OrderedCollection new.
 	20 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator
@@ -123,7 +124,8 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame |
-
+	
+	collectionOfCells := OrderedCollection new.
 	4 timesRepeat: [ collectionOfCells add: Cell ].
 
 	aBoardCreator := BoardCreator

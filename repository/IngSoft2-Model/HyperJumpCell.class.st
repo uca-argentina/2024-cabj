@@ -22,11 +22,14 @@ HyperJumpCell class >> withPosition: aPosition Conversor: aConversor andValues: 
 { #category : #action }
 HyperJumpCell >> applyEffectTo: aSpaceship on: aGame [
 
-	| convertionOfNextValue |
+	| convertionOfNextValue aNumberOfMovements |
 	convertionOfNextValue := conversor convert: currentValue.
 	previousValue := currentValue.
 	self nextValue.
-	aSpaceship move: convertionOfNextValue
+	aNumberOfMovements := aGame
+		                      checkMoveIsPossible: convertionOfNextValue
+		                      for: aSpaceship.
+	aSpaceship move: aNumberOfMovements
 ]
 
 { #category : #initialization }
