@@ -18,16 +18,6 @@ UserInterface class >> numberOfSpaceships: anAmount with: aBoardCreator playWith
 		  andGameDeck: anEffectManager
 ]
 
-{ #category : #'instance creation' }
-UserInterface class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	^ self new
-		  initializeNumberOfSpaceshipsPlayingWithAllCards:
-		  anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
-]
-
 { #category : #activation }
 UserInterface >> activatePermanentCard: aCard [
 
@@ -60,17 +50,6 @@ UserInterface >> initializeNumberOfSpaceships: anAmount with: aBoardCreator play
 		         with: aBoardCreator
 		         playWith: aCollectionOfDice
 		         andGameDeck: anEffectManager.
-
-	spaceships := aGame spaceships
-]
-
-{ #category : #initialization }
-UserInterface >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
 
 	spaceships := aGame spaceships
 ]

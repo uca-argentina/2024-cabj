@@ -56,12 +56,6 @@ Spaceship >> changeCapacity: aNumber [
 ]
 
 { #category : #accessing }
-Spaceship >> fuelDepleted [
-
-	^ fuelDepleted
-]
-
-{ #category : #accessing }
 Spaceship >> id [
 
 	^ id
@@ -114,17 +108,4 @@ Spaceship >> resetToOne [
 	| currentCell |
 	currentCell := position cell.
 	position updateCell: 1 - currentCell
-]
-
-{ #category : #action }
-Spaceship >> shareWith: aAllySpaceship [
-
-	allySpaceship := aAllySpaceship.
-	allySpaceship objectFuelTank shareWith: aFuelTank
-]
-
-{ #category : #action }
-Spaceship >> stopSharing [
-
-	allySpaceship := self
 ]
