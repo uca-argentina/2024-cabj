@@ -497,3 +497,25 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 
 	self assert: (spaceship amountOfFuel between: 7 and: 9)
 ]
+
+{ #category : #tests }
+GameLoadedDieTest >> test21SpacshipOneLoadsFuelSpaceshipTwoLoosesTurnsThenOneMovesOnTwosTurn [
+
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 3 ).
+
+	aGame := Game
+		         numberOfSpaceships: 2
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame reloadSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 7.
+	result at: 2 put: 1.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]

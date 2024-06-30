@@ -195,10 +195,9 @@ Game >> moveSpaceship [
 { #category : #action }
 Game >> reloadSpaceship [
 
-	| nextSpaceship |
-	nextSpaceship := spaceships detectSpaceshipWithId:
-		                 turnManager nextTurn.
-	nextSpaceship loadFuel
+	currentSpaceship loadFuel.
+	currentSpaceship := spaceships detectSpaceshipWithId:
+		                    turnManager nextTurn
 ]
 
 { #category : #removing }
