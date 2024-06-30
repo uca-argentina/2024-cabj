@@ -13,14 +13,15 @@ Class {
 
 { #category : #running }
 GameLoadedDieTest >> setUp [
-	
+
 	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	15 timesRepeat: [ collectionOfCells add: Cell ].
+	15 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -496,4 +497,26 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 	spaceship := aGame spaceships ranking at: 1.
 
 	self assert: (spaceship amountOfFuel between: 7 and: 9)
+]
+
+{ #category : #tests }
+GameLoadedDieTest >> test21SpacshipOneLoadsFuelSpaceshipTwoLoosesTurnsThenOneMovesOnTwosTurn [
+
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 3 ).
+
+	aGame := Game
+		         numberOfSpaceships: 2
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame reloadSpaceship.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 7.
+	result at: 2 put: 1.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

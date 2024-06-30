@@ -13,28 +13,28 @@ Class {
 
 { #category : #running }
 GameCardTest >> setUp [
-	
+
 	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	30 timesRepeat: [ collectionOfCells add: Cell ].
+	30 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 1
 		                 withWormholeCreator: aWormholeCreator.
-		
-	gameDeck := EffectManager
-		            manage: (OrderedCollection
-				             with: AccelerationCard new
-				             with: AllyCard new
-				             with: OverloadCard new
-				             with: RedoCard new
-				             with: RepeatCard new
-				             with: CancellationCard new).
+
+	gameDeck := EffectManager manage: (OrderedCollection
+			             with: AccelerationCard new
+			             with: AllyCard new
+			             with: OverloadCard new
+			             with: RedoCard new
+			             with: RepeatCard new
+			             with: CancellationCard new)
 ]
 
 { #category : #tests }
@@ -48,7 +48,7 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -69,7 +69,7 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 	
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	
 	aGame moveSpaceship.
@@ -92,7 +92,7 @@ GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpacesh
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -118,7 +118,7 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -143,14 +143,14 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame moveSpaceship.
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 3).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 3).
 	aGame moveSpaceship.
 
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (OverloadCard toDoEffectFor: 3)).
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -173,11 +173,11 @@ GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 	
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (AllyCard toDoEffectFor: 2)).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -199,10 +199,10 @@ GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanD
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (OverloadCard toDoEffectFor: 2)).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -226,10 +226,10 @@ GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithou
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: AccelerationCard new).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -251,9 +251,9 @@ GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThree
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
-	aGame spaceshipId: 2 activateInstantCard: RedoCard new.
-	aGame spaceshipId: 1 activateInstantCard: (RedoCard forCardWith: 2).
+	aGame usePermanentCard: AccelerationCard new.
+	aGame spaceshipId: 2 useInstantCard: RedoCard new.
+	aGame spaceshipId: 1 useInstantCard: (RedoCard forCardWith: 2).
 
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -274,8 +274,8 @@ GameCardTest >> test15RedoCardPlayedAfterOverloadThenSpaceshipsAffectedHaveLessM
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
-	aGame spaceshipId: 1 activateInstantCard: (RedoCard forCardWith: 3).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame spaceshipId: 1 useInstantCard: (RedoCard forCardWith: 3).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -299,8 +299,8 @@ GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuel
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
-	aGame spaceshipId: 3 activateInstantCard: (RedoCard forCardWith: 4).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame spaceshipId: 3 useInstantCard: (RedoCard forCardWith: 4).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -331,15 +331,15 @@ GameCardTest >> test17TwoAccelerationCardsPlayThenACancellationAndARedoSoNoAccel
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
-	aGame spaceshipId: 2 activateInstantCard: RedoCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame spaceshipId: 2 useInstantCard: RedoCard new.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: AccelerationCard new).
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RedoCard forCardWith: AccelerationCard new).
+		useInstantCard: (RedoCard forCardWith: AccelerationCard new).
 
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -356,9 +356,12 @@ GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThe
 	aLoadedDie := LoadedDie of: #( 5 ).
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 6 put: BlackHoleCell.
+	collectionOfCells
+		at: 6
+		put: [ :boardCreator | boardCreator createBlackHoleCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -372,9 +375,7 @@ GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThe
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+	aGame spaceshipId: 2 useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 1.
@@ -398,7 +399,7 @@ GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 10.
@@ -413,9 +414,12 @@ GameCardTest >> test20RepeatCardRepeatsMoonWalkThenSpaceshipOneMovesBackwards [
 	| aGame result |
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 7 put: MoonWalkCell.
+	collectionOfCells
+		at: 7
+		put: [ :boardCreator | boardCreator createMoonWalkCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -429,9 +433,7 @@ GameCardTest >> test20RepeatCardRepeatsMoonWalkThenSpaceshipOneMovesBackwards [
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame spaceshipId: 2 useInstantCard: (RepeatCard toDoEffectFor: 2).
 
 	result := Dictionary new.
 	result at: 1 put: 3.
@@ -447,9 +449,12 @@ GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 	aLoadedDie := LoadedDie of: #( 4 ).
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 5 put: AtomicBombCell.
+	collectionOfCells
+		at: 5
+		put: [ :boardCreator | boardCreator createAtomicBombCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -463,9 +468,7 @@ GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+	aGame spaceshipId: 2 useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 1.
@@ -481,9 +484,12 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 	aLoadedDie := LoadedDie of: #( 8 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 9 put: HyperJumpCell.
+	collectionOfCells
+		at: 9
+		put: [ :boardCreator | boardCreator createHyperJumpCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -497,9 +503,7 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame spaceshipId: 1 useInstantCard: (RepeatCard toDoEffectFor: 2).
 
 	result := Dictionary new.
 	result at: 1 put: 4.
@@ -509,20 +513,26 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 ]
 
 { #category : #tests }
-GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards [
+GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoCanPlayTwoAccelerationCards [
 
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 3 ).
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 3 3 3 3 80 ).
 
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	collectionOfCells
+		at: 4
+		put: [ :boardCreator | boardCreator createCardDispenserCells ].
 
-	collectionOfCells at: 4 put: CardDispenserCell.
+	gameDeck := EffectManager manage:
+		            (OrderedCollection
+			             with: AccelerationCard new
+			             with: RepeatCard new).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
-		                 ofLaps: 1
+		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
@@ -532,12 +542,18 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards 
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame spaceshipId: 2 useInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
 
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 10.
 
-	self assert: (aGame cardHand: 2) amount equals: 6
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -556,7 +572,7 @@ GameCardTest >> test24RepeatCardRepeatsWormholeThenSpaceshipOneGoesToWormhole [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 3.
@@ -573,9 +589,12 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	30 timesRepeat: [ collectionOfCells add: Cell ].
+	30 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 6 put: BlackHoleCell.
+	collectionOfCells
+		at: 6
+		put: [ :boardCreator | boardCreator createBlackHoleCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -590,10 +609,8 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
-	aGame spaceshipId: 2 activateInstantCard: (RedoCard forCardWith: 1).
+	aGame spaceshipId: 2 useInstantCard: (RepeatCard toDoEffectFor: 1).
+	aGame spaceshipId: 2 useInstantCard: (RedoCard forCardWith: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 2.
@@ -616,7 +633,7 @@ GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpe
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -637,15 +654,15 @@ GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEff
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	aGame
 		spaceshipId: 1
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: AccelerationCard new).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -668,16 +685,16 @@ GameCardTest >> test28CancellationCardCancelsOnlyTheCardThatIsExactlyTheSameAsTh
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame moveSpaceship.
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 3).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 3).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (OverloadCard toDoEffectFor: 2)).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -696,9 +713,12 @@ GameCardTest >> test29RepeatHyperGravityForSpaceshipTwoThenItCannotMoveBeacuseOf
 	aLoadedDie := LoadedDie of: #( 7 2 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 8 put: HyperGravityCell.
+	collectionOfCells
+		at: 8
+		put: [ :boardCreator | boardCreator createHyperGravityCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -712,9 +732,7 @@ GameCardTest >> test29RepeatHyperGravityForSpaceshipTwoThenItCannotMoveBeacuseOf
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame spaceshipId: 1 useInstantCard: (RepeatCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -731,9 +749,12 @@ GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThr
 	aLoadedDie := LoadedDie of: #( 7 6 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 8 put: HyperGravityCell.
+	collectionOfCells
+		at: 8
+		put: [ :boardCreator | boardCreator createHyperGravityCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -747,9 +768,7 @@ GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThr
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame spaceshipId: 1 useInstantCard: (RepeatCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -770,10 +789,10 @@ GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlread
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -788,4 +807,36 @@ GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlread
 	result at: 4 put: 4.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #tests }
+GameCardTest >> test32SpaceshipsTwoChangesCapacityAndOneAnTwoAreAllysThenAmountOfTotalFuelChanges [
+
+	| resultOne aGame resultTwo |
+	aLoadedDie := LoadedDie of: #( 6 7 6 14 2 ).
+
+	aGame := Game
+		         numberOfSpaceships: 2
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame moveSpaceship. "1 -> 7"
+	aGame moveSpaceship. "2 -> 8"
+	aGame moveSpaceship. "1 -> 13"
+	aGame reloadSpaceship.
+	aGame moveSpaceship. "1 -> 27"
+	aGame moveSpaceship. "2 -> 10"
+
+	resultOne := Dictionary new.
+	resultOne at: 1 put: 1.
+	resultOne at: 2 put: 1.
+
+	resultTwo := Dictionary new.
+	resultTwo at: 1 put: 27.
+	resultTwo at: 2 put: 10.
+
+	self assert: (aGame spaceships cellsOfSpaceships = resultOne or:
+			 aGame spaceships cellsOfSpaceships = resultTwo)
 ]

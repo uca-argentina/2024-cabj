@@ -13,21 +13,34 @@ Class {
 
 { #category : #running }
 GameWithDefinedPositionsOfCellsTest >> setUp [
-	
+
 	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
-	collectionOfCells at: 5 put: AtomicBombCell.
-	collectionOfCells at: 6 put: BlackHoleCell.
-	collectionOfCells at: 4 put: CardDispenserCell.
-	collectionOfCells at: 8 put: HyperGravityCell.
-	collectionOfCells at: 9 put: HyperJumpCell.
-	collectionOfCells at: 7 put: MoonWalkCell.
+	collectionOfCells
+		at: 5
+		put: [ :boardCreator | boardCreator createAtomicBombCells ].
+	collectionOfCells
+		at: 6
+		put: [ :boardCreator | boardCreator createBlackHoleCells ].
+	collectionOfCells
+		at: 4
+		put: [ :boardCreator | boardCreator createCardDispenserCells ].
+	collectionOfCells
+		at: 8
+		put: [ :boardCreator | boardCreator createHyperGravityCells ].
+	collectionOfCells
+		at: 9
+		put: [ :boardCreator | boardCreator createHyperJumpCells ].
+	collectionOfCells
+		at: 7
+		put: [ :boardCreator | boardCreator createMoonWalkCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -212,10 +225,25 @@ GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnt
 ]
 
 { #category : #tests }
-GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmountOfCardsOnHandEqualsThree [
+GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItCanUseTwoAccelerationCards [
 
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 3 ).
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 3 3 3 50 ).
+
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	collectionOfCells
+		at: 4
+		put: [ :boardCreator | boardCreator createCardDispenserCells ].
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+
+	gameDeck := EffectManager manage:
+		            (OrderedCollection with: AccelerationCard new).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -224,6 +252,12 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmo
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
 
-	self assert: (aGame cardHand: 1) amount equals: 3
+	result := Dictionary new.
+	result at: 1 put: 9.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

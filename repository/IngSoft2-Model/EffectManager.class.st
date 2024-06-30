@@ -39,6 +39,15 @@ EffectManager >> createCollectionSize: aNumber [
 	^ collectionOfObjects
 ]
 
+{ #category : #creating }
+EffectManager >> giveOneObject [
+
+	| objectToGive |
+	probabilities = 100 ifTrue: [ ^ objects at: 1 ].
+	objectToGive := dictionary at: 100 atRandom.
+	^ objectToGive
+]
+
 { #category : #initialization }
 EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistribution: collectionOfProbabilities [
 
