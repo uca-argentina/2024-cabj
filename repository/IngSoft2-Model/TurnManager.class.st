@@ -31,8 +31,7 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 	currentSpaceship := spaceships at: 1.
 	spaceshipPlaying := spaceships at: 1.
 	turnsToSkip := Dictionary new.
-	1 to: spaceships size do: [ :index |
-	turnsToSkip at: (spaceships at: index) put: 0 ]
+	spaceships each: [ :spaceship | turnsToSkip at: spaceship put: 0 ]
 ]
 
 { #category : #action }

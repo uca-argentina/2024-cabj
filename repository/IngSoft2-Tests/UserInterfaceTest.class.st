@@ -53,8 +53,8 @@ UserInterfaceTest >> test01UserInterfaceMovesSpaceshipThenGetsFinalPositions [
 
 	aUserInterface := UserInterface
 		                  numberOfSpaceships: 3
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
 	aUserInterface moveSpaceship.
@@ -95,8 +95,8 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 
 	aUserInterFace := UserInterface
 		                  numberOfSpaceships: 3
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
 	aUserInterFace activatePermanentCard: (OverloadCard toDoEffectFor: 2).
@@ -123,8 +123,8 @@ UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 
 	aUserInterFace := UserInterface
 		                  numberOfSpaceships: 1
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
 	aUserInterFace moveSpaceship.
@@ -152,8 +152,8 @@ UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRank
 
 	aUserInterFace := UserInterface
 		                  numberOfSpaceships: 4
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
 	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
@@ -174,8 +174,8 @@ UserInterfaceTest >> test05UserInterfacePlaysThenGetsWinnerId [
 	| aUserInterFace |
 	aUserInterFace := UserInterface
 		                  numberOfSpaceships: 1
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 	aUserInterFace moveSpaceship.
 
@@ -199,8 +199,8 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 
 	aUserInterFace := UserInterface
 		                  numberOfSpaceships: 2
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
 	resultOfLaps := Dictionary new.
@@ -232,8 +232,8 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 
 	aUserInterFace := UserInterface
 		                  numberOfSpaceships: 2
-		                  withBoardCreator: aBoardCreator
-		                  playWithDice: aLoadedDie
+		                  with: aBoardCreator
+		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.

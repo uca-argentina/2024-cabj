@@ -64,8 +64,8 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aDie
+		         with: aBoardCreator
+		         playWith: aDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 
@@ -87,8 +87,8 @@ GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
@@ -119,8 +119,8 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
@@ -150,8 +150,8 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice
+		         with: aBoardCreator
+		         playWith: aCollectionOfDice
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	self
@@ -174,8 +174,8 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aDie
+		         with: aBoardCreator
+		         playWith: aDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -201,8 +201,8 @@ GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 	resultOfGame at: 1 put: (OrderedCollection with: 4 with: 1).
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice
+		         with: aBoardCreator
+		         playWith: aCollectionOfDice
 		         andGameDeck: gameDeck.
 
 	self assert: aGame moveSpaceship equals: resultOfGame

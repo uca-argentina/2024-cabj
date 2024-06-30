@@ -49,8 +49,8 @@ GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositi
 	| aGame result |
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -66,8 +66,8 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -92,8 +92,8 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -109,8 +109,8 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 
@@ -131,8 +131,8 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -152,8 +152,8 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -172,8 +172,8 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
@@ -191,8 +191,8 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 	| aGame |
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 
@@ -207,8 +207,8 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -224,8 +224,8 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -242,8 +242,8 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
@@ -264,8 +264,8 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
@@ -286,8 +286,8 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -314,8 +314,8 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
@@ -341,8 +341,8 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -363,8 +363,8 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 	resultOfPositions := Dictionary new.
 	resultOfPositions at: 1 put: 15.
@@ -391,8 +391,8 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	resultOfLaps := Dictionary new.
@@ -418,8 +418,8 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
@@ -439,8 +439,8 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
@@ -462,8 +462,8 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 
 	aGame := Game
 		         numberOfSpaceships: 4
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
@@ -486,8 +486,8 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie
+		         with: aBoardCreator
+		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.

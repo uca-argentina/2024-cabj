@@ -19,12 +19,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice andGameDeck: anEffectManager [
+Game class >> numberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
+		  initializeNumberOfSpaceships: anAmount
+		  with: aBoardCreator
+		  playWith: aCollectionOfDice
 		  andGameDeck: anEffectManager
 ]
 
@@ -117,7 +117,7 @@ Game >> giveOneCardTo: aSpaceship [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice andGameDeck: anEffectManager [
+Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aActiveDeck := ActiveDeck startGame.
 	gameDeck := anEffectManager.
@@ -129,13 +129,13 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	dice := aCollectionOfDice.
 
 	spaceships := CollectionOfSpaceships
-		              numberOfSpaceships: anAmountOfSpaceships
+		              numberOfSpaceships: anAmount
 		              withAmountOfFuel: dice amountOfFaces * 2
 		              indexCalculateWith: aBoardCreator cells.
 
 	anAllyTankManager := AllyTankManager manage: spaceships.
 
-	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
+	spaceshipsCardHands := (1 to: anAmount) collect: [ :index |
 		                       SpaceshipCardHand startGameWith: gameDeck ].
 
 	turnManager := TurnManager manage: spaceships.
