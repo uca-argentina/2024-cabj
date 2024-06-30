@@ -509,20 +509,23 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 ]
 
 { #category : #tests }
-GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards [
+GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoCanPlayTwoAccelerationCards [
 
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 3 ).
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 3 3 3 3 80 ).
 
-	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 	10 timesRepeat: [ collectionOfCells add: Cell ].
-
 	collectionOfCells at: 4 put: CardDispenserCell.
+
+	gameDeck := EffectManager manage:
+		            (OrderedCollection
+			             with: AccelerationCard new
+			             with: RepeatCard new).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
-		                 ofLaps: 1
+		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
 	aGame := Game
@@ -532,12 +535,18 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards 
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame
-		spaceshipId: 2
-		useInstantCard: (RepeatCard toDoEffectFor: 2).
-
-
-	self assert: (aGame cardHand: 2) amount equals: 6
+	aGame spaceshipId: 2 useInstantCard: (RepeatCard toDoEffectFor: 2).
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
+	
+	result := Dictionary new.
+	result at: 1 put: 8.
+	result at: 2 put: 10.
+	
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }

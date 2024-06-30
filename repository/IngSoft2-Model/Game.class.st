@@ -49,12 +49,6 @@ Game >> applyHyperGravityOn: aSpaceship withValue: value [
 	
 ]
 
-{ #category : #accessing }
-Game >> cardHand: aSpaceshipId [
-
-	^ spaceshipsCardHands at: aSpaceshipId
-]
-
 { #category : #action }
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 

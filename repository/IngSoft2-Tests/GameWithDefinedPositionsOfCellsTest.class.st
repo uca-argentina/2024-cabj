@@ -212,10 +212,22 @@ GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnt
 ]
 
 { #category : #tests }
-GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmountOfCardsOnHandEqualsThree [
+GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItCanUseTwoAccelerationCards [
 
-	| aGame |
-	aLoadedDie := LoadedDie of: #( 3 ).
+	| aGame result |
+	aLoadedDie := LoadedDie of: #( 3 3 3 50 ).
+
+	collectionOfCells := OrderedCollection new.
+	10 timesRepeat: [ collectionOfCells add: Cell ].
+	collectionOfCells at: 4 put: CardDispenserCell.
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+
+	gameDeck := EffectManager manage:
+		            (OrderedCollection with: AccelerationCard new).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -224,6 +236,12 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmo
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
 
-	self assert: (aGame cardHand: 1) amount equals: 3
+	result := Dictionary new.
+	result at: 1 put: 9.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

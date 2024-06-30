@@ -23,7 +23,7 @@ SpaceshipCardHand >> amount [
 { #category : #action }
 SpaceshipCardHand >> gainACard [
 
-	collectionOfCards add: ((aGameDeck createCollectionSize: 1) at: 1)
+	collectionOfCards add: (aGameDeck giveOneObject)
 ]
 
 { #category : #initialization }
