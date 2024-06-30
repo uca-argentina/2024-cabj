@@ -9,12 +9,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-UserInterface class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+UserInterface class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice andGameDeck: anEffectManager [
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
 		  withBoardCreator: aBoardCreator
 		  playWithDice: aCollectionOfDice
+		  andGameDeck: anEffectManager
 ]
 
 { #category : #'instance creation' }
@@ -52,12 +53,13 @@ UserInterface >> finalResultsOfSpaceships [
 ]
 
 { #category : #initialization }
-UserInterface >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+UserInterface >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aGame := Game
 		         numberOfSpaceships: anAmountOfSpaceships
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
+		         playWithDice: aCollectionOfDice
+		         andGameDeck: anEffectManager.
 
 	spaceships := aGame spaceships
 ]

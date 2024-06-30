@@ -9,8 +9,7 @@ CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 
 	| aSpaceshipCardHand gameDeck |
 	gameDeck := EffectManager
-		            manage: (OrderedCollection with: AccelerationCard)
-		            withProbabilitiesDistribution: #( 100 ).
+		            manage: (OrderedCollection with: AccelerationCard with: OverloadCard).
 	aSpaceshipCardHand := SpaceshipCardHand startGameWith: gameDeck.
 	SpaceshipCardHand initialize.
 

@@ -5,14 +5,16 @@ Class {
 		'aLoadedDie',
 		'aWormholeCreator',
 		'collectionOfCells',
-		'aBoardCreator'
+		'aBoardCreator',
+		'gameDeck'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #running }
 UserInterfaceTest >> setUp [
-
+	
+	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -31,6 +33,16 @@ UserInterfaceTest >> setUp [
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
+		
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
 ]
 
 { #category : #tests }
@@ -40,9 +52,10 @@ UserInterfaceTest >> test01UserInterfaceMovesSpaceshipThenGetsFinalPositions [
 	aLoadedDie := LoadedDie of: #( 9 8 4 ).
 
 	aUserInterface := UserInterface
-		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 3
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 
 	aUserInterface moveSpaceship.
 	aUserInterface moveSpaceship.
@@ -62,25 +75,34 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 	| aUserInterFace result |
 	aLoadedDie := LoadedDie of: #( 9 9 9 ).
 	
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new).
+
 	collectionOfCells := OrderedCollection new.
 
 	10 timesRepeat: [ collectionOfCells add: Cell ].
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
-	
+
 	aUserInterFace := UserInterface
-		         numberOfSpaceshipsPlayingWithAllCards: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 3
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 
 	aUserInterFace activatePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aUserInterFace
 		spaceshipId: 1
-		activateInstantCard:
-		(RedoCard forCardWith: 3).
+		activateInstantCard: (RedoCard forCardWith: 3).
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
@@ -100,16 +122,17 @@ UserInterfaceTest >> test03UserInterfaceReloadFuelThenGameFunctionsNormally [
 	aLoadedDie := LoadedDie of: #( 3 ).
 
 	aUserInterFace := UserInterface
-		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 1
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 
 	aUserInterFace moveSpaceship.
 	aUserInterFace reloadSpaceship.
-	aUserInterFace  moveSpaceship .	
-	result:=Dictionary new.
-	result at:1 put:7.
-	self assert: aUserInterFace finalPositionOfSpaceships   equals: result.
+	aUserInterFace moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 7.
+	self assert: aUserInterFace finalPositionOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -117,44 +140,43 @@ UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRank
 
 	| aUserInterFace rankingOfSpaceships idRanking |
 	aLoadedDie := LoadedDie of: #( 12 15 5 1 ).
-	
+
 	collectionOfCells := OrderedCollection new.
 
 	10 timesRepeat: [ collectionOfCells add: Cell ].
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
 	aUserInterFace := UserInterface
-		         numberOfSpaceships: 4
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 4
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 
 	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
-	
-	idRanking := (aUserInterFace rankingOfSpaceships) collect: [ :spaceship |
+
+	idRanking := aUserInterFace rankingOfSpaceships collect: [ :spaceship |
 		             spaceship id ].
-	
-	self
-		assert: idRanking
-		equals: rankingOfSpaceships
+
+	self assert: idRanking equals: rankingOfSpaceships
 ]
 
 { #category : #tests }
 UserInterfaceTest >> test05UserInterfacePlaysThenGetsWinnerId [
 
-	| aUserInterFace  |
-
+	| aUserInterFace |
 	aUserInterFace := UserInterface
-		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 1
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 	aUserInterFace moveSpaceship.
 
 	self assert: aUserInterFace winner equals: 1
@@ -165,20 +187,21 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 
 	| aUserInterFace resultOfLaps |
 	aLoadedDie := LoadedDie of: #( 6 3 12 6 1 6 ).
-	
+
 	collectionOfCells := OrderedCollection new.
 
 	10 timesRepeat: [ collectionOfCells add: Cell ].
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
 	aUserInterFace := UserInterface
-		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 2
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 
 	resultOfLaps := Dictionary new.
 	resultOfLaps at: 1 put: 2.
@@ -187,7 +210,9 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 
-	self assert: aUserInterFace finalLapsOfSpaceships equals: resultOfLaps
+	self
+		assert: aUserInterFace finalLapsOfSpaceships
+		equals: resultOfLaps
 ]
 
 { #category : #tests }
@@ -195,20 +220,21 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 
 	| aUserInterFace resultOfGame |
 	aLoadedDie := LoadedDie of: #( 15 5 4 ).
-	
+
 	collectionOfCells := OrderedCollection new.
 
 	10 timesRepeat: [ collectionOfCells add: Cell ].
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
 	aUserInterFace := UserInterface
-		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		                  numberOfSpaceships: 2
+		                  withBoardCreator: aBoardCreator
+		                  playWithDice: aLoadedDie
+		                  andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 10 with: 2).
@@ -217,5 +243,7 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 
-	self assert: aUserInterFace finalResultsOfSpaceships equals: resultOfGame
+	self
+		assert: aUserInterFace finalResultsOfSpaceships
+		equals: resultOfGame
 ]

@@ -19,22 +19,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice andGameDeck: anEffectManager [
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
 		  withBoardCreator: aBoardCreator
 		  playWithDice: aCollectionOfDice
-]
-
-{ #category : #'instance creation' }
-Game class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	^ self new
-		  initializeNumberOfSpaceshipsPlayingWithAllCards:
-		  anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
+		  andGameDeck: anEffectManager
 ]
 
 { #category : #activation }
@@ -126,18 +117,10 @@ Game >> giveOneCardTo: aSpaceship [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aActiveDeck := ActiveDeck startGame.
-	gameDeck := EffectManager
-		            manage: (OrderedCollection
-				             with: AccelerationCard
-				             with: AllyCard
-				             with: OverloadCard
-				             with: RedoCard
-				             with: RepeatCard
-				             with: CancellationCard)
-		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
+	gameDeck := anEffectManager.
 
 	finishLine := OrderedCollection
 		              with: aBoardCreator cells
@@ -158,47 +141,6 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := turnManager nextTurn.
 
-	spaceshipsWithHyperGravity := Dictionary new.
-
-	board := aBoardCreator
-		         createBoardFor: self
-		         with: turnManager
-		         andMaxThrowOf: dice amountOfFaces
-]
-
-{ #category : #initialization }
-Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	aActiveDeck := ActiveDeck startGame.
-	gameDeck := EffectManager
-		            manage: (OrderedCollection
-				             with: AccelerationCard new
-				             with: AllyCard new
-				             with: OverloadCard new
-				             with: RedoCard new 
-				             with: RepeatCard new 
-				             with: CancellationCard new)
-		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
-
-	finishLine := OrderedCollection
-		              with: aBoardCreator cells
-		              with: aBoardCreator laps.
-
-	dice := aCollectionOfDice.
-
-	spaceships := CollectionOfSpaceships
-		              numberOfSpaceships: anAmountOfSpaceships
-		              withAmountOfFuel: dice amountOfFaces * 2
-		              indexCalculateWith: aBoardCreator cells.
-		
-	anAllyTankManager := AllyTankManager manage: spaceships.
-
-	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
-		                       SpaceshipCardHand startGameWithAllCards: gameDeck ].
-
-	turnManager := TurnManager manage: spaceships.
-	currentSpaceship := turnManager nextTurn.
-	
 	spaceshipsWithHyperGravity := Dictionary new.
 
 	board := aBoardCreator

@@ -7,25 +7,37 @@ Class {
 		'collectionOfCells',
 		'aBoardCreator',
 		'dice',
-		'aCollectionOfDice'
+		'aCollectionOfDice',
+		'gameDeck'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #running }
 GameTest >> setUp [
-
+	
+	super setUp.
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	
+
 	dice := OrderedCollection
 		        with: (Die of: 10)
 		        with: (Die of: 10)
 		        with: (Die of: 10)
 		        with: (Die of: 10)
 		        with: (Die of: 10).
-	
+
 	aCollectionOfDice := Dice of: dice.
+
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 )
 ]
 
 { #category : #asserting }
@@ -53,10 +65,12 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aDie.
+		         playWithDice: aDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 
-	self assert: ((aGame spaceships cellsOfSpaceships values at:1) between: 2 and: 6)
+	self assert:
+		((aGame spaceships cellsOfSpaceships values at: 1) between: 2 and: 6)
 ]
 
 { #category : #tests }
@@ -74,7 +88,8 @@ GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         playWithDice: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -105,7 +120,8 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 	aGame := Game
 		         numberOfSpaceships: 3
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         playWithDice: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -124,7 +140,6 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame |
-	
 	collectionOfCells := OrderedCollection new.
 	4 timesRepeat: [ collectionOfCells add: Cell ].
 
@@ -136,7 +151,8 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
+		         playWithDice: aCollectionOfDice
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	self
 		should: [ aGame moveSpaceship ]
@@ -159,11 +175,15 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 	aGame := Game
 		         numberOfSpaceships: 2
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aDie.
+		         playWithDice: aDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame moveSpaceship .
-	self assert: ((aGame spaceships cellsOfSpaceships values at: 1) between: 1 and: 13)
+	aGame moveSpaceship.
+	self assert:
+		((aGame spaceships cellsOfSpaceships values at: 1)
+			 between: 1
+			 and: 13)
 ]
 
 { #category : #tests }
@@ -182,7 +202,8 @@ GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 	aGame := Game
 		         numberOfSpaceships: 1
 		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
+		         playWithDice: aCollectionOfDice
+		         andGameDeck: gameDeck.
 
 	self assert: aGame moveSpaceship equals: resultOfGame
 ]
