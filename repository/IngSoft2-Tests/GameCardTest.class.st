@@ -808,3 +808,35 @@ GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlread
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
+
+{ #category : #tests }
+GameCardTest >> test32SpaceshipsTwoChangesCapacityAndOneAnTwoAreAllysThenAmountOfTotalFuelChanges [
+
+	| resultOne aGame resultTwo |
+	aLoadedDie := LoadedDie of: #( 6 7 6 14 2 ).
+
+	aGame := Game
+		         numberOfSpaceships: 2
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame moveSpaceship. "1 -> 7"
+	aGame moveSpaceship. "2 -> 8"
+	aGame moveSpaceship. "1 -> 13"
+	aGame reloadSpaceship.
+	aGame moveSpaceship. "1 -> 27"
+	aGame moveSpaceship. "2 -> 10"
+
+	resultOne := Dictionary new.
+	resultOne at: 1 put: 1.
+	resultOne at: 2 put: 1.
+
+	resultTwo := Dictionary new.
+	resultTwo at: 1 put: 27.
+	resultTwo at: 2 put: 10.
+
+	self assert: (aGame spaceships cellsOfSpaceships = resultOne or:
+			 aGame spaceships cellsOfSpaceships = resultTwo)
+]
