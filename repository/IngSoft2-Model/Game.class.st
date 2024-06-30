@@ -34,16 +34,6 @@ Game >> activateCard: aCard [
 	aActiveDeck activate: aCard
 ]
 
-{ #category : #activation }
-Game >> activatePermanentCard: aCard [
-
-	| currentSpaceshipCardHand |
-	currentSpaceshipCardHand := spaceshipsCardHands at:
-		                            currentSpaceship id.
-	(currentSpaceshipCardHand use: aCard) ifFalse: [ ^ self ].
-	aCard activateEffectOn: self forSpaceship: currentSpaceship id
-]
-
 { #category : #accessing }
 Game >> ally: spaceshipOne with: spaceshipTwo [
 
@@ -225,7 +215,7 @@ Game >> resetSpaceshipsToCellOne [
 ]
 
 { #category : #activation }
-Game >> spaceshipId: anId activateInstantCard: aCard [
+Game >> spaceshipId: anId useInstantCard: aCard [
 
 	| spaceshipCardHand |
 	spaceshipCardHand := spaceshipsCardHands at: anId.
@@ -262,6 +252,16 @@ Game >> throwDiceAndCheckReward [
 			ifTrue: [ currentSpaceship  changeCapacity: 1 ]
 			ifFalse: [ currentSpaceship  changeCapacity: -1 ] ].
 	^ throwResult
+]
+
+{ #category : #activation }
+Game >> usePermanentCard: aCard [
+
+	| currentSpaceshipCardHand |
+	currentSpaceshipCardHand := spaceshipsCardHands at:
+		                            currentSpaceship id.
+	(currentSpaceshipCardHand use: aCard) ifFalse: [ ^ self ].
+	aCard activateEffectOn: self forSpaceship: currentSpaceship id
 ]
 
 { #category : #results }

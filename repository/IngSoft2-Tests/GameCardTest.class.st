@@ -48,7 +48,7 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -69,7 +69,7 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 	
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	
 	aGame moveSpaceship.
@@ -92,7 +92,7 @@ GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpacesh
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -118,7 +118,7 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -143,14 +143,14 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame moveSpaceship.
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 3).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 3).
 	aGame moveSpaceship.
 
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (OverloadCard toDoEffectFor: 3)).
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -173,11 +173,11 @@ GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 	
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (AllyCard toDoEffectFor: 2)).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -199,10 +199,10 @@ GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanD
 		         playWith: aLoadedDie
 					andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (OverloadCard toDoEffectFor: 2)).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -226,10 +226,10 @@ GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithou
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: AccelerationCard new).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -251,9 +251,9 @@ GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThree
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
-	aGame spaceshipId: 2 activateInstantCard: RedoCard new.
-	aGame spaceshipId: 1 activateInstantCard: (RedoCard forCardWith: 2).
+	aGame usePermanentCard: AccelerationCard new.
+	aGame spaceshipId: 2 useInstantCard: RedoCard new.
+	aGame spaceshipId: 1 useInstantCard: (RedoCard forCardWith: 2).
 
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -274,8 +274,8 @@ GameCardTest >> test15RedoCardPlayedAfterOverloadThenSpaceshipsAffectedHaveLessM
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
-	aGame spaceshipId: 1 activateInstantCard: (RedoCard forCardWith: 3).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame spaceshipId: 1 useInstantCard: (RedoCard forCardWith: 3).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -299,8 +299,8 @@ GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuel
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
-	aGame spaceshipId: 3 activateInstantCard: (RedoCard forCardWith: 4).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame spaceshipId: 3 useInstantCard: (RedoCard forCardWith: 4).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -331,15 +331,15 @@ GameCardTest >> test17TwoAccelerationCardsPlayThenACancellationAndARedoSoNoAccel
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
-	aGame spaceshipId: 2 activateInstantCard: RedoCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame spaceshipId: 2 useInstantCard: RedoCard new.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: AccelerationCard new).
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RedoCard forCardWith: AccelerationCard new).
+		useInstantCard: (RedoCard forCardWith: AccelerationCard new).
 
 	aGame moveSpaceship.
 	result := Dictionary new.
@@ -374,7 +374,7 @@ GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThe
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 1.
@@ -398,7 +398,7 @@ GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 10.
@@ -431,7 +431,7 @@ GameCardTest >> test20RepeatCardRepeatsMoonWalkThenSpaceshipOneMovesBackwards [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 
 	result := Dictionary new.
 	result at: 1 put: 3.
@@ -465,7 +465,7 @@ GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 1.
@@ -499,7 +499,7 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 
 	result := Dictionary new.
 	result at: 1 put: 4.
@@ -534,7 +534,7 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoHasSixCards 
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 
 
 	self assert: (aGame cardHand: 2) amount equals: 6
@@ -556,7 +556,7 @@ GameCardTest >> test24RepeatCardRepeatsWormholeThenSpaceshipOneGoesToWormhole [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 3.
@@ -592,8 +592,8 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard: (RepeatCard toDoEffectFor: 1).
-	aGame spaceshipId: 2 activateInstantCard: (RedoCard forCardWith: 1).
+		useInstantCard: (RepeatCard toDoEffectFor: 1).
+	aGame spaceshipId: 2 useInstantCard: (RedoCard forCardWith: 1).
 
 	result := Dictionary new.
 	result at: 1 put: 2.
@@ -616,7 +616,7 @@ GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpe
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -637,15 +637,15 @@ GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEff
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	aGame
 		spaceshipId: 1
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: AccelerationCard new).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame activatePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -668,16 +668,16 @@ GameCardTest >> test28CancellationCardCancelsOnlyTheCardThatIsExactlyTheSameAsTh
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aGame moveSpaceship.
-	aGame activatePermanentCard: (OverloadCard toDoEffectFor: 3).
+	aGame usePermanentCard: (OverloadCard toDoEffectFor: 3).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 2
-		activateInstantCard:
+		useInstantCard:
 		(CancellationCard toDoEffectFor: (OverloadCard toDoEffectFor: 2)).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -714,7 +714,7 @@ GameCardTest >> test29RepeatHyperGravityForSpaceshipTwoThenItCannotMoveBeacuseOf
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -749,7 +749,7 @@ GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThr
 	aGame moveSpaceship.
 	aGame
 		spaceshipId: 1
-		activateInstantCard: (RepeatCard toDoEffectFor: 2).
+		useInstantCard: (RepeatCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 
 	result := Dictionary new.
@@ -770,10 +770,10 @@ GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlread
 		         playWith: aLoadedDie
 		         andGameDeck: gameDeck.
 
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	aGame activatePermanentCard: (AllyCard toDoEffectFor: 2).
+	aGame usePermanentCard: (AllyCard toDoEffectFor: 2).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.

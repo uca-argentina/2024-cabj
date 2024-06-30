@@ -99,10 +99,10 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
-	aUserInterFace activatePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aUserInterFace usePermanentCard: (OverloadCard toDoEffectFor: 2).
 	aUserInterFace
 		spaceshipId: 1
-		activateInstantCard: (RedoCard forCardWith: 3).
+		useInstantCard: (RedoCard forCardWith: 3).
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.

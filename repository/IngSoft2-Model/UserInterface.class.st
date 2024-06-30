@@ -18,12 +18,6 @@ UserInterface class >> numberOfSpaceships: anAmount with: aBoardCreator playWith
 		  andGameDeck: anEffectManager
 ]
 
-{ #category : #activation }
-UserInterface >> activatePermanentCard: aCard [
-
-	aGame activatePermanentCard: aCard
-]
-
 { #category : #results }
 UserInterface >> finalLapsOfSpaceships [
 
@@ -77,9 +71,15 @@ UserInterface >> reloadSpaceship [
 ]
 
 { #category : #activation }
-UserInterface >> spaceshipId: anId activateInstantCard: aCard [
+UserInterface >> spaceshipId: anId useInstantCard: aCard [
 
-	aGame spaceshipId: anId activateInstantCard: aCard
+	aGame spaceshipId: anId useInstantCard: aCard
+]
+
+{ #category : #activation }
+UserInterface >> usePermanentCard: aCard [
+
+	aGame usePermanentCard: aCard
 ]
 
 { #category : #results }
