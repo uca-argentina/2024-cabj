@@ -37,9 +37,9 @@ SpaceshipCardHand >> initializeStartGameWith: gameDeck [
 SpaceshipCardHand >> use: aCard [
 
 	| cardToRemove |
-	cardToRemove := collectionOfCards
-		                detect: [ :card | card = aCard ]
-		                ifNone: [ ^ false ].
-	collectionOfCards remove: cardToRemove.
-	^ true
+	(collectionOfCards anySatisfy: [ :card | card = aCard ]) ifTrue: [
+		cardToRemove := collectionOfCards detect: [ :card | card = aCard ].
+		collectionOfCards remove: cardToRemove.
+		^ true ].
+	^ false
 ]
