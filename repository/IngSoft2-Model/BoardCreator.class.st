@@ -51,15 +51,7 @@ BoardCreator >> createBoardFor: aGame with: aTurnManager andMaxThrowOf: aNumber 
 	amountOfCells := cells size.
 	anAmountOfIndex := amountOfCells * laps.
 
-	cells do: [ :eachClass |
-		eachClass = Cell ifTrue: [ self createCells ].
-		eachClass = BlackHoleCell ifTrue: [ self createBlackHoleCells ].
-		eachClass = AtomicBombCell ifTrue: [ self createAtomicBombCells ].
-		eachClass = CardDispenserCell ifTrue: [
-			self createCardDispenserCells ].
-		eachClass = MoonWalkCell ifTrue: [ self createMoonWalkCells ].
-		eachClass = HyperJumpCell ifTrue: [ self createHyperJumpCells ].
-		eachClass = HyperGravityCell ifTrue: [ self createHyperGravityCells ] ].
+	cells do: [ :cell | cell value: self ].
 
 	self createWormhole.
 

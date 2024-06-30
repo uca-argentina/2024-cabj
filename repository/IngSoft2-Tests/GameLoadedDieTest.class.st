@@ -13,14 +13,15 @@ Class {
 
 { #category : #running }
 GameLoadedDieTest >> setUp [
-	
+
 	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	15 timesRepeat: [ collectionOfCells add: Cell ].
+	15 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells

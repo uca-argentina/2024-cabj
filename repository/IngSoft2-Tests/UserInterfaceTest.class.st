@@ -13,27 +13,40 @@ Class {
 
 { #category : #running }
 UserInterfaceTest >> setUp [
-	
+
 	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [ collectionOfCells add: Cell ].
-	
-	collectionOfCells at: 5 put: AtomicBombCell.
-	collectionOfCells at: 6 put: BlackHoleCell.
-	collectionOfCells at: 4 put: CardDispenserCell.
-	collectionOfCells at: 8 put: HyperGravityCell.
-	collectionOfCells at: 9 put: HyperJumpCell.
-	collectionOfCells at: 7 put: MoonWalkCell.
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+
+	collectionOfCells
+		at: 5
+		put: [ :boardCreator | boardCreator createAtomicBombCells ].
+	collectionOfCells
+		at: 6
+		put: [ :boardCreator | boardCreator createBlackHoleCells ].
+	collectionOfCells
+		at: 4
+		put: [ :boardCreator | boardCreator createCardDispenserCells ].
+	collectionOfCells
+		at: 8
+		put: [ :boardCreator | boardCreator createHyperGravityCells ].
+	collectionOfCells
+		at: 9
+		put: [ :boardCreator | boardCreator createHyperJumpCells ].
+	collectionOfCells
+		at: 7
+		put: [ :boardCreator | boardCreator createMoonWalkCells ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
-		
+
 	gameDeck := EffectManager
 		            manage: (OrderedCollection
 				             with: AccelerationCard new
@@ -42,7 +55,7 @@ UserInterfaceTest >> setUp [
 				             with: RedoCard new
 				             with: RepeatCard new
 				             with: CancellationCard new)
-		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 )
 ]
 
 { #category : #tests }
@@ -74,19 +87,19 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 
 	| aUserInterFace result |
 	aLoadedDie := LoadedDie of: #( 9 9 9 ).
-	
-	gameDeck := EffectManager
-		            manage: (OrderedCollection
-				             with: AccelerationCard new
-				             with: AllyCard new
-				             with: OverloadCard new
-				             with: RedoCard new
-				             with: RepeatCard new
-				             with: CancellationCard new).
+
+	gameDeck := EffectManager manage: (OrderedCollection
+			             with: AccelerationCard new
+			             with: AllyCard new
+			             with: OverloadCard new
+			             with: RedoCard new
+			             with: RepeatCard new
+			             with: CancellationCard new).
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -143,7 +156,8 @@ UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRank
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -190,7 +204,8 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -223,7 +238,8 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [ collectionOfCells add: Cell ].
+	10 timesRepeat: [
+		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
