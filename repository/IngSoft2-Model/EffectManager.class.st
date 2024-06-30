@@ -51,8 +51,8 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 			totalCount := totalCount + count.]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'set and get' }
 EffectManager >> objectsToManage [
 
-	^ objects
+	^ objects copy
 ]

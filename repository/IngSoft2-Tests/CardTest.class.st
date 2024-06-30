@@ -7,8 +7,11 @@ Class {
 { #category : #tests }
 CardTest >> test01SpaceshipCardHandInitializeThenAmountOfCardsEqualsTwo [
 
-	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand startGame.
+	| aSpaceshipCardHand gameDeck |
+	gameDeck := EffectManager
+		            manage: (OrderedCollection with: AccelerationCard)
+		            withProbabilitiesDistribution: #( 100 ).
+	aSpaceshipCardHand := SpaceshipCardHand startGameWith: gameDeck.
 	SpaceshipCardHand initialize.
 
 	self assert: aSpaceshipCardHand amount equals: 2
@@ -26,8 +29,11 @@ CardTest >> test05GameDeckInitializeThenSizeEqualsAllpossibleCardsToPlayWith [
 { #category : #tests }
 CardTest >> test06SpaceshipCardHandGainsACardThenAmountOfCardsEqualsThree [
 
-	| aSpaceshipCardHand |
-	aSpaceshipCardHand := SpaceshipCardHand startGame.
+	| aSpaceshipCardHand gameDeck |
+	gameDeck := EffectManager
+		            manage: (OrderedCollection with: AccelerationCard)
+		            withProbabilitiesDistribution: #( 100 ).
+	aSpaceshipCardHand := SpaceshipCardHand startGameWith: gameDeck.
 	SpaceshipCardHand initialize.
 	aSpaceshipCardHand gainACard.
 
