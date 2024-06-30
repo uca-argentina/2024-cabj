@@ -26,12 +26,12 @@ TurnManager >> decrementTurnsOfSpaceship [
 { #category : #initialization }
 TurnManager >> initializeManage: collectionOfSpaceships [
 
-	spaceships := collectionOfSpaceships.
+	spaceships := collectionOfSpaceships collect: [:spaceship | spaceship id].
 
 	currentSpaceship := spaceships at: 1.
 	spaceshipPlaying := spaceships at: 1.
 	turnsToSkip := Dictionary new.
-	spaceships each: [ :spaceship | turnsToSkip at: spaceship put: 0 ]
+	collectionOfSpaceships each: [ :spaceship | turnsToSkip at: (spaceship id) put: 0 ]
 ]
 
 { #category : #action }

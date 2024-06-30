@@ -19,12 +19,6 @@ CollectionOfSpaceships class >> numberOfSpaceships: anAmountOfSpaceships withAmo
 ]
 
 { #category : #accessing }
-CollectionOfSpaceships >> at: anIndex [
-
-	^ spaceships at: anIndex
-]
-
-{ #category : #accessing }
 CollectionOfSpaceships >> cellsOfSpaceships [
 
 	| dictionaryOfCellPositions |
@@ -75,12 +69,6 @@ CollectionOfSpaceships >> each: aBlock but: aSpaceshipToSkip [
 			aBlock value: spaceship ] ]
 ]
 
-{ #category : #accessing }
-CollectionOfSpaceships >> indexOf: aSpaceship [
-
-	^ spaceships indexOf: aSpaceship
-]
-
 { #category : #initialization }
 CollectionOfSpaceships >> initializeNumberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel indexCalculateWith: anAmountOfCells [
 
@@ -123,10 +111,4 @@ CollectionOfSpaceships >> ranking [
 	sortedSpaceships sort: [ :a :b | a > b ].
 
 	^ sortedSpaceships collect: [ :spaceship | spaceship ]
-]
-
-{ #category : #accessing }
-CollectionOfSpaceships >> size [
-
-	^ spaceships size
 ]

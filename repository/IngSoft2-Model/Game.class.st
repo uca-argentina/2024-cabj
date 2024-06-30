@@ -72,7 +72,7 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 	sharingId := anAllyTankManager sharingWith: aSpaceship id.
 	sharingId = aSpaceship ifTrue: [
 		aSpaceship objectFuelTank isEmpty ifFalse: [ ^ self ].
-		turnManager lostTurns: 2 by: aSpaceship.
+		turnManager lostTurns: 2 by: (aSpaceship id).
 		aSpaceship resetToOne.
 		aSpaceship loadFuel.
 		^ self ].
@@ -80,8 +80,8 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 	spaceshipSharing := spaceships detectSpaceshipWithId: sharingId.
 	(aSpaceship objectFuelTank isEmpty and:
 		 spaceshipSharing objectFuelTank isEmpty) ifFalse: [ ^ self ].
-	turnManager lostTurns: 2 by: aSpaceship.
-	turnManager lostTurns: 2 by: spaceshipSharing.
+	turnManager lostTurns: 2 by: (aSpaceship id).
+	turnManager lostTurns: 2 by: (spaceshipSharing id).
 	aSpaceship resetToOne.
 	aSpaceship loadFuel.
 	spaceshipSharing resetToOne.
@@ -139,7 +139,8 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 		                       SpaceshipCardHand startGameWith: gameDeck ].
 
 	turnManager := TurnManager manage: spaceships.
-	currentSpaceship := turnManager nextTurn.
+	currentSpaceship := spaceships detectSpaceshipWithId:
+		                    turnManager nextTurn.
 
 	spaceshipsWithHyperGravity := Dictionary new.
 
@@ -186,7 +187,7 @@ Game >> moveSpaceship [
 	anAllyTankManager use: throwResult ofSharedWith: currentSpaceship id.
 
 	currentSpaceship move: throwResult.
-	
+
 	self checkAndHandleFuelDepletion: currentSpaceship.
 
 	cellToEnter := board at: positionOfSpaceship cell.
@@ -197,14 +198,16 @@ Game >> moveSpaceship [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].
 
-	currentSpaceship := turnManager nextTurn
+	currentSpaceship := spaceships detectSpaceshipWithId:
+		                    turnManager nextTurn
 ]
 
 { #category : #action }
 Game >> reloadSpaceship [
 
 	| nextSpaceship |
-	nextSpaceship := turnManager nextTurn.
+	nextSpaceship := spaceships detectSpaceshipWithId:
+		                 turnManager nextTurn.
 	nextSpaceship loadFuel
 ]
 
