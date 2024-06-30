@@ -27,9 +27,16 @@ ActiveDeck >> applyEffectOn: throwResult withCurrentSpaceship: spaceshipId [
 	| auxNumber |
 	auxNumber := throwResult.
 	cards isEmpty ifTrue: [ ^ throwResult ].
-	cards do: [ :card |
+	self each: [ :card |
 		auxNumber := card applyEffectOn: auxNumber for: spaceshipId ].
 	^ auxNumber
+]
+
+{ #category : #removing }
+ActiveDeck >> each: aBlock [
+
+	cards do: [ :card |
+			aBlock value: card ]
 ]
 
 { #category : #initialization }
@@ -50,10 +57,10 @@ ActiveDeck >> removeACard: cardToCancel [
 	| anIndex indexToRemove |
 	indexToRemove := 0.
 	anIndex := 1.
-	cards do: [ :card |
+	self each: [ :card |
 		(card isExactlyTheSameCard: cardToCancel) ifTrue: [
 			indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
 	(cards at: indexToRemove) deactivate.
-	cards removeAt: indexToRemove
+	cards removeAt: indexToRemove.
 ]
