@@ -15,12 +15,6 @@ FuelTank class >> fullWith: anAmountOfFuel [
 	^ self new initializeFullWith: anAmountOfFuel
 ]
 
-{ #category : #asserting }
-FuelTank >> areBothEmpty [
-
-	^ fuel <= 0 and: fuelTankSharing fuel <= 0
-]
-
 { #category : #accessing }
 FuelTank >> capacity [
 
@@ -33,18 +27,11 @@ FuelTank >> changeCapacity: aNumber [
 	capacity := capacity + aNumber
 ]
 
-{ #category : #accessing }
-FuelTank >> fuel [
-
-	^ fuel
-]
-
 { #category : #initialization }
 FuelTank >> initializeFullWith: anAmountOfFuel [
 
 	fuel := anAmountOfFuel.
 	capacity := anAmountOfFuel.
-	fuelTankSharing := self
 ]
 
 { #category : #asserting }
@@ -54,9 +41,9 @@ FuelTank >> isEmpty [
 ]
 
 { #category : #action }
-FuelTank >> loadFuel [
+FuelTank >> loadFuel: anAmountOfFuel [
 
-	fuel := capacity
+	fuel := fuel + anAmountOfFuel
 ]
 
 { #category : #'set and get' }
@@ -65,22 +52,10 @@ FuelTank >> loadedWith [
 	^ fuel
 ]
 
-{ #category : #accessing }
-FuelTank >> runOutOfFuel: aSpaceship [
-
-	self areBothEmpty ifTrue: [ aSpaceship resetToOne ]
-]
-
 { #category : #action }
-FuelTank >> shareWith: aFuelTank [
+FuelTank >> reloadToCapacity [
 
-	fuelTankSharing := aFuelTank
-]
-
-{ #category : #action }
-FuelTank >> stopSharing [
-
-	fuelTankSharing := self
+	fuel := capacity
 ]
 
 { #category : #action }
@@ -88,6 +63,5 @@ FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
 	self isEmpty ifFalse: [ ^ self ].
-	fuelTankSharing isEmpty ifFalse: [ fuelTankSharing useFuel: fuel abs ].
 	fuel := 0
 ]

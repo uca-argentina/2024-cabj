@@ -2,10 +2,20 @@ Class {
 	#name : #EffectManager,
 	#superclass : #Object,
 	#instVars : [
-		'dictionary'
+		'dictionary',
+		'probabilities',
+		'objects'
 	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #'instance creation' }
+EffectManager class >> manage: aCollectionOfObjects [
+
+	^ self new
+		  initializeManage: aCollectionOfObjects
+		  withProbabilitiesDistribution: 100
+]
 
 { #category : #'instance creation' }
 EffectManager class >> manage: aCollectionOfObjects withProbabilitiesDistribution: collectionOfProbabilities [
@@ -22,6 +32,7 @@ EffectManager class >> manage: aCollectionOfObjects withProbabilitiesDistributio
 EffectManager >> createCollectionSize: aNumber [
 
 	| collectionOfObjects |
+	probabilities = 100 ifTrue:[^objects copy].
 	collectionOfObjects := OrderedCollection new.
 	aNumber timesRepeat: [
 		collectionOfObjects add: (dictionary at: 100 atRandom) ].
@@ -35,7 +46,11 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 	dictionary := Dictionary new.
 	index := 1.
 	totalCount := 0.
+	probabilities := collectionOfProbabilities.
 
+	collectionOfProbabilities = 100 ifTrue: [
+		objects := aCollectionOfObjects.
+		^ self ].
 	aCollectionOfObjects
 		with: collectionOfProbabilities
 		do: [ :object :count |
@@ -46,5 +61,5 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 				dictionary at: index put: object.
 				index := index + 1 ].
 
-			totalCount := totalCount + count.]
+			totalCount := totalCount + count ]
 ]

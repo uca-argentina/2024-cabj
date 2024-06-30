@@ -5,21 +5,23 @@ Class {
 		'aLoadedDie',
 		'aWormholeCreator',
 		'collectionOfCells',
-		'aBoardCreator'
+		'aBoardCreator',
+		'gameDeck'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #running }
 GameWithDefinedPositionsOfCellsTest >> setUp [
-
+	
+	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
 	10 timesRepeat: [ collectionOfCells add: Cell ].
-	
+
 	collectionOfCells at: 5 put: AtomicBombCell.
 	collectionOfCells at: 6 put: BlackHoleCell.
 	collectionOfCells at: 4 put: CardDispenserCell.
@@ -31,6 +33,16 @@ GameWithDefinedPositionsOfCellsTest >> setUp [
 		                 with: collectionOfCells
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
+
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 )
 ]
 
 { #category : #tests }
@@ -41,8 +53,9 @@ GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomic
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -61,11 +74,12 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 
 	| result aGame |
 	aLoadedDie := LoadedDie of: #( 9 8 3 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -87,8 +101,9 @@ GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEve
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -110,8 +125,9 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -130,11 +146,12 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 
 	| result aGame |
 	aLoadedDie := LoadedDie of: #( 7 9 2 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -155,8 +172,9 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -177,8 +195,9 @@ GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnt
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -200,8 +219,9 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenAmo
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 

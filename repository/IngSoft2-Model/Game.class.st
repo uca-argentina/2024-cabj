@@ -11,28 +11,21 @@ Class {
 		'dice',
 		'spaceships',
 		'cellToEnter',
-		'spaceshipsWithHyperGravity'
+		'spaceshipsWithHyperGravity',
+		'anAllyTankManager',
+		'gameDeck'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Game class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+Game class >> numberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
-]
-
-{ #category : #'instance creation' }
-Game class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	^ self new
-		  initializeNumberOfSpaceshipsPlayingWithAllCards:
-		  anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
+		  initializeNumberOfSpaceships: anAmount
+		  with: aBoardCreator
+		  playWith: aCollectionOfDice
+		  andGameDeck: anEffectManager
 ]
 
 { #category : #activation }
@@ -49,6 +42,12 @@ Game >> activatePermanentCard: aCard [
 		                            currentSpaceship id.
 	(currentSpaceshipCardHand use: aCard) ifFalse: [ ^ self ].
 	aCard activateEffectOn: self forSpaceship: currentSpaceship id
+]
+
+{ #category : #accessing }
+Game >> ally: spaceshipOne with: spaceshipTwo [
+
+	anAllyTankManager ally: spaceshipOne with: spaceshipTwo
 ]
 
 { #category : #action }
@@ -69,9 +68,25 @@ Game >> cardHand: aSpaceshipId [
 { #category : #action }
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 
-	aSpaceship objectFuelTank areBothEmpty ifFalse: [ ^ self ].
-	turnManager lostTurns: 2 by: aSpaceship.
-	aSpaceship loadFuel
+	| sharingId spaceshipSharing |
+	sharingId := anAllyTankManager sharingWith: aSpaceship id.
+	sharingId = aSpaceship ifTrue: [
+		aSpaceship objectFuelTank isEmpty ifFalse: [ ^ self ].
+		turnManager lostTurns: 2 by: (aSpaceship id).
+		aSpaceship resetToOne.
+		aSpaceship loadFuel.
+		^ self ].
+
+	spaceshipSharing := spaceships detectSpaceshipWithId: sharingId.
+	(aSpaceship objectFuelTank isEmpty and:
+		 spaceshipSharing objectFuelTank isEmpty) ifFalse: [ ^ self ].
+	turnManager lostTurns: 2 by: (aSpaceship id).
+	turnManager lostTurns: 2 by: (spaceshipSharing id).
+	aSpaceship resetToOne.
+	aSpaceship loadFuel.
+	spaceshipSharing resetToOne.
+	spaceshipSharing loadFuel.
+	^ self
 ]
 
 { #category : #checking }
@@ -102,9 +117,10 @@ Game >> giveOneCardTo: aSpaceship [
 ]
 
 { #category : #initialization }
-Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aActiveDeck := ActiveDeck startGame.
+	gameDeck := anEffectManager.
 
 	finishLine := OrderedCollection
 		              with: aBoardCreator cells
@@ -113,48 +129,19 @@ Game >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBo
 	dice := aCollectionOfDice.
 
 	spaceships := CollectionOfSpaceships
-		              numberOfSpaceships: anAmountOfSpaceships
+		              numberOfSpaceships: anAmount
 		              withAmountOfFuel: dice amountOfFaces * 2
 		              indexCalculateWith: aBoardCreator cells.
 
-	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
-		                       SpaceshipCardHand startGame ].
-	SpaceshipCardHand initialize.
+	anAllyTankManager := AllyTankManager manage: spaceships.
+
+	spaceshipsCardHands := (1 to: anAmount) collect: [ :index |
+		                       SpaceshipCardHand startGameWith: gameDeck ].
 
 	turnManager := TurnManager manage: spaceships.
-	currentSpaceship := turnManager nextTurn.
-	
-	spaceshipsWithHyperGravity := Dictionary new.
+	currentSpaceship := spaceships detectSpaceshipWithId:
+		                    turnManager nextTurn.
 
-	board := aBoardCreator
-		         createBoardFor: self
-		         with: turnManager
-		         andMaxThrowOf: dice amountOfFaces
-]
-
-{ #category : #initialization }
-Game >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	aActiveDeck := ActiveDeck startGame.
-
-	finishLine := OrderedCollection
-		              with: aBoardCreator cells
-		              with: aBoardCreator laps.
-
-	dice := aCollectionOfDice.
-
-	spaceships := CollectionOfSpaceships
-		              numberOfSpaceships: anAmountOfSpaceships
-		              withAmountOfFuel: dice amountOfFaces * 2
-		              indexCalculateWith: aBoardCreator cells.
-
-	spaceshipsCardHands := (1 to: anAmountOfSpaceships) collect: [ :index |
-		                       SpaceshipCardHand startGameWithAllCards ].
-	SpaceshipCardHand initialize.
-
-	turnManager := TurnManager manage: spaceships.
-	currentSpaceship := turnManager nextTurn.
-	
 	spaceshipsWithHyperGravity := Dictionary new.
 
 	board := aBoardCreator
@@ -191,30 +178,36 @@ Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult |
 	throwResult := self throwDiceAndCheckReward.
-	throwResult := self checkMoveIsPossible: throwResult for: currentSpaceship.
+	throwResult := self
+		               checkMoveIsPossible: throwResult
+		               for: currentSpaceship.
 
 	positionOfSpaceship := currentSpaceship objectPosition.
 
+	anAllyTankManager use: throwResult ofSharedWith: currentSpaceship id.
+
 	currentSpaceship move: throwResult.
+
+	self checkAndHandleFuelDepletion: currentSpaceship.
 
 	cellToEnter := board at: positionOfSpaceship cell.
 	cellToEnter applyEffectTo: currentSpaceship on: self.
-
-	self checkAndHandleFuelDepletion: currentSpaceship.
 
 	positionOfSpaceship := currentSpaceship objectPosition position.
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].
 
-	currentSpaceship := turnManager nextTurn
+	currentSpaceship := spaceships detectSpaceshipWithId:
+		                    turnManager nextTurn
 ]
 
 { #category : #action }
 Game >> reloadSpaceship [
 
 	| nextSpaceship |
-	nextSpaceship := turnManager nextTurn.
+	nextSpaceship := spaceships detectSpaceshipWithId:
+		                 turnManager nextTurn.
 	nextSpaceship loadFuel
 ]
 
@@ -228,10 +221,7 @@ Game >> removeTheCard: aCardToCancel andSaveTheLastInstantCardPlayed: aCancellat
 { #category : #initialization }
 Game >> resetSpaceshipsToCellOne [
 
-	| aSpaceship |
-	1 to: spaceships size do: [ :index |
-		aSpaceship := spaceships at: index.
-		aSpaceship objectPosition resetToOne ]
+	spaceships each: [ :spaceship | spaceship resetToOne ]
 ]
 
 { #category : #activation }
@@ -247,6 +237,12 @@ Game >> spaceshipId: anId activateInstantCard: aCard [
 Game >> spaceships [
 
 	^ spaceships 
+]
+
+{ #category : #accessing }
+Game >> stopSharing: aSpaceshipId [
+
+	anAllyTankManager stopSharing: aSpaceshipId
 ]
 
 { #category : #action }

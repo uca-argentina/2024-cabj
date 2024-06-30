@@ -9,22 +9,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-UserInterface class >> numberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+UserInterface class >> numberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	^ self new
-		  initializeNumberOfSpaceships: anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
-]
-
-{ #category : #'instance creation' }
-UserInterface class >> numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	^ self new
-		  initializeNumberOfSpaceshipsPlayingWithAllCards:
-		  anAmountOfSpaceships
-		  withBoardCreator: aBoardCreator
-		  playWithDice: aCollectionOfDice
+		  initializeNumberOfSpaceships: anAmount
+		  with: aBoardCreator
+		  playWith: aCollectionOfDice
+		  andGameDeck: anEffectManager
 ]
 
 { #category : #activation }
@@ -52,23 +43,13 @@ UserInterface >> finalResultsOfSpaceships [
 ]
 
 { #category : #initialization }
-UserInterface >> initializeNumberOfSpaceships: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
+UserInterface >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aGame := Game
-		         numberOfSpaceships: anAmountOfSpaceships
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
-
-	spaceships := aGame spaceships
-]
-
-{ #category : #initialization }
-UserInterface >> initializeNumberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships withBoardCreator: aBoardCreator playWithDice: aCollectionOfDice [
-
-	aGame := Game
-		         numberOfSpaceshipsPlayingWithAllCards: anAmountOfSpaceships
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aCollectionOfDice.
+		         numberOfSpaceships: anAmount
+		         with: aBoardCreator
+		         playWith: aCollectionOfDice
+		         andGameDeck: anEffectManager.
 
 	spaceships := aGame spaceships
 ]

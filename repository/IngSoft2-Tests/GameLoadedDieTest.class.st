@@ -5,14 +5,16 @@ Class {
 		'aLoadedDie',
 		'aWormholeCreator',
 		'collectionOfCells',
-		'aBoardCreator'
+		'aBoardCreator',
+		'gameDeck'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #running }
 GameLoadedDieTest >> setUp [
-
+	
+	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
@@ -24,6 +26,16 @@ GameLoadedDieTest >> setUp [
 		                 with: collectionOfCells
 		                 ofLaps: 1
 		                 withWormholeCreator: aWormholeCreator.
+
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 )
 ]
 
 { #category : #asserting }
@@ -35,15 +47,15 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
 
 	| aGame result |
-
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
-	result:= Dictionary new.
-	result at:1 put:7..
-	self assert: aGame spaceships cellsOfSpaceships  equals: result
+	result := Dictionary new.
+	result at: 1 put: 7.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #testsGame002 }
@@ -54,15 +66,16 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
-	aGame moveSpaceship .
-	
-	result:=Dictionary new.
-	result at:1 put:12.
+	aGame moveSpaceship.
 
-	self assert: aGame spaceships cellsOfSpaceships equals: result.
+	result := Dictionary new.
+	result at: 1 put: 12.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #testsGame002 }
@@ -70,9 +83,7 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 5 ).
-	aWormholeCreator := WormholeCreator
-		                    withBeginning: 6
-		                    andEnd: 8.
+	aWormholeCreator := WormholeCreator withBeginning: 6 andEnd: 8.
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -81,12 +92,13 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-	aGame moveSpaceship .	
-	result:=Dictionary new.
-	result at:1 put:8.
-	self assert: aGame spaceships cellsOfSpaceships  equals: result
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 8.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #testsGame002 }
@@ -94,18 +106,21 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 	| aGame resultOfGame |
 	aLoadedDie := LoadedDie of: #( 14 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
 	aGame moveSpaceship.
 
-	self assert: aGame spaceships positionsOfSpaceships equals: resultOfGame
+	self
+		assert: aGame spaceships positionsOfSpaceships
+		equals: resultOfGame
 ]
 
 { #category : #tests }
@@ -116,16 +131,17 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-		
-	result:=Dictionary new.
-	result at:1 put:12.
-	result at:2 put:7.
-	self assert: aGame spaceships cellsOfSpaceships  equals: result
+
+	result := Dictionary new.
+	result at: 1 put: 12.
+	result at: 2 put: 7.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -133,11 +149,12 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
 	| aGame |
 	aLoadedDie := LoadedDie of: #( 13 2 1 3 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
@@ -151,13 +168,13 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
 	| aGame resultOfGame |
-	
 	aLoadedDie := LoadedDie of: #( 13 6 1 ).
-	
+
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
@@ -172,11 +189,11 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 
 	| aGame |
-
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 
 	self assert: aGame winner equals: 1
@@ -190,8 +207,9 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -206,13 +224,14 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
-	aGame moveSpaceship .	
-	result:=Dictionary new.
-	result at:1 put:1.
-	self assert: aGame spaceships cellsOfSpaceships  equals: result.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 1.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -223,15 +242,16 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	
-	result:=Dictionary new.
-	result at:1 put:4.
+
+	result := Dictionary new.
+	result at: 1 put: 4.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
@@ -244,17 +264,18 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-	
-	aGame moveSpaceship .	
-	result:=Dictionary new.
-	result at:1 put:7.
 
-	self assert: aGame spaceships cellsOfSpaceships  equals: result
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 7.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -265,18 +286,19 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-	
-	aGame moveSpaceship .	
-	result:=Dictionary new.
-	result at:1 put:1.
-	result at:2 put:7.
-	self assert: aGame spaceships cellsOfSpaceships  equals: result.
+
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 1.
+	result at: 2 put: 7.
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -284,7 +306,7 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 5 4 7 ).
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
@@ -292,17 +314,18 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
-		
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-	aGame moveSpaceship .	
-	result:=Dictionary new.
-	result at:1 put:2.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: 2.
 
-	self assert: (aGame spaceships lapsOfSpaceships ) equals: result.
+	self assert: aGame spaceships lapsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -318,17 +341,18 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
 	aGame moveSpaceship.
 	aGame reloadSpaceship.
-	aGame moveSpaceship.	
-	result:=Dictionary new.
-	result at:1 put:(OrderedCollection with: 6 with: 2).
-	self assert: aGame spaceships positionsOfSpaceships  equals: result.
+	aGame moveSpaceship.
+	result := Dictionary new.
+	result at: 1 put: (OrderedCollection with: 6 with: 2).
+	self assert: aGame spaceships positionsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -339,8 +363,9 @@ GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 	resultOfPositions := Dictionary new.
 	resultOfPositions at: 1 put: 15.
 	resultOfPositions at: 2 put: 7.
@@ -358,7 +383,7 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	| aGame resultOfLaps |
 	aLoadedDie := LoadedDie of: #( 15 3 14 ).
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
@@ -366,8 +391,9 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	resultOfLaps := Dictionary new.
 	resultOfLaps at: 1 put: 2.
@@ -384,7 +410,7 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 
 	| aGame resultOfGame |
 	aLoadedDie := LoadedDie of: #( 24 5 5 ).
-	
+
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
 		                 ofLaps: 2
@@ -392,8 +418,9 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 
 	aGame := Game
 		         numberOfSpaceships: 2
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
 	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 2).
@@ -412,20 +439,19 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 
 	aGame := Game
 		         numberOfSpaceships: 3
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	
+
 	idRanking := aGame spaceships ranking collect: [ :spaceship |
 		             spaceship id ].
-	
-	self
-		assert: idRanking
-		equals: rankingOfSpaceships
+
+	self assert: idRanking equals: rankingOfSpaceships
 ]
 
 { #category : #tests }
@@ -436,21 +462,20 @@ GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfT
 
 	aGame := Game
 		         numberOfSpaceships: 4
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 	aGame moveSpaceship.
-	
-	idRanking := (aGame spaceships ranking first: 3) collect: [ :spaceship |
-		             spaceship id ].
-	
-	self
-		assert: idRanking
-		equals: rankingOfSpaceships
+
+	idRanking := (aGame spaceships ranking first: 3) collect: [
+		             :spaceship | spaceship id ].
+
+	self assert: idRanking equals: rankingOfSpaceships
 ]
 
 { #category : #tests }
@@ -461,8 +486,9 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 
 	aGame := Game
 		         numberOfSpaceships: 1
-		         withBoardCreator: aBoardCreator
-		         playWithDice: aLoadedDie.
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
 	aGame reloadSpaceship.

@@ -9,15 +9,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-SpaceshipCardHand class >> startGame [
+SpaceshipCardHand class >> startGameWith: aGameDeck [
 
-	^ self new initializeStartGame
-]
-
-{ #category : #'instance creation' }
-SpaceshipCardHand class >> startGameWithAllCards [
-
-	^ self new initializeStartGameAllCards
+	^ self new initializeStartGameWith: aGameDeck
 ]
 
 { #category : #accessing }
@@ -29,23 +23,14 @@ SpaceshipCardHand >> amount [
 { #category : #action }
 SpaceshipCardHand >> gainACard [
 
-	collectionOfCards add: aGameDeck pickACard
+	collectionOfCards add: ((aGameDeck createCollectionSize: 1) at: 1)
 ]
 
 { #category : #initialization }
-SpaceshipCardHand >> initializeStartGame [
+SpaceshipCardHand >> initializeStartGameWith: gameDeck [
 
-	aGameDeck := GameDeck startGame.
-	collectionOfCards := OrderedCollection
-		                     with: aGameDeck pickACard
-		                     with: aGameDeck pickACard
-]
-
-{ #category : #initialization }
-SpaceshipCardHand >> initializeStartGameAllCards [
-
-	aGameDeck := GameDeck startGame.
-	collectionOfCards := aGameDeck availableCards
+	aGameDeck := gameDeck.
+	collectionOfCards := gameDeck createCollectionSize: 2
 ]
 
 { #category : #action }

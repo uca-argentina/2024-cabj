@@ -124,17 +124,7 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 	aSpaceship := Spaceship launchWithFuel: 5.
 	aSpaceship move: 6.
 	Spaceship initialize.
-	self assert: aSpaceship objectPosition cell equals: 1
-]
-
-{ #category : #fuelTests }
-SpaceshipTest >> test014WhenSpaceshipMovesTheSameAsAmountOfFuelThenGoesBackToStart [
-
-	| aSpaceship |
-	aSpaceship := Spaceship launchWithFuel: 5.
-	aSpaceship move: 5.
-	Spaceship initialize.
-	self assert: aSpaceship objectPosition cell equals: 1
+	self assert: aSpaceship objectPosition cell equals: 6
 ]
 
 { #category : #fuelTests }
@@ -203,19 +193,6 @@ SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition 
 	aSpaceship move: 5.
 	Spaceship initialize.
 	self assert: aSpaceship objectPosition position equals: finalPosition
-]
-
-{ #category : #fuelTests }
-SpaceshipTest >> test024SpaceshipGoesBackToStartReloadsFuelAndMovesThenCellEqualsMovement [
-
-	| aSpaceship |
-	aSpaceship := Spaceship launchWithFuel: 5.
-	aSpaceship move: 3.
-	aSpaceship move: 2.
-	aSpaceship loadFuel.
-	aSpaceship move: 4.
-	Spaceship initialize.
-	self assert: aSpaceship objectPosition cell equals: 5
 ]
 
 { #category : #specialCells }

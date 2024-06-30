@@ -68,12 +68,6 @@ Position >> position [
 	^ OrderedCollection with: cell with: lap
 ]
 
-{ #category : #initialization }
-Position >> resetToOne [
-
-	cell := 1.
-]
-
 { #category : #'set and get' }
 Position >> updateCell: aNumber [
 
