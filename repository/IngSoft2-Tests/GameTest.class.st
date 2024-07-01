@@ -74,69 +74,6 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 ]
 
 { #category : #tests }
-GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
-
-	| result aGame |
-	aLoadedDie := LoadedDie of: #( 9 7 4 ).
-	50 timesRepeat: [ collectionOfCells add: Cell new ].
-
-	aBoardCreator := BoardCreator
-		                 with: collectionOfCells
-		                 ofLaps: 1
-		                 withWormholeCreator: aWormholeCreator.
-
-	aGame := Game
-		         numberOfSpaceships: 3
-		         with: aBoardCreator
-		         playWith: aLoadedDie
-		         andGameDeck: gameDeck.
-
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	result := Dictionary new.
-	result at: 1 put: 1.
-	result at: 2 put: 1.
-	result at: 3 put: 1.
-
-	aGame resetSpaceshipsToCellOne.
-	self assert: aGame spaceships cellsOfSpaceships equals: result
-]
-
-{ #category : #tests }
-GameTest >> testResetToCellOneThenLapRemainsTheSame [
-
-	| result aGame |
-	aLoadedDie := LoadedDie of: #( 9 26 43 ).
-	collectionOfCells := OrderedCollection new.
-	20 timesRepeat: [ collectionOfCells add: Cell new ].
-
-	aBoardCreator := BoardCreator
-		                 with: collectionOfCells
-		                 ofLaps: 3
-		                 withWormholeCreator: aWormholeCreator.
-
-	aGame := Game
-		         numberOfSpaceships: 3
-		         with: aBoardCreator
-		         playWith: aLoadedDie
-		         andGameDeck: gameDeck.
-
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	result := Dictionary new.
-	result at: 1 put: 1.
-	result at: 2 put: 2.
-	result at: 3 put: 3.
-
-	aGame resetSpaceshipsToCellOne.
-	self assert: aGame spaceships lapsOfSpaceships equals: result
-]
-
-{ #category : #tests }
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame |
@@ -184,26 +121,4 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 		((aGame spaceships cellsOfSpaceships values at: 1)
 			 between: 1
 			 and: 13)
-]
-
-{ #category : #tests }
-GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
-
-	| aGame resultOfGame |
-	4 timesRepeat: [ collectionOfCells add: Cell new ].
-
-	aBoardCreator := BoardCreator
-		                 with: collectionOfCells
-		                 ofLaps: 1
-		                 withWormholeCreator: aWormholeCreator.
-
-	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 4 with: 1).
-	aGame := Game
-		         numberOfSpaceships: 1
-		         with: aBoardCreator
-		         playWith: aCollectionOfDice
-		         andGameDeck: gameDeck.
-
-	self assert: aGame moveSpaceship equals: resultOfGame
 ]

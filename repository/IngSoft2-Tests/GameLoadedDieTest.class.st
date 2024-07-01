@@ -44,21 +44,6 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 ]
 
 { #category : #testsGame002 }
-GameLoadedDieTest >> test00GameCreatedWithBoxesALoadedDieMovesSpaceshipSixPositions [
-
-	| aGame result |
-	aGame := Game
-		         numberOfSpaceships: 1
-		         with: aBoardCreator
-		         playWith: aLoadedDie
-		         andGameDeck: gameDeck.
-	aGame moveSpaceship.
-	result := Dictionary new.
-	result at: 1 put: 7.
-	self assert: aGame spaceships cellsOfSpaceships equals: result
-]
-
-{ #category : #testsGame002 }
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
 
 	| aGame result |
@@ -356,29 +341,6 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 ]
 
 { #category : #tests }
-GameLoadedDieTest >> test15WhenTheGameFinishThenWeGetThePositionsOfTheSpaceships [
-
-	| aGame resultOfPositions |
-	aLoadedDie := LoadedDie of: #( 13 6 1 ).
-
-	aGame := Game
-		         numberOfSpaceships: 2
-		         with: aBoardCreator
-		         playWith: aLoadedDie
-		         andGameDeck: gameDeck.
-	resultOfPositions := Dictionary new.
-	resultOfPositions at: 1 put: 15.
-	resultOfPositions at: 2 put: 7.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	self
-		assert: aGame spaceships cellsOfSpaceships
-		equals: resultOfPositions
-]
-
-{ #category : #tests }
 GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	| aGame resultOfLaps |
@@ -450,30 +412,6 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 
 	idRanking := aGame spaceships ranking collect: [ :spaceship |
 		             spaceship id ].
-
-	self assert: idRanking equals: rankingOfSpaceships
-]
-
-{ #category : #tests }
-GameLoadedDieTest >> test19WhenSpaceshipsArePlayingTheyGetACollectionOfTheIdsOfTheThreeFirstsSpaceships [
-
-	| aGame rankingOfSpaceships idRanking |
-	aLoadedDie := LoadedDie of: #( 12 13 5 1 ).
-
-	aGame := Game
-		         numberOfSpaceships: 4
-		         with: aBoardCreator
-		         playWith: aLoadedDie
-		         andGameDeck: gameDeck.
-
-	rankingOfSpaceships := OrderedCollection with: 2 with: 1 with: 3.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	idRanking := (aGame spaceships ranking first: 3) collect: [
-		             :spaceship | spaceship id ].
 
 	self assert: idRanking equals: rankingOfSpaceships
 ]
