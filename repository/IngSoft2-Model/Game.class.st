@@ -12,8 +12,7 @@ Class {
 		'spaceships',
 		'cellToEnter',
 		'spaceshipsWithHyperGravity',
-		'anAllyTankManager',
-		'gameDeck'
+		'anAllyTankManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -104,7 +103,6 @@ Game >> giveOneCardTo: aSpaceship [
 Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aActiveDeck := ActiveDeck startGame.
-	gameDeck := anEffectManager.
 
 	finishLine := OrderedCollection
 		              with: aBoardCreator cells
@@ -114,13 +112,12 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 
 	spaceships := CollectionOfSpaceships
 		              numberOfSpaceships: anAmount
-		              withAmountOfFuel: dice amountOfFaces * 2
-		              indexCalculateWith: aBoardCreator cells.
+		              withAmountOfFuel: dice amountOfFaces * 2.
 
 	anAllyTankManager := AllyTankManager manage: spaceships.
 
 	spaceshipsCardHands := (1 to: anAmount) collect: [ :index |
-		                       SpaceshipCardHand startGameWith: gameDeck ].
+		                       SpaceshipCardHand startGameWith: anEffectManager ].
 
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := spaceships detectSpaceshipWithId:
@@ -128,10 +125,7 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 
 	spaceshipsWithHyperGravity := Dictionary new.
 
-	board := aBoardCreator
-		         createBoardFor: self
-		         with: turnManager
-		         andMaxThrowOf: dice amountOfFaces
+	board := aBoardCreator createBoard
 ]
 
 { #category : #accessing }

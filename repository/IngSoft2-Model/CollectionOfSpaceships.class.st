@@ -3,19 +3,17 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'fuel',
-		'amountOfCells',
 		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-CollectionOfSpaceships class >> numberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel indexCalculateWith: anAmountOfCells [
+CollectionOfSpaceships class >> numberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel [
 
 	^ self new
 		  initializeNumberOfSpaceships: anAmountOfSpaceships
 		  withAmountOfFuel: anAmountOfFuel
-		  indexCalculateWith: anAmountOfCells
 ]
 
 { #category : #accessing }
@@ -70,10 +68,9 @@ CollectionOfSpaceships >> each: aBlock but: aSpaceshipToSkip [
 ]
 
 { #category : #initialization }
-CollectionOfSpaceships >> initializeNumberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel indexCalculateWith: anAmountOfCells [
+CollectionOfSpaceships >> initializeNumberOfSpaceships: anAmountOfSpaceships withAmountOfFuel: anAmountOfFuel [
 
 	fuel := anAmountOfFuel.
-	amountOfCells := anAmountOfCells.
 	self collectSpaceships: anAmountOfSpaceships
 ]
 

@@ -20,8 +20,7 @@ GameCardTest >> setUp [
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	30 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	30 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -37,8 +36,8 @@ GameCardTest >> setUp [
 			             with: CancellationCard new)
 ]
 
-{ #category : #tests }
-GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreThenThrowResult [
+{ #category : #acceleration }
+GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreThanThrowResult [
 
 	| result aGame |
 
@@ -58,7 +57,7 @@ GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreTh
 	self assert:( aGame spaceships cellsOfSpaceships )equals: result
 ]
 
-{ #category : #tests }
+{ #category : #overload }
 GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo [
 
 	| result aGame |
@@ -80,7 +79,7 @@ GameCardTest >> test05SpaceshipOnePlaysOverloadToSpaceshipTwoThenTwoMovesLessTwo
 	self assert: aGame spaceships cellsOfSpaceships  equals: result.
 ]
 
-{ #category : #tests }
+{ #category : #ally }
 GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpaceshipTwo [
 
 	| result aGame |
@@ -106,7 +105,7 @@ GameCardTest >> test06GameActivatesAllyCardThenSpaceshipOneCanUseFuelFromSpacesh
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #ally }
 GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 
 	| result aGame |
@@ -131,7 +130,7 @@ GameCardTest >> test07BothAllysRunOutOfFuelThenBothLooseTwoTurns [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #cancellation }
 GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect [
 
 	| result aGame |
@@ -161,7 +160,7 @@ GameCardTest >> test10SpaceshipThreeRemovesOverloadCardThenItMovesWithoutEffect 
 	self assert: aGame spaceships cellsOfSpaceships equals: result. 
 ]
 
-{ #category : #tests }
+{ #category : #cancellation }
 GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 
 	| result aGame |
@@ -187,7 +186,7 @@ GameCardTest >> test11CancelAllyCardThenBothSpaceshipsUseOnlyTheirFuelTank [
 	self assert: aGame spaceships cellsOfSpaceships equals: result.
 ]
 
-{ #category : #tests }
+{ #category : #'instant card' }
 GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanDoTheEffect [
 
 	| result aGame |
@@ -214,7 +213,7 @@ GameCardTest >> test12InstancCardPlayedOnAnoterSpaceshipsTurnThenInstantCardCanD
 	self assert: aGame spaceships cellsOfSpaceships equals: result.
 ]
 
-{ #category : #tests }
+{ #category : #cancellation }
 GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithoutEffect [
 
 	| result aGame |
@@ -239,7 +238,7 @@ GameCardTest >> test13AccelerationCardPlayedAndCancelledThenSpaceshipMovesWithou
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'redo ' }
 GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThreeCellsMore [
 
 	| result aGame |
@@ -262,7 +261,7 @@ GameCardTest >> test14TwoRedoCardsPlayedAfterAccelerationThenSpaceshipMovesThree
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'redo ' }
 GameCardTest >> test15RedoCardPlayedAfterOverloadThenSpaceshipsAffectedHaveLessMovement [
 
 	| result aGame |
@@ -288,7 +287,7 @@ GameCardTest >> test15RedoCardPlayedAfterOverloadThenSpaceshipsAffectedHaveLessM
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'redo ' }
 GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuelBeacuseOfIt [
 
 	| result aGame |
@@ -319,7 +318,7 @@ GameCardTest >> test16RedoCardPlayedAfterAllyThenSpaceshipsThreeAndFourShareFuel
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'redo ' }
 GameCardTest >> test17TwoAccelerationCardsPlayThenACancellationAndARedoSoNoAccelerationEffectOccurs [
 
 	| aGame result |
@@ -349,19 +348,16 @@ GameCardTest >> test17TwoAccelerationCardsPlayThenACancellationAndARedoSoNoAccel
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThenSpaceshipOneIsInPositionOne [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 5 ).
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
-	collectionOfCells
-		at: 6
-		put: [ :boardCreator | boardCreator createBlackHoleCells ].
+	collectionOfCells at: 6 put: BlackHoleCell new.
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -384,7 +380,7 @@ GameCardTest >> test18SpaceshipOneEntersBlackHoleAndSpaceshipTwoRepeatsEffectThe
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 
 	| aGame result |
@@ -408,18 +404,15 @@ GameCardTest >> test19ReapeatCardRepeatsACellThenNothingChanges [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test20RepeatCardRepeatsMoonWalkThenSpaceshipOneMovesBackwards [
 
 	| aGame result |
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
-	collectionOfCells
-		at: 7
-		put: [ :boardCreator | boardCreator createMoonWalkCells ].
+	collectionOfCells at: 7 put: (MoonWalkCell withValueToMove: 4).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -442,19 +435,16 @@ GameCardTest >> test20RepeatCardRepeatsMoonWalkThenSpaceshipOneMovesBackwards [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 4 ).
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
-	collectionOfCells
-		at: 5
-		put: [ :boardCreator | boardCreator createAtomicBombCells ].
+	collectionOfCells at: 5 put: AtomicBombCell new.
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -477,19 +467,25 @@ GameCardTest >> test21RepeatCardRepeatsAtomicBombThenEverySpaceshipIsOnCellOne [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsecs [
 
-	| aGame result |
+	| aGame result aConversor values |
+	aConversor := Conversor totalCells: 4 convertionValue: 8.
+	values := OrderedCollection
+		          with: (Parsecs ofValue: 10)
+		          with: (LightYear ofValue: 24)
+		          with: (Parsecs ofValue: 6)
+		          with: (Parsecs ofValue: 4).
+
 	aLoadedDie := LoadedDie of: #( 8 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	collectionOfCells
 		at: 9
-		put: [ :boardCreator | boardCreator createHyperJumpCells ].
+		put: (HyperJumpCell withConversor: aConversor andValues: values).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -512,18 +508,15 @@ GameCardTest >> test22RepeatCardRepeatsHyperJumpThenBothSpaceshipsMoveSameParsec
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoCanPlayTwoAccelerationCards [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 3 3 3 3 80 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
-	collectionOfCells
-		at: 4
-		put: [ :boardCreator | boardCreator createCardDispenserCells ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
+	collectionOfCells at: 4 put: CardDispenserCell new.
 
 	gameDeck := EffectManager manage:
 		            (OrderedCollection
@@ -556,7 +549,7 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoCanPlayTwoAc
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test24RepeatCardRepeatsWormholeThenSpaceshipOneGoesToWormhole [
 
 	| aGame result |
@@ -581,7 +574,7 @@ GameCardTest >> test24RepeatCardRepeatsWormholeThenSpaceshipOneGoesToWormhole [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'redo ' }
 GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 
 	| aGame result |
@@ -589,12 +582,9 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
-	30 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	30 timesRepeat: [ collectionOfCells add: Cell new ].
 
-	collectionOfCells
-		at: 6
-		put: [ :boardCreator | boardCreator createBlackHoleCells ].
+	collectionOfCells at: 6 put: BlackHoleCell new.
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -619,7 +609,7 @@ GameCardTest >> test25RedoCardPlayedAfterRepeatCardThenCellEffectRepeatsTwice [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpediment [
 
 	| aGame result |
@@ -643,7 +633,7 @@ GameCardTest >> test26RepeatCardRepeatsHyperGravityThenSpaceshipMovesWithoutImpe
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #spaceshipCardHand }
 GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEffectOfIt [
 
 	| result aGame |
@@ -673,7 +663,7 @@ GameCardTest >> test27WhenACardThatIsNotInHandTriesToActivateThenDoesNotDoTheEff
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #cancellation }
 GameCardTest >> test28CancellationCardCancelsOnlyTheCardThatIsExactlyTheSameAsTheOneItWantsToCancel [
 
 	| aGame result |
@@ -706,19 +696,19 @@ GameCardTest >> test28CancellationCardCancelsOnlyTheCardThatIsExactlyTheSameAsTh
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test29RepeatHyperGravityForSpaceshipTwoThenItCannotMoveBeacuseOfIt [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 7 2 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	collectionOfCells
 		at: 8
-		put: [ :boardCreator | boardCreator createHyperGravityCells ].
+		put:
+		(HyperGravityCell withValueToMove: aLoadedDie amountOfFaces // 2).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -742,19 +732,19 @@ GameCardTest >> test29RepeatHyperGravityForSpaceshipTwoThenItCannotMoveBeacuseOf
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #repeat }
 GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThrowGreaterThenValue [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 7 6 ).
 
 	collectionOfCells := OrderedCollection new.
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	collectionOfCells
 		at: 8
-		put: [ :boardCreator | boardCreator createHyperGravityCells ].
+		put:
+		(HyperGravityCell withValueToMove: aLoadedDie amountOfFaces // 2).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -778,7 +768,7 @@ GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThr
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #ally }
 GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlreadyHasAlly [
 
 	| result aGame |
@@ -809,7 +799,7 @@ GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlread
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #ally }
 GameCardTest >> test32SpaceshipsTwoChangesCapacityAndOneAnTwoAreAllysThenAmountOfTotalFuelChanges [
 
 	| resultOne aGame resultTwo |
@@ -839,4 +829,29 @@ GameCardTest >> test32SpaceshipsTwoChangesCapacityAndOneAnTwoAreAllysThenAmountO
 
 	self assert: (aGame spaceships cellsOfSpaceships = resultOne or:
 			 aGame spaceships cellsOfSpaceships = resultTwo)
+]
+
+{ #category : #spaceshipCardHand }
+GameCardTest >> test33GamePlaysWithDeckWithProbabilisticDistributionThenSpaceshipCardHandAlwaysInitializedWithTwoCards [
+
+	| result aGame |
+	gameDeck := EffectManager
+		            manage: (OrderedCollection with: AccelerationCard new)
+		            withProbabilitiesDistribution: #( 100 ).
+	aLoadedDie := LoadedDie of: #( 4 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 7.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

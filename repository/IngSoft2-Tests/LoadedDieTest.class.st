@@ -22,14 +22,6 @@ aLoadedDie:= LoadedDie of: #(3).
 self assert: aLoadedDie throw equals:3.
 ]
 
-{ #category : #tests }
-LoadedDieTest >> test002WhenLoadedDieIsThrownThenReturnsTheAmountOfFaces [
-
-| aLoadedDie |
-aLoadedDie:= LoadedDie of: #(4).
-self assert: aLoadedDie throw equals:4.
-]
-
 { #category : #'tests - initialization' }
 LoadedDieTest >> test003ALoadedDieCannotHaveLessThanThreeFaces [
 

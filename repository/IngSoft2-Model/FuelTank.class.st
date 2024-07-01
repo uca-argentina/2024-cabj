@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'fuel',
-		'capacity',
-		'fuelTankSharing'
+		'capacity'
 	],
 	#category : #'IngSoft2-Model'
 }

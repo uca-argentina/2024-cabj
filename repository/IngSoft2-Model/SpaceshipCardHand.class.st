@@ -14,12 +14,6 @@ SpaceshipCardHand class >> startGameWith: aGameDeck [
 	^ self new initializeStartGameWith: aGameDeck
 ]
 
-{ #category : #accessing }
-SpaceshipCardHand >> amount [
-
-	^ collectionOfCards size
-]
-
 { #category : #action }
 SpaceshipCardHand >> gainACard [
 
