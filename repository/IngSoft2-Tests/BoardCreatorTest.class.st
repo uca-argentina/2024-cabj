@@ -15,15 +15,11 @@ BoardCreatorTest >> should: anErrorBlock raise: anErrorClass withMessage: anErro
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test01BoardCreatorInitializeThenGetCellsReturnsCells [
+BoardCreatorTest >> test01BoardCreatorInitializeThenCellsReturnsAmountOfCellsOnBoard [
 
 	| aBoardCreator aWormholeCreator collectionOfCells |
-	collectionOfCells := OrderedCollection
-		                     with: Cell new
-		                     with: Cell new
-		                     with: Cell new
-		                     with: Cell new
-		                     with: Cell new.
+	collectionOfCells := OrderedCollection new.
+	5 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	aBoardCreator := BoardCreator
@@ -35,16 +31,11 @@ BoardCreatorTest >> test01BoardCreatorInitializeThenGetCellsReturnsCells [
 ]
 
 { #category : #tests }
-BoardCreatorTest >> test02BoardCreatorInitializeThenGetLapsReturnsLaps [
-	
-	
+BoardCreatorTest >> test02BoardCreatorInitializeThenLapsReturnsAmountOfLaps [
+
 	| aBoardCreator aWormholeCreator collectionOfCells |
-	collectionOfCells := OrderedCollection
-		                     with: Cell new
-		                     with: Cell new
-		                     with: Cell new
-		                     with: Cell new
-		                     with: Cell new.
+	collectionOfCells := OrderedCollection new.
+	5 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	aBoardCreator := BoardCreator
