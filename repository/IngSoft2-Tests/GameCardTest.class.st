@@ -830,3 +830,28 @@ GameCardTest >> test32SpaceshipsTwoChangesCapacityAndOneAnTwoAreAllysThenAmountO
 	self assert: (aGame spaceships cellsOfSpaceships = resultOne or:
 			 aGame spaceships cellsOfSpaceships = resultTwo)
 ]
+
+{ #category : #spaceshipCardHand }
+GameCardTest >> test33GamePlaysWithDeckWithProbabilisticDistributionThenSpaceshipCardHandAlwaysInitializedWithTwoCards [
+
+	| result aGame |
+	gameDeck := EffectManager
+		            manage: (OrderedCollection with: AccelerationCard new)
+		            withProbabilitiesDistribution: #( 100 ).
+	aLoadedDie := LoadedDie of: #( 4 ).
+	aGame := Game
+		         numberOfSpaceships: 1
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard new.
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 7.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
