@@ -8,11 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-HyperGravityCell class >> withValueToMove: aValue inPosition: aPosition [
+HyperGravityCell class >> withValueToMove: aValue [
 
-	^ self new
-		  initializeWithValueToMove: aValue
-		  inPosition: aPosition
+	^ self new initializeWithValueToMove: aValue
 ]
 
 { #category : #action }
@@ -22,8 +20,7 @@ HyperGravityCell >> applyEffectTo: aSpaceship on: aGame [
 ]
 
 { #category : #initialization }
-HyperGravityCell >> initializeWithValueToMove: aValue inPosition: aPosition [
+HyperGravityCell >> initializeWithValueToMove: aValue [
 
-	value := aValue.
-	cellPosition := aPosition
+	value := aValue
 ]

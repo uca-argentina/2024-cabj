@@ -55,8 +55,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 
 	| aGame aDie |
 	aDie := Die of: 5.
-	50 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	50 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -79,8 +78,7 @@ GameTest >> testResetToCellOneThenEverySpaceshipIsOnCellOne [
 
 	| result aGame |
 	aLoadedDie := LoadedDie of: #( 9 7 4 ).
-	50 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	50 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -112,8 +110,7 @@ GameTest >> testResetToCellOneThenLapRemainsTheSame [
 	| result aGame |
 	aLoadedDie := LoadedDie of: #( 9 26 43 ).
 	collectionOfCells := OrderedCollection new.
-	20 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	20 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -144,8 +141,7 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame |
 	collectionOfCells := OrderedCollection new.
-	4 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	4 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -169,8 +165,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 
 	| aGame aDie |
 	aDie := Die of: 6.
-	50 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	50 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -195,8 +190,7 @@ GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePo
 GameTest >> testWhenSpaceshipWinsThenReturnsItsPosition [
 
 	| aGame resultOfGame |
-	4 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	4 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells

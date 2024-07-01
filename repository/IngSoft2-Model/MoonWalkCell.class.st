@@ -8,11 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-MoonWalkCell class >> withValueToMove: aValue inPosition: aPosition [ 
-	^ self new
-		  initializeWithValueToMove: aValue
-		  inPosition: aPosition
-		  
+MoonWalkCell class >> withValueToMove: aValue [
+
+	^ self new initializeWithValueToMove: aValue
 ]
 
 { #category : #action }
@@ -24,8 +22,7 @@ MoonWalkCell >> applyEffectTo: aSpaceship on:aGame [
 ]
 
 { #category : #initialization }
-MoonWalkCell >> initializeWithValueToMove: aValue inPosition: aPosition [
+MoonWalkCell >> initializeWithValueToMove: aValue [
 
 	value := aValue.
-	cellPosition := aPosition
 ]

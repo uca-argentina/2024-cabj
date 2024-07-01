@@ -128,10 +128,7 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 
 	spaceshipsWithHyperGravity := Dictionary new.
 
-	board := aBoardCreator
-		         createBoardFor: self
-		         with: turnManager
-		         andMaxThrowOf: dice amountOfFaces
+	board := aBoardCreator createBoard
 ]
 
 { #category : #accessing }

@@ -11,12 +11,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-HyperJumpCell class >> withPosition: aPosition Conversor: aConversor andValues: aCollection [
+HyperJumpCell class >> withConversor: aConversor andValues: aCollection [
 
-	^ self new
-		  initializeWithPosition: aPosition
-		  Conversor: aConversor
-		  andValues: aCollection
+	^ self new initializeWithConversor: aConversor andValues: aCollection
 ]
 
 { #category : #action }
@@ -34,9 +31,8 @@ HyperJumpCell >> applyEffectTo: aSpaceship on: aGame [
 ]
 
 { #category : #initialization }
-HyperJumpCell >> initializeWithPosition: aPosition Conversor: aConversor andValues: aCollection [
+HyperJumpCell >> initializeWithConversor: aConversor andValues: aCollection [
 
-	cellPosition := aPosition.
 	conversor := aConversor.
 	collectionOfValues := aCollection.
 	currentValue := collectionOfValues at: 1

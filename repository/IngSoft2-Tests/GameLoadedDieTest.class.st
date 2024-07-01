@@ -20,8 +20,7 @@ GameLoadedDieTest >> setUp [
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	15 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	15 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells

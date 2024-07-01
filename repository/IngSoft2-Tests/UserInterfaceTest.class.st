@@ -6,7 +6,9 @@ Class {
 		'aWormholeCreator',
 		'collectionOfCells',
 		'aBoardCreator',
-		'gameDeck'
+		'gameDeck',
+		'aConversor',
+		'values'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -17,30 +19,29 @@ UserInterfaceTest >> setUp [
 	super setUp.
 	aLoadedDie := LoadedDie of: #( 6 ).
 
+	aConversor := Conversor totalCells: 4 convertionValue: 8.
+	values := OrderedCollection
+		          with: (Parsecs ofValue: 10)
+		          with: (LightYear ofValue: 24)
+		          with: (Parsecs ofValue: 6)
+		          with: (Parsecs ofValue: 4).
+
 	aWormholeCreator := WormholeCreator withBeginning: 2 andEnd: 3.
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
-	collectionOfCells
-		at: 5
-		put: [ :boardCreator | boardCreator createAtomicBombCells ].
-	collectionOfCells
-		at: 6
-		put: [ :boardCreator | boardCreator createBlackHoleCells ].
-	collectionOfCells
-		at: 4
-		put: [ :boardCreator | boardCreator createCardDispenserCells ].
+	collectionOfCells at: 5 put: AtomicBombCell new.
+	collectionOfCells at: 6 put: BlackHoleCell new.
+	collectionOfCells at: 4 put: CardDispenserCell new.
 	collectionOfCells
 		at: 8
-		put: [ :boardCreator | boardCreator createHyperGravityCells ].
+		put:
+		(HyperGravityCell withValueToMove: aLoadedDie amountOfFaces // 2).
 	collectionOfCells
 		at: 9
-		put: [ :boardCreator | boardCreator createHyperJumpCells ].
-	collectionOfCells
-		at: 7
-		put: [ :boardCreator | boardCreator createMoonWalkCells ].
+		put: (HyperJumpCell withConversor: aConversor andValues: values).
+	collectionOfCells at: 7 put: (MoonWalkCell withValueToMove: 4).
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -98,8 +99,7 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -156,8 +156,7 @@ UserInterfaceTest >> test04UserInterfacesPlaysThenRankingOfSpaceshipsShowTheRank
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -204,8 +203,7 @@ UserInterfaceTest >> test06UserInterfacePlaysThenGetsFinalLapsOfSpaceships [
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
@@ -238,8 +236,7 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 
 	collectionOfCells := OrderedCollection new.
 
-	10 timesRepeat: [
-		collectionOfCells add: [ :boardCreator | boardCreator createCells ] ].
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
 
 	aBoardCreator := BoardCreator
 		                 with: collectionOfCells
