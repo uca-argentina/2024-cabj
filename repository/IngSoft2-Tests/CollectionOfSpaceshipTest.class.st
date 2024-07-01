@@ -10,16 +10,13 @@ CollectionOfSpaceshipTest >> test01CollectionOfSpaceshipsInitializeThenCellsEqua
 	| aCollectionOfSpaceships result |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 2
-		                           withAmountOfFuel: 10
-		                           indexCalculateWith: 20.
+		                           withAmountOfFuel: 10.
 
 	result := Dictionary new.
 	result at: 1 put: 1.
 	result at: 2 put: 1.
 
-	self
-		assert: aCollectionOfSpaceships cellsOfSpaceships
-		equals: result
+	self assert: aCollectionOfSpaceships cellsOfSpaceships equals: result
 ]
 
 { #category : #tests }
@@ -28,8 +25,7 @@ CollectionOfSpaceshipTest >> test02LapsOfSpaceshipsThenReturnsDictionaryWithLapO
 	| aCollectionOfSpaceships result |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 2
-		                           withAmountOfFuel: 10
-		                           indexCalculateWith: 20.
+		                           withAmountOfFuel: 10.
 
 	result := Dictionary new.
 	result at: 1 put: 1.
@@ -44,12 +40,11 @@ CollectionOfSpaceshipTest >> test03PositionsOfSpaceshipsThenReturnEachPositionFo
 	| aCollectionOfSpaceships result |
 	aCollectionOfSpaceships := CollectionOfSpaceships
 		                           numberOfSpaceships: 2
-		                           withAmountOfFuel: 10
-		                           indexCalculateWith: 20.
+		                           withAmountOfFuel: 10.
 
 	result := Dictionary new.
-	result at: 1 put: #( 1 1 )asOrderedCollection .
-	result at: 2 put: #( 1 1 )asOrderedCollection.
+	result at: 1 put: #( 1 1 ) asOrderedCollection.
+	result at: 2 put: #( 1 1 ) asOrderedCollection.
 
 	self
 		assert: aCollectionOfSpaceships positionsOfSpaceships

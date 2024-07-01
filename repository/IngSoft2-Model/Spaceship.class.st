@@ -4,8 +4,6 @@ Class {
 	#instVars : [
 		'id',
 		'aFuelTank',
-		'allySpaceship',
-		'fuelDepleted',
 		'position'
 	],
 	#classInstVars : [
@@ -67,8 +65,6 @@ Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 	position := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId.
-	fuelDepleted := aFuelTank isEmpty.
-	allySpaceship := self
 ]
 
 { #category : #setter }

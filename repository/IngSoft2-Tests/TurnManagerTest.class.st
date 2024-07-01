@@ -10,8 +10,7 @@ TurnManagerTest >> test01OneSpaceshipsThenTurnOneReturnsSpaceshipOne [
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 1
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
@@ -26,8 +25,7 @@ TurnManagerTest >> test02TwoSpaceshipsThenTurnTwoReturnsSpaceshipTwo [
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
@@ -42,8 +40,7 @@ TurnManagerTest >> test03WhenRoundIsOverNextTurnIsTheFirstSpaceship [
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
@@ -60,8 +57,7 @@ TurnManagerTest >> test04WhenSpaceshipOneLosesTurnsTheNextTurnIsSpaceshipTwo [
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
@@ -78,8 +74,7 @@ TurnManagerTest >> test05WhenSpaceshipOneLosesTwoTurnsThenSpaceshipTwoPlaysThem 
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
@@ -100,15 +95,13 @@ TurnManagerTest >> test06WhenEverySpaceshipsLosesTheirTurnThenReturnAnAllShipsDi
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 1
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager lostTurns: 2 by: 1.
 
 	Spaceship initialize.
-	self assert:
-		(aTurnManager nextTurn) equals: 1.
+	self assert: aTurnManager nextTurn equals: 1
 ]
 
 { #category : #tests }
@@ -117,8 +110,7 @@ TurnManagerTest >> test07WhenSpaceshipLostTwoTurnsIsCalledTwiceAndTwoTurnsPassTh
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 1
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager lostTurns: 2 by: 1.
@@ -137,8 +129,7 @@ TurnManagerTest >> test08OneSpaceshipLostOneTurnAndThenRecoversIt [
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager lostTurns: 1 by: 1.
@@ -154,8 +145,7 @@ TurnManagerTest >> test09TurnManagerNextTurnIsSpaceshipOneThenSpaceshipPlayingIs
 	| aTurnManager collectionOfSpaceships |
 	collectionOfSpaceships := CollectionOfSpaceships
 		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5
-		                          indexCalculateWith: 10.
+		                          withAmountOfFuel: 5.
 
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
