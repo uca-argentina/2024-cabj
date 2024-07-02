@@ -43,7 +43,7 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 	self should: anErrorBlock raise: anErrorClass withExceptionDo: [ :error | self assert: error messageText equals: anErrorMessage ]
 ]
 
-{ #category : #testsGame002 }
+{ #category : #spaceship }
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
 
 	| aGame result |
@@ -63,7 +63,7 @@ GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiv
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #testsGame002 }
+{ #category : #wormhole }
 GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOtherSide [
 
 	| aGame result |
@@ -86,7 +86,7 @@ GameLoadedDieTest >> test02GameMovesSpaceshipFallsOnWormholeThenPositionIsTheOth
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #testsGame002 }
+{ #category : #'game over' }
 GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieOver [
 
 	| aGame resultOfGame |
@@ -108,7 +108,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 		equals: resultOfGame
 ]
 
-{ #category : #tests }
+{ #category : #spaceship }
 GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
 	| aGame result |
@@ -129,7 +129,7 @@ GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionI
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'game over' }
 GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 
 	| aGame |
@@ -149,7 +149,7 @@ GameLoadedDieTest >> test05FirstSpaceshipWinsThenSecondSpaceshipCannotPlay [
 		withMessage: 'The Game is Over'
 ]
 
-{ #category : #tests }
+{ #category : #'game over' }
 GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 
 	| aGame resultOfGame |
@@ -170,7 +170,7 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 	self assert: aGame moveSpaceship equals: resultOfGame
 ]
 
-{ #category : #tests }
+{ #category : #position }
 GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 
 	| aGame |
@@ -184,7 +184,7 @@ GameLoadedDieTest >> test07WhenOneSapeshipWinsThenGetWinnerReturnsItsID [
 	self assert: aGame winner equals: 1
 ]
 
-{ #category : #tests }
+{ #category : #position }
 GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinnerReturnsTwo [
 
 	| aGame |
@@ -201,7 +201,7 @@ GameLoadedDieTest >> test08WhenTwoSpaceshipsPlayAndTheSecondOneWinsThenGetWinner
 	self assert: aGame winner equals: 2
 ]
 
-{ #category : #tests }
+{ #category : #'turn manager' }
 GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 
 	| aGame result |
@@ -219,7 +219,7 @@ GameLoadedDieTest >> test09WhenASpaceshipLosesATurnThenGoesToStartingPosition [
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #fuelTests }
 GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns [
 
 	| aGame result |
@@ -241,7 +241,7 @@ GameLoadedDieTest >> test10WhenOneSpaceshipLosesFuelThenItMovesAfterTwoLostTurns
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #fuelTests }
 GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFuel [
 
 	| aGame result |
@@ -263,7 +263,7 @@ GameLoadedDieTest >> test11WhenASpaceshipDecidestToLooseATurnThenRechargesTheFue
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #fuelTests }
 GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceshipCanReloadTheFuelAndMove [
 
 	| aGame result |
@@ -286,8 +286,8 @@ GameLoadedDieTest >> test12WhenTheSpaceshipOneRunOutOfFuelThenTheSecondSpaceship
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
-GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipReturnsLapTwo [
+{ #category : #spaceship }
+GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenPositionIsInLapTwo [
 
 	| aGame result |
 	aLoadedDie := LoadedDie of: #( 5 4 7 ).
@@ -313,7 +313,7 @@ GameLoadedDieTest >> test13SpaceshipMovesOneLapAroundTheBoardThenMoveSpaceshipRe
 	self assert: aGame spaceships lapsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'turn manager' }
 GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTurns [
 
 	| aGame result |
@@ -340,7 +340,7 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	self assert: aGame spaceships positionsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #position }
 GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 
 	| aGame resultOfLaps |
@@ -367,7 +367,7 @@ GameLoadedDieTest >> test16WhenTheGameFinishThenWeGetTeLapsOfTheSpaceships [
 	self assert: aGame spaceships lapsOfSpaceships equals: resultOfLaps
 ]
 
-{ #category : #tests }
+{ #category : #position }
 GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEachSpaceship [
 
 	| aGame resultOfGame |
@@ -393,7 +393,7 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 	self assert: aGame moveSpaceship equals: resultOfGame
 ]
 
-{ #category : #tests }
+{ #category : #position }
 GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIsInTheSecondPlaceAndTheSpaceshipIsInTheThirdPlaceThenTheRankingIsTwoOneThree [
 
 	| aGame rankingOfSpaceships idRanking |
@@ -416,7 +416,7 @@ GameLoadedDieTest >> test18WhenTheSpaceshipTwoIsInTheFirstPlaceTheSpaceshipOneIs
 	self assert: idRanking equals: rankingOfSpaceships
 ]
 
-{ #category : #tests }
+{ #category : #fuelTests }
 GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResultOfDice [
 
 	| aGame spaceship |
@@ -436,7 +436,7 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 	self assert: (spaceship amountOfFuel between: 7 and: 9)
 ]
 
-{ #category : #tests }
+{ #category : #fuelTests }
 GameLoadedDieTest >> test21SpacshipOneLoadsFuelSpaceshipTwoLoosesTurnsThenOneMovesOnTwosTurn [
 
 	| aGame result |

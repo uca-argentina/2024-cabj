@@ -91,7 +91,7 @@ BoardCreatorTest >> test03BoardCreatorCreatesBoardWithCollectionOfCellsThenBoard
 	self assert: ((board at: 9) isKindOf: HyperJumpCell)
 ]
 
-{ #category : #tests }
+{ #category : #'error testing' }
 BoardCreatorTest >> test04BoardCreatorRecivesCollectionOfNotCellsThenErrorIsThrown [
 
 	| aBoardCreator aWormholeCreator collectionOfNotCells |

@@ -32,17 +32,17 @@ EffectManagerTest >> test02EffectManagerCreatesCollectionOfEffectsSizeTwoThenCol
 EffectManagerTest >> test03EffectManagerManagesOnlyOneObjectThenCollectionCreatedOnlyHasThatObject [
 
 	| aEffectManager array collection |
-	array := OrderedCollection with: Cell.
+	array := OrderedCollection with: Cell new.
 	aEffectManager := EffectManager
 		                  manage: array
 		                  withProbabilitiesDistribution: #( 100 ).
 
 	collection := aEffectManager createCollectionSize: 100.
 
-	self assert: ((collection at: 100 atRandom) = Cell)
+	self assert: ((collection at: 100 atRandom) isKindOf: Cell)
 ]
 
-{ #category : #tests }
+{ #category : #'error testing' }
 EffectManagerTest >> test04EffectManagerThrowsErrorWhenSumOfProbabilitiesIsGreaterOrLessThanOneHundred [
 
 	| array aEffectManager |
@@ -56,7 +56,7 @@ EffectManagerTest >> test04EffectManagerThrowsErrorWhenSumOfProbabilitiesIsGreat
 		withMessage: 'Sum of probabilities must be equal to one hundred'
 ]
 
-{ #category : #tests }
+{ #category : #'error testing' }
 EffectManagerTest >> test05EffectManagerThrowsErrorWhenSizesOfCollectionsRecivedDoNotMatch [
 
 	| array aEffectManager |
@@ -68,4 +68,19 @@ EffectManagerTest >> test05EffectManagerThrowsErrorWhenSizesOfCollectionsRecived
 		                  withProbabilitiesDistribution: #( 80 20 ). ]
 		raise: Error
 		withMessage: 'Size of objects to manage must be equal to size of distribution probabilities'
+]
+
+{ #category : #tests }
+EffectManagerTest >> test06EffectManagerManagesTwoObjectsThenGiveOneObjectGivesOneOrTheOther [
+
+	| aEffectManager array object |
+	array := OrderedCollection with: Cell new with: AccelerationCard new.
+	aEffectManager := EffectManager
+		                  manage: array
+		                  withProbabilitiesDistribution: #( 50 50 ).
+
+	object := aEffectManager giveOneObject.
+
+	self assert:
+		((object isKindOf: Cell) or: (object isKindOf: AccelerationCard))
 ]
