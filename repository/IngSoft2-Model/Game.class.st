@@ -52,7 +52,7 @@ Game >> applyHyperGravityOn: aSpaceship withValue: value [
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 
 	| sharingId spaceshipSharing |
-	sharingId := anAllyTankManager sharingWith: aSpaceship id.
+	sharingId := anAllyTankManager allyOf: aSpaceship id.
 	sharingId = aSpaceship ifTrue: [
 		aSpaceship objectFuelTank isEmpty ifFalse: [ ^ self ].
 		turnManager lostTurns: 2 by: (aSpaceship id).
@@ -155,14 +155,16 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult |
-	throwResult := self throwDiceAndCheckReward.
+	throwResult := self throwDiceAndCheckEffects.
 	throwResult := self
 		               checkMoveIsPossible: throwResult
 		               for: currentSpaceship.
 
 	positionOfSpaceship := currentSpaceship objectPosition.
 
-	anAllyTankManager use: throwResult ofSharedWith: currentSpaceship id.
+	anAllyTankManager
+		spaceship: currentSpaceship id
+		wantsToUse: throwResult.
 
 	currentSpaceship move: throwResult.
 
@@ -217,13 +219,13 @@ Game >> spaceships [
 ]
 
 { #category : #accessing }
-Game >> stopSharing: aSpaceshipId [
+Game >> stopAlly: aSpaceshipId [
 
-	anAllyTankManager stopSharing: aSpaceshipId
+	anAllyTankManager stopAlly: aSpaceshipId
 ]
 
 { #category : #action }
-Game >> throwDiceAndCheckReward [
+Game >> throwDiceAndCheckEffects [
 
 	| throwResult maxThrow randomValue |
 	randomValue := Random new next.

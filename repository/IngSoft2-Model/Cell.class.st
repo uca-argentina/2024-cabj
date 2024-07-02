@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #action }
-Cell >> applyEffectTo: aSpaceship on:aGame [
+Cell >> applyEffectTo: aSpaceship on: aGame [
 
-
+	
 ]

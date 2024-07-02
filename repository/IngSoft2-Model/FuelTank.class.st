@@ -14,12 +14,6 @@ FuelTank class >> fullWith: anAmountOfFuel [
 	^ self new initializeFullWith: anAmountOfFuel
 ]
 
-{ #category : #accessing }
-FuelTank >> capacity [
-
-	^ capacity
-]
-
 { #category : #action }
 FuelTank >> changeCapacity: aNumber [
 
