@@ -50,7 +50,7 @@ GameTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage
 		self assert: error messageText equals: anErrorMessage ]
 ]
 
-{ #category : #testsGame002 }
+{ #category : #spaceship }
 GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces [
 
 	| aGame aDie |
@@ -73,7 +73,7 @@ GameTest >> testGameCreatedWithDieMovesSpaceshipInBetweenOneAndTheAmountOfFaces 
 		((aGame spaceships cellsOfSpaceships values at: 1) between: 2 and: 6)
 ]
 
-{ #category : #tests }
+{ #category : #'game over' }
 GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 
 	| aGame |
@@ -97,7 +97,7 @@ GameTest >> testSpaceshipOnesWinThenSpaceshipsTwoPlaysAndGameOver [
 		withMessage: 'The Game is Over'
 ]
 
-{ #category : #tests }
+{ #category : #spaceship }
 GameTest >> testTwoSpaceshipsFirstOneMovesTwiceWithDieOfSixThenMinTwoMaxTwelvePosition [
 
 	| aGame aDie |

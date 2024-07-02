@@ -2,7 +2,7 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'spaceshipId'
+		'spaceshipAffected'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -24,7 +24,7 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 
 	| spaceshipToApplyEffect cellToEnter cellOfSpaceship |
 	aGame activateCard: self.
-	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipId.
+	spaceshipToApplyEffect := aGame spaceships detectSpaceshipWithId: spaceshipAffected.
 
 	cellToEnter := aGame lastCellEffect.
 
@@ -35,5 +35,5 @@ RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 { #category : #initialization }
 RepeatCard >> initializeToDoEffectFor: aSpaceshipId [
 
-	spaceshipId := aSpaceshipId
+	spaceshipAffected := aSpaceshipId
 ]

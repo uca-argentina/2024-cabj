@@ -2,9 +2,9 @@ Class {
 	#name : #EffectManager,
 	#superclass : #Object,
 	#instVars : [
-		'dictionary',
 		'probabilities',
-		'objects'
+		'objects',
+		'probabilisticDistributionOfObjects'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -35,7 +35,7 @@ EffectManager >> createCollectionSize: aNumber [
 	probabilities = 100 ifTrue:[^objects copy].
 	collectionOfObjects := OrderedCollection new.
 	aNumber timesRepeat: [
-		collectionOfObjects add: (dictionary at: 100 atRandom) ].
+		collectionOfObjects add: (probabilisticDistributionOfObjects at: 100 atRandom) ].
 	^ collectionOfObjects
 ]
 
@@ -44,22 +44,22 @@ EffectManager >> giveOneObject [
 
 	| objectToGive |
 	probabilities = 100 ifTrue: [ ^ objects at: 1 ].
-	objectToGive := dictionary at: 100 atRandom.
+	objectToGive := probabilisticDistributionOfObjects at: 100 atRandom.
 	^ objectToGive
 ]
 
 { #category : #initialization }
 EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistribution: collectionOfProbabilities [
 
-	| index totalCount |
-	dictionary := Dictionary new.
-	index := 1.
+	| totalCount |
+	probabilisticDistributionOfObjects := OrderedCollection new.
 	totalCount := 0.
 	probabilities := collectionOfProbabilities.
 
 	collectionOfProbabilities = 100 ifTrue: [
 		objects := aCollectionOfObjects.
 		^ self ].
+	
 	aCollectionOfObjects
 		with: collectionOfProbabilities
 		do: [ :object :count |
@@ -67,8 +67,7 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 			remaining := 100 - totalCount.
 
 			count timesRepeat: [
-				dictionary at: index put: object.
-				index := index + 1 ].
+				probabilisticDistributionOfObjects add: object].
 
 			totalCount := totalCount + count ]
 ]

@@ -59,7 +59,7 @@ GameWithDefinedPositionsOfCellsTest >> setUp [
 		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 )
 ]
 
-{ #category : #tests }
+{ #category : #'atomic bomb' }
 GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomicBombThenEveryoneGoesBackToCellOne [
 
 	| result aGame |
@@ -83,7 +83,7 @@ GameWithDefinedPositionsOfCellsTest >> test01GameMovesSpaceshipWhichEntersAtomic
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'hyper jump' }
 GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpThenReturnsNewPositionAdjustedByParsecs [
 
 	| result aGame |
@@ -107,7 +107,7 @@ GameWithDefinedPositionsOfCellsTest >> test02GameMovesSpaceshipEntersHyperJumpTh
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'moon walk' }
 GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEveryOtherSpaceshipGoesBackAValue [
 
 	| result aGame |
@@ -131,7 +131,7 @@ GameWithDefinedPositionsOfCellsTest >> test03SpaceshipThreeEntersMoonWalkThenEve
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'black hole' }
 GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHoleThenPositionIsMinusFour [
 
 	| result aGame |
@@ -155,7 +155,7 @@ GameWithDefinedPositionsOfCellsTest >> test04GameMovesSpaceshipsOneEntersBlackHo
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'hyper gravity' }
 GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRollsLessThanMinuminValueThenStaysThere [
 
 	| result aGame |
@@ -178,7 +178,7 @@ GameWithDefinedPositionsOfCellsTest >> test05SpaceshipOneEntersHyperGravityAndRo
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'hyper gravity' }
 GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRollsValueThenSpaceshipCanMove [
 
 	| result aGame |
@@ -201,7 +201,7 @@ GameWithDefinedPositionsOfCellsTest >> test06SpaceshipEntersHyperGravityAndRolls
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'hyper jump' }
 GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnterHyperJumpThenThirdMovesLessParsecsThanSecond [
 
 	| result aGame |
@@ -225,7 +225,7 @@ GameWithDefinedPositionsOfCellsTest >> test07SecondSpaceshipAndThirdSpaceshipEnt
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]
 
-{ #category : #tests }
+{ #category : #'card dispenser' }
 GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItCanUseTwoAccelerationCards [
 
 	| aGame result |

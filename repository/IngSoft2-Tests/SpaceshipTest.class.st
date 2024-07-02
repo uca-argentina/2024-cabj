@@ -24,7 +24,7 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionThree [
 	self assert: aSpaceship objectPosition cell equals: 3
 ]
 
-{ #category : #tests }
+{ #category : #position }
 SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionIsCellThreeAndLap1 [
 
 	| aSpaceship collectionOfPosition |
@@ -78,7 +78,7 @@ SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo 
 	self assert: aSpaceshipTwo id equals: 2
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #position }
 SpaceshipTest >> test009WhenSpaceshipIsLaunchedThenStartsOnCellOneAndLapOne [
 
 	| aSpaceship collectionOfPosition |
@@ -150,7 +150,7 @@ SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 	self assert: aSpaceship objectPosition cell equals: 10
 ]
 
-{ #category : #specialCells }
+{ #category : #move }
 SpaceshipTest >> test018SpaceshipMovesBackwardsThenPositionIsEqualToMovement [
 
 	| aSpaceship finalPosition |
@@ -166,7 +166,7 @@ SpaceshipTest >> test018SpaceshipMovesBackwardsThenPositionIsEqualToMovement [
 		equals: finalPosition
 ]
 
-{ #category : #specialCells }
+{ #category : #fuelTests }
 SpaceshipTest >> test019SpaceshipMoveBackwardsThenUsesFuel [
 
 	| aSpaceship |
@@ -195,7 +195,7 @@ SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition 
 	self assert: aSpaceship objectPosition position equals: finalPosition
 ]
 
-{ #category : #specialCells }
+{ #category : #move }
 SpaceshipTest >> test025SpaceshipMovesBackwardsThenGoesBackOneLap [
 
 	| aSpaceship finalPosition |

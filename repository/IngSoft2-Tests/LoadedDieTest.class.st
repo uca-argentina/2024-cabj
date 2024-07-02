@@ -22,7 +22,7 @@ aLoadedDie:= LoadedDie of: #(3).
 self assert: aLoadedDie throw equals:3.
 ]
 
-{ #category : #'tests - initialization' }
+{ #category : #'error testing' }
 LoadedDieTest >> test003ALoadedDieCannotHaveLessThanThreeFaces [
 
 self 
