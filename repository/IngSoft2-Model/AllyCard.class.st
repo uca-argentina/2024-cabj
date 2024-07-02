@@ -26,7 +26,7 @@ AllyCard >> ally [
 { #category : #action }
 AllyCard >> deactivate [
 
-	game stopSharing: spaceshipId.
+	game stopAlly: spaceshipId.
 ]
 
 { #category : #comparing }

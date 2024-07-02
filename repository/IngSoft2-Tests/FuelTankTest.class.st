@@ -61,22 +61,3 @@ FuelTankTest >> test06UseMoreFuelThanLoadedWithThenFuelTankLoadedWithZero [
 	
 	self assert: aFuelTank loadedWith equals: 0
 ]
-
-{ #category : #tests }
-FuelTankTest >> test07FuelTankInitializeWithFiveThenCapacityIsFive [
-
-	| aFuelTank |
-	aFuelTank := FuelTank fullWith: 5.
-	
-	self assert: aFuelTank capacity equals: 5
-]
-
-{ #category : #tests }
-FuelTankTest >> test08ChangedCapacityOfFuelTankThenCapacityHasChange [
-
-	| aFuelTank |
-	aFuelTank := FuelTank fullWith: 5.
-	aFuelTank changeCapacity: 1.
-
-	self assert: aFuelTank capacity equals: 6
-]

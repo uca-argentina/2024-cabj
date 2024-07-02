@@ -24,6 +24,14 @@ AllyTankManager >> ally: aSpaceship with: aSpaceshipTwo [
 ]
 
 { #category : #initialization }
+AllyTankManager >> allyOf: aSpaceshipId [
+
+	(dictionaryOfAllys includesKey: aSpaceshipId) ifFalse: [
+		^ aSpaceshipId ].
+	^ dictionaryOfAllys at: aSpaceshipId
+]
+
+{ #category : #initialization }
 AllyTankManager >> initializeManage: aCollectionOfSpaceships [
 
 	fuelTanks := aCollectionOfSpaceships collect: [ :spaceship |
@@ -32,25 +40,8 @@ AllyTankManager >> initializeManage: aCollectionOfSpaceships [
 	dictionaryOfAllys := Dictionary new
 ]
 
-{ #category : #initialization }
-AllyTankManager >> sharingWith: aSpaceshipId [
-
-	(dictionaryOfAllys includesKey: aSpaceshipId) ifFalse: [
-		^ aSpaceshipId ].
-	^ dictionaryOfAllys at: aSpaceshipId
-]
-
-{ #category : #'set and get' }
-AllyTankManager >> stopSharing: aSpaceshipId [
-
-	| ally |
-	ally := dictionaryOfAllys at: aSpaceshipId.
-	dictionaryOfAllys removeKey: aSpaceshipId.
-	dictionaryOfAllys removeKey: ally
-]
-
 { #category : #action }
-AllyTankManager >> use: anAmountOfFuel ofSharedWith: aSpaceshipId [
+AllyTankManager >> spaceship: aSpaceshipId wantsToUse: anAmountOfFuel [
 
 	| tankSpaceshipToMove tankAllySpaceship fuelToShare |
 	(dictionaryOfAllys includesKey: aSpaceshipId) ifFalse: [ ^ self ].
@@ -63,4 +54,13 @@ AllyTankManager >> use: anAmountOfFuel ofSharedWith: aSpaceshipId [
 	(tankSpaceshipToMove loadedWith - anAmountOfFuel) < 0 ifFalse: [ ^ self ].
 	tankAllySpaceship useFuel: fuelToShare.
 	tankSpaceshipToMove loadFuel: fuelToShare
+]
+
+{ #category : #'set and get' }
+AllyTankManager >> stopAlly: aSpaceshipId [
+
+	| ally |
+	ally := dictionaryOfAllys at: aSpaceshipId.
+	dictionaryOfAllys removeKey: aSpaceshipId.
+	dictionaryOfAllys removeKey: ally
 ]

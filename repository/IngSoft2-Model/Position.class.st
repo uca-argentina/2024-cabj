@@ -46,7 +46,7 @@ Position >> cell [
 { #category : #'set and get' }
 Position >> cellsXLaps [
 
-^ cell * lap
+	^ cell * lap
 ]
 
 { #category : #initialization }
