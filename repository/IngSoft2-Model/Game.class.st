@@ -103,10 +103,10 @@ Game >> giveOneCardTo: aSpaceship [
 Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aActiveDeck := ActiveDeck startGame.
-
-	finishLine := OrderedCollection
-		              with: aBoardCreator cells
-		              with: aBoardCreator laps.
+	
+	finishLine := Position startGame.
+	finishLine updateCell: (aBoardCreator cells -1).
+	finishLine updateLap: (aBoardCreator laps -1).
 
 	dice := aCollectionOfDice.
 
@@ -173,7 +173,7 @@ Game >> moveSpaceship [
 	cellToEnter := board at: positionOfSpaceship cell.
 	cellToEnter applyEffectTo: currentSpaceship on: self.
 
-	positionOfSpaceship := currentSpaceship position position.
+	positionOfSpaceship := currentSpaceship position.
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].

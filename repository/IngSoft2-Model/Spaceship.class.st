@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'id',
 		'aFuelTank',
-		'position'
+		'objectPosition'
 	],
 	#classInstVars : [
 		'counterId'
@@ -28,9 +28,9 @@ Spaceship class >> launchWithFuel: anAmountOfFuel [
 Spaceship >> > aSpaceship [
 
 	| completedLaps aSpaceshipCompletedLaps cellPosition aSpaceshipCellPosition |
-	completedLaps := position lap - 1.
+	completedLaps := objectPosition lap - 1.
 	aSpaceshipCompletedLaps := aSpaceship position lap -1.
-	cellPosition := position cell.
+	cellPosition := objectPosition cell.
 	aSpaceshipCellPosition := aSpaceship position cell.
 
 	^ completedLaps > aSpaceshipCompletedLaps
@@ -62,7 +62,7 @@ Spaceship >> id [
 { #category : #initialization }
 Spaceship >> initializeLaunch: counterId withFuel: anAmountOfFuel [
 
-	position := Position startGame.
+	objectPosition := Position startGame.
 	aFuelTank := FuelTank fullWith: anAmountOfFuel.
 	id := counterId.
 ]
@@ -81,7 +81,7 @@ Spaceship >> move: aNumberOfMovements [
 	aNumberOfMovements > aFuelTank loadedWith ifTrue: [
 		aux := aFuelTank loadedWith ].
 
-	position updateCell: aux.
+	objectPosition updateCell: aux.
 
 	aFuelTank useFuel: aux abs
 ]
@@ -95,13 +95,13 @@ Spaceship >> objectFuelTank [
 { #category : #'set and get' }
 Spaceship >> position [
 
-	^ position
+	^ objectPosition
 ]
 
 { #category : #initialization }
 Spaceship >> resetToOne [
 
 	| currentCell |
-	currentCell := position cell.
-	position updateCell: 1 - currentCell
+	currentCell := objectPosition cell.
+	objectPosition updateCell: 1 - currentCell
 ]

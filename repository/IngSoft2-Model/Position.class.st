@@ -8,10 +8,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Position class >> startGame [
 
 	^ self new initializeStartGame
+]
+
+{ #category : #accessing }
+Position >> = aPosition [
+
+	^ self cell = aPosition cell and: self lap = aPosition lap
 ]
 
 { #category : #checking }
@@ -19,11 +25,11 @@ Position >> adjustPositionFor: aNumberOfMovements with: aFinishLine [
 
 	| aux cellXLapsOfFinishLine amountOfCells completedLaps nextCell |
 	aux := aNumberOfMovements.
-	amountOfCells := aFinishLine at: 1.
-	cellXLapsOfFinishLine := (aFinishLine at: 1) * (aFinishLine at: 2).
+	amountOfCells := aFinishLine cell.
+	cellXLapsOfFinishLine := (aFinishLine cell) * (aFinishLine lap).
 	self cellsXLaps + aNumberOfMovements > cellXLapsOfFinishLine ifTrue: [
 		aux := cellXLapsOfFinishLine - self cellsXLaps.
-		self updateLap: (aFinishLine at: 2) - lap ].
+		self updateLap: (aFinishLine lap) - lap ].
 
 	cell + aux > amountOfCells ifTrue: [
 		completedLaps := cell + aNumberOfMovements - 1 // amountOfCells + 1
