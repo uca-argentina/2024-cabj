@@ -77,7 +77,7 @@ Game >> checkMoveIsPossible: throwResult for: aSpaceship [
 
 	| positionOfSpaceship aNumberOfMovements |
 	aNumberOfMovements := throwResult.
-	positionOfSpaceship := aSpaceship objectPosition.
+	positionOfSpaceship := aSpaceship position.
 
 	(spaceshipsWithHyperGravity includesKey: aSpaceship) ifTrue: [
 		throwResult < (spaceshipsWithHyperGravity at: aSpaceship)
@@ -160,7 +160,7 @@ Game >> moveSpaceship [
 		               checkMoveIsPossible: throwResult
 		               for: currentSpaceship.
 
-	positionOfSpaceship := currentSpaceship objectPosition.
+	positionOfSpaceship := currentSpaceship position.
 
 	anAllyTankManager
 		spaceship: currentSpaceship id
@@ -173,7 +173,7 @@ Game >> moveSpaceship [
 	cellToEnter := board at: positionOfSpaceship cell.
 	cellToEnter applyEffectTo: currentSpaceship on: self.
 
-	positionOfSpaceship := currentSpaceship objectPosition position.
+	positionOfSpaceship := currentSpaceship position position.
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].

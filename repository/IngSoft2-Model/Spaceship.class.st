@@ -29,9 +29,9 @@ Spaceship >> > aSpaceship [
 
 	| completedLaps aSpaceshipCompletedLaps cellPosition aSpaceshipCellPosition |
 	completedLaps := position lap - 1.
-	aSpaceshipCompletedLaps := aSpaceship objectPosition lap -1.
+	aSpaceshipCompletedLaps := aSpaceship position lap -1.
 	cellPosition := position cell.
-	aSpaceshipCellPosition := aSpaceship objectPosition cell.
+	aSpaceshipCellPosition := aSpaceship position cell.
 
 	^ completedLaps > aSpaceshipCompletedLaps
 		  ifTrue: [ true ]
@@ -93,7 +93,7 @@ Spaceship >> objectFuelTank [
 ]
 
 { #category : #'set and get' }
-Spaceship >> objectPosition [
+Spaceship >> position [
 
 	^ position
 ]

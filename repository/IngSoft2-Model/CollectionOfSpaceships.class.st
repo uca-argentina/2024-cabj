@@ -24,7 +24,7 @@ CollectionOfSpaceships >> cellsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition cell ].
+			put: spaceship position cell ].
 
 	^ dictionaryOfCellPositions
 ]
@@ -82,7 +82,7 @@ CollectionOfSpaceships >> lapsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition lap ].
+			put: spaceship position lap ].
 
 	^ dictionaryOfCellPositions
 ]
@@ -95,7 +95,7 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition position ].
+			put: spaceship position position ].
 
 	^ dictionaryOfCellPositions
 ]
