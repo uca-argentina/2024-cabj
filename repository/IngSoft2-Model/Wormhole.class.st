@@ -1,6 +1,6 @@
 Class {
 	#name : #Wormhole,
-	#superclass : #Object,
+	#superclass : #Cell,
 	#instVars : [
 		'cellPosition',
 		'positionToGoTo'
