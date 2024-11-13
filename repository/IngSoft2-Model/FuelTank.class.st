@@ -55,6 +55,4 @@ FuelTank >> reloadToCapacity [
 FuelTank >> useFuel: anAmountOfFuel [
 
 	fuel := fuel - anAmountOfFuel.
-	self isEmpty ifFalse: [ ^ self ].
-	fuel := 0
 ]
