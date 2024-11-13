@@ -6,7 +6,11 @@ Class {
 
 { #category : #action }
 BlackHoleCell >> applyEffectTo: aSpaceship on: aGame [
-
-	aSpaceship move: -4.
+	
+	| aNumberOfMovements |
+	aNumberOfMovements := aGame
+		                      checkMoveIsPossible: -4
+		                      for: aSpaceship.
+	aSpaceship move: aNumberOfMovements.
 	aGame checkAndHandleFuelDepletion: aSpaceship
 ]
