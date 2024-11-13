@@ -95,7 +95,7 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship position position ].
+			put: spaceship position ].
 
 	^ dictionaryOfCellPositions
 ]

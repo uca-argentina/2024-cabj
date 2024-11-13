@@ -103,10 +103,10 @@ Game >> giveOneCardTo: aSpaceship [
 Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCollectionOfDice andGameDeck: anEffectManager [
 
 	aActiveDeck := ActiveDeck startGame.
-	
-	finishLine := Position startGame.
-	finishLine updateCell: (aBoardCreator cells -1).
-	finishLine updateLap: (aBoardCreator laps -1).
+
+	finishLine := Position
+		              startGameWithCell: aBoardCreator cells
+		              andLap: aBoardCreator laps.
 
 	dice := aCollectionOfDice.
 
@@ -117,7 +117,8 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 	anAllyTankManager := AllyTankManager manage: spaceships.
 
 	spaceshipsCardHands := (1 to: anAmount) collect: [ :index |
-		                       SpaceshipCardHand startGameWith: anEffectManager ].
+		                       SpaceshipCardHand startGameWith:
+			                       anEffectManager ].
 
 	turnManager := TurnManager manage: spaceships.
 	currentSpaceship := spaceships detectSpaceshipWithId:

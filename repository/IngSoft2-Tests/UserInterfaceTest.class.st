@@ -250,8 +250,8 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 		                  andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 10 with: 2).
-	resultOfGame at: 2 put: (OrderedCollection with: 6 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 10 andLap: 2).
+	resultOfGame at: 2 put: (Position startGameWithCell: 6 andLap: 1).
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.

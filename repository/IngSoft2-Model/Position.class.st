@@ -11,7 +11,13 @@ Class {
 { #category : #'instance creation' }
 Position class >> startGame [
 
-	^ self new initializeStartGame
+	^ self new initializeStartGameWithCell: 1 andLap: 1
+]
+
+{ #category : #'instance creation' }
+Position class >> startGameWithCell: aNumber andLap: anotherNumber [
+
+	^ self new initializeStartGameWithCell: aNumber andLap: anotherNumber
 ]
 
 { #category : #accessing }
@@ -56,22 +62,16 @@ Position >> cellsXLaps [
 ]
 
 { #category : #initialization }
-Position >> initializeStartGame [
+Position >> initializeStartGameWithCell: aNumber andLap: anotherNumber [
 
-	cell := 1.
-	lap := 1
+	cell := aNumber.
+	lap := anotherNumber
 ]
 
 { #category : #accessing }
 Position >> lap [
 
 	^ lap
-]
-
-{ #category : #'set and get' }
-Position >> position [
-
-	^ OrderedCollection with: cell with: lap
 ]
 
 { #category : #'set and get' }

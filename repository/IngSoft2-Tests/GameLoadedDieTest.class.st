@@ -100,7 +100,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 15 andLap: 1).
 	aGame moveSpaceship.
 
 	self
@@ -162,8 +162,8 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
-	resultOfGame at: 2 put: (OrderedCollection with: 7 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 15 andLap: 1).
+	resultOfGame at: 2 put: (Position startGameWithCell: 7 andLap: 1).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -336,7 +336,7 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	aGame reloadSpaceship.
 	aGame moveSpaceship.
 	result := Dictionary new.
-	result at: 1 put: (OrderedCollection with: 6 with: 2).
+	result at: 1 put: (Position startGameWithCell: 6 andLap: 2).
 	self assert: aGame spaceships positionsOfSpaceships equals: result
 ]
 
@@ -385,8 +385,8 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 2).
-	resultOfGame at: 2 put: (OrderedCollection with: 6 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 15 andLap: 2).
+	resultOfGame at: 2 put: (Position startGameWithCell: 6 andLap: 1).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
