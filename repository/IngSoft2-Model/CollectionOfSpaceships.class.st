@@ -63,7 +63,7 @@ CollectionOfSpaceships >> each: aBlock [
 CollectionOfSpaceships >> each: aBlock but: aSpaceshipToSkip [
 
 	spaceships do: [ :spaceship |
-		aSpaceshipToSkip id = spaceship id ifFalse: [
+		aSpaceshipToSkip = spaceship ifFalse: [
 			aBlock value: spaceship ] ]
 ]
 
