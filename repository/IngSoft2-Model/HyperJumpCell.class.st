@@ -27,6 +27,7 @@ HyperJumpCell >> applyEffectTo: aSpaceship on: aGame [
 		                      checkMoveIsPossible: convertionOfNextValue
 		                      for: aSpaceship.
 	aSpaceship move: aNumberOfMovements.
+	aSpaceship position adjustPositionWith: aGame finishLine.
 	aGame checkAndHandleFuelDepletion: aSpaceship
 ]
 

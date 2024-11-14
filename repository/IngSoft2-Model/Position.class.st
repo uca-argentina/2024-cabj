@@ -27,38 +27,49 @@ Position >> = aPosition [
 ]
 
 { #category : #checking }
-Position >> adjustPositionFor: aNumberOfMovements with: aFinishLine [
+Position >> adjustMovementFor: aNumberOfMovements withLimits: aFinishLine [
 
-	| aux cellXLapsOfFinishLine amountOfCells completedLaps nextCell |
+	| aux cellXLapsOfFinishLine amountOfCells cellXLapsOfPosition |
 	aux := aNumberOfMovements.
 	amountOfCells := aFinishLine cell.
 	cellXLapsOfFinishLine := (aFinishLine cell) * (aFinishLine lap).
-	self cellsXLaps + aNumberOfMovements > cellXLapsOfFinishLine ifTrue: [
-		aux := cellXLapsOfFinishLine - self cellsXLaps.
+	cellXLapsOfPosition := amountOfCells*(lap-1)+cell.
+	
+	cellXLapsOfPosition + aNumberOfMovements > cellXLapsOfFinishLine ifTrue: [
+		aux := cellXLapsOfFinishLine - cellXLapsOfPosition.
 		self updateLap: (aFinishLine lap) - lap ].
 
-	cell + aux > amountOfCells ifTrue: [
-		completedLaps := cell + aNumberOfMovements - 1 // amountOfCells + 1
-		                 - 1.
-		self updateLap: completedLaps.
-		nextCell := cell + aNumberOfMovements
-		            - (completedLaps * amountOfCells).
-		aux := nextCell - cell ].
-
-	self cellsXLaps + aux < 1 ifTrue: [ aux := 1 - cell ].
+	cellXLapsOfPosition + aNumberOfMovements < 1 ifTrue: [
+		aux := 1 - cellXLapsOfPosition.
+		self updateLap: 1 - lap ].
+	
 	^ aux
+]
+
+{ #category : #checking }
+Position >> adjustPositionWith: aFinishLine [
+
+	| amountOfCells completedLaps nextCell |
+	amountOfCells := aFinishLine cell.
+
+	cell > amountOfCells ifTrue: [
+		completedLaps := cell - 1 // amountOfCells + 1 - 1.
+		self updateLap: completedLaps.
+		nextCell := cell - (completedLaps * amountOfCells).
+		self updateCell: nextCell - cell ].
+
+	cell < 1 ifTrue: [
+		completedLaps := cell - amountOfCells // amountOfCells + 1.
+		self updateLap: completedLaps.
+		nextCell := amountOfCells * lap + cell.
+		self updateCell: nextCell - cell ].
+	^ self
 ]
 
 { #category : #accessing }
 Position >> cell [
 
 	^ cell
-]
-
-{ #category : #'set and get' }
-Position >> cellsXLaps [
-
-	^ cell * lap
 ]
 
 { #category : #initialization }

@@ -87,10 +87,16 @@ Game >> checkMoveIsPossible: throwResult for: aSpaceship [
 			ifFalse: [ spaceshipsWithHyperGravity removeKey: aSpaceship ] ].
 
 	aNumberOfMovements := positionOfSpaceship
-		                      adjustPositionFor: aNumberOfMovements
-		                      with: finishLine.
+		                      adjustMovementFor: aNumberOfMovements
+		                      withLimits: finishLine.
 
 	^ aNumberOfMovements
+]
+
+{ #category : #results }
+Game >> finishLine [
+
+	^ finishLine
 ]
 
 { #category : #action }
@@ -168,6 +174,8 @@ Game >> moveSpaceship [
 		wantsToUse: throwResult.
 
 	currentSpaceship move: throwResult.
+
+	positionOfSpaceship adjustPositionWith: finishLine.
 
 	self checkAndHandleFuelDepletion: currentSpaceship.
 
