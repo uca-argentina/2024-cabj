@@ -148,13 +148,31 @@ Game >> lastCellEffect [
 ]
 
 { #category : #action }
+Game >> move: spaceship a: numberOfMovements [
+
+	| positionOfSpaceship aNumberOfMovements |
+	aNumberOfMovements := self
+		                      checkMoveIsPossible: numberOfMovements
+		                      for: spaceship.
+
+	positionOfSpaceship := spaceship position.
+
+	anAllyTankManager
+		spaceship: spaceship id
+		wantsToUse: aNumberOfMovements.
+
+	spaceship move: aNumberOfMovements.
+
+	positionOfSpaceship adjustPositionWith: finishLine.
+
+	self checkAndHandleFuelDepletion: spaceship
+]
+
+{ #category : #action }
 Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovements [
 
 	spaceships
-		each: [ :spaceship |
-			spaceship move:
-				(self checkMoveIsPossible: aNumberOfMovements for: spaceship).
-			self checkAndHandleFuelDepletion: spaceship ]
+		each: [ :spaceship | self move: spaceship a: aNumberOfMovements ]
 		but: aSpaceship
 ]
 
@@ -163,26 +181,13 @@ Game >> moveSpaceship [
 
 	| positionOfSpaceship throwResult |
 	throwResult := self throwDiceAndCheckEffects.
-	throwResult := self
-		               checkMoveIsPossible: throwResult
-		               for: currentSpaceship.
-
 	positionOfSpaceship := currentSpaceship position.
 
-	anAllyTankManager
-		spaceship: currentSpaceship id
-		wantsToUse: throwResult.
-
-	currentSpaceship move: throwResult.
-
-	positionOfSpaceship adjustPositionWith: finishLine.
-
-	self checkAndHandleFuelDepletion: currentSpaceship.
+	self move: currentSpaceship a: throwResult.
 
 	cellToEnter := board at: positionOfSpaceship cell.
 	cellToEnter applyEffectTo: currentSpaceship on: self.
 
-	positionOfSpaceship := currentSpaceship position.
 	positionOfSpaceship = finishLine ifTrue: [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].
