@@ -1,6 +1,6 @@
 Class {
 	#name : #OverloadCard,
-	#superclass : #PermanentCard,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 

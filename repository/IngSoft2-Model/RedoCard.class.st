@@ -1,6 +1,6 @@
 Class {
 	#name : #RedoCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#instVars : [
 		'idOrCardToRedo'
 	],

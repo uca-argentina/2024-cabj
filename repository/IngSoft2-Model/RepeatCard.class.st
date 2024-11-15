@@ -1,9 +1,6 @@
 Class {
 	#name : #RepeatCard,
-	#superclass : #Object,
-	#instVars : [
-		'spaceshipAffected'
-	],
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 

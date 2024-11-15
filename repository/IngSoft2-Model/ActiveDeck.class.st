@@ -17,7 +17,7 @@ ActiveDeck class >> startGame [
 { #category : #convenience }
 ActiveDeck >> activate: aCard [
 
-	aCard class superclass = PermanentCard ifTrue: [ cards add: aCard ].
+	cards add: aCard .
 	lastCardPlayed := aCard class
 ]
 

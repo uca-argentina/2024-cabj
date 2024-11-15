@@ -1,6 +1,6 @@
 Class {
 	#name : #AllyCard,
-	#superclass : #PermanentCard,
+	#superclass : #Card,
 	#instVars : [
 		'game',
 		'spaceshipId'

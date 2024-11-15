@@ -1,5 +1,5 @@
 Class {
-	#name : #PermanentCard,
+	#name : #Card,
 	#superclass : #Object,
 	#instVars : [
 		'spaceshipAffected'
@@ -8,38 +8,44 @@ Class {
 }
 
 { #category : #'instance creation' }
-PermanentCard class >> toDoEffectFor: aSpaceshipId [
+Card class >> toDoEffectFor: aSpaceshipId [
 
 	^ self new initializeToDoEffectFor: aSpaceshipId
 ]
 
 { #category : #comparing }
-PermanentCard >> = aCard [
+Card >> = aCard [
 
 	^ self class == aCard class
 ]
 
 { #category : #effect }
-PermanentCard >> activateEffectOn: aGame forSpaceship: anId [
+Card >> activateEffectOn: aGame forSpaceship: anId [
 	
 	aGame activateCard: self
 
 ]
 
 { #category : #effect }
-PermanentCard >> applyEffectOn: throwResult for: spaceshipId [
+Card >> applyEffectOn: throwResult for: spaceshipId [
 
 	^ throwResult
 ]
 
 { #category : #action }
-PermanentCard >> deactivate [
+Card >> deactivate [
 
 	^ true
 ]
 
 { #category : #initialization }
-PermanentCard >> initializeToDoEffectFor: aSpaceshipId [
+Card >> initializeToDoEffectFor: aSpaceshipId [
 
 	spaceshipAffected := aSpaceshipId
+]
+
+{ #category : #initialization }
+Card >> isExactlyTheSameCard: aCard [
+
+	^ aCard = self
 ]
