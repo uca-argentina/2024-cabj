@@ -43,9 +43,3 @@ Card >> initializeToDoEffectFor: aSpaceshipId [
 
 	spaceshipAffected := aSpaceshipId
 ]
-
-{ #category : #initialization }
-Card >> isExactlyTheSameCard: aCard [
-
-	^ aCard = self
-]

@@ -241,7 +241,7 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItC
 		                 withWormholeCreator: aWormholeCreator.
 
 	gameDeck := EffectManager manage:
-		            (OrderedCollection with: AccelerationCard new).
+		            (OrderedCollection with: AccelerationCard).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -250,8 +250,8 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItC
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame usePermanentCard: AccelerationCard new.
-	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard toDoEffectFor: nil.
+	aGame usePermanentCard: AccelerationCard toDoEffectFor: nil.
 	aGame moveSpaceship.
 
 	result := Dictionary new.

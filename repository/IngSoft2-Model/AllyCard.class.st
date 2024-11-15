@@ -8,6 +8,15 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #comparing }
+AllyCard >> = aCard [
+
+	| compareResult |
+	compareResult := self class == aCard class.
+	compareResult ifTrue: [ ^ spaceshipAffected = aCard ally ].
+	^ compareResult
+]
+
 { #category : #accessing }
 AllyCard >> activateEffectOn: aGame forSpaceship: anId [
 
@@ -27,10 +36,4 @@ AllyCard >> ally [
 AllyCard >> deactivate [
 
 	game stopAlly: spaceshipId.
-]
-
-{ #category : #comparing }
-AllyCard >> isExactlyTheSameCard: aCard [
-
-	^ self class == aCard class and: spaceshipAffected = aCard ally
 ]

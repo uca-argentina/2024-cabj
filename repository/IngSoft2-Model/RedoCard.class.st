@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-RedoCard class >> forCardWith: anIdOrCard [
+RedoCard class >> toDoEffectFor: anIdOrCard [
 
-	^ self new initializeForCardWith: anIdOrCard
+	^ self new initializeToDoEffectFor: anIdOrCard
 ]
 
 { #category : #comparing }
@@ -28,7 +28,7 @@ RedoCard >> activateEffectOn: aGame forSpaceship: anId [
 ]
 
 { #category : #initialization }
-RedoCard >> initializeForCardWith: anIdOrCard [
+RedoCard >> initializeToDoEffectFor: anIdOrCard [
 
 	idOrCardToRedo := anIdOrCard
 ]

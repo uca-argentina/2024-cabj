@@ -213,12 +213,13 @@ Game >> resetSpaceshipsToCellOne [
 ]
 
 { #category : #activation }
-Game >> spaceshipId: anId useInstantCard: aCard [
+Game >> spaceshipId: anId useInstantCard: aCard toDoEffectFor: anObject [
 
-	| spaceshipCardHand |
+	| spaceshipCardHand cardInitialized |
+	cardInitialized := aCard toDoEffectFor: anObject.
 	spaceshipCardHand := spaceshipsCardHands at: anId.
 	(spaceshipCardHand use: aCard) ifTrue: [
-		aCard activateEffectOn: self forSpaceship: anId ]
+		cardInitialized activateEffectOn: self forSpaceship: anId ]
 ]
 
 { #category : #accessing }
@@ -253,13 +254,16 @@ Game >> throwDiceAndCheckEffects [
 ]
 
 { #category : #activation }
-Game >> usePermanentCard: aCard [
+Game >> usePermanentCard: aCard toDoEffectFor: anId [
 
-	| currentSpaceshipCardHand |
+	| currentSpaceshipCardHand cardInitialized |
+	cardInitialized := aCard toDoEffectFor: anId.
 	currentSpaceshipCardHand := spaceshipsCardHands at:
 		                            currentSpaceship id.
 	(currentSpaceshipCardHand use: aCard) ifFalse: [ ^ self ].
-	aCard activateEffectOn: self forSpaceship: currentSpaceship id
+	cardInitialized
+		activateEffectOn: self
+		forSpaceship: currentSpaceship id
 ]
 
 { #category : #results }

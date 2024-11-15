@@ -90,12 +90,12 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 	aLoadedDie := LoadedDie of: #( 9 9 9 ).
 
 	gameDeck := EffectManager manage: (OrderedCollection
-			             with: AccelerationCard new
-			             with: AllyCard new
-			             with: OverloadCard new
-			             with: RedoCard new
-			             with: RepeatCard new
-			             with: CancellationCard new).
+			             with: AccelerationCard
+			             with: AllyCard
+			             with: OverloadCard
+			             with: RedoCard
+			             with: RepeatCard
+			             with: CancellationCard).
 
 	collectionOfCells := OrderedCollection new.
 
@@ -112,10 +112,11 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
-	aUserInterFace usePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aUserInterFace usePermanentCard: OverloadCard toDoEffectFor: 2.
 	aUserInterFace
 		spaceshipId: 1
-		useInstantCard: (RedoCard forCardWith: 3).
+		useInstantCard: RedoCard
+		toDoEffectFor: 3.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
