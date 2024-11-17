@@ -34,8 +34,12 @@ Game >> activateCard: aCard [
 ]
 
 { #category : #accessing }
-Game >> ally: spaceshipOne with: spaceshipTwo [
-
+Game >> ally: spaceshipIdOne with: spaceshipIdTwo [
+	
+	| spaceshipOne spaceshipTwo |
+	
+	spaceshipOne := spaceships detectSpaceshipWithId: spaceshipIdOne.
+	spaceshipTwo := spaceships detectSpaceshipWithId: spaceshipIdTwo.
 	anAllyTankManager ally: spaceshipOne with: spaceshipTwo
 ]
 
@@ -52,7 +56,7 @@ Game >> applyHyperGravityOn: aSpaceship withValue: value [
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 
 	| sharingId spaceshipSharing |
-	sharingId := anAllyTankManager allyOf: aSpaceship id.
+	sharingId := (anAllyTankManager allyOf: aSpaceship) id.
 	sharingId = aSpaceship ifTrue: [
 		aSpaceship objectFuelTank isEmpty ifFalse: [ ^ self ].
 		turnManager lostTurns: 2 by: (aSpaceship id).
@@ -69,7 +73,7 @@ Game >> checkAndHandleFuelDepletion: aSpaceship [
 	aSpaceship loadFuel.
 	spaceshipSharing resetToOne.
 	spaceshipSharing loadFuel.
-	^ self
+	
 ]
 
 { #category : #checking }
@@ -158,7 +162,7 @@ Game >> move: spaceship a: numberOfMovements [
 	positionOfSpaceship := spaceship position.
 
 	anAllyTankManager
-		spaceship: spaceship id
+		spaceship: spaceship
 		wantsToUse: aNumberOfMovements.
 
 	spaceship move: aNumberOfMovements.
@@ -236,7 +240,9 @@ Game >> spaceships [
 { #category : #accessing }
 Game >> stopAlly: aSpaceshipId [
 
-	anAllyTankManager stopAlly: aSpaceshipId
+	| spaceshipOne |
+	spaceshipOne := spaceships detectSpaceshipWithId: aSpaceshipId.
+	anAllyTankManager stopAlly: spaceshipOne
 ]
 
 { #category : #action }
