@@ -56,6 +56,26 @@ AllyTankManager >> spaceship: aSpaceship wantsToUse: anAmountOfFuel [
 ]
 
 { #category : #'set and get' }
+AllyTankManager >> spaceshipsWithEmptyFuelTank: aSpaceship [
+
+	| spaceshipsWithoutFuel spaceshipSharing |
+	spaceshipsWithoutFuel := OrderedCollection new.
+	(dictionaryOfAllys includesKey: aSpaceship) ifFalse: [
+		aSpaceship objectFuelTank isEmpty ifFalse: [
+			^ spaceshipsWithoutFuel ].
+		spaceshipsWithoutFuel add: aSpaceship.
+		^ spaceshipsWithoutFuel ].
+
+	spaceshipSharing := dictionaryOfAllys at: aSpaceship.
+	(aSpaceship objectFuelTank isEmpty and:
+		 spaceshipSharing objectFuelTank isEmpty) ifFalse: [
+		^ spaceshipsWithoutFuel ].
+	spaceshipsWithoutFuel add: aSpaceship.
+	spaceshipsWithoutFuel add: spaceshipSharing.
+	^ spaceshipsWithoutFuel
+]
+
+{ #category : #'set and get' }
 AllyTankManager >> stopAlly: aSpaceship [
 
 	| ally |

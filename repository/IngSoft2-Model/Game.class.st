@@ -55,25 +55,13 @@ Game >> applyHyperGravityOn: aSpaceship withValue: value [
 { #category : #action }
 Game >> checkAndHandleFuelDepletion: aSpaceship [
 
-	| sharingId spaceshipSharing |
-	sharingId := (anAllyTankManager allyOf: aSpaceship) id.
-	sharingId = aSpaceship ifTrue: [
-		aSpaceship objectFuelTank isEmpty ifFalse: [ ^ self ].
-		turnManager lostTurns: 2 by: (aSpaceship id).
-		aSpaceship resetToOne.
-		aSpaceship loadFuel.
-		^ self ].
-
-	spaceshipSharing := spaceships detectSpaceshipWithId: sharingId.
-	(aSpaceship objectFuelTank isEmpty and:
-		 spaceshipSharing objectFuelTank isEmpty) ifFalse: [ ^ self ].
-	turnManager lostTurns: 2 by: (aSpaceship id).
-	turnManager lostTurns: 2 by: (spaceshipSharing id).
-	aSpaceship resetToOne.
-	aSpaceship loadFuel.
-	spaceshipSharing resetToOne.
-	spaceshipSharing loadFuel.
-	
+	| spaceshipsWithoutFuel |
+	spaceshipsWithoutFuel := anAllyTankManager spaceshipsWithEmptyFuelTank:
+		              aSpaceship.
+	spaceshipsWithoutFuel do: [ :spaceship |
+		turnManager lostTurns: 2 by: spaceship id.
+		spaceship resetToOne.
+		spaceship loadFuel ]
 ]
 
 { #category : #checking }
