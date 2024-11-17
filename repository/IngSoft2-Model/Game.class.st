@@ -248,7 +248,7 @@ Game >> throwDiceAndCheckEffects [
 	throwResult = maxThrow ifTrue: [
 		randomValue < 0.8
 			ifTrue: [ currentSpaceship changeCapacity: 1 ]
-			ifFalse: [ currentSpaceship objectFuelTank useFuel: 1 ] ].
+			ifFalse: [ currentSpaceship changeCapacity: -1 ] ].
 	^ throwResult
 ]
 
