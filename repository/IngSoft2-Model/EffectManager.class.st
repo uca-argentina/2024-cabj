@@ -10,14 +10,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-EffectManager class >> manage: aCollectionOfObjects [
-
-	^ self new
-		  initializeManage: aCollectionOfObjects
-		  withProbabilitiesDistribution: 100
-]
-
-{ #category : #'instance creation' }
 EffectManager class >> manage: aCollectionOfObjects withProbabilitiesDistribution: collectionOfProbabilities [
 	
 	collectionOfProbabilities sum = 100 ifFalse: [ Error signal: 'Sum of probabilities must be equal to one hundred'].
@@ -32,7 +24,6 @@ EffectManager class >> manage: aCollectionOfObjects withProbabilitiesDistributio
 EffectManager >> createCollectionSize: aNumber [
 
 	| collectionOfObjects |
-	probabilities = 100 ifTrue:[^objects copy].
 	collectionOfObjects := OrderedCollection new.
 	aNumber timesRepeat: [
 		collectionOfObjects add: (probabilisticDistributionOfObjects at: 100 atRandom) ].
@@ -43,7 +34,6 @@ EffectManager >> createCollectionSize: aNumber [
 EffectManager >> giveOneObject [
 
 	| objectToGive |
-	probabilities = 100 ifTrue: [ ^ objects at: 1 ].
 	objectToGive := probabilisticDistributionOfObjects at: 100 atRandom.
 	^ objectToGive
 ]
@@ -56,10 +46,6 @@ EffectManager >> initializeManage: aCollectionOfObjects withProbabilitiesDistrib
 	totalCount := 0.
 	probabilities := collectionOfProbabilities.
 
-	collectionOfProbabilities = 100 ifTrue: [
-		objects := aCollectionOfObjects.
-		^ self ].
-	
 	aCollectionOfObjects
 		with: collectionOfProbabilities
 		do: [ :object :count |

@@ -240,7 +240,7 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItC
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
-	gameDeck := EffectManager manage:
+	gameDeck := LoadedEffectManager manage:
 		            (OrderedCollection with: AccelerationCard).
 
 	aGame := Game

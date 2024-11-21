@@ -27,7 +27,7 @@ GameCardTest >> setUp [
 		                 ofLaps: 1
 		                 withWormholeCreator: aWormholeCreator.
 
-	gameDeck := EffectManager manage: (OrderedCollection
+	gameDeck := LoadedEffectManager manage: (OrderedCollection
 			             with: AccelerationCard
 			             with: AllyCard
 			             with: OverloadCard
@@ -517,7 +517,7 @@ GameCardTest >> test23RepeatCardRepeatsCardDispenserThenSpaceshipTwoCanPlayTwoAc
 	10 timesRepeat: [ collectionOfCells add: Cell new ].
 	collectionOfCells at: 4 put: CardDispenserCell new.
 
-	gameDeck := EffectManager manage:
+	gameDeck := LoadedEffectManager manage:
 		            (OrderedCollection
 			             with: AccelerationCard
 			             with: RepeatCard).

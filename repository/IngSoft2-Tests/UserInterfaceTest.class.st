@@ -89,7 +89,7 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 	| aUserInterFace result |
 	aLoadedDie := LoadedDie of: #( 9 9 9 ).
 
-	gameDeck := EffectManager manage: (OrderedCollection
+	gameDeck := LoadedEffectManager manage: (OrderedCollection
 			             with: AccelerationCard
 			             with: AllyCard
 			             with: OverloadCard
