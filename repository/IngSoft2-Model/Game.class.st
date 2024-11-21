@@ -119,8 +119,7 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 			                       anEffectManager ].
 
 	turnManager := TurnManager manage: spaceships.
-	currentSpaceship := spaceships detectSpaceshipWithId:
-		                    turnManager nextTurn.
+	currentSpaceship := turnManager nextTurn.
 
 	spaceshipsWithHyperGravity := Dictionary new.
 
@@ -184,16 +183,14 @@ Game >> moveSpaceship [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].
 
-	currentSpaceship := spaceships detectSpaceshipWithId:
-		                    turnManager nextTurn
+	currentSpaceship := turnManager nextTurn
 ]
 
 { #category : #action }
 Game >> reloadSpaceship [
 
 	currentSpaceship loadFuel.
-	currentSpaceship := spaceships detectSpaceshipWithId:
-		                    turnManager nextTurn
+	currentSpaceship := turnManager nextTurn
 ]
 
 { #category : #removing }
