@@ -17,7 +17,7 @@ ActiveDeck class >> startGame [
 { #category : #convenience }
 ActiveDeck >> activate: aCard [
 
-	aCard class superclass = PermanentCard ifTrue: [ cards add: aCard ].
+	cards add: aCard .
 	lastCardPlayed := aCard class
 ]
 
@@ -58,7 +58,7 @@ ActiveDeck >> removeACard: cardToCancel [
 	indexToRemove := 0.
 	anIndex := 1.
 	self each: [ :card |
-		(card isExactlyTheSameCard: cardToCancel) ifTrue: [
+		(card = cardToCancel) ifTrue: [
 			indexToRemove := anIndex ].
 		anIndex := anIndex + 1 ].
 	(cards at: indexToRemove) deactivate.

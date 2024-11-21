@@ -71,15 +71,15 @@ UserInterface >> reloadSpaceship [
 ]
 
 { #category : #activation }
-UserInterface >> spaceshipId: anId useInstantCard: aCard [
+UserInterface >> spaceshipId: anId useInstantCard: aCard toDoEffectFor: anObject [
 
-	aGame spaceshipId: anId useInstantCard: aCard
+	aGame spaceshipId: anId useInstantCard: aCard toDoEffectFor: anObject
 ]
 
 { #category : #activation }
-UserInterface >> usePermanentCard: aCard [
+UserInterface >> usePermanentCard: aCard toDoEffectFor: anId [
 
-	aGame usePermanentCard: aCard
+	aGame usePermanentCard: aCard toDoEffectFor: anId
 ]
 
 { #category : #results }

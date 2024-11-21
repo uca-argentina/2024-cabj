@@ -1,6 +1,6 @@
 Class {
 	#name : #Wormhole,
-	#superclass : #Object,
+	#superclass : #Cell,
 	#instVars : [
 		'cellPosition',
 		'positionToGoTo'
@@ -18,7 +18,7 @@ Wormhole class >> in: aPosition to: anotherPosition [
 Wormhole >> applyEffectTo: aSpaceship on: aGame [
 	
 	| numberOfMovements cellOfSpaceship |
-	cellOfSpaceship := aSpaceship objectPosition cell.
+	cellOfSpaceship := aSpaceship position cell.
 	numberOfMovements := positionToGoTo - cellOfSpaceship.
 	aSpaceship move: numberOfMovements
 ]

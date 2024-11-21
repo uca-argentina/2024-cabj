@@ -24,7 +24,7 @@ CollectionOfSpaceships >> cellsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition cell ].
+			put: spaceship position cell ].
 
 	^ dictionaryOfCellPositions
 ]
@@ -63,7 +63,7 @@ CollectionOfSpaceships >> each: aBlock [
 CollectionOfSpaceships >> each: aBlock but: aSpaceshipToSkip [
 
 	spaceships do: [ :spaceship |
-		aSpaceshipToSkip id = spaceship id ifFalse: [
+		aSpaceshipToSkip = spaceship ifFalse: [
 			aBlock value: spaceship ] ]
 ]
 
@@ -82,7 +82,7 @@ CollectionOfSpaceships >> lapsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition lap ].
+			put: spaceship position lap ].
 
 	^ dictionaryOfCellPositions
 ]
@@ -95,7 +95,7 @@ CollectionOfSpaceships >> positionsOfSpaceships [
 	self each: [ :spaceship |
 		dictionaryOfCellPositions
 			at: spaceship id
-			put: spaceship objectPosition position ].
+			put: spaceship position ].
 
 	^ dictionaryOfCellPositions
 ]

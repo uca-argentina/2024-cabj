@@ -7,6 +7,5 @@ Class {
 { #category : #action }
 BlackHoleCell >> applyEffectTo: aSpaceship on: aGame [
 
-	aSpaceship move: -4.
-	aGame checkAndHandleFuelDepletion: aSpaceship
+	aGame move: aSpaceship a: -4
 ]

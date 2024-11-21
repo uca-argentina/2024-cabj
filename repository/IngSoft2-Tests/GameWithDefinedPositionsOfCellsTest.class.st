@@ -240,8 +240,8 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItC
 		                 ofLaps: 2
 		                 withWormholeCreator: aWormholeCreator.
 
-	gameDeck := EffectManager manage:
-		            (OrderedCollection with: AccelerationCard new).
+	gameDeck := LoadedEffectManager manage:
+		            (OrderedCollection with: AccelerationCard).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -250,12 +250,97 @@ GameWithDefinedPositionsOfCellsTest >> test08SpaceshipEntersCardDispenserThenItC
 		         andGameDeck: gameDeck.
 
 	aGame moveSpaceship.
-	aGame usePermanentCard: AccelerationCard new.
-	aGame usePermanentCard: AccelerationCard new.
+	aGame usePermanentCard: AccelerationCard toDoEffectFor: nil.
+	aGame usePermanentCard: AccelerationCard toDoEffectFor: nil.
 	aGame moveSpaceship.
 
 	result := Dictionary new.
 	result at: 1 put: 9.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #'black hole' }
+GameWithDefinedPositionsOfCellsTest >> test09SpaceshipFallsOnBlackHoleThenGoesBackOnlyTheAllowedMovements [
+
+	| result aGame |
+
+	aWormholeCreator := WormholeCreator withBeginning: 8 andEnd: 9.
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
+
+	collectionOfCells at: 2 put: BlackHoleCell new.
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
+	aLoadedDie := LoadedDie of: #( 1 5 ).
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 1.
+
+	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #'black hole' }
+GameWithDefinedPositionsOfCellsTest >> test10SpaceshipFallsOnBlackHoleThenGoesBackALap [
+
+	| result aGame |
+
+	aWormholeCreator := WormholeCreator withBeginning: 8 andEnd: 9.
+	collectionOfCells := OrderedCollection new.
+
+	10 timesRepeat: [ collectionOfCells add: Cell new ].
+
+	collectionOfCells at: 2 put: BlackHoleCell new.
+
+	aBoardCreator := BoardCreator
+		                 with: collectionOfCells
+		                 ofLaps: 2
+		                 withWormholeCreator: aWormholeCreator.
+
+	gameDeck := EffectManager
+		            manage: (OrderedCollection
+				             with: AccelerationCard new
+				             with: AllyCard new
+				             with: OverloadCard new
+				             with: RedoCard new
+				             with: RepeatCard new
+				             with: CancellationCard new)
+		            withProbabilitiesDistribution: #( 16 16 17 17 17 17 ).
+	aLoadedDie := LoadedDie of: #( 10 1 ).
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame moveSpaceship.
+	aGame moveSpaceship.
+
+	result := Dictionary new.
+	result at: 1 put: 8.
 
 	self assert: aGame spaceships cellsOfSpaceships equals: result
 ]

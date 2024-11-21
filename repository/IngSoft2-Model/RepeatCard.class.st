@@ -1,9 +1,6 @@
 Class {
 	#name : #RepeatCard,
-	#superclass : #Object,
-	#instVars : [
-		'spaceshipAffected'
-	],
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 
@@ -11,12 +8,6 @@ Class {
 RepeatCard class >> toDoEffectFor: aSpaceshipId [
 
 	^ self new initializeToDoEffectFor: aSpaceshipId
-]
-
-{ #category : #comparing }
-RepeatCard >> = aCard [
-
-	^ self class == aCard class
 ]
 
 { #category : #accessing }

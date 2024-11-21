@@ -19,15 +19,11 @@ HyperJumpCell class >> withConversor: aConversor andValues: aCollection [
 { #category : #action }
 HyperJumpCell >> applyEffectTo: aSpaceship on: aGame [
 
-	| convertionOfNextValue aNumberOfMovements |
+	| convertionOfNextValue |
 	convertionOfNextValue := conversor convert: currentValue.
 	previousValue := currentValue.
 	self nextValue.
-	aNumberOfMovements := aGame
-		                      checkMoveIsPossible: convertionOfNextValue
-		                      for: aSpaceship.
-	aSpaceship move: aNumberOfMovements.
-	aGame checkAndHandleFuelDepletion: aSpaceship
+	aGame move: aSpaceship a: convertionOfNextValue
 ]
 
 { #category : #initialization }

@@ -1,8 +1,17 @@
 Class {
 	#name : #OverloadCard,
-	#superclass : #PermanentCard,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #comparing }
+OverloadCard >> = aCard [
+
+	| compareResult |
+	compareResult := self class == aCard class.
+	compareResult ifTrue: [ ^ spaceshipAffected = aCard id ].
+	^ compareResult
+]
 
 { #category : #effect }
 OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
@@ -15,10 +24,4 @@ OverloadCard >> applyEffectOn: throwResult for: aSpaceshipId [
 OverloadCard >> id [
 
 	^ spaceshipAffected 
-]
-
-{ #category : #comparing }
-OverloadCard >> isExactlyTheSameCard: aCard [
-
-	^ spaceshipAffected = aCard id and: self = aCard
 ]

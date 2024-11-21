@@ -43,8 +43,8 @@ CollectionOfSpaceshipTest >> test03PositionsOfSpaceshipsThenReturnEachPositionFo
 		                           withAmountOfFuel: 10.
 
 	result := Dictionary new.
-	result at: 1 put: #( 1 1 ) asOrderedCollection.
-	result at: 2 put: #( 1 1 ) asOrderedCollection.
+	result at: 1 put: Position startGame.
+	result at: 2 put: Position startGame.
 
 	self
 		assert: aCollectionOfSpaceships positionsOfSpaceships

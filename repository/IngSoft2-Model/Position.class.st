@@ -8,33 +8,62 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Position class >> startGame [
 
-	^ self new initializeStartGame
+	^ self new initializeStartGameWithCell: 1 andLap: 1
+]
+
+{ #category : #'instance creation' }
+Position class >> startGameWithCell: aNumber andLap: anotherNumber [
+
+	^ self new initializeStartGameWithCell: aNumber andLap: anotherNumber
+]
+
+{ #category : #accessing }
+Position >> = aPosition [
+
+	^ self cell = aPosition cell and: self lap = aPosition lap
 ]
 
 { #category : #checking }
-Position >> adjustPositionFor: aNumberOfMovements with: aFinishLine [
+Position >> adjustMovementFor: aNumberOfMovements withLimits: aFinishLine [
 
-	| aux cellXLapsOfFinishLine amountOfCells completedLaps nextCell |
+	| aux cellXLapsOfFinishLine amountOfCells cellXLapsOfPosition |
 	aux := aNumberOfMovements.
-	amountOfCells := aFinishLine at: 1.
-	cellXLapsOfFinishLine := (aFinishLine at: 1) * (aFinishLine at: 2).
-	self cellsXLaps + aNumberOfMovements > cellXLapsOfFinishLine ifTrue: [
-		aux := cellXLapsOfFinishLine - self cellsXLaps.
-		self updateLap: (aFinishLine at: 2) - lap ].
+	amountOfCells := aFinishLine cell.
+	cellXLapsOfFinishLine := (aFinishLine cell) * (aFinishLine lap).
+	cellXLapsOfPosition := amountOfCells*(lap-1)+cell.
+	
+	cellXLapsOfPosition + aNumberOfMovements > cellXLapsOfFinishLine ifTrue: [
+		aux := cellXLapsOfFinishLine - cellXLapsOfPosition.
+		self updateLap: (aFinishLine lap) - lap ].
 
-	cell + aux > amountOfCells ifTrue: [
-		completedLaps := cell + aNumberOfMovements - 1 // amountOfCells + 1
-		                 - 1.
-		self updateLap: completedLaps.
-		nextCell := cell + aNumberOfMovements
-		            - (completedLaps * amountOfCells).
-		aux := nextCell - cell ].
-
-	self cellsXLaps + aux < 1 ifTrue: [ aux := 1 - cell ].
+	cellXLapsOfPosition + aNumberOfMovements < 1 ifTrue: [
+		aux := 1 - cellXLapsOfPosition.
+		self updateLap: 1 - lap ].
+	
 	^ aux
+]
+
+{ #category : #checking }
+Position >> adjustPositionWith: aFinishLine [
+
+	| amountOfCells completedLaps nextCell |
+	amountOfCells := aFinishLine cell.
+
+	cell > amountOfCells ifTrue: [
+		completedLaps := cell - 1 // amountOfCells + 1 - 1.
+		self updateLap: completedLaps.
+		nextCell := cell - (completedLaps * amountOfCells).
+		self updateCell: nextCell - cell ].
+
+	cell < 1 ifTrue: [
+		completedLaps := cell - amountOfCells // amountOfCells + 1.
+		self updateLap: completedLaps.
+		nextCell := amountOfCells * lap + cell.
+		self updateCell: nextCell - cell ].
+	^ self
 ]
 
 { #category : #accessing }
@@ -43,29 +72,17 @@ Position >> cell [
 	^ cell
 ]
 
-{ #category : #'set and get' }
-Position >> cellsXLaps [
-
-	^ cell * lap
-]
-
 { #category : #initialization }
-Position >> initializeStartGame [
+Position >> initializeStartGameWithCell: aNumber andLap: anotherNumber [
 
-	cell := 1.
-	lap := 1
+	cell := aNumber.
+	lap := anotherNumber
 ]
 
 { #category : #accessing }
 Position >> lap [
 
 	^ lap
-]
-
-{ #category : #'set and get' }
-Position >> position [
-
-	^ OrderedCollection with: cell with: lap
 ]
 
 { #category : #'set and get' }

@@ -1,6 +1,6 @@
 Class {
 	#name : #AccelerationCard,
-	#superclass : #PermanentCard,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 
@@ -8,10 +8,4 @@ Class {
 AccelerationCard >> applyEffectOn: throwResult for: spaceshipId [
 
 	^ throwResult + 1
-]
-
-{ #category : #comparing }
-AccelerationCard >> isExactlyTheSameCard: aCard [
-
-	^ aCard = self
 ]

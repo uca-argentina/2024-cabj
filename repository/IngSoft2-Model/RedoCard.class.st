@@ -1,6 +1,6 @@
 Class {
 	#name : #RedoCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#instVars : [
 		'idOrCardToRedo'
 	],
@@ -8,15 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-RedoCard class >> forCardWith: anIdOrCard [
+RedoCard class >> toDoEffectFor: anIdOrCard [
 
-	^ self new initializeForCardWith: anIdOrCard
-]
-
-{ #category : #comparing }
-RedoCard >> = aCard [
-
-	^ self class == aCard class
+	^ self new initializeToDoEffectFor: anIdOrCard
 ]
 
 { #category : #accessing }
@@ -28,7 +22,7 @@ RedoCard >> activateEffectOn: aGame forSpaceship: anId [
 ]
 
 { #category : #initialization }
-RedoCard >> initializeForCardWith: anIdOrCard [
+RedoCard >> initializeToDoEffectFor: anIdOrCard [
 
 	idOrCardToRedo := anIdOrCard
 ]

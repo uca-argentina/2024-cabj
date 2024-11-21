@@ -89,13 +89,13 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 	| aUserInterFace result |
 	aLoadedDie := LoadedDie of: #( 9 9 9 ).
 
-	gameDeck := EffectManager manage: (OrderedCollection
-			             with: AccelerationCard new
-			             with: AllyCard new
-			             with: OverloadCard new
-			             with: RedoCard new
-			             with: RepeatCard new
-			             with: CancellationCard new).
+	gameDeck := LoadedEffectManager manage: (OrderedCollection
+			             with: AccelerationCard
+			             with: AllyCard
+			             with: OverloadCard
+			             with: RedoCard
+			             with: RepeatCard
+			             with: CancellationCard).
 
 	collectionOfCells := OrderedCollection new.
 
@@ -112,10 +112,11 @@ UserInterfaceTest >> test02UserInterfaceUsesBothPermanentAndInstantCardsThenGame
 		                  playWith: aLoadedDie
 		                  andGameDeck: gameDeck.
 
-	aUserInterFace usePermanentCard: (OverloadCard toDoEffectFor: 2).
+	aUserInterFace usePermanentCard: OverloadCard toDoEffectFor: 2.
 	aUserInterFace
 		spaceshipId: 1
-		useInstantCard: (RedoCard forCardWith: 3).
+		useInstantCard: RedoCard
+		toDoEffectFor: 3.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
@@ -250,8 +251,8 @@ UserInterfaceTest >> test07userInterfacePlaysThenGetsFinalResultsOfSpaceships [
 		                  andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 10 with: 2).
-	resultOfGame at: 2 put: (OrderedCollection with: 6 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 10 andLap: 2).
+	resultOfGame at: 2 put: (Position startGameWithCell: 6 andLap: 1).
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.
 	aUserInterFace moveSpaceship.

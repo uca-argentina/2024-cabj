@@ -47,7 +47,7 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
 
 	| aGame result |
-	aLoadedDie := LoadedDie of: #( 6 5 ).
+	aLoadedDie := LoadedDie of: #( 6 5 10 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
@@ -100,7 +100,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 15 andLap: 1).
 	aGame moveSpaceship.
 
 	self
@@ -112,7 +112,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
 	| aGame result |
-	aLoadedDie := LoadedDie of: #( 6 6 5 ).
+	aLoadedDie := LoadedDie of: #( 6 6 5 10 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
@@ -162,8 +162,8 @@ GameLoadedDieTest >> test06SpaceshipOneWinsThenResultOfGameShowsPositions [
 		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 1).
-	resultOfGame at: 2 put: (OrderedCollection with: 7 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 15 andLap: 1).
+	resultOfGame at: 2 put: (Position startGameWithCell: 7 andLap: 1).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -336,7 +336,7 @@ GameLoadedDieTest >> test14WhenASpaceshipFallsInTheFirstCellThenDoesntLooseTwoTu
 	aGame reloadSpaceship.
 	aGame moveSpaceship.
 	result := Dictionary new.
-	result at: 1 put: (OrderedCollection with: 6 with: 2).
+	result at: 1 put: (Position startGameWithCell: 6 andLap: 2).
 	self assert: aGame spaceships positionsOfSpaceships equals: result
 ]
 
@@ -385,8 +385,8 @@ GameLoadedDieTest >> test17WhenTheGameEndsThenReturnsThePositionWithTheLapOfEach
 		         andGameDeck: gameDeck.
 
 	resultOfGame := Dictionary new.
-	resultOfGame at: 1 put: (OrderedCollection with: 15 with: 2).
-	resultOfGame at: 2 put: (OrderedCollection with: 6 with: 1).
+	resultOfGame at: 1 put: (Position startGameWithCell: 15 andLap: 2).
+	resultOfGame at: 2 put: (Position startGameWithCell: 6 andLap: 1).
 	aGame moveSpaceship.
 	aGame moveSpaceship.
 
@@ -433,7 +433,7 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 
 	spaceship := aGame spaceships ranking at: 1.
 
-	self assert: (spaceship amountOfFuel between: 7 and: 9)
+	self assert: (spaceship amountOfFuel between: 8 and: 9)
 ]
 
 { #category : #fuelTests }
@@ -456,4 +456,23 @@ GameLoadedDieTest >> test21SpacshipOneLoadsFuelSpaceshipTwoLoosesTurnsThenOneMov
 	result at: 1 put: 7.
 	result at: 2 put: 1.
 	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #fuelTests }
+GameLoadedDieTest >> test22SpaceshipLoosesOneFuelBecauseOfMaxDiceThrow [
+
+	| aGame spaceship |
+	aLoadedDie := LoadedDie of: #( 4 ).
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame moveSpaceship.
+
+	spaceship := aGame spaceships ranking at: 1.
+
+	self assert: (spaceship amountOfFuel between: 3 and: 4)
 ]

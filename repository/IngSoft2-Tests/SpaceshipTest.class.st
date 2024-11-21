@@ -11,7 +11,7 @@ SpaceshipTest >> test001SpaceshipInitializeInPositionOneAndMovesOneTimeThenIsInP
 	aSpaceship := Spaceship launchWithFuel: 5.
 	Spaceship initialize.
 	aSpaceship move: 1.
-	self assert: aSpaceship objectPosition cell equals: 2
+	self assert: aSpaceship position cell equals: 2
 ]
 
 { #category : #move }
@@ -21,20 +21,18 @@ SpaceshipTest >> test002SpaceshipMovesTwiceAndIsInPositionThree [
 	aSpaceship := Spaceship launchWithFuel: 5.
 	Spaceship initialize.
 	aSpaceship move: 2.
-	self assert: aSpaceship objectPosition cell equals: 3
+	self assert: aSpaceship position cell equals: 3
 ]
 
 { #category : #position }
 SpaceshipTest >> test004WhenSpaceshipMovesTwiceThenPositionIsCellThreeAndLap1 [
 
-	| aSpaceship collectionOfPosition |
+	| aSpaceship aPosition |
 	aSpaceship := Spaceship launchWithFuel: 5.
-	collectionOfPosition := OrderedCollection with: 3 with: 1.
+	aPosition := Position startGameWithCell: 3 andLap: 1.
 	Spaceship initialize.
 	aSpaceship move: 2.
-	self
-		assert: aSpaceship objectPosition position
-		equals: collectionOfPosition
+	self assert: aSpaceship position equals: aPosition
 ]
 
 { #category : #move }
@@ -45,7 +43,7 @@ SpaceshipTest >> test005WhenASpaceshipMovesTwiceWithTwoJumps [
 	Spaceship initialize.
 	aSpaceship move: 1.
 	aSpaceship move: 1.
-	self assert: aSpaceship objectPosition cell equals: 3
+	self assert: aSpaceship position cell equals: 3
 ]
 
 { #category : #move }
@@ -56,7 +54,7 @@ SpaceshipTest >> test006WhenSpaceshipMovesTwoTimesAndOneTimeThenPositionIsFour [
 	Spaceship initialize.
 	aSpaceship move: 2.
 	aSpaceship move: 1.
-	self assert: aSpaceship objectPosition cell equals: 4
+	self assert: aSpaceship position cell equals: 4
 ]
 
 { #category : #'tests - initialization' }
@@ -81,11 +79,11 @@ SpaceshipTest >> test008WhenTwoSpaceshipsAreLaunchedThenSpaceshipTwoIdEqualsTwo 
 { #category : #position }
 SpaceshipTest >> test009WhenSpaceshipIsLaunchedThenStartsOnCellOneAndLapOne [
 
-	| aSpaceship collectionOfPosition |
+	| aSpaceship aPosition |
 	aSpaceship := Spaceship launchWithFuel: 5.
-	collectionOfPosition := Position startGame.
+	aPosition := Position startGame.
 	Spaceship initialize.
-	self assert: aSpaceship objectPosition position equals: collectionOfPosition position
+	self assert: aSpaceship position equals: aPosition
 ]
 
 { #category : #'tests - initialization' }
@@ -124,7 +122,7 @@ SpaceshipTest >> test013SpaceshipsTriesToMoveMoreThanFuelThenOnlyMovesTheFuelItH
 	aSpaceship := Spaceship launchWithFuel: 5.
 	aSpaceship move: 6.
 	Spaceship initialize.
-	self assert: aSpaceship objectPosition cell equals: 6
+	self assert: aSpaceship position cell equals: 6
 ]
 
 { #category : #fuelTests }
@@ -147,23 +145,21 @@ SpaceshipTest >> test016WhenSpaceshipMovesAfterLoadingFuelThenMoves [
 	aSpaceship loadFuel.
 	aSpaceship move: 8.
 	Spaceship initialize.
-	self assert: aSpaceship objectPosition cell equals: 10
+	self assert: aSpaceship position cell equals: 10
 ]
 
 { #category : #move }
 SpaceshipTest >> test018SpaceshipMovesBackwardsThenPositionIsEqualToMovement [
 
 	| aSpaceship finalPosition |
-	finalPosition := OrderedCollection with: 6 with: 1.
+	finalPosition := Position startGameWithCell: 6 andLap: 1.
 
 	aSpaceship := Spaceship launchWithFuel: 40.
 
 	aSpaceship move: 9.
 	aSpaceship move: -4.
 	Spaceship initialize.
-	self
-		assert: aSpaceship objectPosition position
-		equals: finalPosition
+	self assert: aSpaceship position equals: finalPosition
 ]
 
 { #category : #fuelTests }
@@ -189,21 +185,20 @@ SpaceshipTest >> test020SpaceshipMovesAfterLoadingFuelThenItMovesToThatPosition 
 	aSpaceship move: 4.
 	aSpaceship loadFuel.
 	aSpaceship move: 1.
-	finalPosition := OrderedCollection with: 16 with: 1.
+	finalPosition := Position startGameWithCell: 16 andLap: 1.
 	aSpaceship move: 5.
 	Spaceship initialize.
-	self assert: aSpaceship objectPosition position equals: finalPosition
+	self assert: aSpaceship position equals: finalPosition
 ]
 
 { #category : #move }
 SpaceshipTest >> test025SpaceshipMovesBackwardsThenGoesBackOneLap [
 
 	| aSpaceship finalPosition |
-
 	aSpaceship := Spaceship launchWithFuel: 40.
-	finalPosition := OrderedCollection with: 10 with: 1.
+	finalPosition := Position startGameWithCell: 10 andLap: 1.
 	aSpaceship move: 10.
 	aSpaceship move: -1.
 	Spaceship initialize.
-	self assert: aSpaceship objectPosition position equals: finalPosition
+	self assert: aSpaceship position equals: finalPosition
 ]

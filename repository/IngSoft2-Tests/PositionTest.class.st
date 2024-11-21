@@ -43,13 +43,23 @@ PositionTest >> test04PositioninitializeSetLapTwoThenLapEqualsTwo [
 ]
 
 { #category : #tests }
-PositionTest >> test05PositionInitializeThenGetPositionEqualsOrderedCollectionWithCellAndLap [
+PositionTest >> test05PositionEqualsAnotherPosition [
 
 	| aPosition position |
 	aPosition := Position startGame.
-	position := OrderedCollection with: 1 with: 1.
+	position := Position startGameWithCell: 1 andLap: 1.
 
-	self assert: aPosition position equals: position
+	self assert: aPosition = position
+]
+
+{ #category : #tests }
+PositionTest >> test06PositionIsNotEqualToAnotherPosition [
+
+	| aPosition position |
+	aPosition := Position startGame.
+	position := Position startGameWithCell: 2 andLap: 1.
+
+	self deny: aPosition = position
 ]
 
 { #category : #tests }
