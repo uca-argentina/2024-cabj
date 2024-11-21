@@ -10,12 +10,6 @@ RepeatCard class >> toDoEffectFor: aSpaceshipId [
 	^ self new initializeToDoEffectFor: aSpaceshipId
 ]
 
-{ #category : #comparing }
-RepeatCard >> = aCard [
-
-	^ self class == aCard class
-]
-
 { #category : #accessing }
 RepeatCard >> activateEffectOn: aGame forSpaceship: anId [
 

@@ -13,12 +13,6 @@ RedoCard class >> toDoEffectFor: anIdOrCard [
 	^ self new initializeToDoEffectFor: anIdOrCard
 ]
 
-{ #category : #comparing }
-RedoCard >> = aCard [
-
-	^ self class == aCard class
-]
-
 { #category : #accessing }
 RedoCard >> activateEffectOn: aGame forSpaceship: anId [
 
