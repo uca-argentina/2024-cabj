@@ -36,6 +36,16 @@ GameCardTest >> setUp [
 			             with: CancellationCard)
 ]
 
+{ #category : #running }
+GameCardTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anErrorClass
+		withExceptionDo: [ :error |
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #acceleration }
 GameCardTest >> test03WhenOneAccelerationCardIsActiveThenSpaceshipMovesOneMoreThanThrowResult [
 
@@ -764,34 +774,24 @@ GameCardTest >> test30RepeatHyperGravityForSpaceshipTwoThenItCanMoveBeacuseOfThr
 ]
 
 { #category : #ally }
-GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItCantBecauseTwoAlreadyHasAlly [
+GameCardTest >> test31SpaceshipThreeTriesToAllyWithTwoThenItThrowAnErrorBecauseTwoAlreadyHasAlly [
 
-	| result aGame |
-	aLoadedDie := LoadedDie of: #( 1 1 7 1 ).
-	aGame := Game
-		         numberOfSpaceships: 4
-		         with: aBoardCreator
-		         playWith: aLoadedDie
-		         andGameDeck: gameDeck.
+	self
+		should: [
+			| aGame |
+			aLoadedDie := LoadedDie of: #( 1 1 7 1 ).
+			aGame := Game
+				         numberOfSpaceships: 4
+				         with: aBoardCreator
+				         playWith: aLoadedDie
+				         andGameDeck: gameDeck.
 
-	aGame usePermanentCard: AllyCard toDoEffectFor: 2.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame usePermanentCard: AllyCard toDoEffectFor: 2.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-	aGame moveSpaceship.
-
-	result := Dictionary new.
-	result at: 1 put: 4.
-	result at: 2 put: 4.
-	result at: 3 put: 1.
-	result at: 4 put: 4.
-
-	self assert: aGame spaceships cellsOfSpaceships equals: result
+			aGame usePermanentCard: AllyCard toDoEffectFor: 2.
+			aGame moveSpaceship.
+			aGame moveSpaceship.
+			aGame usePermanentCard: AllyCard toDoEffectFor: 2 ]
+		raise: Error
+		withMessage: 'Spaceship 2 already has an ally.'
 ]
 
 { #category : #ally }

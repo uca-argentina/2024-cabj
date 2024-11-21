@@ -17,8 +17,12 @@ AllyTankManager class >> manage: aCollectionOfSpaceships [
 { #category : #'set and get' }
 AllyTankManager >> ally: aSpaceship with: aSpaceshipTwo [
 
-	((dictionaryOfAllys includesKey: aSpaceship) or:
-		 (dictionaryOfAllys includesKey: aSpaceshipTwo)) ifTrue: [ ^ self ].
+	(dictionaryOfAllys includesKey: aSpaceship) ifTrue: [
+		Error signal:
+			'Spaceship ' , aSpaceship id asString , ' already has an ally.' ].
+	(dictionaryOfAllys includesKey: aSpaceshipTwo) ifTrue: [
+		Error signal:
+			'Spaceship ' , aSpaceshipTwo id asString , ' already has an ally.' ].
 	dictionaryOfAllys at: aSpaceship put: aSpaceshipTwo.
 	dictionaryOfAllys at: aSpaceshipTwo put: aSpaceship
 ]
