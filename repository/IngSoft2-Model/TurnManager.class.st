@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'spaceships',
 		'currentSpaceship',
-		'turnsToSkip',
-		'spaceshipPlaying'
+		'turnsToSkip'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,7 +29,6 @@ TurnManager >> initializeManage: collectionOfSpaceships [
 		              spaceship ].
 
 	currentSpaceship := spaceships at: 1.
-	spaceshipPlaying := spaceships at: 1.
 	turnsToSkip := Dictionary new.
 	collectionOfSpaceships each: [ :spaceship |
 		turnsToSkip at: spaceship id put: 0 ]
@@ -56,16 +54,14 @@ TurnManager >> nextSpaceship [
 { #category : #action }
 TurnManager >> nextTurn [
 
+	self nextSpaceship.
 	[ (turnsToSkip at: currentSpaceship id) > 0 ] whileTrue: [
 		self decrementTurnsOfSpaceship.
-		self nextSpaceship ].
-	spaceshipPlaying := currentSpaceship.
-	self nextSpaceship.
-	^ spaceshipPlaying
+		self nextSpaceship ]
 ]
 
 { #category : #accessing }
 TurnManager >> spaceshipPlaying [
 
-	^ spaceshipPlaying
+	^ currentSpaceship
 ]

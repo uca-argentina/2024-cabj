@@ -7,7 +7,6 @@ Class {
 		'board',
 		'spaceshipsCardHands',
 		'aActiveDeck',
-		'currentSpaceship',
 		'dice',
 		'spaceships',
 		'cellToEnter',
@@ -119,7 +118,6 @@ Game >> initializeNumberOfSpaceships: anAmount with: aBoardCreator playWith: aCo
 			                       anEffectManager ].
 
 	turnManager := TurnManager manage: spaceships.
-	currentSpaceship := turnManager nextTurn.
 
 	spaceshipsWithHyperGravity := Dictionary new.
 
@@ -170,8 +168,9 @@ Game >> moveAllTheSpaceshipsExcept: aSpaceship withValueToMove: aNumberOfMovemen
 { #category : #action }
 Game >> moveSpaceship [
 
-	| positionOfSpaceship throwResult |
+	| positionOfSpaceship throwResult currentSpaceship |
 	throwResult := self throwDiceAndCheckEffects.
+	currentSpaceship := turnManager spaceshipPlaying.
 	positionOfSpaceship := currentSpaceship position.
 
 	self move: currentSpaceship a: throwResult.
@@ -183,12 +182,14 @@ Game >> moveSpaceship [
 		dice := GameOver new.
 		^ self spaceships positionsOfSpaceships ].
 
-	currentSpaceship := turnManager nextTurn
+	turnManager nextTurn
 ]
 
 { #category : #action }
 Game >> reloadSpaceship [
 
+	| currentSpaceship |
+	currentSpaceship := turnManager spaceshipPlaying.
 	currentSpaceship loadFuel.
 	currentSpaceship := turnManager nextTurn
 ]
@@ -233,9 +234,10 @@ Game >> stopAlly: aSpaceshipId [
 { #category : #action }
 Game >> throwDiceAndCheckEffects [
 
-	| throwResult maxThrow randomValue |
+	| throwResult maxThrow randomValue currentSpaceship |
 	randomValue := Random new next.
 	throwResult := dice throw.
+	currentSpaceship := turnManager spaceshipPlaying.
 
 	throwResult := aActiveDeck
 		               applyEffectOn: throwResult
@@ -252,7 +254,8 @@ Game >> throwDiceAndCheckEffects [
 { #category : #activation }
 Game >> usePermanentCard: aCard toDoEffectFor: anId [
 
-	| currentSpaceshipCardHand cardInitialized |
+	| currentSpaceshipCardHand cardInitialized currentSpaceship |
+	currentSpaceship := turnManager spaceshipPlaying.
 	cardInitialized := aCard toDoEffectFor: anId.
 	currentSpaceshipCardHand := spaceshipsCardHands at:
 		                            currentSpaceship id.

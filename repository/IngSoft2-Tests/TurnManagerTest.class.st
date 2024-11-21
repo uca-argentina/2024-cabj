@@ -13,8 +13,7 @@ TurnManagerTest >> test01OneSpaceshipsThenTurnOneReturnsSpaceshipOne [
 		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 	self assert: currentSpaceshipId equals: 1
@@ -30,7 +29,7 @@ TurnManagerTest >> test02TwoSpaceshipsThenTurnTwoReturnsSpaceshipTwo [
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 	self assert: currentSpaceshipId equals: 2
@@ -47,7 +46,7 @@ TurnManagerTest >> test03WhenRoundIsOverNextTurnIsTheFirstSpaceship [
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 
@@ -63,10 +62,10 @@ TurnManagerTest >> test04WhenSpaceshipOneLosesTurnsTheNextTurnIsSpaceshipTwo [
 		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager nextTurn.
 	aTurnManager lostTurns: 2 by: 1.
 	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	aTurnManager nextTurn.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 	self assert: currentSpaceshipId equals: 2
@@ -81,14 +80,14 @@ TurnManagerTest >> test05WhenSpaceshipOneLosesTwoTurnsThenSpaceshipTwoPlaysThem 
 		                          withAmountOfFuel: 5.
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
-	aTurnManager nextTurn.
 	aTurnManager lostTurns: 2 by: 1.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	aTurnManager nextTurn.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 	self assert: currentSpaceshipId equals: 1
@@ -104,7 +103,8 @@ TurnManagerTest >> test06WhenEverySpaceshipsLosesTheirTurnThenReturnAnAllShipsDi
 
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager lostTurns: 2 by: 1.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	aTurnManager nextTurn.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 	self assert: currentSpaceshipId equals: 1
@@ -124,7 +124,8 @@ TurnManagerTest >> test07WhenSpaceshipLostTwoTurnsIsCalledTwiceAndTwoTurnsPassTh
 	aTurnManager lostTurns: 2 by: 1.
 	aTurnManager nextTurn.
 	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
+	aTurnManager nextTurn.
+	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
 	Spaceship initialize.
 	self assert: currentSpaceshipId equals: 1
@@ -141,22 +142,7 @@ TurnManagerTest >> test08OneSpaceshipLostOneTurnAndThenRecoversIt [
 	aTurnManager := TurnManager manage: collectionOfSpaceships.
 	aTurnManager lostTurns: 1 by: 1.
 	aTurnManager nextTurn.
-	currentSpaceshipId := aTurnManager nextTurn id.
-
-	Spaceship initialize.
-	self assert: currentSpaceshipId equals: 1
-]
-
-{ #category : #tests }
-TurnManagerTest >> test09TurnManagerNextTurnIsSpaceshipOneThenSpaceshipPlayingIsOne [
-
-	| aTurnManager collectionOfSpaceships currentSpaceshipId |
-	collectionOfSpaceships := CollectionOfSpaceships
-		                          numberOfSpaceships: 2
-		                          withAmountOfFuel: 5.
-
-
-	aTurnManager := TurnManager manage: collectionOfSpaceships.
+	aTurnManager nextTurn.
 	aTurnManager nextTurn.
 	currentSpaceshipId := aTurnManager spaceshipPlaying id.
 
