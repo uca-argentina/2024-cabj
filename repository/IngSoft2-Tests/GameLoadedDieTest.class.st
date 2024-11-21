@@ -433,7 +433,7 @@ GameLoadedDieTest >> test20SpaceshipGainsCapacityOfFuelBeacuseOfThrowingMaxResul
 
 	spaceship := aGame spaceships ranking at: 1.
 
-	self assert: (spaceship amountOfFuel between: 7 and: 9)
+	self assert: (spaceship amountOfFuel between: 8 and: 9)
 ]
 
 { #category : #fuelTests }
@@ -456,4 +456,23 @@ GameLoadedDieTest >> test21SpacshipOneLoadsFuelSpaceshipTwoLoosesTurnsThenOneMov
 	result at: 1 put: 7.
 	result at: 2 put: 1.
 	self assert: aGame spaceships cellsOfSpaceships equals: result
+]
+
+{ #category : #fuelTests }
+GameLoadedDieTest >> test22SpaceshipLoosesOneFuelBecauseOfMaxDiceThrow [
+
+	| aGame spaceship |
+	aLoadedDie := LoadedDie of: #( 4 ).
+
+	aGame := Game
+		         numberOfSpaceships: 1
+		         with: aBoardCreator
+		         playWith: aLoadedDie
+		         andGameDeck: gameDeck.
+
+	aGame moveSpaceship.
+
+	spaceship := aGame spaceships ranking at: 1.
+
+	self assert: (spaceship amountOfFuel between: 3 and: 4)
 ]
