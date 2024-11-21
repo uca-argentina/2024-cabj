@@ -28,13 +28,6 @@ AllyTankManager >> ally: aSpaceship with: aSpaceshipTwo [
 ]
 
 { #category : #initialization }
-AllyTankManager >> allyOf: aSpaceship [
-
-	(dictionaryOfAllys includesKey: aSpaceship) ifFalse: [ ^ aSpaceship ].
-	^ dictionaryOfAllys at: aSpaceship
-]
-
-{ #category : #initialization }
 AllyTankManager >> initializeManage: aCollectionOfSpaceships [
 
 	fuelTanks := aCollectionOfSpaceships collect: [ :spaceship |
