@@ -112,7 +112,7 @@ GameLoadedDieTest >> test03WhenSpaceshipReachesTheFinishLineThenIsGameLoadedDieO
 GameLoadedDieTest >> test04TwoSpaceshipsMovesThreeTimesThenTheFirstOnesPositionIsTwelve [
 
 	| aGame result |
-	aLoadedDie := LoadedDie of: #( 6 6 5 ).
+	aLoadedDie := LoadedDie of: #( 6 6 5 10 ).
 
 	aGame := Game
 		         numberOfSpaceships: 2
