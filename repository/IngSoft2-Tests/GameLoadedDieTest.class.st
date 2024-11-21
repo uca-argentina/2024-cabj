@@ -47,7 +47,7 @@ GameLoadedDieTest >> should: anErrorBlock raise: anErrorClass withMessage: anErr
 GameLoadedDieTest >> test01GameMovesSpaceshipTwiceWithLoadedDieSequenceSixAndFiveThenReturnsTwelve [
 
 	| aGame result |
-	aLoadedDie := LoadedDie of: #( 6 5 ).
+	aLoadedDie := LoadedDie of: #( 6 5 10 ).
 
 	aGame := Game
 		         numberOfSpaceships: 1
